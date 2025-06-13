@@ -1,0 +1,15 @@
+/var/www/html/applications/Workflows/php/runOneJob.sh
+/var/www/html/applications/Attach/process_tiff.sh
+/var/www/html/server/bin/heartbeat.sh
+/var/www/html/server/bin/detectStudyArrival.sh
+/var/www/html/applications/Assign/php/removeOldEntries.sh
+/var/www/html/server/bin/storectl.sh
+/home/processing/bin/clearOldFiles.sh
+/var/www/html/applications/User/asttt/code/cron.sh
+/var/www/html/server/bin/mppsctl.sh
+/var/www/html/server/bin/moveFromScanner.sh
+/home/processing/bin/clearExports.sh
+/var/www/html/server/bin/sendFiles.sh
+/home/processing/bin/clearStaleLinks.sh
+/home/processing/bin/utils/parseAllPatients.sh
+/home/processing/bin/utils/getAllPatients2.sh
