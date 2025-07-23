@@ -1,36 +1,46 @@
-MMIV Documentation Guide
-========================
+FIONA Documentation
+===================
 
-Welcome to the MMIV documentation guide.
+FIONA (Flash-based Input/Output Network Appliance) - A secure research data gateway for medical imaging. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring GDPR compliance.
 
-This documentation demonstrates how to create technical documentation using Sphinx.
 
-About MMIV
-----------
-
-The Mohn Medical Imaging and Visualization Centre (MMIV) is a research centre at Haukeland University Hospital in Bergen, Norway.
-
-MMIV focuses on:
-
-* Advanced medical imaging research
-* Machine learning applications in healthcare  
-* Precision medicine through imaging biomarkers
-* Clinical translation of research innovations
-
-Documentation Examples
-----------------------
+.. EndUser
+.. -------
 
 .. toctree::
    :maxdepth: 2
+   :caption: Learn
+   
+   EndUser/index
 
-   basic-elements
-   code-examples
-   advanced-features
 
+
+.. Server Admin
+.. ------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Administration
+
+   ServerAdmin/index
+  
+
+
+
+.. Architecture
+.. -------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Architecture
+   
+   Architecture/index
+
+   
 Contact Information
 -------------------
 
-* Website: https://mmiv.no
+* Website: https://fiona.ihelse.net
 * Location: Haukeland University Hospital, Bergen, Norway
 
 Indices and tables

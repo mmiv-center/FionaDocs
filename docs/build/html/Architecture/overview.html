@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture Overview &mdash; FionaDocs  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      <script>mermaid.initialize({"startOnLoad": true})</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Flow" href="data-flow.html" />
+    <link rel="prev" title="Architecture, data flow and system components" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            FionaDocs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Learn</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html">EndUser</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Administration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html">Admin</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture, data flow and system components</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Architecture Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#system-purpose">System Purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core-components">Core Components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-reception">Data Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-processing">Data Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-management">Data Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-transfer">Data Transfer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#system-architecture">System Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#technology-stack">Technology Stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-model">Deployment Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data-flow.html">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html">System components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html">Proposed (Temporary) Documentation Extensions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FionaDocs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Architecture, data flow and system components</a></li>
+      <li class="breadcrumb-item active">Architecture Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Architecture/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture-overview">
+<h1>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading"></a></h1>
+<p>Diagram of Fiona system architecture including: network layer, processing layer, storage layer, transfer layer and management layer</p>
+<div class="mermaid" align="center">
+graph TB
+    subgraph network [" Network Layer "]
+        PACS[📡 Clinical PACS<br/>DICOM Source]
+        StoreSCP[📥 storescpFIONA<br/>DICOM SCP]
+    end
+
+    subgraph processing [" Processing Layer "]
+        ProcessFile[🔄 processSingleFile3.py<br/>DICOM Processing]
+        DetectStudy[🔍 detectStudyArrival.sh<br/>Study Detection]
+        Classification[⚙️ Classification<br/>Rule Engine]
+        NamedPipe((Named Pipe))
+    end
+
+    subgraph storage [" Storage Layer "]
+        FileSystem[💾 File System<br/>/data/site/]
+        SymLinks[🔗 Symbolic Links<br/>Study/Series]
+    end
+
+    subgraph transfer [" Transfer Layer "]
+        Anonymize[🔒 anonymizeAndSend.py<br/>Anonymization]
+        SendFiles[📤 sendFiles.sh<br/>SFTP Transfer]
+        ResPACS[🏥 Research PACS<br/>Destination]
+        REDCap[(🗄️ REDCap)]
+    end
+
+    subgraph mgmt [" Management Layer "]
+        Management[⚙️ System Management<br/>heartbeat.sh, cron.sh, monitoring]
+    end
+
+    %% Data Flow
+    PACS -->|DICOM| StoreSCP
+    StoreSCP -->|DICOM Files| ProcessFile
+    ProcessFile -->|metadata| NamedPipe
+    NamedPipe -->|trigger| DetectStudy
+    DetectStudy -->|study info| Classification
+    Classification -->|classification| SymLinks
+    FileSystem -->|files| SymLinks
+    SymLinks -->|study data| Anonymize
+    Anonymize -->|anonymized| SendFiles
+    SendFiles -->|SFTP| ResPACS
+    REDCap -->|consent| Anonymize
+
+    %% Management connections
+    Management -.->|monitor| StoreSCP
+    Management -.->|monitor| ProcessFile
+    Management -.->|monitor| FileSystem
+
+    %% Styling
+    classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef storage fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef transfer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+
+    class PACS,StoreSCP network
+    class ProcessFile,DetectStudy,Classification process
+    class FileSystem,SymLinks storage
+    class Anonymize,SendFiles,ResPACS,REDCap transfer
+    class Management mgmt
+    class NamedPipe pipe
+</div><section id="system-purpose">
+<h2>System Purpose<a class="headerlink" href="#system-purpose" title="Link to this heading"></a></h2>
+<p>FIONA serves as an intermediary system that:</p>
+<ul class="simple">
+<li><p>Receives medical image data from clinical PACS systems</p></li>
+<li><p>Processes and classifies incoming DICOM studies</p></li>
+<li><p>Anonymizes data according to research requirements</p></li>
+<li><p>Manages data transfer back to research PACS systems</p></li>
+<li><p>Provides project-specific data organization</p></li>
+</ul>
+</section>
+<section id="core-components">
+<h2>Core Components<a class="headerlink" href="#core-components" title="Link to this heading"></a></h2>
+<section id="data-reception">
+<h3>Data Reception<a class="headerlink" href="#data-reception" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>storescpFIONA</strong> - Custom DICOM SCP (Service Class Provider) server</p></li>
+<li><p><strong>storectl.sh</strong> - Service controller for DICOM reception</p></li>
+<li><p><strong>Named pipes</strong> - Communication mechanism between components</p></li>
+</ul>
+</section>
+<section id="data-processing">
+<h3>Data Processing<a class="headerlink" href="#data-processing" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>processSingleFile3.py</strong> - Main DICOM processing daemon</p></li>
+<li><p><strong>detectStudyArrival.sh</strong> - Study arrival detection and workflow management</p></li>
+<li><p><strong>Classification system</strong> - Rule-based study classification</p></li>
+</ul>
+</section>
+<section id="data-management">
+<h3>Data Management<a class="headerlink" href="#data-management" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>File system organization</strong> - Project-specific directory structures</p></li>
+<li><p><strong>Symbolic link management</strong> - Study/Series organization</p></li>
+<li><p><strong>Data cleanup</strong> - Automated file maintenance</p></li>
+</ul>
+</section>
+<section id="data-transfer">
+<h3>Data Transfer<a class="headerlink" href="#data-transfer" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>anonymizeAndSend.py</strong> - Data anonymization and transfer</p></li>
+<li><p><strong>sendFiles.sh</strong> - Automated file transfer to research PACS</p></li>
+<li><p><strong>Transfer request system</strong> - REDCap integration for transfer management</p></li>
+</ul>
+</section>
+</section>
+<section id="system-architecture">
+<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h2>
+<p>FIONA operates as a multi-layered system:</p>
+<ol class="arabic simple">
+<li><p><strong>Network Layer</strong> - DICOM protocol handling</p></li>
+<li><p><strong>Processing Layer</strong> - Data classification and organization</p></li>
+<li><p><strong>Storage Layer</strong> - File system management</p></li>
+<li><p><strong>Transfer Layer</strong> - Data export and anonymization</p></li>
+<li><p><strong>Management Layer</strong> - Monitoring and control</p></li>
+</ol>
+<p>General overwier (ver. 1)</p>
+<div class="mermaid" align="center">
+graph TB
+    A[PACS Scanner]
+    B[REDCap Database]
+    C[External Services]
+    D[DICOM Input]
+    E[Data Processing]
+    F[File Storage]
+    G[Export Layer]
+    H[Web Interface]
+
+    A --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> C
+    E --> B
+    H --> E
+</div><hr class="docutils" />
+<p>More detailed system overwier (ver. 2).</p>
+<div class="mermaid" align="center">
+graph TB
+    subgraph ext [" External Systems "]
+        PACS[📡 PACS/Scanner]
+        REDCap[🗄️ REDCap Database]
+        Cloud[☁️ External Services]
+    end
+
+    subgraph fiona [" FIONA System "]
+        Input[📥 DICOM Input<br/>Store SCP, MPPS]
+        Processing[🔄 Data Processing<br/>Parse, Anonymize, Route]
+        Storage[💾 File Storage<br/>Archive & Metadata]
+        Export[📦 Export Engine<br/>ZIP, Format Convert]
+        Management[⚙️ System Management<br/>Monitor, Jobs, Health]
+        WebUI[🌐 Web Interface<br/>Portal & API]
+    end
+
+    %% Main flow
+    PACS -->|Medical Images| Input
+    Input --> Processing
+    Processing --> Storage
+    Storage --> Export
+    Export --> Cloud
+
+    %% REDCap integration
+    Processing <-->|Project Data| REDCap
+
+    %% User interaction
+    WebUI --> Processing
+    WebUI --> Export
+
+    %% Management
+    Management --> Input
+    Management --> Processing
+    Management --> Storage
+
+    %% Styling
+    classDef external fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef core fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef interface fill:#e0f2f1,stroke:#00796b,stroke-width:2px
+
+    class PACS,REDCap,Cloud external
+    class Input,Processing,Storage,Export,Management core
+    class WebUI interface
+</div></section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Multi-project support</strong> - Handles multiple research projects simultaneously</p></li>
+<li><p><strong>Automated workflows</strong> - Minimal human intervention required</p></li>
+<li><p><strong>Data anonymization</strong> - Compliant with research privacy requirements</p></li>
+<li><p><strong>Scalable design</strong> - Can handle high-volume data processing</p></li>
+<li><p><strong>Monitoring and logging</strong> - Comprehensive system monitoring</p></li>
+</ul>
+</section>
+<section id="technology-stack">
+<h2>Technology Stack<a class="headerlink" href="#technology-stack" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Python</strong> - Core processing logic</p></li>
+<li><p><strong>Bash</strong> - System administration and automation</p></li>
+<li><p><strong>PHP</strong> - Web interface components</p></li>
+<li><p><strong>DICOM toolkit</strong> - Medical image handling</p></li>
+<li><p><strong>REDCap</strong> - Transfer request management</p></li>
+<li><p><strong>Docker</strong> - Containerized processing components</p></li>
+</ul>
+</section>
+<section id="deployment-model">
+<h2>Deployment Model<a class="headerlink" href="#deployment-model" title="Link to this heading"></a></h2>
+<p>FIONA is typically deployed as:</p>
+<ul class="simple">
+<li><p><strong>Single-server installation</strong> - All components on one machine</p></li>
+<li><p><strong>Processing user account</strong> - Dedicated system user for operations</p></li>
+<li><p><strong>Service-based architecture</strong> - Daemon processes for continuous operation</p></li>
+<li><p><strong>Cron-based scheduling</strong> - Automated task execution</p></li>
+</ul>
+<p>Such an architecture ensures reliable, automated processing of medical image data while maintaining compliance with research and privacy requirements.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Architecture, data flow and system components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data-flow.html" class="btn btn-neutral float-right" title="Data Flow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Hauke Bartsch.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
