@@ -5,9 +5,7 @@ Architecture, data flow and system components
 
 .. toctree::
    :maxdepth: 2
-
-   architecture
-   options
+   
    overview
    data-flow
    scripts

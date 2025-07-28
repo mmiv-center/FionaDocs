@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>storectl.sh &mdash; FionaDocs  documentation</title>
+  <title>Input/Output File Dependencies &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -16,13 +16,25 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-      <script>mermaid.initialize({"startOnLoad": true})</script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="mppsctl.sh" href="mppsctl.html" />
-    <link rel="prev" title="sendFiles.sh" href="sendFiles.html" /> 
+    <link rel="next" title="processSingleFile3.py" href="processSingleFile3.html" />
+    <link rel="prev" title="System components" href="../scripts.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,11 +70,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../overview.html">Architecture Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data-flow.html">Data Flow</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../scripts.html">System components</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Input/Output File Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-flow-dependencies">Data Flow Dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#storectl-sh">storectl.sh</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processSingleFile3.html">processSingleFile3.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">storectl.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parseAllPatients.html">parseAllPatients.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="process_tiff.html">process_tiff.sh</a></li>
@@ -86,9 +102,12 @@
 <li class="toctree-l3"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../options.html">Proposed (Temporary) Documentation Extensions</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Possible updates (tmp)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Temp/index.html">End User / Admin / Architecture (???)</a></li>
 </ul>
 
         </div>
@@ -107,7 +126,7 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Architecture, data flow and system components</a></li>
           <li class="breadcrumb-item"><a href="../scripts.html">System components</a></li>
-      <li class="breadcrumb-item active">storectl.sh</li>
+      <li class="breadcrumb-item active">Input/Output File Dependencies</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/storectl.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -117,21 +136,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="storectl-sh">
-<h1>storectl.sh<a class="headerlink" href="#storectl-sh" title="Link to this heading"></a></h1>
+  <p>The <code class="docutils literal notranslate"><span class="pre">storectl.sh</span></code> script is a system service controller for managing DICOM storage operations. It starts/stops the storescpFIONA daemon which receives DICOM files over the network and processes them through a named pipe system.</p>
+<section id="input-output-file-dependencies">
+<h1>Input/Output File Dependencies<a class="headerlink" href="#input-output-file-dependencies" title="Link to this heading"></a></h1>
+<img src="../../_images/mermaid-9696956adf6bca772bbc36ef2904079c802579bc.png" alt="graph TD
+config.json --&gt; storectl.sh
+enabled --&gt; storectl.sh
+storectl.sh --&gt; storescpd.pid
+storectl.sh --&gt; storescpd.log
+storectl.sh --&gt; processSingleFilePipe" />
+<br><p><strong>File Descriptions:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config.json</span></code> - Main configuration file containing DATADIR, DICOMPORT, and project settings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code> - Control file to enable/disable the service (first character: 0=disabled, 1=enabled)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storectl.sh</span></code> - Main control script for managing the DICOM storage daemon</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storescpd.pid</span></code> - Process ID file for tracking the running daemon</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storescpd.log</span></code> - Log file recording daemon activities and errors</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">processSingleFilePipe</span></code> - Named pipe for communicating file reception events to processing system</p></li>
+</ul>
+</section>
+<section id="data-flow-dependencies">
+<h1>Data Flow Dependencies<a class="headerlink" href="#data-flow-dependencies" title="Link to this heading"></a></h1>
+<img src="../../_images/mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.png" alt="graph TD
+DICOMNetwork --&gt; storescpFIONA
+storescpFIONA --&gt; receiveSingleFile.sh
+receiveSingleFile.sh --&gt; processSingleFilePipe
+processSingleFilePipe --&gt; processSingleFile.py
+storescpFIONA --&gt; ArchiveDirectory" />
+<br><p><strong>Data Flow Components:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DICOMNetwork</span></code> - External DICOM devices sending medical imaging data over network</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storescpFIONA</span></code> - DICOM storage daemon that receives and processes incoming DICOM files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">receiveSingleFile.sh</span></code> - Script executed for each received DICOM file to handle initial processing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">processSingleFilePipe</span></code> - Named pipe used for inter-process communication between components</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">processSingleFile.py</span></code> - Python script that processes DICOM file metadata and organizes data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ArchiveDirectory</span></code> - File system location where DICOM files are permanently stored</p></li>
+</ul>
+<p><strong>Directories:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/archive</span></code> - DICOM file storage location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/.arrived</span></code> - Temporary arrival directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/</span></code> - PID file storage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/</span></code> - Log file directory</p></li>
+</ul>
+<section id="storectl-sh">
+<h2>storectl.sh<a class="headerlink" href="#storectl-sh" title="Link to this heading"></a></h2>
 <p>filename: storescpd</p>
 <p>purpose: start storescp server for processing user at boot time to receive data
 |         Move files to project specific file system</p>
 <p>This system service will fail if a control file /data/enabled exists and  its first character is a “0”.</p>
 <p>(Hauke Bartsch)</p>
 </section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sendFiles.html" class="btn btn-neutral float-left" title="sendFiles.sh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mppsctl.html" class="btn btn-neutral float-right" title="mppsctl.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../scripts.html" class="btn btn-neutral float-left" title="System components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="processSingleFile3.html" class="btn btn-neutral float-right" title="processSingleFile3.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

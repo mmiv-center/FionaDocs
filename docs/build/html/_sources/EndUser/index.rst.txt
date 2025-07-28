@@ -7,4 +7,3 @@ EndUser
    :maxdepth: 2
 
    end-user
-   options

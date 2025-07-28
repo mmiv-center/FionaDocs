@@ -4,11 +4,11 @@ System components
 .. toctree::
    :maxdepth: 1
    
+   scripts/storectl
    scripts/processSingleFile3
    scripts/anonymizeAndSend
    scripts/detectStudyArrival
-   scripts/sendFiles
-   scripts/storectl
+   scripts/sendFiles   
    scripts/mppsctl
    scripts/parseAllPatients
    scripts/process_tiff

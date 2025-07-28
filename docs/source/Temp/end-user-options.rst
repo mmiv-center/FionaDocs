@@ -1,4 +1,4 @@
-Proposed Documentation Extensions (decide on the following sections... leave or delete...)
+*** END USER (options) *** 
 ==========================================================================================
 
 **For:** Doctors, researchers, medical personnel

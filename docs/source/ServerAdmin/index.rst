@@ -7,4 +7,3 @@ Admin
    :maxdepth: 2
 
    admin
-   options

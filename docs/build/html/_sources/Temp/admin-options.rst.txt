@@ -1,4 +1,4 @@
-Proposed (Temporary) Documentation Extensions
+*** ADMIN (options) ***
 ==============================================
 
 **For:** IT administrators, DevOps

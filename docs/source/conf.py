@@ -29,10 +29,31 @@ author = 'Hauke Bartsch, Marek Kociński'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinxmermaid']
+extensions = ['sphinxcontrib.mermaid']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+# ----------- 2025.07.28 - mk --- add latex setup ----------------------------
+# Mermaid configuration
+mermaid_output_format = 'png'  # lub 'svg'
+mermaid_params = [
+    '--theme', 'neutral',
+    '--backgroundColor', 'transparent',
+    '--width', '1200',
+    '--height', '800'
+]
+
+# For LaTeX - convert to images
+mermaid_init_js = """
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+"""
+# -----------------------------------------------------------------------------
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

@@ -16,8 +16,20 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-      <script>mermaid.initialize({"startOnLoad": true})</script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,9 +86,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="scripts.html">System components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="options.html">Proposed (Temporary) Documentation Extensions</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Possible updates (tmp)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Temp/index.html">End User / Admin / Architecture (???)</a></li>
 </ul>
 
         </div>
@@ -108,8 +123,7 @@
 <h1>Data Flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h1>
 <p>This document describes the complete data flow through the FIONA system, from initial DICOM reception to final transfer to research PACS.</p>
 <p>Data flow overwie (ver.1 - detailed)</p>
-<div class="mermaid" align="center">
-graph TB
+<img src="../_images/mermaid-722b1dae465b492ddef97f6013e994db1b183981.png" alt="graph TB
     PACS[Clinical PACS - DICOM Source]
     StoreSCP[storescpFIONA - DICOM SCP]
     NamedPipe((Named Pipe))
@@ -134,31 +148,30 @@ graph TB
     ResPACS[Research PACS]
     DAIC[/data/DAIC/]
 
-    PACS --> StoreSCP
-    StoreSCP --> NamedPipe
-    StoreSCP --> Arrived
-    NamedPipe --> ProcessDaemon
-    ProcessDaemon --> ClassifyRules
-    ProcessDaemon --> RawData
-    RawData --> SymLinks
+    PACS --&gt; StoreSCP
+    StoreSCP --&gt; NamedPipe
+    StoreSCP --&gt; Arrived
+    NamedPipe --&gt; ProcessDaemon
+    ProcessDaemon --&gt; ClassifyRules
+    ProcessDaemon --&gt; RawData
+    RawData --&gt; SymLinks
 
-    Arrived --> DetectStudy
-    DetectStudy --> StudyJob
-    SymLinks --> StudyJob
-    StudyJob --> Anonymize
-    Anonymize --> Archive
+    Arrived --&gt; DetectStudy
+    DetectStudy --&gt; StudyJob
+    SymLinks --&gt; StudyJob
+    StudyJob --&gt; Anonymize
+    Anonymize --&gt; Archive
 
-    Archive --> AnonSend
-    REDCap --> AnonSend
-    AnonSend --> TransferReq
-    TransferReq --> SendFiles
+    Archive --&gt; AnonSend
+    REDCap --&gt; AnonSend
+    AnonSend --&gt; TransferReq
+    TransferReq --&gt; SendFiles
 
-    SendFiles --> Outbox
-    Outbox --> ResPACS
-    ResPACS --> DAIC
-</div><p>Data flow diagram (ver.2 - more general)</p>
-<div class="mermaid" align="center">
-graph TB
+    SendFiles --&gt; Outbox
+    Outbox --&gt; ResPACS
+    ResPACS --&gt; DAIC" />
+<p>Data flow diagram (ver.2 - more general)</p>
+<img src="../_images/mermaid-80e988bae676d1a7604f1ffbe4815ec3a76aa6a0.png" alt="graph TB
     PACS[Clinical PACS]
     FIONA_Input[FIONA Input Layer]
     FIONA_Process[FIONA Processing]
@@ -167,18 +180,17 @@ graph TB
     Research[Research PACS]
     REDCap[REDCap Database]
 
-    PACS --> FIONA_Input
-    FIONA_Input --> FIONA_Process
-    FIONA_Process --> FIONA_Storage
-    FIONA_Storage --> FIONA_Transfer
-    FIONA_Transfer --> Research
+    PACS --&gt; FIONA_Input
+    FIONA_Input --&gt; FIONA_Process
+    FIONA_Process --&gt; FIONA_Storage
+    FIONA_Storage --&gt; FIONA_Transfer
+    FIONA_Transfer --&gt; Research
 
-    REDCap --> FIONA_Transfer
-    FIONA_Process --> REDCap
-</div><section id="data-flow-overview">
+    REDCap --&gt; FIONA_Transfer
+    FIONA_Process --&gt; REDCap" />
+<section id="data-flow-overview">
 <h2>Data Flow Overview<a class="headerlink" href="#data-flow-overview" title="Link to this heading"></a></h2>
-<div class="mermaid" align="center">
-graph TB
+<img src="../_images/mermaid-2afc7d3b1b37424684ac980e5225219ad8932be0.png" alt="graph TB
     A[Clinical Systems]
     B[DICOM Reception]
     C[File Processing]
@@ -188,14 +200,14 @@ graph TB
     G[Transfer Prep]
     H[Research PACS]
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-</div><p>The FIONA system processes medical image data through several distinct phases:</p>
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt; E
+    E --&gt; F
+    F --&gt; G
+    G --&gt; H" />
+<p>The FIONA system processes medical image data through several distinct phases:</p>
 <ol class="arabic simple">
 <li><p><strong>Data Reception</strong> - DICOM files arrive from clinical systems</p></li>
 <li><p><strong>Initial Processing</strong> - Files are processed and classified</p></li>
