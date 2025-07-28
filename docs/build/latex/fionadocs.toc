@@ -1,0 +1,126 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}EndUser}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}How to apply to the Research Information System Helse Vest}{3}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}1. Project creation, setup and access}{3}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}2. Access to REDCap for structured data}{3}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}3. Access to the “Sectra DMA Forskning” research PACS viewer}{3}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}4. Submit data to the Research Information System}{3}{subsection.1.1.4}%
+\contentsline {subsubsection}{4.1 Setup of a new project}{5}{subsubsection*.3}%
+\contentsline {subsubsection}{4.2 How to add image data}{5}{subsubsection*.4}%
+\contentsline {subsubsection}{4.2.1 Verification steps}{5}{subsubsection*.5}%
+\contentsline {subsection}{\numberline {1.1.5}5. Export image data from research PACS}{6}{subsection.1.1.5}%
+\contentsline {subsubsection}{5.1 Export using IDS7}{6}{subsubsection*.6}%
+\contentsline {subsubsection}{5.2 Export to project specific formats, NIfTI and zip\sphinxhyphen {}files}{6}{subsubsection*.7}%
+\contentsline {subsection}{\numberline {1.1.6}6. Research Information System}{7}{subsection.1.1.6}%
+\contentsline {chapter}{\numberline {2}Admin}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}End\sphinxhyphen {}user contract}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Features for data migration}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}How to handle errors?}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Export to project specific formats, NIfTI and zip\sphinxhyphen {}files}{10}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Sensitive Data Projects \textendash {} Separation of Sensitive Information and Data}{10}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}User rights management}{11}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}User rights \textendash {} multi\sphinxhyphen {}center projects}{11}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}How to handle Email Addresses in Data Projects}{12}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Automatic data exports from REDCap}{12}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {2.5.5}Steps at the end of a REDCap project}{12}{subsection.2.5.5}%
+\contentsline {chapter}{\numberline {3}Architecture, data flow and system components}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Architecture Overview}{15}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}System Purpose}{17}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Data Flow}{17}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Data Flow Overview}{20}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Detailed Data Flow}{21}{subsection.3.2.2}%
+\contentsline {subsubsection}{Phase 1: Data Reception}{21}{subsubsection*.8}%
+\contentsline {subsubsection}{Phase 2: Initial Processing}{21}{subsubsection*.9}%
+\contentsline {subsubsection}{Phase 3: Study Organization}{21}{subsubsection*.10}%
+\contentsline {subsubsection}{Phase 4: Anonymization}{22}{subsubsection*.11}%
+\contentsline {subsubsection}{Phase 5: Transfer Preparation}{22}{subsubsection*.12}%
+\contentsline {subsubsection}{Phase 6: Export}{22}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {3.2.3}Data Storage Structure}{22}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Communication Mechanisms}{23}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Error Handling and Recovery}{23}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.6}Monitoring and Logging}{23}{subsection.3.2.6}%
+\contentsline {section}{\numberline {3.3}System components}{23}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Input/Output File Dependencies}{24}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Data Flow Dependencies}{26}{subsection.3.3.2}%
+\contentsline {subsubsection}{storectl.sh}{27}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {3.3.3}processSingleFile3.py}{27}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}anonymizeAndSend.py}{27}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}detectStudyArrival.sh}{27}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}sendFiles.sh}{28}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}mppsctl.sh}{28}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}parseAllPatients.sh}{28}{subsection.3.3.8}%
+\contentsline {subsection}{\numberline {3.3.9}process\_tiff.sh}{28}{subsection.3.3.9}%
+\contentsline {subsection}{\numberline {3.3.10}removeOldEntries.sh}{28}{subsection.3.3.10}%
+\contentsline {subsection}{\numberline {3.3.11}runOneJob.sh}{28}{subsection.3.3.11}%
+\contentsline {subsection}{\numberline {3.3.12}getAllPatients2.sh}{29}{subsection.3.3.12}%
+\contentsline {subsection}{\numberline {3.3.13}heartbeat.sh}{29}{subsection.3.3.13}%
+\contentsline {subsection}{\numberline {3.3.14}moveFromScanner.sh}{29}{subsection.3.3.14}%
+\contentsline {subsection}{\numberline {3.3.15}clearExports.sh}{29}{subsection.3.3.15}%
+\contentsline {subsection}{\numberline {3.3.16}clearOldFiles.sh}{30}{subsection.3.3.16}%
+\contentsline {subsection}{\numberline {3.3.17}clearStaleLinks.sh}{30}{subsection.3.3.17}%
+\contentsline {subsection}{\numberline {3.3.18}cron.sh}{30}{subsection.3.3.18}%
+\contentsline {subsection}{\numberline {3.3.19}whatIsInIDS7.py}{30}{subsection.3.3.19}%
+\contentsline {subsection}{\numberline {3.3.20}whatIsNotInIDS7.py}{30}{subsection.3.3.20}%
+\contentsline {subsection}{\numberline {3.3.21}createTransferRequestProcessed.py}{30}{subsection.3.3.21}%
+\contentsline {subsection}{\numberline {3.3.22}populateAutoID.py}{30}{subsection.3.3.22}%
+\contentsline {subsection}{\numberline {3.3.23}populateIncoming.py}{30}{subsection.3.3.23}%
+\contentsline {subsection}{\numberline {3.3.24}populateProjects.py}{30}{subsection.3.3.24}%
+\contentsline {subsection}{\numberline {3.3.25}resendProject.py}{31}{subsection.3.3.25}%
+\contentsline {subsection}{\numberline {3.3.26}createTransferRequest.py}{31}{subsection.3.3.26}%
+\contentsline {subsection}{\numberline {3.3.27}createZipFileCmd.php}{31}{subsection.3.3.27}%
+\contentsline {chapter}{\numberline {4}End User / Admin / Architecture (???)}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}\sphinxstylestrong {* END USER (options) *}}{33}{section.4.1}%
+\contentsline {section}{\numberline {4.2}System Overview}{33}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Core Functions for End Users}{33}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}1.1 DICOM Image Reception and Processing}{33}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}1.2 Research Project Management}{33}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}1.3 Export and Archiving}{34}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}1.4 REDCap Integration}{34}{subsection.4.3.4}%
+\contentsline {section}{\numberline {4.4}Supported File Types}{34}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}DICOM Images}{34}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Export Formats}{34}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}User Interface Components}{34}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Exports Application}{34}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Assign Application}{35}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Attach Application}{35}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Workflows Application}{35}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}Support Contacts}{35}{subsection.4.5.5}%
+\contentsline {section}{\numberline {4.6}\sphinxstylestrong {* ADMIN (options) *}}{35}{section.4.6}%
+\contentsline {section}{\numberline {4.7}System Architecture}{35}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}2.1 DICOM Servers}{36}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}2.2 Processing Components}{36}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}2.3 Project Management}{36}{subsection.4.7.3}%
+\contentsline {section}{\numberline {4.8}Installation and Configuration}{36}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}2.1 System Requirements}{36}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}2.2 Directory Structure}{36}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}2.3 Configuration (config.json)}{36}{subsection.4.8.3}%
+\contentsline {section}{\numberline {4.9}Processes and Services}{37}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}2.4 Main Daemons}{37}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}2.5 Cron Jobs}{37}{subsection.4.9.2}%
+\contentsline {section}{\numberline {4.10}Monitoring and Troubleshooting}{37}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}2.6 System Logs}{37}{subsection.4.10.1}%
+\contentsline {subsection}{\numberline {4.10.2}2.7 Common Problems}{38}{subsection.4.10.2}%
+\contentsline {section}{\numberline {4.11}Security}{38}{section.4.11}%
+\contentsline {subsection}{\numberline {4.11.1}2.8 Data Anonymization}{38}{subsection.4.11.1}%
+\contentsline {subsection}{\numberline {4.11.2}2.9 Access Control}{38}{subsection.4.11.2}%
+\contentsline {section}{\numberline {4.12}Backup and Recovery}{38}{section.4.12}%
+\contentsline {subsection}{\numberline {4.12.1}Backup Strategy}{38}{subsection.4.12.1}%
+\contentsline {subsection}{\numberline {4.12.2}Recovery Procedures}{38}{subsection.4.12.2}%
+\contentsline {section}{\numberline {4.13}Performance Tuning}{39}{section.4.13}%
+\contentsline {subsection}{\numberline {4.13.1}Optimization Settings}{39}{subsection.4.13.1}%
+\contentsline {section}{\numberline {4.14}Maintenance Procedures}{39}{section.4.14}%
+\contentsline {subsection}{\numberline {4.14.1}Daily Tasks}{39}{subsection.4.14.1}%
+\contentsline {subsection}{\numberline {4.14.2}Weekly Tasks}{39}{subsection.4.14.2}%
+\contentsline {subsection}{\numberline {4.14.3}Monthly Tasks}{39}{subsection.4.14.3}%
+\contentsline {section}{\numberline {4.15}\sphinxstylestrong {* ARCHITECTURE (options) *}}{40}{section.4.15}%
+\contentsline {subsection}{\numberline {4.15.1}Core Components}{40}{subsection.4.15.1}%
+\contentsline {subsubsection}{Data Reception}{40}{subsubsection*.15}%
+\contentsline {subsubsection}{Data Processing}{40}{subsubsection*.16}%
+\contentsline {subsubsection}{Data Management}{40}{subsubsection*.17}%
+\contentsline {subsubsection}{Data Transfer}{40}{subsubsection*.18}%
+\contentsline {subsection}{\numberline {4.15.2}System Architecture}{40}{subsection.4.15.2}%
+\contentsline {subsection}{\numberline {4.15.3}Key Features}{43}{subsection.4.15.3}%
+\contentsline {subsection}{\numberline {4.15.4}Technology Stack}{43}{subsection.4.15.4}%
+\contentsline {subsection}{\numberline {4.15.5}Deployment Model}{43}{subsection.4.15.5}%
+\contentsline {chapter}{\numberline {5}Contact Information}{45}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Indices and tables}{47}{chapter.6}%
