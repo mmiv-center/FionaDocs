@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.12)  28 JUL 2025 11:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.12)  28 JUL 2025 15:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -850,7 +850,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 Chapter 1.
-<ikt-sectra-dma-forskning.png, id=572, 303.00703pt x 509.27765pt>
+<ikt-sectra-dma-forskning.png, id=564, 303.00703pt x 509.27765pt>
 LaTeX Font Info:    Trying to load font information for T1+txtt on input line 1
 41.
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/t1txtt.fd
@@ -870,13 +870,13 @@ File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ]
 Chapter 2.
 [9] [10]
-<redcap-sensitive-data.png, id=630, 945.1561pt x 580.04204pt>
+<redcap-sensitive-data.png, id=622, 945.1561pt x 580.04204pt>
 File: redcap-sensitive-data.png Graphic file (type png)
 <use redcap-sensitive-data.png>
 Package pdftex.def Info: redcap-sensitive-data.png  used on input line 418.
 (pdftex.def)             Requested size: 469.76462pt x 288.28557pt.
  [11 <./redcap-sensitive-data.png (PNG copy)>]
-<redcap-end-of-project.png, id=636, 747.16641pt x 522.07547pt>
+<redcap-end-of-project.png, id=628, 747.16641pt x 522.07547pt>
 File: redcap-end-of-project.png Graphic file (type png)
 <use redcap-end-of-project.png>
 Package pdftex.def Info: redcap-end-of-project.png  used on input line 511.
@@ -885,16 +885,16 @@ Package pdftex.def Info: redcap-end-of-project.png  used on input line 511.
 
 ]
 Chapter 3.
-<mermaid-94594455523aa3be4337fc237078760eebe786db.pdf, id=654, 614.295pt x 794.
+<mermaid-f490210ebba1b99008dd1f6df18dc6b7f1a7876d.pdf, id=646, 614.295pt x 794.
 97pt>
-File: mermaid-94594455523aa3be4337fc237078760eebe786db.pdf Graphic file (type p
+File: mermaid-f490210ebba1b99008dd1f6df18dc6b7f1a7876d.pdf Graphic file (type p
 df)
-<use mermaid-94594455523aa3be4337fc237078760eebe786db.pdf>
-Package pdftex.def Info: mermaid-94594455523aa3be4337fc237078760eebe786db.pdf  
+<use mermaid-f490210ebba1b99008dd1f6df18dc6b7f1a7876d.pdf>
+Package pdftex.def Info: mermaid-f490210ebba1b99008dd1f6df18dc6b7f1a7876d.pdf  
 used on input line 530.
 (pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
-[15] [16 <./mermaid-94594455523aa3be4337fc237078760eebe786db.pdf>]
-<mermaid-722b1dae465b492ddef97f6013e994db1b183981.pdf, id=665, 614.295pt x 794.
+[15] [16 <./mermaid-f490210ebba1b99008dd1f6df18dc6b7f1a7876d.pdf>]
+<mermaid-722b1dae465b492ddef97f6013e994db1b183981.pdf, id=717, 614.295pt x 794.
 97pt>
 File: mermaid-722b1dae465b492ddef97f6013e994db1b183981.pdf Graphic file (type p
 df)
@@ -903,7 +903,7 @@ Package pdftex.def Info: mermaid-722b1dae465b492ddef97f6013e994db1b183981.pdf
 used on input line 571.
 (pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
  [17]
-<mermaid-80e988bae676d1a7604f1ffbe4815ec3a76aa6a0.pdf, id=671, 614.295pt x 794.
+<mermaid-80e988bae676d1a7604f1ffbe4815ec3a76aa6a0.pdf, id=722, 614.295pt x 794.
 97pt>
 File: mermaid-80e988bae676d1a7604f1ffbe4815ec3a76aa6a0.pdf Graphic file (type p
 df)
@@ -914,7 +914,7 @@ used on input line 576.
 
 [18 <./mermaid-722b1dae465b492ddef97f6013e994db1b183981.pdf>] [19 <./mermaid-80
 e988bae676d1a7604f1ffbe4815ec3a76aa6a0.pdf>]
-<mermaid-2afc7d3b1b37424684ac980e5225219ad8932be0.pdf, id=689, 614.295pt x 794.
+<mermaid-2afc7d3b1b37424684ac980e5225219ad8932be0.pdf, id=740, 614.295pt x 794.
 97pt>
 File: mermaid-2afc7d3b1b37424684ac980e5225219ad8932be0.pdf Graphic file (type p
 df)
@@ -935,78 +935,115 @@ eFilePipe \T1/qtm/m/n/10 - File pro-cess-ing no-ti-fi-ca-tions - Project-specif
 ic pipes:
  []
 
-<mermaid-9696956adf6bca772bbc36ef2904079c802579bc.pdf, id=721, 614.295pt x 794.
+<mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.pdf, id=772, 614.295pt x 794.
 97pt>
-File: mermaid-9696956adf6bca772bbc36ef2904079c802579bc.pdf Graphic file (type p
+File: mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.pdf Graphic file (type p
 df)
-<use mermaid-9696956adf6bca772bbc36ef2904079c802579bc.pdf>
-Package pdftex.def Info: mermaid-9696956adf6bca772bbc36ef2904079c802579bc.pdf  
-used on input line 845.
+<use mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.pdf>
+Package pdftex.def Info: mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.pdf  
+used on input line 869.
 (pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
-[23] [24 <./mermaid-9696956adf6bca772bbc36ef2904079c802579bc.pdf>]
-<mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.pdf, id=738, 614.295pt x 794.
+[23] [24 <./mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.pdf>]
+<mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.pdf, id=789, 614.295pt x 794.
 97pt>
-File: mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.pdf Graphic file (type p
+File: mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.pdf Graphic file (type p
 df)
-<use mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.pdf>
-Package pdftex.def Info: mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.pdf  
-used on input line 881.
+<use mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.pdf>
+Package pdftex.def Info: mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.pdf  
+used on input line 886.
 (pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
  [25]
-[26 <./mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.pdf>] [27]
-Overfull \hbox (28.85495pt too wide) in paragraph at lines 1103--1105
+[26 <./mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.pdf>] [27]
+<mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf, id=811, 614.295pt x 794.
+97pt>
+File: mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf Graphic file (type p
+df)
+<use mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf>
+Package pdftex.def Info: mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf  
+used on input line 989.
+(pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
+ [28]
+[29 <./mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf>]
+<mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf, id=829, 614.295pt x 794.
+97pt>
+File: mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf Graphic file (type p
+df)
+<use mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf>
+Package pdftex.def Info: mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf  
+used on input line 1020.
+(pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
+ [30] [31 <./mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf>] [32]
+<mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf, id=851, 614.295pt x 794.
+97pt>
+File: mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf Graphic file (type p
+df)
+<use mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf>
+Package pdftex.def Info: mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf  
+used on input line 1137.
+(pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
+ [33] [34 <./mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf>]
+<mermaid-4b5690ac216ff64ef341c2900c193f60650de046.pdf, id=869, 614.295pt x 794.
+97pt>
+File: mermaid-4b5690ac216ff64ef341c2900c193f60650de046.pdf Graphic file (type p
+df)
+<use mermaid-4b5690ac216ff64ef341c2900c193f60650de046.pdf>
+Package pdftex.def Info: mermaid-4b5690ac216ff64ef341c2900c193f60650de046.pdf  
+used on input line 1174.
+(pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
+ [35] [36 <./mermaid-4b5690ac216ff64ef341c2900c193f60650de046.pdf>] [37] [38]
+Overfull \hbox (28.85495pt too wide) in paragraph at lines 1366--1368
 \T1/qtm/m/n/10 /var/www/html/applications/Workflows/php/runOneJob.sh >> /home/p
 rocessing/logs/Workflows_RunOneJob.log
  []
 
-[28] [29] [30] [31] [32
+[39] [40] [41] [42
 
 ]
 Chapter 4.
-[33] [34] [35]
+[43] [44] [45]
 LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
-(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 1713.
+(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 1976.
 
- [36]
+ [46]
 LaTeX Font Info:    Font shape `T1/txtt/m/it' in size <10> not available
-(Font)              Font shape `T1/txtt/m/sl' tried instead on input line 1761.
+(Font)              Font shape `T1/txtt/m/sl' tried instead on input line 2024.
 
- [37] [38] [39]
-<mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf, id=827, 614.295pt x 794.
+ [47] [48] [49]
+<mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf, id=956, 614.295pt x 794.
 97pt>
 File: mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf Graphic file (type p
 df)
 <use mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf>
 Package pdftex.def Info: mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf  
-used on input line 2177.
+used on input line 2440.
 (pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
- [40]
-<mermaid-63e15246208d0af88ea42454acfdfa50ccbfe73a.pdf, id=838, 614.295pt x 794.
+ [50]
+<mermaid-63e15246208d0af88ea42454acfdfa50ccbfe73a.pdf, id=966, 614.295pt x 794.
 97pt>
 File: mermaid-63e15246208d0af88ea42454acfdfa50ccbfe73a.pdf Graphic file (type p
 df)
 <use mermaid-63e15246208d0af88ea42454acfdfa50ccbfe73a.pdf>
 Package pdftex.def Info: mermaid-63e15246208d0af88ea42454acfdfa50ccbfe73a.pdf  
-used on input line 2186.
+used on input line 2449.
 (pdftex.def)             Requested size: 469.75604pt x 607.93173pt.
- [41 <./mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf>] [42 <./mermaid-6
-3e15246208d0af88ea42454acfdfa50ccbfe73a.pdf>] [43] [44
+ [51 <./mermaid-78717e965f054802cff20e181650cb0d915406b5.pdf>] [52 <./mermaid-6
+3e15246208d0af88ea42454acfdfa50ccbfe73a.pdf>] [53] [54
 
 ]
 Chapter 5.
-[45] [46
+[55] [56
 
 ]
 Chapter 6.
-(./fionadocs.ind) [47] (./fionadocs.aux)
+(./fionadocs.ind) [57] (./fionadocs.aux)
 Package rerunfilecheck Info: File `fionadocs.out' has not changed.
-(rerunfilecheck)             Checksum: 12406AD61B793D88F1040109F89CB38F;22545.
+(rerunfilecheck)             Checksum: B26E58FC30FA6863553DBB104DBE9426;22140.
  ) 
 Here is how much of TeX's memory you used:
- 17378 strings out of 480171
- 304910 string characters out of 5894260
- 649329 words of memory out of 5000000
- 34714 multiletter control sequences out of 15000+600000
+ 17410 strings out of 480171
+ 306468 string characters out of 5894260
+ 649180 words of memory out of 5000000
+ 34734 multiletter control sequences out of 15000+600000
  523684 words of font info for 71 fonts, out of 8000000 for 9000
  57 hyphenation exceptions out of 8191
  70i,12n,83p,1778b,547s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1019,10 +1056,10 @@ i.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/txfonts/tcxtt.pfb>
-Output written on fionadocs.pdf (51 pages, 1551227 bytes).
+Output written on fionadocs.pdf (61 pages, 1720842 bytes).
 PDF statistics:
- 1015 PDF objects out of 1200 (max. 8388607)
- 877 compressed objects within 9 object streams
- 212 named destinations out of 1000 (max. 500000)
- 1076 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1149 PDF objects out of 1200 (max. 8388607)
+ 943 compressed objects within 10 object streams
+ 220 named destinations out of 1000 (max. 500000)
+ 1080 words of extra memory for PDF output out of 10000 (max. 10000000)
 

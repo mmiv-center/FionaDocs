@@ -16,11 +16,25 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="anonymizeAndSend.py" href="anonymizeAndSend.html" />
-    <link rel="prev" title="Input/Output File Dependencies" href="storectl.html" /> 
+    <link rel="next" title="detectStudyArrival.sh" href="detectStudyArrival.html" />
+    <link rel="prev" title="storectl.sh" href="storectl.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,11 +70,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../overview.html">Architecture Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data-flow.html">Data Flow</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../scripts.html">System components</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="storectl.html">Input/Output File Dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="storectl.html#data-flow-dependencies">Data Flow Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="storectl.html">storectl.sh</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">processSingleFile3.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parseAllPatients.html">parseAllPatients.sh</a></li>
@@ -119,7 +132,164 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="processsinglefile3-py">
+  <p><code class="docutils literal notranslate"><span class="pre">processSingleFile3.py</span></code> is a Python daemon process that monitors DICOM files, extracts header information, and creates Study/Series symbolic link structures. The script implements a generic daemon class and a specialized DICOM processing class that listens for incoming messages via named pipes, processes DICOM files, and organizes them into a structured directory hierarchy.</p>
+<p><strong>The Main Dependences</strong></p>
+<div class="line-block">
+<div class="line">- <strong>user:</strong></div>
+<div class="line">- <strong>depends-on:</strong></div>
+<div class="line">- <strong>log-file:</strong> /../logs/processSingleFile[projname].log</div>
+<div class="line">- <strong>pid-file:</strong></div>
+<div class="line-block">
+<div class="line">-        /../.pids/processSingleFile[projname].pid</div>
+<div class="line">-       /tmp/processSingleFile[projname].pid)</div>
+</div>
+<div class="line">- <strong>start:</strong> python processSingleFile3.py start [projname]</div>
+<div class="line">- <strong>license:</strong> Tbe</div>
+</div>
+<p><strong>The processing workflow:</strong></p>
+<div class="line-block">
+<div class="line">- Receives file paths via named pipe</div>
+<div class="line">- Reads DICOM files and extracts metadata</div>
+<div class="line">- Parses Siemens CSA headers for additional information</div>
+<div class="line">- Applies classification rules from classifyRules.json</div>
+<div class="line">- Creates organized directory structure with symbolic links</div>
+<div class="line">- Generates JSON metadata files for each series</div>
+</div>
+<p><strong>Directories:</strong></p>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data</span></code> - Default data directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived</span></code> - Touch files for series arrival detection</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/participants</span></code> - Patient-organized directory structure</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/srs</span></code> - Structured reports directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/raw</span></code> - Raw DICOM files organized by Study/Series</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/temp</span></code> - Temporary files directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">../logs/</span></code> - Log files directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">../.pids/</span></code> - Process ID files directory</div>
+</div>
+<p>** Input/Output File Dependencies Diagram**</p>
+<img src="../../_images/mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.png" alt="flowchart TD
+%% Input Files
+CONFIG[&quot;config.json&quot;]
+RULES[&quot;classifyRules.json&quot;]
+PIPE[&quot;named pipe&quot;]
+DICOM[&quot;DICOM files&quot;]
+
+%% Main Script
+MAIN[&quot;processSingleFile3.py&quot;]
+
+%% Output Files
+PID[&quot;*.pid&quot;]
+LOG[&quot;*.log&quot;]
+JSON[&quot;*.json metadata&quot;]
+LINKS[&quot;symbolic links&quot;]
+DIRS[&quot;organized directories&quot;]
+
+%% Dependencies
+CONFIG --&gt; MAIN
+RULES --&gt; MAIN
+PIPE --&gt; MAIN
+DICOM --&gt; MAIN
+
+%% Outputs
+MAIN --&gt; PID
+MAIN --&gt; LOG
+MAIN --&gt; JSON
+MAIN --&gt; LINKS
+MAIN --&gt; DIRS
+
+%% Styling
+classDef inputFile fill:#e1f5fe
+classDef outputFile fill:#f3e5f5
+classDef mainScript fill:#fff3e0
+
+class CONFIG,RULES,PIPE,DICOM inputFile
+class PID,LOG,JSON,LINKS,DIRS outputFile
+class MAIN mainScript" />
+<p><strong>File Description:</strong></p>
+<div class="line-block">
+<div class="line">1. Input Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">config.json</span></code> - project configuration and directory paths</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">classifyRules.json</span></code> - DICOM series classification rules</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">named</span> <span class="pre">pipe</span></code> - daemon communication, receives file paths</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">DICOM</span> <span class="pre">files</span></code> - medical imaging files to be processed</div>
+</div>
+<div class="line-block">
+<div class="line">2. Output Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.pid</span></code> - daemon process ID</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.log</span></code> - operation and error logs</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.json</span> <span class="pre">metadata</span></code> - series metadata in JSON format</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">symbolic</span> <span class="pre">links</span></code> - links to original DICOM files</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">organized</span> <span class="pre">directories</span></code> - directory structure organized by patients/studies</div>
+</div>
+<p><strong>Data Flow Dependencies</strong></p>
+<img src="../../_images/mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.png" alt="flowchart TD
+%% Input Data
+CONFIG[&quot;config.json&quot;]
+RULES[&quot;classifyRules.json&quot;]
+PIPE[&quot;named pipe&quot;]
+DICOM[&quot;DICOM files&quot;]
+
+%% Main Process
+DAEMON[&quot;processSingleFile3.py&quot;]
+
+%% Output Data
+PID[&quot;*.pid&quot;]
+LOG[&quot;*.log&quot;]
+JSON[&quot;*.json&quot;]
+LINKS[&quot;symbolic links&quot;]
+DIRS[&quot;organized directories&quot;]
+
+%% Data Flow
+CONFIG --&gt; DAEMON
+RULES --&gt; DAEMON
+PIPE --&gt; DAEMON
+DICOM --&gt; DAEMON
+
+DAEMON --&gt; PID
+DAEMON --&gt; LOG
+DAEMON --&gt; JSON
+DAEMON --&gt; LINKS
+DAEMON --&gt; DIRS
+
+%% Styling
+classDef inputFile fill:#e1f5fe
+classDef process fill:#fff3e0
+classDef outputFile fill:#f3e5f5
+
+class CONFIG,RULES,PIPE,DICOM inputFile
+class DAEMON process
+class PID,LOG,JSON,LINKS,DIRS outputFile" />
+<p>** Data Flow components:**</p>
+<div class="line-block">
+<div class="line">1. Input Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">config.json</span></code> - system configuration file containing project settings and directory paths</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">classifyRules.json</span></code> - rule definitions for automatic DICOM series classification</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">named</span> <span class="pre">pipe</span></code> - inter-process communication channel receiving file processing commands</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">DICOM</span> <span class="pre">files</span></code> - medical imaging files in DICOM format containing patient data</div>
+</div>
+<div class="line-block">
+<div class="line">2. Main Process:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">processSingleFile3.py</span></code> - daemon process that orchestrates DICOM file processing and organization</div>
+</div>
+<div class="line-block">
+<div class="line">3. Output Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.pid</span></code> - process identifier files for daemon management and monitoring</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.log</span></code> - log files containing operational messages and error reports</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.json</span></code> - metadata files with extracted DICOM header information</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">symbolic</span> <span class="pre">links</span></code> - file system links organizing DICOM files by study structure</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">organized</span> <span class="pre">directories</span></code> - hierarchical directory structure arranged by patients and studies</div>
+</div>
+<section id="processsinglefile3-py">
 <h1>processSingleFile3.py<a class="headerlink" href="#processsinglefile3-py" title="Link to this heading"></a></h1>
 <p>Create a daemon process that listens to send messages and reads a DICOM file,
 extracts the header information and creates a Study/Series symbolic link structure.</p>
@@ -133,8 +303,8 @@ extracts the header information and creates a Study/Series symbolic link structu
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="storectl.html" class="btn btn-neutral float-left" title="Input/Output File Dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="anonymizeAndSend.html" class="btn btn-neutral float-right" title="anonymizeAndSend.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="storectl.html" class="btn btn-neutral float-left" title="storectl.sh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="detectStudyArrival.html" class="btn btn-neutral float-right" title="detectStudyArrival.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

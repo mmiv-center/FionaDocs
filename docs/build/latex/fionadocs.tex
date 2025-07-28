@@ -525,9 +525,9 @@ This process will be documented in the REDCap project tracking project “DataTr
 \section{Architecture Overview}
 \label{\detokenize{Architecture/overview:architecture-overview}}\label{\detokenize{Architecture/overview::doc}}
 \sphinxAtStartPar
-Diagram of Fiona system architecture including: network layer, processing layer, storage layer, transfer layer and management layer
+The architecture of Fiona sysetem can be included included into a few layers: network layer, processing layer, storage layer, transfer layer and management layer
 
-\sphinxincludegraphics{mermaid-94594455523aa3be4337fc237078760eebe786db.pdf}
+\sphinxincludegraphics{mermaid-f490210ebba1b99008dd1f6df18dc6b7f1a7876d.pdf}
 
 
 \subsection{System Purpose}
@@ -839,102 +839,89 @@ This data flow ensures reliable, automated processing of medical image data whil
 \sphinxAtStartPar
 The \sphinxcode{\sphinxupquote{storectl.sh}} script is a system service controller for managing DICOM storage operations. It starts/stops the storescpFIONA daemon which receives DICOM files over the network and processes them through a named pipe system.
 
+\sphinxAtStartPar
+\sphinxstylestrong{The Main Dependecnes:}
 
-\subsection{Input/Output File Dependencies}
-\label{\detokenize{Architecture/scripts/storectl:input-output-file-dependencies}}\label{\detokenize{Architecture/scripts/storectl::doc}}
-\sphinxincludegraphics{mermaid-9696956adf6bca772bbc36ef2904079c802579bc.pdf}
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxstylestrong{user:} processing
+\item[] \sphinxhyphen{} \sphinxstylestrong{depends\sphinxhyphen{}on:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{} /data/config/config.json,
+\item[] \sphinxhyphen{} storescpFIONA,
+\item[] \sphinxhyphen{} receiveSingleFile.sh,
+\item[] \sphinxhyphen{} processSingleFile.py
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{log\sphinxhyphen{}file:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{} \$\{SERVERDIR\}/logs/storescpd\$\{projname\}.log,
+\item[] \sphinxhyphen{} \$\{SERVERDIR\}/logs/storescpd\sphinxhyphen{}start.log
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{pid\sphinxhyphen{}file:} \$\{SERVERDIR\}/.pids/storescpd\$\{projname\}.pid
+\item[] \sphinxhyphen{} \sphinxstylestrong{start:} ./storectl.sh start {[}PROJECT\_NAME{]}
+\item[] \sphinxhyphen{} \sphinxstylestrong{license:} TBE
+\end{DUlineblock}
 
+\sphinxAtStartPar
+\sphinxstylestrong{Input/Output File Dependencies}
 
+\sphinxincludegraphics{mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.pdf}
 
 \sphinxAtStartPar
 \sphinxstylestrong{File Descriptions:}
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{config.json}} \sphinxhyphen{} Main configuration file containing DATADIR, DICOMPORT, and project settings
 
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{enabled}} \sphinxhyphen{} Control file to enable/disable the service (first character: 0=disabled, 1=enabled)
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{storectl.sh}} \sphinxhyphen{} Main control script for managing the DICOM storage daemon
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{storescpd.pid}} \sphinxhyphen{} Process ID file for tracking the running daemon
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{storescpd.log}} \sphinxhyphen{} Log file recording daemon activities and errors
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{processSingleFilePipe}} \sphinxhyphen{} Named pipe for communicating file reception events to processing system
-
-\end{itemize}
-
-
-\subsection{Data Flow Dependencies}
-\label{\detokenize{Architecture/scripts/storectl:data-flow-dependencies}}
-\sphinxincludegraphics{mermaid-9183a45d0bb6df2840a80335e435a78c39dbd581.pdf}
-
-
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{config.json}} \sphinxhyphen{} Main configuration file containing DATADIR, DICOMPORT, and project settings
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{enabled}} \sphinxhyphen{} Control file to enable/disable the service (first character: 0=disabled, 1=enabled)
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{storectl.sh}} \sphinxhyphen{} Main control script for managing the DICOM storage daemon
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{storescpd.pid}} \sphinxhyphen{} Process ID file for tracking the running daemon
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{storescpd.log}} \sphinxhyphen{} Log file recording daemon activities and errors
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{processSingleFilePipe}} \sphinxhyphen{} Named pipe for communicating file reception events to processing system
+\end{DUlineblock}
 
 \sphinxAtStartPar
-\sphinxstylestrong{Data Flow Components:}
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{DICOMNetwork}} \sphinxhyphen{} External DICOM devices sending medical imaging data over network
+\sphinxstylestrong{Data Flow Dependencies}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{storescpFIONA}} \sphinxhyphen{} DICOM storage daemon that receives and processes incoming DICOM files
+\sphinxincludegraphics{mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.pdf}
 
-\item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{receiveSingleFile.sh}} \sphinxhyphen{} Script executed for each received DICOM file to handle initial processing
+\sphinxstylestrong{File Descriptions}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{processSingleFilePipe}} \sphinxhyphen{} Named pipe used for inter\sphinxhyphen{}process communication between components
+\begin{DUlineblock}{0em}
+\item[] 1. Input Files:
+\end{DUlineblock}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{processSingleFile.py}} \sphinxhyphen{} Python script that processes DICOM file metadata and organizes data
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/config/config.json}} \sphinxhyphen{} Main configuration file containing data directories and DICOM ports
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/enabled}} \sphinxhyphen{} Optional control file to disable the service (first character “0” disables)
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/usr/share/dcmtk/dicom.dic}} \sphinxhyphen{} DICOM dictionary file for parsing DICOM data structures
+\end{DUlineblock}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{ArchiveDirectory}} \sphinxhyphen{} File system location where DICOM files are permanently stored
+\begin{DUlineblock}{0em}
+\item[] 2. Output Files:
+\end{DUlineblock}
 
-\end{itemize}
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/.pids/storescpd\$\{projname\}.pid}} \sphinxhyphen{} Process ID file for daemon management
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/logs/storescpd\$\{projname\}.log}} \sphinxhyphen{} Main service log file for daemon output
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/logs/storescpd\sphinxhyphen{}start.log}} \sphinxhyphen{} Startup log file for initialization messages
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/tmp/.processSingleFilePipe\$\{projname\}}} \sphinxhyphen{} Named pipe for inter\sphinxhyphen{}process communication
+\end{DUlineblock}
 
 \sphinxAtStartPar
 \sphinxstylestrong{Directories:}
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/archive}} \sphinxhyphen{} DICOM file storage location
 
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/.arrived}} \sphinxhyphen{} Temporary arrival directory
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/.pids/}} \sphinxhyphen{} PID file storage
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/logs/}} \sphinxhyphen{} Log file directory
-
-\end{itemize}
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/archive}} \sphinxhyphen{} DICOM file storage location
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/.arrived}} \sphinxhyphen{} Temporary arrival directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/.pids/}} \sphinxhyphen{} PID file storage
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/logs/}} \sphinxhyphen{} Log file directory
+\end{DUlineblock}
 
 
-\subsubsection{storectl.sh}
-\label{\detokenize{Architecture/scripts/storectl:storectl-sh}}
+\subsection{storectl.sh}
+\label{\detokenize{Architecture/scripts/storectl:storectl-sh}}\label{\detokenize{Architecture/scripts/storectl::doc}}
 \sphinxAtStartPar
 filename: storescpd
 
@@ -949,6 +936,122 @@ This system service will fail if a control file /data/enabled exists and  its fi
 (Hauke Bartsch)
 
 \sphinxstepscope
+
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{processSingleFile3.py}} is a Python daemon process that monitors DICOM files, extracts header information, and creates Study/Series symbolic link structures. The script implements a generic daemon class and a specialized DICOM processing class that listens for incoming messages via named pipes, processes DICOM files, and organizes them into a structured directory hierarchy.
+
+\sphinxAtStartPar
+\sphinxstylestrong{The Main Dependences}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxstylestrong{user:}
+\item[] \sphinxhyphen{} \sphinxstylestrong{depends\sphinxhyphen{}on:}
+\item[] \sphinxhyphen{} \sphinxstylestrong{log\sphinxhyphen{}file:} /../logs/processSingleFile{[}projname{]}.log
+\item[] \sphinxhyphen{} \sphinxstylestrong{pid\sphinxhyphen{}file:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{}        /../.pids/processSingleFile{[}projname{]}.pid
+\item[] \sphinxhyphen{}       /tmp/processSingleFile{[}projname{]}.pid)
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{start:} python processSingleFile3.py start {[}projname{]}
+\item[] \sphinxhyphen{} \sphinxstylestrong{license:} Tbe
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{The processing workflow:}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} Receives file paths via named pipe
+\item[] \sphinxhyphen{} Reads DICOM files and extracts metadata
+\item[] \sphinxhyphen{} Parses Siemens CSA headers for additional information
+\item[] \sphinxhyphen{} Applies classification rules from classifyRules.json
+\item[] \sphinxhyphen{} Creates organized directory structure with symbolic links
+\item[] \sphinxhyphen{} Generates JSON metadata files for each series
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Directories:}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data}} \sphinxhyphen{} Default data directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/.arrived}} \sphinxhyphen{} Touch files for series arrival detection
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/participants}} \sphinxhyphen{} Patient\sphinxhyphen{}organized directory structure
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/srs}} \sphinxhyphen{} Structured reports directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/raw}} \sphinxhyphen{} Raw DICOM files organized by Study/Series
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/temp}} \sphinxhyphen{} Temporary files directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{../logs/}} \sphinxhyphen{} Log files directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{../.pids/}} \sphinxhyphen{} Process ID files directory
+\end{DUlineblock}
+
+\sphinxAtStartPar
+** Input/Output File Dependencies Diagram**
+
+\sphinxincludegraphics{mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf}
+
+\sphinxAtStartPar
+\sphinxstylestrong{File Description:}
+
+\begin{DUlineblock}{0em}
+\item[] 1. Input Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{config.json}} \sphinxhyphen{} project configuration and directory paths
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{classifyRules.json}} \sphinxhyphen{} DICOM series classification rules
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{named pipe}} \sphinxhyphen{} daemon communication, receives file paths
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{DICOM files}} \sphinxhyphen{} medical imaging files to be processed
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 2. Output Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.pid}} \sphinxhyphen{} daemon process ID
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.log}} \sphinxhyphen{} operation and error logs
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.json metadata}} \sphinxhyphen{} series metadata in JSON format
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{symbolic links}} \sphinxhyphen{} links to original DICOM files
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{organized directories}} \sphinxhyphen{} directory structure organized by patients/studies
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Data Flow Dependencies}
+
+\sphinxincludegraphics{mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf}
+
+\sphinxAtStartPar
+** Data Flow components:**
+
+\begin{DUlineblock}{0em}
+\item[] 1. Input Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{config.json}} \sphinxhyphen{} system configuration file containing project settings and directory paths
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{classifyRules.json}} \sphinxhyphen{} rule definitions for automatic DICOM series classification
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{named pipe}} \sphinxhyphen{} inter\sphinxhyphen{}process communication channel receiving file processing commands
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{DICOM files}} \sphinxhyphen{} medical imaging files in DICOM format containing patient data
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 2. Main Process:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{processSingleFile3.py}} \sphinxhyphen{} daemon process that orchestrates DICOM file processing and organization
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 3. Output Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.pid}} \sphinxhyphen{} process identifier files for daemon management and monitoring
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.log}} \sphinxhyphen{} log files containing operational messages and error reports
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.json}} \sphinxhyphen{} metadata files with extracted DICOM header information
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{symbolic links}} \sphinxhyphen{} file system links organizing DICOM files by study structure
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{organized directories}} \sphinxhyphen{} hierarchical directory structure arranged by patients and studies
+\end{DUlineblock}
 
 
 \subsection{processSingleFile3.py}
@@ -965,16 +1068,165 @@ extracts the header information and creates a Study/Series symbolic link structu
 
 \sphinxstepscope
 
-
-\subsection{anonymizeAndSend.py}
-\label{\detokenize{Architecture/scripts/anonymizeAndSend:anonymizeandsend-py}}\label{\detokenize{Architecture/scripts/anonymizeAndSend::doc}}
 \sphinxAtStartPar
-There is no docstring.
+\sphinxcode{\sphinxupquote{detectStudyArrival.sh}} monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.
 
 \sphinxAtStartPar
-2025.06.17 mk
+\sphinxstylestrong{The Main Dependences:}
 
-\sphinxstepscope
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxstylestrong{user:} none
+\item[] \sphinxhyphen{} \sphinxstylestrong{depends\sphinxhyphen{}on:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{} receiveSingleFile.sh
+\item[] \sphinxhyphen{} anonymize.sh
+\item[] \sphinxhyphen{} /data/config/config.json
+\item[] \sphinxhyphen{} /tmp/.processSingleFilePipe
+\item[] \sphinxhyphen{} /var/www/html/applications/Assign/incoming.txt
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{log\sphinxhyphen{}file:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{} \$\{SERVERDIR\}/logs/detectStudyArrival.log
+\item[] \sphinxhyphen{} SERVERDIR/logs/detectStudyArrival\{SERVERDIR\}/logs/detectStudyArrival
+\item[] \sphinxhyphen{} SERVERDIR/logs/detectStudyArrival\{projname\}.log
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{pid\sphinxhyphen{}file:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{} SERVERDIR/.pids/detectStudyArrival\{SERVERDIR\}/.pids/detectStudyArrival
+\item[] \sphinxhyphen{} SERVERDIR/.pids/detectStudyArrival\{projname\}.lock
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{start:}
+\item[]
+\begin{DUlineblock}{\DUlineblockindent}
+\item[] \sphinxhyphen{} ./detectStudyArrival.sh
+\item[] \sphinxhyphen{} ./detectStudyArrival.sh {[}PROJECT\_NAME{]}
+\end{DUlineblock}
+\item[] \sphinxhyphen{} \sphinxstylestrong{license:} TBE
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{cron Configuration}
+
+\sphinxAtStartPar
+The script is designed to run via cron every 15 seconds to detect new arrivals and process studies for both ABCD and PCGC projects.
+Add these lines to crontab \sphinxhyphen{}e for 15\sphinxhyphen{}second monitoring intervals:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+*/1 * * * * /data/code/bin/detectStudyArrival.sh
+*/1 * * * * sleep 15; /data/code/bin/detectStudyArrival.sh
+*/1 * * * * sleep 30; /data/code/bin/detectStudyArrival.sh
+*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+For PCGC project:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+*/1 * * * * /data/code/bin/detectStudyArrival.sh PCGC
+*/1 * * * * sleep 15; /data/code/bin/detectStudyArrival.sh PCGC
+*/1 * * * * sleep 30; /data/code/bin/detectStudyArrival.sh PCGC
+*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh PCGC
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+** Input/Output File Dependencies Diagram**
+
+\sphinxincludegraphics{mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf}
+
+\sphinxAtStartPar
+\sphinxstylestrong{File Descriptions:}
+| 1. Input Files:
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/config/config.json}} \sphinxhyphen{} Main configuration file with project settings
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/.arrived/*}} \sphinxhyphen{} Job files containing study arrival information
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{receiveSingleFile.sh}} \sphinxhyphen{} Script creating study arrival job files
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 2. Output Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/tmp/.processSingleFilePipe}} \sphinxhyphen{} Named pipe for queuing files to process
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/var/www/html/applications/Assign/incoming.txt}} \sphinxhyphen{} Web interface assignment list for studies
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{logs/detectStudyArrival.log}} \sphinxhyphen{} Log file recording processing activities
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{pids/detectStudyArrival.lock}} \sphinxhyphen{} Lock file preventing concurrent execution
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{quarantine/*.tgz}} \sphinxhyphen{} Compressed archive files of processed data
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{quarantine/*.md5sum}} \sphinxhyphen{} Checksum files for data integrity verification
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 3. Scripts:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{detectStudyArrival.sh}} \sphinxhyphen{} Main script monitoring DICOM study arrivals
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{anonymize.sh}} \sphinxhyphen{} Script for anonymizing DICOM files
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Data Flow Dependencies}
+
+\sphinxincludegraphics{mermaid-4b5690ac216ff64ef341c2900c193f60650de046.pdf}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Data Flow File Descriptions:}
+
+\begin{DUlineblock}{0em}
+\item[] 1. Input Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{site/raw/SDIR/SSERIESDIR/}} \sphinxhyphen{} Directory containing raw DICOM files
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{site/raw/SDIR/SSERIESDIR.json}} \sphinxhyphen{} Metadata file with series information
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{PFILEDIR/}} \sphinxhyphen{} Directory for packed files storage
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 2. Output Files:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{site/archive/SDIR/}} \sphinxhyphen{} Archive directory for processed studies
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{site/output/SDIR/}} \sphinxhyphen{} Output directory for QC reports
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{quarantine/}} \sphinxhyphen{} Directory for quarantined data
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 3. Scripts:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{detectStudyArrival.sh}} \sphinxhyphen{} Main script processing data flow
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] 4. Docker Containers:
+\end{DUlineblock}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} Docker: \sphinxcode{\sphinxupquote{ABCDPhantomQC}} \sphinxhyphen{} Container for phantom quality control
+\item[] \sphinxhyphen{} Docker: \sphinxcode{\sphinxupquote{compliance\_check}} \sphinxhyphen{} Container for protocol compliance
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Directories:}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/.arrived/}} \sphinxhyphen{} Job arrival directory (ABCD)
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data{[}PROJECT{]}/site/.arrived/}} \sphinxhyphen{} Project\sphinxhyphen{}specific arrival directories
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/raw/}} \sphinxhyphen{} Raw DICOM storage
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/archive/}} \sphinxhyphen{} Archived studies
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{DATADIR\}/site/output/}} \sphinxhyphen{} Processing results
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{DATADIR\}/quarantine/}} \sphinxhyphen{} Quarantine storage
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{PFILEDIR\}/}} \sphinxhyphen{} Packed file directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/logs/}} \sphinxhyphen{} Log file location
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{\$\{SERVERDIR\}/.pids/}} \sphinxhyphen{} Lock file directory
+\end{DUlineblock}
 
 
 \subsection{detectStudyArrival.sh}
@@ -1009,6 +1261,17 @@ Add this to “crontab \sphinxhyphen{}e” to check every 15 seconds if a new jo
 
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh PCGC}}
+
+\sphinxstepscope
+
+
+\subsection{anonymizeAndSend.py}
+\label{\detokenize{Architecture/scripts/anonymizeAndSend:anonymizeandsend-py}}\label{\detokenize{Architecture/scripts/anonymizeAndSend::doc}}
+\sphinxAtStartPar
+There is no docstring.
+
+\sphinxAtStartPar
+2025.06.17 mk
 
 \sphinxstepscope
 

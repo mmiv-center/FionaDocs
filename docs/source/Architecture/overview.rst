@@ -1,11 +1,11 @@
 Architecture Overview
 ============================
 
-Diagram of Fiona system architecture including: network layer, processing layer, storage layer, transfer layer and management layer
+The architecture of Fiona sysetem can be included included into a few layers: network layer, processing layer, storage layer, transfer layer and management layer
 
 .. mermaid::    
     
-    graph TB
+    flowchart LR
         subgraph network [" Network Layer "]
             PACS[📡 Clinical PACS<br/>DICOM Source]
             StoreSCP[📥 storescpFIONA<br/>DICOM SCP]

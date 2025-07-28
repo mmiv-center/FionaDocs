@@ -6,8 +6,8 @@ System components
    
    scripts/storectl
    scripts/processSingleFile3
-   scripts/anonymizeAndSend
-   scripts/detectStudyArrival
+   scripts/detectStudyArrival   
+   scripts/anonymizeAndSend   
    scripts/sendFiles   
    scripts/mppsctl
    scripts/parseAllPatients

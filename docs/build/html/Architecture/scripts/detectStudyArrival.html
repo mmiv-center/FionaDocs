@@ -16,11 +16,25 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="sendFiles.sh" href="sendFiles.html" />
-    <link rel="prev" title="anonymizeAndSend.py" href="anonymizeAndSend.html" /> 
+    <link rel="next" title="anonymizeAndSend.py" href="anonymizeAndSend.html" />
+    <link rel="prev" title="processSingleFile3.py" href="processSingleFile3.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,11 +70,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../overview.html">Architecture Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data-flow.html">Data Flow</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../scripts.html">System components</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="storectl.html">Input/Output File Dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="storectl.html#data-flow-dependencies">Data Flow Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="storectl.html">storectl.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="processSingleFile3.html">processSingleFile3.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">detectStudyArrival.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parseAllPatients.html">parseAllPatients.sh</a></li>
@@ -119,7 +132,162 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="detectstudyarrival-sh">
+  <p><code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.</p>
+<p><strong>The Main Dependences:</strong></p>
+<div class="line-block">
+<div class="line">- <strong>user:</strong> none</div>
+<div class="line">- <strong>depends-on:</strong></div>
+<div class="line-block">
+<div class="line">- receiveSingleFile.sh</div>
+<div class="line">- anonymize.sh</div>
+<div class="line">- /data/config/config.json</div>
+<div class="line">- /tmp/.processSingleFilePipe</div>
+<div class="line">- /var/www/html/applications/Assign/incoming.txt</div>
+</div>
+<div class="line">- <strong>log-file:</strong></div>
+<div class="line-block">
+<div class="line">- ${SERVERDIR}/logs/detectStudyArrival.log</div>
+<div class="line">- SERVERDIR/logs/detectStudyArrival{SERVERDIR}/logs/detectStudyArrival</div>
+<div class="line">- SERVERDIR/logs/detectStudyArrival{projname}.log</div>
+</div>
+<div class="line">- <strong>pid-file:</strong></div>
+<div class="line-block">
+<div class="line">- SERVERDIR/.pids/detectStudyArrival{SERVERDIR}/.pids/detectStudyArrival</div>
+<div class="line">- SERVERDIR/.pids/detectStudyArrival{projname}.lock</div>
+</div>
+<div class="line">- <strong>start:</strong></div>
+<div class="line-block">
+<div class="line">- ./detectStudyArrival.sh</div>
+<div class="line">- ./detectStudyArrival.sh [PROJECT_NAME]</div>
+</div>
+<div class="line">- <strong>license:</strong> TBE</div>
+</div>
+<p><strong>cron Configuration</strong></p>
+<p>The script is designed to run via cron every 15 seconds to detect new arrivals and process studies for both ABCD and PCGC projects.
+Add these lines to crontab -e for 15-second monitoring intervals:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*/1 * * * * /data/code/bin/detectStudyArrival.sh
+*/1 * * * * sleep 15; /data/code/bin/detectStudyArrival.sh
+*/1 * * * * sleep 30; /data/code/bin/detectStudyArrival.sh
+*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh
+</pre></div>
+</div>
+<p>For PCGC project:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*/1 * * * * /data/code/bin/detectStudyArrival.sh PCGC
+*/1 * * * * sleep 15; /data/code/bin/detectStudyArrival.sh PCGC
+*/1 * * * * sleep 30; /data/code/bin/detectStudyArrival.sh PCGC
+*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh PCGC
+</pre></div>
+</div>
+<p>** Input/Output File Dependencies Diagram**</p>
+<img src="../../_images/mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.png" alt="flowchart LR
+A[&quot;/data/config/config.json&quot;] --&gt;|&quot;reads config&quot;| B[&quot;detectStudyArrival.sh&quot;]
+C[&quot;/data/site/.arrived/*&quot;] --&gt;|&quot;monitors job files&quot;| B
+D[&quot;receiveSingleFile.sh&quot;] --&gt;|&quot;creates job files&quot;| C
+B --&gt;|&quot;calls&quot;| E[&quot;anonymize.sh&quot;]
+B --&gt;|&quot;writes to&quot;| F[&quot;/tmp/.processSingleFilePipe&quot;]
+B --&gt;|&quot;updates&quot;| G[&quot;/var/www/html/applications/Assign/incoming.txt&quot;]
+B --&gt;|&quot;creates&quot;| H[&quot;logs/detectStudyArrival.log&quot;]
+B --&gt;|&quot;creates lock&quot;| I[&quot;pids/detectStudyArrival.lock&quot;]
+B --&gt;|&quot;creates archives&quot;| J[&quot;quarantine/*.tgz&quot;]
+B --&gt;|&quot;creates checksums&quot;| K[&quot;quarantine/*.md5sum&quot;]
+
+%% Styling
+classDef inputFile fill:#e1f5fe
+classDef outputFile fill:#f3e5f5
+classDef mainScript fill:#fff3e0
+
+class A,C,D inputFile
+class F,G,H,I,J,K outputFile
+class B,E mainScript" />
+<p><strong>File Descriptions:</strong>
+| 1. Input Files:</p>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> - Main configuration file with project settings</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/*</span></code> - Job files containing study arrival information</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">receiveSingleFile.sh</span></code> - Script creating study arrival job files</div>
+</div>
+<div class="line-block">
+<div class="line">2. Output Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/tmp/.processSingleFilePipe</span></code> - Named pipe for queuing files to process</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Assign/incoming.txt</span></code> - Web interface assignment list for studies</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">logs/detectStudyArrival.log</span></code> - Log file recording processing activities</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">pids/detectStudyArrival.lock</span></code> - Lock file preventing concurrent execution</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">quarantine/*.tgz</span></code> - Compressed archive files of processed data</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">quarantine/*.md5sum</span></code> - Checksum files for data integrity verification</div>
+</div>
+<div class="line-block">
+<div class="line">3. Scripts:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> - Main script monitoring DICOM study arrivals</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">anonymize.sh</span></code> - Script for anonymizing DICOM files</div>
+</div>
+<p><strong>Data Flow Dependencies</strong></p>
+<img src="../../_images/mermaid-4b5690ac216ff64ef341c2900c193f60650de046.png" alt="flowchart LR
+A[&quot;site/raw/SDIR/SSERIESDIR/&lt;br/&gt;Directory containing raw DICOM files&quot;] --&gt;|&quot;reads DICOM files&quot;| B[&quot;detectStudyArrival.sh&lt;br/&gt;Main script processing data flow&quot;]
+C[&quot;site/raw/SDIR/SSERIESDIR.json&lt;br/&gt;Metadata file with series information&quot;] --&gt;|&quot;reads metadata&quot;| B
+B --&gt;|&quot;processes to&quot;| D[&quot;site/archive/SDIR/&lt;br/&gt;Archive directory for processed studies&quot;]
+B --&gt;|&quot;outputs to&quot;| E[&quot;site/output/SDIR/&lt;br/&gt;Output directory for QC reports&quot;]
+B --&gt;|&quot;quarantines to&quot;| F[&quot;quarantine/&lt;br/&gt;Directory for quarantined data&quot;]
+B --&gt;|&quot;manages containers&quot;| G[&quot;Docker: ABCDPhantomQC&lt;br/&gt;Container for phantom quality control&quot;]
+B --&gt;|&quot;manages containers&quot;| H[&quot;Docker: compliance_check&lt;br/&gt;Container for protocol compliance&quot;]
+I[&quot;PFILEDIR/&lt;br/&gt;Directory for packed files storage&quot;] --&gt;|&quot;packed files storage&quot;| B
+B --&gt;|&quot;stores to&quot;| I
+
+%% Styling
+classDef inputFile fill:#e1f5fe
+classDef outputFile fill:#f3e5f5
+classDef mainScript fill:#fff3e0
+
+class A,C,I inputFile
+class D,E,F outputFile
+class B mainScript
+class G,H inputFile" />
+<p><strong>Data Flow File Descriptions:</strong></p>
+<div class="line-block">
+<div class="line">1. Input Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/raw/SDIR/SSERIESDIR/</span></code> - Directory containing raw DICOM files</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/raw/SDIR/SSERIESDIR.json</span></code> - Metadata file with series information</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">PFILEDIR/</span></code> - Directory for packed files storage</div>
+</div>
+<div class="line-block">
+<div class="line">2. Output Files:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/archive/SDIR/</span></code> - Archive directory for processed studies</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/output/SDIR/</span></code> - Output directory for QC reports</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">quarantine/</span></code> - Directory for quarantined data</div>
+</div>
+<div class="line-block">
+<div class="line">3. Scripts:</div>
+</div>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> - Main script processing data flow</div>
+</div>
+<div class="line-block">
+<div class="line">4. Docker Containers:</div>
+</div>
+<div class="line-block">
+<div class="line">- Docker: <code class="docutils literal notranslate"><span class="pre">ABCDPhantomQC</span></code> - Container for phantom quality control</div>
+<div class="line">- Docker: <code class="docutils literal notranslate"><span class="pre">compliance_check</span></code> - Container for protocol compliance</div>
+</div>
+<p><strong>Directories:</strong></p>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/</span></code> - Job arrival directory (ABCD)</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data[PROJECT]/site/.arrived/</span></code> - Project-specific arrival directories</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/raw/</span></code> - Raw DICOM storage</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/archive/</span></code> - Archived studies</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/output/</span></code> - Processing results</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/quarantine/</span></code> - Quarantine storage</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${PFILEDIR}/</span></code> - Packed file directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/</span></code> - Log file location</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/</span></code> - Lock file directory</div>
+</div>
+<section id="detectstudyarrival-sh">
 <h1>detectStudyArrival.sh<a class="headerlink" href="#detectstudyarrival-sh" title="Link to this heading"></a></h1>
 <p>check the study job directory created by receiveSingleFile.sh</p>
 <p>if the file is old enough process it using the information provided</p>
@@ -138,8 +306,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="anonymizeAndSend.html" class="btn btn-neutral float-left" title="anonymizeAndSend.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sendFiles.html" class="btn btn-neutral float-right" title="sendFiles.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="processSingleFile3.html" class="btn btn-neutral float-left" title="processSingleFile3.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="anonymizeAndSend.html" class="btn btn-neutral float-right" title="anonymizeAndSend.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
