@@ -836,6 +836,9 @@ This data flow ensures reliable, automated processing of medical image data whil
 \label{\detokenize{Architecture/scripts:system-components}}\label{\detokenize{Architecture/scripts::doc}}
 \sphinxstepscope
 
+
+\subsection{storectl.sh}
+\label{\detokenize{Architecture/scripts/storectl:storectl-sh}}\label{\detokenize{Architecture/scripts/storectl::doc}}
 \sphinxAtStartPar
 The \sphinxcode{\sphinxupquote{storectl.sh}} script is a system service controller for managing DICOM storage operations. It starts/stops the storescpFIONA daemon which receives DICOM files over the network and processes them through a named pipe system.
 
@@ -920,8 +923,8 @@ The \sphinxcode{\sphinxupquote{storectl.sh}} script is a system service controll
 \end{DUlineblock}
 
 
-\subsection{storectl.sh}
-\label{\detokenize{Architecture/scripts/storectl:storectl-sh}}\label{\detokenize{Architecture/scripts/storectl::doc}}
+\subsubsection{storectl.sh}
+\label{\detokenize{Architecture/scripts/storectl:id1}}
 \sphinxAtStartPar
 filename: storescpd
 
@@ -937,6 +940,9 @@ This system service will fail if a control file /data/enabled exists and  its fi
 
 \sphinxstepscope
 
+
+\subsection{processSingleFile3.py}
+\label{\detokenize{Architecture/scripts/processSingleFile3:processsinglefile3-py}}\label{\detokenize{Architecture/scripts/processSingleFile3::doc}}
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{processSingleFile3.py}} is a Python daemon process that monitors DICOM files, extracts header information, and creates Study/Series symbolic link structures. The script implements a generic daemon class and a specialized DICOM processing class that listens for incoming messages via named pipes, processes DICOM files, and organizes them into a structured directory hierarchy.
 
@@ -1054,8 +1060,8 @@ This system service will fail if a control file /data/enabled exists and  its fi
 \end{DUlineblock}
 
 
-\subsection{processSingleFile3.py}
-\label{\detokenize{Architecture/scripts/processSingleFile3:processsinglefile3-py}}\label{\detokenize{Architecture/scripts/processSingleFile3::doc}}
+\subsubsection{processSingleFile3.py}
+\label{\detokenize{Architecture/scripts/processSingleFile3:id1}}
 \sphinxAtStartPar
 Create a daemon process that listens to send messages and reads a DICOM file,
 extracts the header information and creates a Study/Series symbolic link structure.
@@ -1068,6 +1074,9 @@ extracts the header information and creates a Study/Series symbolic link structu
 
 \sphinxstepscope
 
+
+\subsection{detectStudyArrival}
+\label{\detokenize{Architecture/scripts/detectStudyArrival:detectstudyarrival}}\label{\detokenize{Architecture/scripts/detectStudyArrival::doc}}
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{detectStudyArrival.sh}} monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.
 
@@ -1229,8 +1238,8 @@ For PCGC project:
 \end{DUlineblock}
 
 
-\subsection{detectStudyArrival.sh}
-\label{\detokenize{Architecture/scripts/detectStudyArrival:detectstudyarrival-sh}}\label{\detokenize{Architecture/scripts/detectStudyArrival::doc}}
+\subsubsection{detectStudyArrival.sh}
+\label{\detokenize{Architecture/scripts/detectStudyArrival:detectstudyarrival-sh}}
 \sphinxAtStartPar
 check the study job directory created by receiveSingleFile.sh
 

@@ -1,3 +1,6 @@
+detectStudyArrival
+------------------
+
 ``detectStudyArrival.sh`` monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.
 
 **The Main Dependences:**

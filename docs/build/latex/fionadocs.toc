@@ -40,9 +40,12 @@
 \contentsline {subsection}{\numberline {3.2.5}Error Handling and Recovery}{23}{subsection.3.2.5}%
 \contentsline {subsection}{\numberline {3.2.6}Monitoring and Logging}{23}{subsection.3.2.6}%
 \contentsline {section}{\numberline {3.3}System components}{23}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}storectl.sh}{27}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}processSingleFile3.py}{32}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}detectStudyArrival.sh}{37}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}storectl.sh}{23}{subsection.3.3.1}%
+\contentsline {subsubsection}{storectl.sh}{27}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {3.3.2}processSingleFile3.py}{27}{subsection.3.3.2}%
+\contentsline {subsubsection}{processSingleFile3.py}{32}{subsubsection*.15}%
+\contentsline {subsection}{\numberline {3.3.3}detectStudyArrival}{32}{subsection.3.3.3}%
+\contentsline {subsubsection}{detectStudyArrival.sh}{37}{subsubsection*.16}%
 \contentsline {subsection}{\numberline {3.3.4}anonymizeAndSend.py}{38}{subsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.3.5}sendFiles.sh}{38}{subsection.3.3.5}%
 \contentsline {subsection}{\numberline {3.3.6}mppsctl.sh}{38}{subsection.3.3.6}%
@@ -112,10 +115,10 @@
 \contentsline {subsection}{\numberline {4.14.3}Monthly Tasks}{49}{subsection.4.14.3}%
 \contentsline {section}{\numberline {4.15}\sphinxstylestrong {* ARCHITECTURE (options) *}}{50}{section.4.15}%
 \contentsline {subsection}{\numberline {4.15.1}Core Components}{50}{subsection.4.15.1}%
-\contentsline {subsubsection}{Data Reception}{50}{subsubsection*.14}%
-\contentsline {subsubsection}{Data Processing}{50}{subsubsection*.15}%
-\contentsline {subsubsection}{Data Management}{50}{subsubsection*.16}%
-\contentsline {subsubsection}{Data Transfer}{50}{subsubsection*.17}%
+\contentsline {subsubsection}{Data Reception}{50}{subsubsection*.17}%
+\contentsline {subsubsection}{Data Processing}{50}{subsubsection*.18}%
+\contentsline {subsubsection}{Data Management}{50}{subsubsection*.19}%
+\contentsline {subsubsection}{Data Transfer}{50}{subsubsection*.20}%
 \contentsline {subsection}{\numberline {4.15.2}System Architecture}{50}{subsection.4.15.2}%
 \contentsline {subsection}{\numberline {4.15.3}Key Features}{53}{subsection.4.15.3}%
 \contentsline {subsection}{\numberline {4.15.4}Technology Stack}{53}{subsection.4.15.4}%

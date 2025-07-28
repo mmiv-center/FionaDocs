@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>detectStudyArrival.sh &mdash; FionaDocs  documentation</title>
+  <title>detectStudyArrival &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -72,7 +72,10 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l2 current"><a class="reference internal" href="../scripts.html">System components</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="storectl.html">storectl.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="processSingleFile3.html">processSingleFile3.py</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">detectStudyArrival.sh</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">detectStudyArrival</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#detectstudyarrival-sh">detectStudyArrival.sh</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
@@ -122,7 +125,7 @@ window.addEventListener("load", () => mermaid.run());
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Architecture, data flow and system components</a></li>
           <li class="breadcrumb-item"><a href="../scripts.html">System components</a></li>
-      <li class="breadcrumb-item active">detectStudyArrival.sh</li>
+      <li class="breadcrumb-item active">detectStudyArrival</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/detectStudyArrival.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -132,7 +135,9 @@ window.addEventListener("load", () => mermaid.run());
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p><code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.</p>
+  <section id="detectstudyarrival">
+<h1>detectStudyArrival<a class="headerlink" href="#detectstudyarrival" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.</p>
 <p><strong>The Main Dependences:</strong></p>
 <div class="line-block">
 <div class="line">- <strong>user:</strong> none</div>
@@ -288,7 +293,7 @@ class G,H inputFile" />
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/</span></code> - Lock file directory</div>
 </div>
 <section id="detectstudyarrival-sh">
-<h1>detectStudyArrival.sh<a class="headerlink" href="#detectstudyarrival-sh" title="Link to this heading"></a></h1>
+<h2>detectStudyArrival.sh<a class="headerlink" href="#detectstudyarrival-sh" title="Link to this heading"></a></h2>
 <p>check the study job directory created by receiveSingleFile.sh</p>
 <p>if the file is old enough process it using the information provided</p>
 <p>Add this to “crontab -e” to check every 15 seconds if a new job arrived.
@@ -300,6 +305,7 @@ class G,H inputFile" />
 <p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">30;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">15;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">45;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
+</section>
 </section>
 
 
