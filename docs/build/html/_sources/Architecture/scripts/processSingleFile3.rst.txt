@@ -7,7 +7,7 @@
 | - **log-file:** /../logs/processSingleFile[projname].log 
 | - **pid-file:**
 |	-	 /../.pids/processSingleFile[projname].pid 
-|	-	/tmp/processSingleFile[projname].pid)
+|	-	/tmp/processSingleFile[projname].pid
 | - **start:** python processSingleFile3.py start [projname]
 | - **license:** Tbe
 
@@ -21,22 +21,12 @@
 | - Creates organized directory structure with symbolic links
 | - Generates JSON metadata files for each series
 
-**Directories:**
 
-| - ``/data`` - Default data directory
-| - ``/data/site/.arrived`` - Touch files for series arrival detection
-| - ``/data/site/participants`` - Patient-organized directory structure
-| - ``/data/site/srs`` - Structured reports directory
-| - ``/data/site/raw`` - Raw DICOM files organized by Study/Series
-| - ``/data/site/temp`` - Temporary files directory
-| - ``../logs/`` - Log files directory
-| - ``../.pids/`` - Process ID files directory
-
-** Input/Output File Dependencies Diagram**
+**Input/Output File Dependencies Diagram**
 
 .. mermaid::
 
-   flowchart TD
+   flowchart LR
    %% Input Files
    CONFIG["config.json"]
    RULES["classifyRules.json"]
@@ -98,7 +88,7 @@
 
 .. mermaid::
 
-   flowchart TD
+   flowchart LR
    %% Input Data
    CONFIG["config.json"]
    RULES["classifyRules.json"]
@@ -136,7 +126,7 @@
    class DAEMON process
    class PID,LOG,JSON,LINKS,DIRS outputFile
    
-** Data Flow components:**
+**Data Flow components:**
 
 
 
@@ -160,6 +150,16 @@
 | - ``organized directories`` - hierarchical directory structure arranged by patients and studies
 
 
+**Directories:**
+
+| - ``/data`` - Default data directory
+| - ``/data/site/.arrived`` - Touch files for series arrival detection
+| - ``/data/site/participants`` - Patient-organized directory structure
+| - ``/data/site/srs`` - Structured reports directory
+| - ``/data/site/raw`` - Raw DICOM files organized by Study/Series
+| - ``/data/site/temp`` - Temporary files directory
+| - ``../logs/`` - Log files directory
+| - ``../.pids/`` - Process ID files directory
 
 
 

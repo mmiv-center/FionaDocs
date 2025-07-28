@@ -141,7 +141,7 @@ window.addEventListener("load", () => mermaid.run());
 <div class="line">- <strong>pid-file:</strong></div>
 <div class="line-block">
 <div class="line">-        /../.pids/processSingleFile[projname].pid</div>
-<div class="line">-       /tmp/processSingleFile[projname].pid)</div>
+<div class="line">-       /tmp/processSingleFile[projname].pid</div>
 </div>
 <div class="line">- <strong>start:</strong> python processSingleFile3.py start [projname]</div>
 <div class="line">- <strong>license:</strong> Tbe</div>
@@ -155,19 +155,8 @@ window.addEventListener("load", () => mermaid.run());
 <div class="line">- Creates organized directory structure with symbolic links</div>
 <div class="line">- Generates JSON metadata files for each series</div>
 </div>
-<p><strong>Directories:</strong></p>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data</span></code> - Default data directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived</span></code> - Touch files for series arrival detection</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/participants</span></code> - Patient-organized directory structure</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/srs</span></code> - Structured reports directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/raw</span></code> - Raw DICOM files organized by Study/Series</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/temp</span></code> - Temporary files directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">../logs/</span></code> - Log files directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">../.pids/</span></code> - Process ID files directory</div>
-</div>
-<p>** Input/Output File Dependencies Diagram**</p>
-<img src="../../_images/mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.png" alt="flowchart TD
+<p><strong>Input/Output File Dependencies Diagram</strong></p>
+<img src="../../_images/mermaid-471345e5fef0fa730e81db312082dddc555c9426.png" alt="flowchart LR
 %% Input Files
 CONFIG[&quot;config.json&quot;]
 RULES[&quot;classifyRules.json&quot;]
@@ -226,7 +215,7 @@ class MAIN mainScript" />
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">organized</span> <span class="pre">directories</span></code> - directory structure organized by patients/studies</div>
 </div>
 <p><strong>Data Flow Dependencies</strong></p>
-<img src="../../_images/mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.png" alt="flowchart TD
+<img src="../../_images/mermaid-39ec4fbe90e5a768b173f38604f4994a833cb136.png" alt="flowchart LR
 %% Input Data
 CONFIG[&quot;config.json&quot;]
 RULES[&quot;classifyRules.json&quot;]
@@ -263,7 +252,7 @@ classDef outputFile fill:#f3e5f5
 class CONFIG,RULES,PIPE,DICOM inputFile
 class DAEMON process
 class PID,LOG,JSON,LINKS,DIRS outputFile" />
-<p>** Data Flow components:**</p>
+<p><strong>Data Flow components:</strong></p>
 <div class="line-block">
 <div class="line">1. Input Files:</div>
 </div>
@@ -288,6 +277,17 @@ class PID,LOG,JSON,LINKS,DIRS outputFile" />
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">*.json</span></code> - metadata files with extracted DICOM header information</div>
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">symbolic</span> <span class="pre">links</span></code> - file system links organizing DICOM files by study structure</div>
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">organized</span> <span class="pre">directories</span></code> - hierarchical directory structure arranged by patients and studies</div>
+</div>
+<p><strong>Directories:</strong></p>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data</span></code> - Default data directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived</span></code> - Touch files for series arrival detection</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/participants</span></code> - Patient-organized directory structure</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/srs</span></code> - Structured reports directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/raw</span></code> - Raw DICOM files organized by Study/Series</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/temp</span></code> - Temporary files directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">../logs/</span></code> - Log files directory</div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">../.pids/</span></code> - Process ID files directory</div>
 </div>
 <section id="processsinglefile3-py">
 <h1>processSingleFile3.py<a class="headerlink" href="#processsinglefile3-py" title="Link to this heading"></a></h1>

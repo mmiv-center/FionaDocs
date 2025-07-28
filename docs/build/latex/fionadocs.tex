@@ -951,7 +951,7 @@ This system service will fail if a control file /data/enabled exists and  its fi
 \item[]
 \begin{DUlineblock}{\DUlineblockindent}
 \item[] \sphinxhyphen{}        /../.pids/processSingleFile{[}projname{]}.pid
-\item[] \sphinxhyphen{}       /tmp/processSingleFile{[}projname{]}.pid)
+\item[] \sphinxhyphen{}       /tmp/processSingleFile{[}projname{]}.pid
 \end{DUlineblock}
 \item[] \sphinxhyphen{} \sphinxstylestrong{start:} python processSingleFile3.py start {[}projname{]}
 \item[] \sphinxhyphen{} \sphinxstylestrong{license:} Tbe
@@ -970,23 +970,9 @@ This system service will fail if a control file /data/enabled exists and  its fi
 \end{DUlineblock}
 
 \sphinxAtStartPar
-\sphinxstylestrong{Directories:}
+\sphinxstylestrong{Input/Output File Dependencies Diagram}
 
-\begin{DUlineblock}{0em}
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data}} \sphinxhyphen{} Default data directory
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/.arrived}} \sphinxhyphen{} Touch files for series arrival detection
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/participants}} \sphinxhyphen{} Patient\sphinxhyphen{}organized directory structure
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/srs}} \sphinxhyphen{} Structured reports directory
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/raw}} \sphinxhyphen{} Raw DICOM files organized by Study/Series
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/temp}} \sphinxhyphen{} Temporary files directory
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{../logs/}} \sphinxhyphen{} Log files directory
-\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{../.pids/}} \sphinxhyphen{} Process ID files directory
-\end{DUlineblock}
-
-\sphinxAtStartPar
-** Input/Output File Dependencies Diagram**
-
-\sphinxincludegraphics{mermaid-c6185582de362f6e313d7aeb1dc688feded732ca.pdf}
+\sphinxincludegraphics{mermaid-471345e5fef0fa730e81db312082dddc555c9426.pdf}
 
 \sphinxAtStartPar
 \sphinxstylestrong{File Description:}
@@ -1017,10 +1003,10 @@ This system service will fail if a control file /data/enabled exists and  its fi
 \sphinxAtStartPar
 \sphinxstylestrong{Data Flow Dependencies}
 
-\sphinxincludegraphics{mermaid-f8a7176f8c616107f82c273dad5d24948abe83ad.pdf}
+\sphinxincludegraphics{mermaid-39ec4fbe90e5a768b173f38604f4994a833cb136.pdf}
 
 \sphinxAtStartPar
-** Data Flow components:**
+\sphinxstylestrong{Data Flow components:}
 
 \begin{DUlineblock}{0em}
 \item[] 1. Input Files:
@@ -1051,6 +1037,20 @@ This system service will fail if a control file /data/enabled exists and  its fi
 \item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{*.json}} \sphinxhyphen{} metadata files with extracted DICOM header information
 \item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{symbolic links}} \sphinxhyphen{} file system links organizing DICOM files by study structure
 \item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{organized directories}} \sphinxhyphen{} hierarchical directory structure arranged by patients and studies
+\end{DUlineblock}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Directories:}
+
+\begin{DUlineblock}{0em}
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data}} \sphinxhyphen{} Default data directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/.arrived}} \sphinxhyphen{} Touch files for series arrival detection
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/participants}} \sphinxhyphen{} Patient\sphinxhyphen{}organized directory structure
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/srs}} \sphinxhyphen{} Structured reports directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/raw}} \sphinxhyphen{} Raw DICOM files organized by Study/Series
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{/data/site/temp}} \sphinxhyphen{} Temporary files directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{../logs/}} \sphinxhyphen{} Log files directory
+\item[] \sphinxhyphen{} \sphinxcode{\sphinxupquote{../.pids/}} \sphinxhyphen{} Process ID files directory
 \end{DUlineblock}
 
 
@@ -1132,7 +1132,7 @@ For PCGC project:
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-** Input/Output File Dependencies Diagram**
+\sphinxstylestrong{Input/Output File Dependencies Diagram}
 
 \sphinxincludegraphics{mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.pdf}
 

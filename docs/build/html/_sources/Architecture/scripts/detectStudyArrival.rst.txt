@@ -44,7 +44,7 @@ For PCGC project:
    */1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh PCGC
    
    
-** Input/Output File Dependencies Diagram**
+**Input/Output File Dependencies Diagram**
 
 .. mermaid::
 

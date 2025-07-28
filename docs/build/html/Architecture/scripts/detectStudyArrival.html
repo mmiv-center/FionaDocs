@@ -178,7 +178,7 @@ Add these lines to crontab -e for 15-second monitoring intervals:</p>
 */1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh PCGC
 </pre></div>
 </div>
-<p>** Input/Output File Dependencies Diagram**</p>
+<p><strong>Input/Output File Dependencies Diagram</strong></p>
 <img src="../../_images/mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.png" alt="flowchart LR
 A[&quot;/data/config/config.json&quot;] --&gt;|&quot;reads config&quot;| B[&quot;detectStudyArrival.sh&quot;]
 C[&quot;/data/site/.arrived/*&quot;] --&gt;|&quot;monitors job files&quot;| B
