@@ -4,7 +4,7 @@ ADMINISTRATION
 **For:** IT administrators, DevOps
 
 .. toctree::
-   :maxdepth: 0
+   :maxdepth: 1
 
 
 End-user contract

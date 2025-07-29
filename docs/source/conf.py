@@ -37,6 +37,7 @@ templates_path = ['_templates']
 # ----------- 2025.07.28 - mk --- add latex setup ----------------------------
 # Mermaid configuration
 mermaid_output_format = 'png'  # lub 'svg'
+mermaid_cmd = '/home/marek/.npm-global/bin/mmdc'
 mermaid_params = [
     '--theme', 'neutral',
     '--backgroundColor', 'transparent',

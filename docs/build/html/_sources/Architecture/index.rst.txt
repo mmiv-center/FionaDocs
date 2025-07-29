@@ -4,7 +4,7 @@ ARCHITECTURE
 **For:** Developers, system architects
 
 .. toctree::
-   :maxdepth: 0
+   :maxdepth: 1
    
   
    
@@ -92,6 +92,27 @@ FIONA serves as an intermediary system that:
 
 
 
+
+Data Storage Structure
+----------------------
+
+The FIONA system uses a hierarchical storage structure:
+
+.. code-block:: text
+
+    /data/
+    ├── site/
+    │   ├── .arrived/          # Initial file reception
+    │   ├── archive/           # Raw DICOM storage
+    │   ├── raw/              # Processed DICOM files
+    │   └── output/           # Processing results
+    ├── config/               # Configuration files
+    └── logs/                 # System logs
+
+Project-specific directories follow the pattern:
+/data{PROJECT}/site/...
+
+
 Data Flow
 ----------
 
@@ -101,7 +122,7 @@ Data flow overwie (ver.1 - detailed)
 
 .. mermaid::
 
-   graph TB
+   flowchart TB
        PACS[Clinical PACS - DICOM Source]
        StoreSCP[storescpFIONA - DICOM SCP]
        NamedPipe((Named Pipe))
@@ -150,62 +171,86 @@ Data flow overwie (ver.1 - detailed)
        ResPACS --> DAIC
 
 
+Folder and File structure
+--------------------------
 
+.. raw:: html
 
+   <pre>
+   Fiona/
+   ├── bin/
+   │     ├── <a href="scripts/anonymizeAndSend.html">anonymizeAndSend.py</a>
+   │     ├── <a href="scripts/clearExports.html">clearExports.sh</a>
+   │     ├── <a href="scripts/clearOldFiles.html">clearOldFiles.sh</a>
+   │     ├── <a href="scripts/clearStaleLinks.html">clearStaleLinks.sh</a>
+   │     ├── <a href="scripts/createTransferRequestForProcessed.html">createTransferRequestForProcessed.py</a>
+   │     ├── <a href="scripts/createTransferRequest.html">createTransferRequest.py</a>
+   │     ├── <a href="scripts/populateAutoID.html">populateAutoID.py</a>
+   │     ├── <a href="scripts/populateIncoming.html">populateIncoming.py</a>
+   │     ├── <a href="scripts/populateProjects.html">populateProjects.py</a>
+   │     └── utils/
+   │            ├── <a href="scripts/getAllPatients2.html">getAllPatients2.sh</a>
+   │            ├── <a href="scripts/parseAllPatients.html">parseAllPatients.sh</a>
+   │            ├── <a href="scripts/resendProject.html">resendProject.py</a>
+   │            ├── <a href="scripts/whatIsInIDS7.html">whatIsInIDS7.py</a>
+   │            └── <a href="scripts/whatIsNotInIDS7.html">whatIsNotInIDS7.py</a>
+   │
+   └── var/
+       └── www/
+           └── html/
+               ├── applications/
+               │   ├── Assign/
+               │   │       └── <a href="scripts/removeOldEntries.html">removeOldEntries.sh</a>
+               │   ├── Attach/
+               │   │   └── <a href="scripts/process_tiff.html">process_tiff.sh</a>
+               │   ├── Exports/
+               │   │       └── <a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
+               │   ├── User/
+               │   │   └── asttt/
+               │   │       └── code/
+               │   │           └── <a href="scripts/cron.html">cron.sh</a>
+               │   └── Workflows/
+               │           └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
+               │
+               └── server/
+                   └── bin/
+                       ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
+                       ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
+                       ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
+                       ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
+                       ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
+                       ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
+                       └── <a href="scripts/storectl.html">storectl.sh</a>
+   </pre>
 
-
-Data Storage Structure
-----------------------
-
-The FIONA system uses a hierarchical storage structure:
-
-.. code-block:: text
-
-    /data/
-    ├── site/
-    │   ├── .arrived/          # Initial file reception
-    │   ├── archive/           # Raw DICOM storage
-    │   ├── raw/              # Processed DICOM files
-    │   └── output/           # Processing results
-    ├── config/               # Configuration files
-    └── logs/                 # System logs
-
-Project-specific directories follow the pattern:
-/data{PROJECT}/site/...
-
-
-System components
-------------------
 
 .. toctree::
    :maxdepth: 1
    
-   scripts/storectl
-   scripts/processSingleFile3
-   scripts/detectStudyArrival   
-   scripts/anonymizeAndSend   
-   scripts/sendFiles   
-   scripts/mppsctl
-   scripts/parseAllPatients
-   scripts/process_tiff
-   scripts/removeOldEntries
-   scripts/runOneJob
-   scripts/getAllPatients2
-   scripts/heartbeat
-   scripts/moveFromScanner
+   scripts/anonymizeAndSend
    scripts/clearExports
    scripts/clearOldFiles
    scripts/clearStaleLinks
-   scripts/cron
-   scripts/whatIsInIDS7
-   scripts/whatIsNotInIDS7
    scripts/createTransferRequestForProcessed
+   scripts/createTransferRequest
+   scripts/createZipFileCmd
+   scripts/cron
+   scripts/detectStudyArrival
+   scripts/getAllPatients2
+   scripts/heartbeat
+   scripts/moveFromScanner
+   scripts/mppsctl
+   scripts/parseAllPatients
    scripts/populateAutoID
    scripts/populateIncoming
    scripts/populateProjects
+   scripts/processSingleFile3
+   scripts/process_tiff
+   scripts/removeOldEntries
    scripts/resendProject
-   scripts/createTransferRequest
-   scripts/createZipFileCmd
-
-
+   scripts/runOneJob
+   scripts/sendFiles
+   scripts/storectl
+   scripts/whatIsInIDS7
+   scripts/whatIsNotInIDS7
 
