@@ -8,8 +8,8 @@ FIONA (Flash-based Input/Output Network Appliance) - A secure research data gate
 .. -------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Learn
+   :maxdepth: 1
+   :hidden:
    
    EndUser/index
 
@@ -19,8 +19,8 @@ FIONA (Flash-based Input/Output Network Appliance) - A secure research data gate
 .. ------------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Administration
+   :maxdepth: 1
+   :hidden:
 
    ServerAdmin/index
   
@@ -31,8 +31,8 @@ FIONA (Flash-based Input/Output Network Appliance) - A secure research data gate
 .. -------------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Architecture
+   :maxdepth: 1
+   :hidden:
    
    Architecture/index
    
