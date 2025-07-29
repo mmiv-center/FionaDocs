@@ -1,5 +1,9 @@
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
 *** ADMIN (options) ***
-==============================================
+------------------------------
 
 **For:** IT administrators, DevOps
 
@@ -20,12 +24,12 @@
 
 
 System Architecture
-====================
+-----------------------
 
 The Fiona system consists of the following main components:
 
 2.1 DICOM Servers
-------------------
+~~~~~~~~~~~~~~~~~~
 
 **storescp**: Server receiving DICOM data
 
@@ -34,7 +38,7 @@ The Fiona system consists of the following main components:
 **echoscu**: Connection monitoring
 
 2.2 Processing Components
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **processSingleFile**: Daemon processing individual DICOM files
 
@@ -43,7 +47,7 @@ The Fiona system consists of the following main components:
 **anonymizeAndSend**: Data anonymization and transmission
 
 2.3 Project Management
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **populateIncoming**: Analysis of incoming data
 
@@ -52,10 +56,10 @@ The Fiona system consists of the following main components:
 **populateAutoID**: Automatic identifier generation
 
 Installation and Configuration
-===============================
+-----------------------------------
 
 2.1 System Requirements
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **OS**: Linux (Ubuntu/Debian preferred)
 
@@ -68,7 +72,7 @@ Installation and Configuration
 **REDCap**: Research data management system
 
 2.2 Directory Structure
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block::
 
@@ -85,7 +89,7 @@ Installation and Configuration
     └── outbox/                  # Data for external transmission
 
 2.3 Configuration (config.json)
--------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
 
@@ -104,10 +108,10 @@ Installation and Configuration
     }
 
 Processes and Services
-======================
+--------------------------
 
 2.4 Main Daemons
-----------------
+~~~~~~~~~~~~~~~~~
 
 1. **storescp** (storectl.sh):
    - DICOM listening port
@@ -125,7 +129,7 @@ Processes and Services
    - Data archiving
 
 2.5 Cron Jobs
--------------
+~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -147,17 +151,17 @@ Processes and Services
     0 3 * * * /var/www/html/server/bin/clearStaleLinks.sh
 
 Monitoring and Troubleshooting
-===============================
+----------------------------------
 
 2.6 System Logs
-----------------
+~~~~~~~~~~~~~~~~~
 
 - ``/var/www/html/server/logs/`` - main system logs
 - ``/home/processing/logs/`` - processing user logs
 - Monitoring through syslog
 
 2.7 Common Problems
--------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 1. **Disk Space Issues**: clearOldFiles.sh, clearExports.sh
 2. **Blocked Processes**: heartbeat.sh restarts services
@@ -165,17 +169,17 @@ Monitoring and Troubleshooting
 4. **DICOM Connectivity**: echoscu for connection testing
 
 Security
-========
+-----------
 
 2.8 Data Anonymization
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Patient identifier removal
 - Date modification (42-day shift for RAM-MS)
 - DICOM tag export control
 
 2.9 Access Control
-------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 - ``processing`` user for system processes
 - ``www-data`` group for web interface
@@ -183,10 +187,10 @@ Security
 
 
 Backup and Recovery
-===================
+---------------------
 
 Backup Strategy
----------------
+~~~~~~~~~~~~~~~~~~
 
 **Critical Data**:
   - Archive directory (``/data/site/archive/``)
@@ -200,7 +204,7 @@ Backup Strategy
   - Monthly: Complete system backup
 
 Recovery Procedures
--------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 1. **Service Recovery**: Use heartbeat.sh and systemctl
 2. **Data Recovery**: Restore from archive backups
@@ -208,10 +212,10 @@ Recovery Procedures
 4. **Database Recovery**: REDCap backup restoration
 
 Performance Tuning
-===================
+---------------------
 
 Optimization Settings
----------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 **Parallel Processing**:
   - Multiple processSingleFile instances
@@ -229,10 +233,10 @@ Optimization Settings
   - Timeout management for long operations
 
 Maintenance Procedures
-======================
+------------------------
 
 Daily Tasks
------------
+~~~~~~~~~~~~
 
 - Monitor disk space usage
 - Check service status
@@ -240,7 +244,7 @@ Daily Tasks
 - Verify REDCap connectivity
 
 Weekly Tasks
-------------
+~~~~~~~~~~~~~~
 
 - Clean up old export files
 - Update routing rules if needed
@@ -248,7 +252,7 @@ Weekly Tasks
 - Performance monitoring
 
 Monthly Tasks
--------------
+~~~~~~~~~~~~~~~
 
 - Full system backup
 - Update documentation

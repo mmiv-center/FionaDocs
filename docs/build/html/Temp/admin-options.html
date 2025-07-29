@@ -9,6 +9,7 @@
   <title>* ADMIN (options) * &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e68fee03" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -18,9 +19,7 @@
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="* ARCHITECTURE (options) *" href="architecture-options.html" />
-    <link rel="prev" title="* END USER (options) *" href="end-user-options.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,76 +43,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html">LEARN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html#how-to-apply-to-the-research-information-system-helse-vest">How to apply to the Research Information System Helse Vest</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html">ADMINISTRATION</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#end-user-contract">End-user contract</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#features-for-data-migration">Features for data migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#how-to-handle-errors">How to handle errors?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html">ARCHITECTURE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#architecture-overview">Architecture Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#data-flow">Data Flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#system-components">System components</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Possible updates (tmp)</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">End User / Admin / Architecture (???)</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html"><strong>* END USER (options) *</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#system-overview">System Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#core-functions-for-end-users">Core Functions for End Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#supported-file-types">Supported File Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#user-interface-components">User Interface Components</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>* ADMIN (options) *</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#system-architecture">System Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dicom-servers">2.1 DICOM Servers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#processing-components">2.2 Processing Components</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#project-management">2.3 Project Management</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#installation-and-configuration">Installation and Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#system-requirements">2.1 System Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#directory-structure">2.2 Directory Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configuration-config-json">2.3 Configuration (config.json)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#processes-and-services">Processes and Services</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#main-daemons">2.4 Main Daemons</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cron-jobs">2.5 Cron Jobs</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#monitoring-and-troubleshooting">Monitoring and Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#system-logs">2.6 System Logs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#common-problems">2.7 Common Problems</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#security">Security</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#data-anonymization">2.8 Data Anonymization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#access-control">2.9 Access Control</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#backup-and-recovery">Backup and Recovery</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#backup-strategy">Backup Strategy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#recovery-procedures">Recovery Procedures</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#performance-tuning">Performance Tuning</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#optimization-settings">Optimization Settings</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#maintenance-procedures">Maintenance Procedures</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#daily-tasks">Daily Tasks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#weekly-tasks">Weekly Tasks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#monthly-tasks">Monthly Tasks</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="architecture-options.html"><strong>* ARCHITECTURE (options) *</strong></a></li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -130,7 +65,6 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">End User / Admin / Architecture (???)</a></li>
       <li class="breadcrumb-item active"><strong>* ADMIN (options) *</strong></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/Temp/admin-options.rst.txt" rel="nofollow"> View page source</a>
@@ -141,7 +75,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="admin-options">
+  <div class="toctree-wrapper compound">
+</div>
+<section id="admin-options">
 <h1><strong>* ADMIN (options) *</strong><a class="headerlink" href="#admin-options" title="Link to this heading"></a></h1>
 <p><strong>For:</strong> IT administrators, DevOps</p>
 <p><strong>Should contain:</strong></p>
@@ -393,10 +329,7 @@
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="end-user-options.html" class="btn btn-neutral float-left" title="* END USER (options) *" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="architecture-options.html" class="btn btn-neutral float-right" title="* ARCHITECTURE (options) *" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

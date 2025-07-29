@@ -41,10 +41,11 @@ FIONA (Flash-based Input/Output Network Appliance) - A secure research data gate
 .. -----------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Possible updates (tmp)
+   :hidden:
    
-   Temp/index
+..   Temp/index
 
    
 Contact Information

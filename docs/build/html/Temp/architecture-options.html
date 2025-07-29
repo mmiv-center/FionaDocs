@@ -9,6 +9,7 @@
   <title>* ARCHITECTURE (options) * &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e68fee03" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -32,8 +33,7 @@ window.addEventListener("load", () => mermaid.run());
 </script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="* ADMIN (options) *" href="admin-options.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,55 +57,12 @@ window.addEventListener("load", () => mermaid.run());
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html">LEARN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html#how-to-apply-to-the-research-information-system-helse-vest">How to apply to the Research Information System Helse Vest</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html">ADMINISTRATION</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#end-user-contract">End-user contract</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#features-for-data-migration">Features for data migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#how-to-handle-errors">How to handle errors?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html">ARCHITECTURE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#architecture-overview">Architecture Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#data-flow">Data Flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#system-components">System components</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Possible updates (tmp)</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">End User / Admin / Architecture (???)</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html"><strong>* END USER (options) *</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#system-overview">System Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#core-functions-for-end-users">Core Functions for End Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#supported-file-types">Supported File Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="end-user-options.html#user-interface-components">User Interface Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html"><strong>* ADMIN (options) *</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#system-architecture">System Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#installation-and-configuration">Installation and Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#processes-and-services">Processes and Services</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#monitoring-and-troubleshooting">Monitoring and Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#security">Security</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#backup-and-recovery">Backup and Recovery</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#performance-tuning">Performance Tuning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admin-options.html#maintenance-procedures">Maintenance Procedures</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><strong>* ARCHITECTURE (options) *</strong></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#core-components">Core Components</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#data-reception">Data Reception</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-processing">Data Processing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-management">Data Management</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-transfer">Data Transfer</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#system-architecture">System Architecture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#technology-stack">Technology Stack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deployment-model">Deployment Model</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -122,7 +79,6 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">End User / Admin / Architecture (???)</a></li>
       <li class="breadcrumb-item active"><strong>* ARCHITECTURE (options) *</strong></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/Temp/architecture-options.rst.txt" rel="nofollow"> View page source</a>
@@ -133,7 +89,9 @@ window.addEventListener("load", () => mermaid.run());
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="architecture-options">
+  <div class="toctree-wrapper compound">
+</div>
+<section id="architecture-options">
 <h1><strong>* ARCHITECTURE (options) *</strong><a class="headerlink" href="#architecture-options" title="Link to this heading"></a></h1>
 <p><strong>For:</strong> Developers, system architects</p>
 <p><strong>Contains:</strong></p>
@@ -177,10 +135,8 @@ window.addEventListener("load", () => mermaid.run());
 <li><p><strong>sendFiles.sh</strong> - Automated file transfer to research PACS</p></li>
 <li><p><strong>Transfer request system</strong> - REDCap integration for transfer management</p></li>
 </ul>
-</section>
-</section>
 <section id="system-architecture">
-<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h2>
+<h4>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h4>
 <p>FIONA operates as a multi-layered system:</p>
 <ol class="arabic simple">
 <li><p><strong>Network Layer</strong> - DICOM protocol handling</p></li>
@@ -254,7 +210,7 @@ window.addEventListener("load", () => mermaid.run());
     class WebUI interface" />
 </section>
 <section id="key-features">
-<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<h4>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Multi-project support</strong> - Handles multiple research projects simultaneously</p></li>
 <li><p><strong>Automated workflows</strong> - Minimal human intervention required</p></li>
@@ -264,7 +220,7 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 </section>
 <section id="technology-stack">
-<h2>Technology Stack<a class="headerlink" href="#technology-stack" title="Link to this heading"></a></h2>
+<h4>Technology Stack<a class="headerlink" href="#technology-stack" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Python</strong> - Core processing logic</p></li>
 <li><p><strong>Bash</strong> - System administration and automation</p></li>
@@ -275,7 +231,7 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 </section>
 <section id="deployment-model">
-<h2>Deployment Model<a class="headerlink" href="#deployment-model" title="Link to this heading"></a></h2>
+<h4>Deployment Model<a class="headerlink" href="#deployment-model" title="Link to this heading"></a></h4>
 <p>FIONA is typically deployed as:</p>
 <ul class="simple">
 <li><p><strong>Single-server installation</strong> - All components on one machine</p></li>
@@ -285,14 +241,199 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <p>Such an architecture ensures reliable, automated processing of medical image data while maintaining compliance with research and privacy requirements.</p>
 </section>
+<section id="data-flow-overview">
+<h4>Data Flow Overview<a class="headerlink" href="#data-flow-overview" title="Link to this heading"></a></h4>
+<img src="../_images/mermaid-2afc7d3b1b37424684ac980e5225219ad8932be0.png" alt="graph TB
+    A[Clinical Systems]
+    B[DICOM Reception]
+    C[File Processing]
+    D[Classification]
+    E[Study Organization]
+    F[Anonymization]
+    G[Transfer Prep]
+    H[Research PACS]
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt; E
+    E --&gt; F
+    F --&gt; G
+    G --&gt; H" />
+<p>Data flow diagram (ver.2 - more general)</p>
+<img src="../_images/mermaid-80e988bae676d1a7604f1ffbe4815ec3a76aa6a0.png" alt="graph TB
+    PACS[Clinical PACS]
+    FIONA_Input[FIONA Input Layer]
+    FIONA_Process[FIONA Processing]
+    FIONA_Storage[FIONA Storage]
+    FIONA_Transfer[FIONA Transfer]
+    Research[Research PACS]
+    REDCap[REDCap Database]
+
+    PACS --&gt; FIONA_Input
+    FIONA_Input --&gt; FIONA_Process
+    FIONA_Process --&gt; FIONA_Storage
+    FIONA_Storage --&gt; FIONA_Transfer
+    FIONA_Transfer --&gt; Research
+
+    REDCap --&gt; FIONA_Transfer
+    FIONA_Process --&gt; REDCap" />
+</section>
+</section>
+</section>
+<section id="phase-1-data-reception">
+<h2>Phase 1: Data Reception<a class="headerlink" href="#phase-1-data-reception" title="Link to this heading"></a></h2>
+<p><strong>Input:</strong> DICOM files from clinical PACS
+<strong>Components:</strong> storescpFIONA, storectl.sh
+<strong>Output:</strong> Raw DICOM files in temporary storage</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Clinical PACS → storescpFIONA → /data/site/.arrived/
+                                ↓
+                          Named Pipe (/tmp/.processSingleFilePipe)
+</pre></div>
+</div>
+<p><strong>Process:</strong>
+1. Clinical PACS sends DICOM files via DICOM protocol
+2. storescpFIONA receives files and stores in <cite>/data/site/.arrived/</cite>
+3. File arrival notification sent via named pipe
+4. Files moved to <cite>/data/site/archive/</cite> for processing</p>
+</section>
+<section id="phase-2-initial-processing">
+<h2>Phase 2: Initial Processing<a class="headerlink" href="#phase-2-initial-processing" title="Link to this heading"></a></h2>
+<p><strong>Input:</strong> Raw DICOM files
+<strong>Components:</strong> processSingleFile3.py, receiveSingleFile.sh
+<strong>Output:</strong> Processed DICOM files with metadata</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/data/site/archive/ → processSingleFile3.py → /data/site/raw/
+                       ↓
+                Classification Rules (classifyRules.json)
+                       ↓
+                Study/Series Organization
+</pre></div>
+</div>
+<p><strong>Process:</strong>
+1. processSingleFile3.py daemon receives file notifications
+2. DICOM headers are parsed and metadata extracted
+3. Files are classified using rule-based system
+4. Study and series information is organized
+5. Symbolic links are created for easy access</p>
+</section>
+<section id="phase-3-study-organization">
+<h2>Phase 3: Study Organization<a class="headerlink" href="#phase-3-study-organization" title="Link to this heading"></a></h2>
+<p><strong>Input:</strong> Processed DICOM files
+<strong>Components:</strong> detectStudyArrival.sh
+<strong>Output:</strong> Organized study structure</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/data/site/raw/ → detectStudyArrival.sh → Study Job Directory
+                   ↓
+            Study Completion Detection
+                   ↓
+            Workflow Trigger
+</pre></div>
+</div>
+<p><strong>Process:</strong>
+1. detectStudyArrival.sh monitors for completed studies
+2. Study completion is detected when all series arrive
+3. Study job directory is created
+4. Workflow processes are triggered</p>
+</section>
+<section id="phase-4-anonymization">
+<h2>Phase 4: Anonymization<a class="headerlink" href="#phase-4-anonymization" title="Link to this heading"></a></h2>
+<p><strong>Input:</strong> Organized study data
+<strong>Components:</strong> anonymizeAndSend.py, anonymize.sh
+<strong>Output:</strong> Anonymized DICOM files</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Study Data → anonymizeAndSend.py → Anonymized Data
+               ↓
+        REDCap Configuration
+               ↓
+        Project-specific Rules
+</pre></div>
+</div>
+<p><strong>Process:</strong>
+1. Transfer requests are read from REDCap
+2. Project-specific anonymization rules are applied
+3. DICOM tags are modified according to requirements
+4. Anonymized files are prepared for transfer</p>
+</section>
+<section id="phase-5-transfer-preparation">
+<h2>Phase 5: Transfer Preparation<a class="headerlink" href="#phase-5-transfer-preparation" title="Link to this heading"></a></h2>
+<p><strong>Input:</strong> Anonymized study data
+<strong>Components:</strong> createTransferRequest.py, createZipFileCmd.php
+<strong>Output:</strong> Transfer-ready data packages</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Anonymized Data → createTransferRequest.py → Transfer Package
+                     ↓
+              ZIP File Creation
+                     ↓
+              MD5 Checksum Generation
+</pre></div>
+</div>
+<p><strong>Process:</strong>
+1. Transfer requests are processed
+2. Data is packaged into ZIP files
+3. MD5 checksums are generated for integrity
+4. Transfer packages are prepared</p>
+</section>
+<section id="phase-6-export">
+<h2>Phase 6: Export<a class="headerlink" href="#phase-6-export" title="Link to this heading"></a></h2>
+<p><strong>Input:</strong> Transfer packages
+<strong>Components:</strong> sendFiles.sh
+<strong>Output:</strong> Data transferred to research PACS</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Transfer Package → sendFiles.sh → Research PACS
+                      ↓
+               SFTP Transfer
+                      ↓
+               Transfer Confirmation
+</pre></div>
+</div>
+<p><strong>Process:</strong>
+1. SFTP connection established to research PACS
+2. Files are transferred with integrity checking
+3. Transfer status is logged
+4. Success/failure notifications are sent</p>
+<p><strong>Named Pipes:</strong>
+- <cite>/tmp/.processSingleFilePipe</cite> - File processing notifications
+- Project-specific pipes: <cite>/tmp/.processSingleFilePipe{PROJECT}</cite></p>
+<p><strong>Configuration Files:</strong>
+- <cite>/data/config/config.json</cite> - Main system configuration
+- <cite>classifyRules.json</cite> - Classification rules
+- REDCap integration for transfer management</p>
+<p><strong>Log Files:</strong>
+- System logs in <cite>/var/www/html/server/logs/</cite>
+- Processing logs in <cite>/data/logs/</cite></p>
+<p><strong>File Processing Errors:</strong>
+- Failed files are logged and can be reprocessed
+- Corrupted DICOM files are quarantined
+- Processing retries are implemented</p>
+<p><strong>Transfer Errors:</strong>
+- Failed transfers are retried automatically
+- MD5 checksum verification ensures data integrity
+- Transfer status is tracked in REDCap</p>
+<p><strong>System Recovery:</strong>
+- Daemon processes can be restarted automatically
+- File system consistency is maintained
+- Backup and recovery procedures are in place</p>
+<p><strong>System Monitoring:</strong>
+- heartbeat.sh - System health monitoring
+- cron.sh - Scheduled task management
+- Log rotation and management</p>
+<p><strong>Data Flow Monitoring:</strong>
+- File arrival detection
+- Processing status tracking
+- Transfer completion monitoring</p>
+<p>This data flow ensures reliable, automated processing of medical image data while maintaining data integrity and compliance with research requirements.</p>
+<p>The FIONA system processes medical image data through several distinct phases:</p>
+<ol class="arabic simple">
+<li><p><strong>Data Reception</strong> - DICOM files arrive from clinical systems</p></li>
+<li><p><strong>Initial Processing</strong> - Files are processed and classified</p></li>
+<li><p><strong>Study Organization</strong> - Data is organized into study/series structure</p></li>
+<li><p><strong>Anonymization</strong> - Data is anonymized for research use</p></li>
+<li><p><strong>Transfer Preparation</strong> - Data is prepared for transfer</p></li>
+<li><p><strong>Export</strong> - Data is transferred to research PACS</p></li>
+</ol>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="admin-options.html" class="btn btn-neutral float-left" title="* ADMIN (options) *" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+          <footer>
 
   <hr/>
 

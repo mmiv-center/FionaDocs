@@ -1,5 +1,5 @@
 storectl.sh
-------------
+~~~~~~~~~~~~
 
 
 The ``storectl.sh`` script is a system service controller for managing DICOM storage operations. It starts/stops the storescpFIONA daemon which receives DICOM files over the network and processes them through a named pipe system. 

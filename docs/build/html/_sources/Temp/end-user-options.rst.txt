@@ -1,5 +1,10 @@
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+   
+
 *** END USER (options) *** 
-==========================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **For:** Doctors, researchers, medical personnel
 
@@ -15,15 +20,15 @@
 -------
 
 System Overview
-===============
+~~~~~~~~~~~~~~~~~
 
 The Fiona system is a comprehensive solution for managing DICOM medical images in a research environment. The system enables automatic reception, processing, anonymization, and transfer of imaging data between different PACS (Picture Archiving and Communication System) systems.
 
 Core Functions for End Users
-=============================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1.1 DICOM Image Reception and Processing
------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Automatic Reception**: The system automatically receives DICOM images from various scanners and workstations
 
@@ -32,7 +37,7 @@ Core Functions for End Users
 **Multi-Modality Support**: MR, CT, US, SR (Structured Reports), PR (Presentation States)
 
 1.2 Research Project Management
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Multi-Project Environment**: The system supports multiple independent research projects
 
@@ -41,7 +46,7 @@ Core Functions for End Users
 **Auto-ID**: Automatic generation of participant identifiers for projects
 
 1.3 Export and Archiving
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Multiple Export Formats**:
   - Native DICOM
@@ -54,7 +59,7 @@ Core Functions for End Users
 **Secure Downloads**: Ability to create password-encrypted archives
 
 1.4 REDCap Integration
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 **Data Synchronization**: Automatic synchronization with REDCap databases
 
@@ -64,17 +69,17 @@ Core Functions for End Users
 
 
 Supported File Types
-====================
+---------------------
 
 DICOM Images
-------------
+^^^^^^^^^^^^^
 - All standard DICOM modalities
 - Multi-frame and enhanced DICOM objects
 - Structured reports and presentation states
 
 
 Export Formats
---------------
+^^^^^^^^^^^^^^^
 - **DICOM**: Original format with anonymization
 - **NIFTI**: Neuroimaging format with JSON sidecars
 - **PURE**: Organized directory structure
@@ -82,31 +87,31 @@ Export Formats
 - **Transpara**: Format for prostate imaging studies
 
 User Interface Components
-=========================
+---------------------------
 
 Exports Application
--------------------
+^^^^^^^^^^^^^^^^^^^^
 - Search and filter studies by project, participant, date
 - Select export format and anonymization level
 - Download encrypted archives
 - Track export status and history
 
 Assign Application
-------------------
+^^^^^^^^^^^^^^^^^^^
 - View incoming studies awaiting assignment
 - Manual assignment to research projects
 - Coupling list management
 - Study metadata review
 
 Attach Application
-------------------
+^^^^^^^^^^^^^^^^^^^
 - Upload whole slide imaging files
 - Automatic conversion to DICOM format
 - Metadata extraction and validation
 - Integration with pathology databases
 
 Workflows Application
----------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 - Launch containerized analysis workflows
 - Monitor processing status
 - Access results and outputs
@@ -114,5 +119,5 @@ Workflows Application
 
 
 Support Contacts
-----------------
+^^^^^^^^^^^^^^^^^^
   Emails

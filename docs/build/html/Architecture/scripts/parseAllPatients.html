@@ -9,6 +9,7 @@
   <title>parseAllPatients.sh &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e68fee03" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
@@ -44,53 +45,47 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../EndUser/index.html">LEARN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../EndUser/index.html#how-to-apply-to-the-research-information-system-helse-vest">How to apply to the Research Information System Helse Vest</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html">ADMINISTRATION</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html#end-user-contract">End-user contract</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html#features-for-data-migration">Features for data migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html#how-to-handle-errors">How to handle errors?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#architecture-overview">Architecture Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#data-flow">Data Flow</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html#system-components">System components</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="storectl.html">storectl.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processSingleFile3.html">processSingleFile3.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival</a></li>
-<li class="toctree-l2"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">parseAllPatients.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_tiff.html">process_tiff.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="removeOldEntries.html">removeOldEntries.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="runOneJob.html">runOneJob.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getAllPatients2.html">getAllPatients2.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="heartbeat.html">heartbeat.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="moveFromScanner.html">moveFromScanner.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cron.html">cron.sh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whatIsInIDS7.html">whatIsInIDS7.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whatIsNotInIDS7.html">whatIsNotInIDS7.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="createTransferRequestForProcessed.html">createTransferRequestProcessed.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="populateAutoID.html">populateAutoID.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="populateIncoming.html">populateIncoming.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="populateProjects.html">populateProjects.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resendProject.html">resendProject.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="createTransferRequest.html">createTransferRequest.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-purpose">System Purpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#system-components">System components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="storectl.html">storectl.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="processSingleFile3.html">processSingleFile3.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">parseAllPatients.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="process_tiff.html">process_tiff.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="removeOldEntries.html">removeOldEntries.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="runOneJob.html">runOneJob.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getAllPatients2.html">getAllPatients2.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heartbeat.html">heartbeat.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="moveFromScanner.html">moveFromScanner.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cron.html">cron.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatIsInIDS7.html">whatIsInIDS7.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatIsNotInIDS7.html">whatIsNotInIDS7.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="createTransferRequestForProcessed.html">createTransferRequestProcessed.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="populateAutoID.html">populateAutoID.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="populateIncoming.html">populateIncoming.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="populateProjects.html">populateProjects.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resendProject.html">resendProject.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="createTransferRequest.html">createTransferRequest.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Possible updates (tmp)</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Temp/index.html">End User / Admin / Architecture (???)</a></li>
+</li>
 </ul>
 
         </div>

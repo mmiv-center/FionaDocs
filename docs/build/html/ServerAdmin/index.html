@@ -9,6 +9,7 @@
   <title>ADMINISTRATION &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e68fee03" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -44,34 +45,26 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html">LEARN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../EndUser/index.html#how-to-apply-to-the-research-information-system-helse-vest">How to apply to the Research Information System Helse Vest</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ADMINISTRATION</a><ul class="simple">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ADMINISTRATION</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#end-user-contract">End-user contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features-for-data-migration">Features for data migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-handle-errors">How to handle errors?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#user-rights-management">User rights management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-rights-multi-center-projects">User rights – multi-center projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-handle-email-addresses-in-data-projects">How to handle Email Addresses in Data Projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-data-exports-from-redcap">Automatic data exports from REDCap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#steps-at-the-end-of-a-redcap-project">Steps at the end of a REDCap project</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#end-user-contract">End-user contract</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#features-for-data-migration">Features for data migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#how-to-handle-errors">How to handle errors?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#user-rights-management">User rights management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user-rights-multi-center-projects">User rights – multi-center projects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-handle-email-addresses-in-data-projects">How to handle Email Addresses in Data Projects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#automatic-data-exports-from-redcap">Automatic data exports from REDCap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#steps-at-the-end-of-a-redcap-project">Steps at the end of a REDCap project</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html">ARCHITECTURE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#architecture-overview">Architecture Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#data-flow">Data Flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html#system-components">System components</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Possible updates (tmp)</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../Temp/index.html">End User / Admin / Architecture (???)</a></li>
 </ul>
 
         </div>
@@ -103,9 +96,8 @@
 <p><strong>For:</strong> IT administrators, DevOps</p>
 <div class="toctree-wrapper compound">
 </div>
-</section>
 <section id="end-user-contract">
-<h1>End-user contract<a class="headerlink" href="#end-user-contract" title="Link to this heading"></a></h1>
+<h2>End-user contract<a class="headerlink" href="#end-user-contract" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The following text is from the Apply website for the Steve system. Please check this page for updates to the wording.</p>
@@ -123,11 +115,11 @@ pseudonymization procedure of the RIS team needs to be updated. This restriction
 </ol>
 </section>
 <section id="features-for-data-migration">
-<h1>Features for data migration<a class="headerlink" href="#features-for-data-migration" title="Link to this heading"></a></h1>
+<h2>Features for data migration<a class="headerlink" href="#features-for-data-migration" title="Link to this heading"></a></h2>
 <p>The Assign web-application allows users to upload a coupling list that maps the accession number (Undersøkelse-ID) of the study to the pseudonymized participant identifier. Such mappings must be uploaded before the first image study of the project has been forwarded to FIONA. Incoming DICOM studies in FIONA that match entries in the coupling list will automatically be assigned to the project.</p>
 </section>
 <section id="how-to-handle-errors">
-<h1>How to handle errors?<a class="headerlink" href="#how-to-handle-errors" title="Link to this heading"></a></h1>
+<h2>How to handle errors?<a class="headerlink" href="#how-to-handle-errors" title="Link to this heading"></a></h2>
 <p>Correcting errors during data import are not difficult to fix. Try to follow up on such errors on an ongoing basis. The quarantine FIONA station may have still have a copy of the data in its cache which simplifies the process. Contact <a class="reference external" href="mailto:Hauke&#46;Bartsch&#37;&#52;&#48;helse-bergen&#46;no">Hauke<span>&#46;</span>Bartsch<span>&#64;</span>helse-bergen<span>&#46;</span>no</a> in such cases and ask for help. This will allow you to fix issues such as:</p>
 <ul class="simple">
 <li><p>Wrong assignment of participant identifiers to DICOM studies</p></li>
@@ -137,12 +129,12 @@ pseudonymization procedure of the RIS team needs to be updated. This restriction
 </ul>
 </section>
 <section id="export-to-project-specific-formats-nifti-and-zip-files">
-<h1>Export to project specific formats, NIfTI and zip-files<a class="headerlink" href="#export-to-project-specific-formats-nifti-and-zip-files" title="Link to this heading"></a></h1>
+<h2>Export to project specific formats, NIfTI and zip-files<a class="headerlink" href="#export-to-project-specific-formats-nifti-and-zip-files" title="Link to this heading"></a></h2>
 <p>The research information system supports a separate export facility that is more suited to implement project specific de-identification. Such export requirements include specific DICOM value changes (replacing underscores with dashes), adding birth date information back, formatting and cleaning of series descriptions, zip-file exports with specific folder structures etc.. This export is appropriate if the receiving institution has specific requirements on how data should be shared.</p>
 <p>Request access to the specialized data exports for your project from <a class="reference external" href="mailto:Hauke&#46;Bartsch&#37;&#52;&#48;helse-bergen&#46;no">Hauke<span>&#46;</span>Bartsch<span>&#64;</span>helse-bergen<span>&#46;</span>no</a>. Provide your export specification and we will implement your anonymization scheme and make it available to you and other researchers. As an example the “Export” application currently supports the export in NIfTI formats (using dcm2niix) and the export in several zip-file formats.</p>
 </section>
 <section id="sensitive-data-projects-separation-of-sensitive-information-and-data">
-<h1>Sensitive Data Projects – Separation of Sensitive Information and Data<a class="headerlink" href="#sensitive-data-projects-separation-of-sensitive-information-and-data" title="Link to this heading"></a></h1>
+<h2>Sensitive Data Projects – Separation of Sensitive Information and Data<a class="headerlink" href="#sensitive-data-projects-separation-of-sensitive-information-and-data" title="Link to this heading"></a></h2>
 <p>A sensitive data project is one that is used to capture human subject data and in general will require a REK (regional ethics board approval). In order to setup such a project in REDCap we suggest the follow structure and features of REDCap to be used. These recommendations have been generated based on discussions in relevant risk assessments.</p>
 <p>All sensitive data should be stored in a separate REDCap “ID” project including Norwegian Identification Numbers, names or parts of names, addresses and full birth dates (see Figure 1). This project should have its own roles of “Data Manager”, “Data Entry”, and “Controller”.  eople with permission to access and/or edit this information can use this database to keep contact information up-to-date and to enroll new participants into the study. Each participant should be assigned a pseudonymized ID in the sensitive data project that links the entry to the corresponding participant in the data project. Examples for this ID are: &lt;project name&gt;-&lt;site number&gt;-0001, &lt;project name&gt;-&lt;site number&gt;-0002, etc..</p>
 <p>All other data should be stored in a separate REDCap “Data” project using the pseudonymized participant ID as a “record_id” (first field in the study).</p>
@@ -153,17 +145,17 @@ pseudonymization procedure of the RIS team needs to be updated. This restriction
 </figcaption>
 </figure>
 <section id="user-rights-management">
-<h2>User rights management<a class="headerlink" href="#user-rights-management" title="Link to this heading"></a></h2>
+<h3>User rights management<a class="headerlink" href="#user-rights-management" title="Link to this heading"></a></h3>
 <p>When a project leader / principal investigator (PI) is given a REDCap account and project, they are given “project owner” roles. The project owner can then provide access to project members in “roles”. A role defines a given set of custom permissions which defines the user’s access to data, export permissions and ability to make changes to data.</p>
 <p>Each project can have predefined roles. We recommend the predefined roles “Data Manager” (ability to change study design, export), “Data Entry” (add, change, or delete data) and “Controller” to define roles for data viewing, editing, and deleting records. In more complex cases, different access settings can be given on different forms in the study (see also API access with REDCap). Individual users are assigned to project roles as part of gaining access to one project.</p>
 <p>The user rights management is the responsibility of the project owner and/or the users they add to the project with User Rights access. User roles should be set at the lowest access level that is necessary (e.g., export rights only for users who need this permission). Access to the project should be reviewed regularly and personnel who no longer require access need to be removed from the project.</p>
 </section>
 <section id="user-rights-multi-center-projects">
-<h2>User rights – multi-center projects<a class="headerlink" href="#user-rights-multi-center-projects" title="Link to this heading"></a></h2>
+<h3>User rights – multi-center projects<a class="headerlink" href="#user-rights-multi-center-projects" title="Link to this heading"></a></h3>
 <p>In a project where several institutions participate with their own project participants (several hospitals etc.) each group of participants should be assigned to a separate “data access group”. This functionality allows records in a study to be part of the user rights management. A user with access to a single data access group can only see participants that belong to this group. If this user creates a new participant, they will be automatically assigned to the group.</p>
 </section>
 <section id="how-to-handle-email-addresses-in-data-projects">
-<h2>How to handle Email Addresses in Data Projects<a class="headerlink" href="#how-to-handle-email-addresses-in-data-projects" title="Link to this heading"></a></h2>
+<h3>How to handle Email Addresses in Data Projects<a class="headerlink" href="#how-to-handle-email-addresses-in-data-projects" title="Link to this heading"></a></h3>
 <p>Email addresses are special identifying fields that can be stored in data projects for the purpose of creating automated invites for participants to fill out forms from home. In projects that use this feature email fields need to be present in the data project in order to allow for email distribution to participants.</p>
 <ol class="arabic simple">
 <li><p>Add such email fields to a separate instrument of the REDCap data project and mark the instrument as viewable by specific roles only (like Data Managers).</p></li>
@@ -173,13 +165,13 @@ pseudonymization procedure of the RIS team needs to be updated. This restriction
 </ol>
 </section>
 <section id="automatic-data-exports-from-redcap">
-<h2>Automatic data exports from REDCap<a class="headerlink" href="#automatic-data-exports-from-redcap" title="Link to this heading"></a></h2>
+<h3>Automatic data exports from REDCap<a class="headerlink" href="#automatic-data-exports-from-redcap" title="Link to this heading"></a></h3>
 <p>Data may be exported from REDCap using the REDCap API, a technical interface to automate the export of project and participant information using scripting. To provide such access a dedicated user-account “api_&lt;real username&gt;” should be created which is specific for a single project. Configure the account with a limited set of read permissions to specific fields or instruments using a new API role. The REDCap API will borrow these restrictive permissions for controlled access.</p>
 <p>Setup: An administrator can generate an API “token” for this account and share the token and examples of accessing the resource (curl-based access) with the user.</p>
 <p>Any change in the role of the &lt;real username&gt; should also apply to the connected API account. Specifically loosing access to the project should be implemented for both &lt;real username&gt; and api_&lt;real username&gt;.</p>
 </section>
 <section id="steps-at-the-end-of-a-redcap-project">
-<h2>Steps at the end of a REDCap project<a class="headerlink" href="#steps-at-the-end-of-a-redcap-project" title="Link to this heading"></a></h2>
+<h3>Steps at the end of a REDCap project<a class="headerlink" href="#steps-at-the-end-of-a-redcap-project" title="Link to this heading"></a></h3>
 <p>REDCap is a tool for data collection. At the end of data capture projects using REDCap receive a notification of study end. At this point projects may provide updated REK information(extension of data capture notice). If no such notice is received REDCap projects will:</p>
 <ul class="simple">
 <li><p>Lock all data participants (no further update/add).</p></li>
@@ -196,6 +188,7 @@ pseudonymization procedure of the RIS team needs to be updated. This restriction
 <p><span class="caption-text">End-of-project tracking for REDCap projects</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
+</section>
 </section>
 </section>
 

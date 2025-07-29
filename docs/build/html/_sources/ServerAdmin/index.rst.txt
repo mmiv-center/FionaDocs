@@ -8,7 +8,7 @@ ADMINISTRATION
 
 
 End-user contract
-===========================
+-------------------
 
 .. note::
 
@@ -29,12 +29,12 @@ pseudonymization procedure of the RIS team needs to be updated. This restriction
 
 
 Features for data migration
-===========================
+----------------------------
 
 The Assign web-application allows users to upload a coupling list that maps the accession number (Undersøkelse-ID) of the study to the pseudonymized participant identifier. Such mappings must be uploaded before the first image study of the project has been forwarded to FIONA. Incoming DICOM studies in FIONA that match entries in the coupling list will automatically be assigned to the project.
 
 How to handle errors?
-======================
+----------------------
 
 Correcting errors during data import are not difficult to fix. Try to follow up on such errors on an ongoing basis. The quarantine FIONA station may have still have a copy of the data in its cache which simplifies the process. Contact Hauke.Bartsch@helse-bergen.no in such cases and ask for help. This will allow you to fix issues such as:
 
@@ -45,7 +45,7 @@ Correcting errors during data import are not difficult to fix. Try to follow up 
 
 
 Export to project specific formats, NIfTI and zip-files
-========================================================
+---------------------------------------------------------
 
 The research information system supports a separate export facility that is more suited to implement project specific de-identification. Such export requirements include specific DICOM value changes (replacing underscores with dashes), adding birth date information back, formatting and cleaning of series descriptions, zip-file exports with specific folder structures etc.. This export is appropriate if the receiving institution has specific requirements on how data should be shared.
 
@@ -53,7 +53,7 @@ Request access to the specialized data exports for your project from Hauke.Barts
 
 
 Sensitive Data Projects – Separation of Sensitive Information and Data
-========================================================================
+-----------------------------------------------------------------------
 
 A sensitive data project is one that is used to capture human subject data and in general will require a REK (regional ethics board approval). In order to setup such a project in REDCap we suggest the follow structure and features of REDCap to be used. These recommendations have been generated based on discussions in relevant risk assessments.
 
@@ -68,7 +68,7 @@ All other data should be stored in a separate REDCap “Data” project using th
 
 
 User rights management
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 When a project leader / principal investigator (PI) is given a REDCap account and project, they are given “project owner” roles. The project owner can then provide access to project members in “roles”. A role defines a given set of custom permissions which defines the user’s access to data, export permissions and ability to make changes to data.
@@ -79,13 +79,13 @@ The user rights management is the responsibility of the project owner and/or the
 
 
 User rights – multi-center projects
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In a project where several institutions participate with their own project participants (several hospitals etc.) each group of participants should be assigned to a separate “data access group”. This functionality allows records in a study to be part of the user rights management. A user with access to a single data access group can only see participants that belong to this group. If this user creates a new participant, they will be automatically assigned to the group.
 
 
 How to handle Email Addresses in Data Projects
------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Email addresses are special identifying fields that can be stored in data projects for the purpose of creating automated invites for participants to fill out forms from home. In projects that use this feature email fields need to be present in the data project in order to allow for email distribution to participants.
 
@@ -96,7 +96,7 @@ Email addresses are special identifying fields that can be stored in data projec
 
 
 Automatic data exports from REDCap
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Data may be exported from REDCap using the REDCap API, a technical interface to automate the export of project and participant information using scripting. To provide such access a dedicated user-account "api_<real username>" should be created which is specific for a single project. Configure the account with a limited set of read permissions to specific fields or instruments using a new API role. The REDCap API will borrow these restrictive permissions for controlled access.
 
@@ -106,7 +106,7 @@ Any change in the role of the <real username> should also apply to the connected
 
 
 Steps at the end of a REDCap project
--------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 REDCap is a tool for data collection. At the end of data capture projects using REDCap receive a notification of study end. At this point projects may provide updated REK information(extension of data capture notice). If no such notice is received REDCap projects will:
 

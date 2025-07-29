@@ -1,10 +1,8 @@
-End User / Admin / Architecture (???)
-===================================================
-
 **For:** us: mk & hb
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :hidden:
 
    end-user-options
    admin-options
