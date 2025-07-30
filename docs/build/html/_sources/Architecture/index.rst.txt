@@ -1,4 +1,4 @@
-ARCHITECTURE 
+ARCHITECTURE
 ==============
 
 **For:** Developers, system architects
