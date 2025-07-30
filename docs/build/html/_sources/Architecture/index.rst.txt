@@ -4,12 +4,175 @@ ARCHITECTURE
 **For:** Developers, system architects
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 0
    
-  
+
+
+
+Setup
+----------
+
+Here is the complete data flow through the FIONA system, from initial DICOM reception to final transfer to research PACS.
+
+.. mermaid::
+
+   flowchart TB
+       PACS[Clinical PACS - DICOM Source]
+       StoreSCP[storescpFIONA - DICOM SCP]
+       NamedPipe((Named Pipe))
+       Arrived[Job Directory]
+       
+       ProcessDaemon[processSingleFile3.py]
+       ClassifyRules[classifyRules.json]
+       RawData[/data/site/raw/]
+       SymLinks[Symbolic Links]
+       
+       DetectStudy[detectStudyArrival.sh]
+       StudyJob[Study Job Directory]
+       Anonymize[anonymize.sh]
+       Archive[/data/site/archive/]
+       
+       AnonSend[anonymizeAndSend.py]
+       REDCap[REDCap API]
+       TransferReq[Transfer Requests]
+       
+       SendFiles[sendFiles.sh]
+       Outbox[/data/outbox/]
+       ResPACS[Research PACS]
+       DAIC[/data/DAIC/]
+       
+       PACS --> StoreSCP
+       StoreSCP --> NamedPipe
+       StoreSCP --> Arrived
+       NamedPipe --> ProcessDaemon
+       ProcessDaemon --> ClassifyRules
+       ProcessDaemon --> RawData
+       RawData --> SymLinks
+       
+       Arrived --> DetectStudy
+       DetectStudy --> StudyJob
+       SymLinks --> StudyJob
+       StudyJob --> Anonymize
+       Anonymize --> Archive
+       
+       Archive --> AnonSend
+       REDCap --> AnonSend
+       AnonSend --> TransferReq
+       TransferReq --> SendFiles
+       
+       SendFiles --> Outbox
+       Outbox --> ResPACS
+       ResPACS --> DAIC
+
+
+Folder and File structure
+--------------------------
+
+.. raw:: html
+
+   <pre>
+   /home/processing/
+   |          ├── bin/
+   │               ├── <a href="scripts/anonymizeAndSend.html">anonymizeAndSend.py</a>
+   │               ├── <a href="scripts/clearExports.html">clearExports.sh</a>
+   │               ├── <a href="scripts/clearOldFiles.html">clearOldFiles.sh</a>
+   │               ├── <a href="scripts/clearStaleLinks.html">clearStaleLinks.sh</a>
+   │               ├── <a href="scripts/createTransferRequestsForProcessed.html">createTransferRequestsForProcessed.py</a>
+   │               ├── <a href="scripts/createTransferRequests.html">createTransferRequests.py</a>
+   │               ├── <a href="scripts/populateAutoID.html">populateAutoID.py</a>
+   │               ├── <a href="scripts/populateIncoming.html">populateIncoming.py</a>
+   │               ├── <a href="scripts/populateProjects.html">populateProjects.py</a>
+   │               └── utils/
+   │                      ├── <a href="scripts/getAllPatients2.html">getAllPatients2.sh</a>
+   │                      ├── <a href="scripts/parseAllPatients.html">parseAllPatients.sh</a>
+   │                      ├── <a href="scripts/resendProject.html">resendProject.py</a>
+   │                      ├── <a href="scripts/whatIsInIDS7.html">whatIsInIDS7.py</a>
+   │                      └── <a href="scripts/whatIsNotInIDS7.html">whatIsNotInIDS7.py</a>
+   │
+   /var/
+     └── www/
+          └── html/
+                ├── applications/
+                │          ├── Assign/
+                │          │     └── <a href="scripts/removeOldEntries.html">removeOldEntries.sh</a>
+                │          ├── Attach/
+                │          │     └── <a href="scripts/process_tiff.html">process_tiff.sh</a>
+                │          ├── Exports/
+                │          │     └── <a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
+                │          ├── User/
+                │          │     └── asttt/
+                │          │            └── code/
+                │          │                  └── <a href="scripts/cron.html">cron.sh</a>
+                │          └── Workflows/
+                │                 └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
+                │
+                └── server/
+                       └── bin/
+                           ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
+                           ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
+                           ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
+                           ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
+                           ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
+                           ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
+                           └── <a href="scripts/storectl.html">storectl.sh</a>
+   </pre>
+
+
+Files Listed Alphabetically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    
-Overview
---------
+.. toctree::
+   :maxdepth: 0
+     
+   scripts/anonymizeAndSend.rst
+   scripts/clearExports.rst
+   scripts/clearOldFiles.rst
+   scripts/clearStaleLinks.rst
+   scripts/createTransferRequestsForProcessed.rst
+   scripts/createTransferRequests.rst
+   scripts/createZipFileCmd.rst
+   scripts/cron.rst
+   scripts/detectStudyArrival.rst
+   scripts/getAllPatients2.rst
+   scripts/heartbeat.rst
+   scripts/moveFromScanner.rst
+   scripts/mppsctl.rst
+   scripts/parseAllPatients.rst
+   scripts/populateAutoID.rst
+   scripts/populateIncoming.rst
+   scripts/populateProjects.rst
+   scripts/processSingleFile3.rst
+   scripts/process_tiff.rst
+   scripts/removeOldEntries.rst
+   scripts/resendProject.rst
+   scripts/runOneJob.rst
+   scripts/sendFiles.rst
+   scripts/storectl.rst
+   scripts/whatIsInIDS7.rst
+   scripts/whatIsNotInIDS7.rst
+
+
+Data Storage Structure
+----------------------
+
+The FIONA system uses a hierarchical storage structure:
+
+.. code-block:: text
+
+    /data/
+    ├── site/
+    │   ├── .arrived/          # Initial file reception
+    │   ├── archive/           # Raw DICOM storage
+    │   ├── raw/              # Processed DICOM files
+    │   └── output/           # Processing results
+    ├── config/               # Configuration files
+    └── logs/                 # System logs
+
+Project-specific directories follow the pattern:
+/data{PROJECT}/site/...
+
+Fiona Layers
+-------------
 
 The architecture of Fiona sysetem can be included included into a few layers: network layer, processing layer, storage layer, transfer layer and management layer
 
@@ -76,181 +239,7 @@ The architecture of Fiona sysetem can be included included into a few layers: ne
         class Anonymize,SendFiles,ResPACS,REDCap transfer
         class Management mgmt
         class NamedPipe pipe
+  
 
 
-
-System Purpose
---------------
-
-FIONA serves as an intermediary system that:
-
-* Receives medical image data from clinical PACS systems
-* Processes and classifies incoming DICOM studies
-* Anonymizes data according to research requirements
-* Manages data transfer back to research PACS systems
-* Provides project-specific data organization
-
-
-
-
-Data Storage Structure
-----------------------
-
-The FIONA system uses a hierarchical storage structure:
-
-.. code-block:: text
-
-    /data/
-    ├── site/
-    │   ├── .arrived/          # Initial file reception
-    │   ├── archive/           # Raw DICOM storage
-    │   ├── raw/              # Processed DICOM files
-    │   └── output/           # Processing results
-    ├── config/               # Configuration files
-    └── logs/                 # System logs
-
-Project-specific directories follow the pattern:
-/data{PROJECT}/site/...
-
-
-Data Flow
-----------
-
-This document describes the complete data flow through the FIONA system, from initial DICOM reception to final transfer to research PACS.
-
-Data flow overwie (ver.1 - detailed)
-
-.. mermaid::
-
-   flowchart TB
-       PACS[Clinical PACS - DICOM Source]
-       StoreSCP[storescpFIONA - DICOM SCP]
-       NamedPipe((Named Pipe))
-       Arrived[Job Directory]
-       
-       ProcessDaemon[processSingleFile3.py]
-       ClassifyRules[classifyRules.json]
-       RawData[/data/site/raw/]
-       SymLinks[Symbolic Links]
-       
-       DetectStudy[detectStudyArrival.sh]
-       StudyJob[Study Job Directory]
-       Anonymize[anonymize.sh]
-       Archive[/data/site/archive/]
-       
-       AnonSend[anonymizeAndSend.py]
-       REDCap[REDCap API]
-       TransferReq[Transfer Requests]
-       
-       SendFiles[sendFiles.sh]
-       Outbox[/data/outbox/]
-       ResPACS[Research PACS]
-       DAIC[/data/DAIC/]
-       
-       PACS --> StoreSCP
-       StoreSCP --> NamedPipe
-       StoreSCP --> Arrived
-       NamedPipe --> ProcessDaemon
-       ProcessDaemon --> ClassifyRules
-       ProcessDaemon --> RawData
-       RawData --> SymLinks
-       
-       Arrived --> DetectStudy
-       DetectStudy --> StudyJob
-       SymLinks --> StudyJob
-       StudyJob --> Anonymize
-       Anonymize --> Archive
-       
-       Archive --> AnonSend
-       REDCap --> AnonSend
-       AnonSend --> TransferReq
-       TransferReq --> SendFiles
-       
-       SendFiles --> Outbox
-       Outbox --> ResPACS
-       ResPACS --> DAIC
-
-
-Folder and File structure
---------------------------
-
-.. raw:: html
-
-   <pre>
-   Fiona/
-   ├── bin/
-   │     ├── <a href="scripts/anonymizeAndSend.html">anonymizeAndSend.py</a>
-   │     ├── <a href="scripts/clearExports.html">clearExports.sh</a>
-   │     ├── <a href="scripts/clearOldFiles.html">clearOldFiles.sh</a>
-   │     ├── <a href="scripts/clearStaleLinks.html">clearStaleLinks.sh</a>
-   │     ├── <a href="scripts/createTransferRequestForProcessed.html">createTransferRequestForProcessed.py</a>
-   │     ├── <a href="scripts/createTransferRequest.html">createTransferRequest.py</a>
-   │     ├── <a href="scripts/populateAutoID.html">populateAutoID.py</a>
-   │     ├── <a href="scripts/populateIncoming.html">populateIncoming.py</a>
-   │     ├── <a href="scripts/populateProjects.html">populateProjects.py</a>
-   │     └── utils/
-   │            ├── <a href="scripts/getAllPatients2.html">getAllPatients2.sh</a>
-   │            ├── <a href="scripts/parseAllPatients.html">parseAllPatients.sh</a>
-   │            ├── <a href="scripts/resendProject.html">resendProject.py</a>
-   │            ├── <a href="scripts/whatIsInIDS7.html">whatIsInIDS7.py</a>
-   │            └── <a href="scripts/whatIsNotInIDS7.html">whatIsNotInIDS7.py</a>
-   │
-   └── var/
-       └── www/
-           └── html/
-               ├── applications/
-               │   ├── Assign/
-               │   │       └── <a href="scripts/removeOldEntries.html">removeOldEntries.sh</a>
-               │   ├── Attach/
-               │   │   └── <a href="scripts/process_tiff.html">process_tiff.sh</a>
-               │   ├── Exports/
-               │   │       └── <a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
-               │   ├── User/
-               │   │   └── asttt/
-               │   │       └── code/
-               │   │           └── <a href="scripts/cron.html">cron.sh</a>
-               │   └── Workflows/
-               │           └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
-               │
-               └── server/
-                   └── bin/
-                       ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
-                       ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
-                       ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
-                       ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
-                       ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
-                       ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
-                       └── <a href="scripts/storectl.html">storectl.sh</a>
-   </pre>
-
-
-.. toctree::
-   :maxdepth: 1
-   
-   scripts/anonymizeAndSend
-   scripts/clearExports
-   scripts/clearOldFiles
-   scripts/clearStaleLinks
-   scripts/createTransferRequestForProcessed
-   scripts/createTransferRequest
-   scripts/createZipFileCmd
-   scripts/cron
-   scripts/detectStudyArrival
-   scripts/getAllPatients2
-   scripts/heartbeat
-   scripts/moveFromScanner
-   scripts/mppsctl
-   scripts/parseAllPatients
-   scripts/populateAutoID
-   scripts/populateIncoming
-   scripts/populateProjects
-   scripts/processSingleFile3
-   scripts/process_tiff
-   scripts/removeOldEntries
-   scripts/resendProject
-   scripts/runOneJob
-   scripts/sendFiles
-   scripts/storectl
-   scripts/whatIsInIDS7
-   scripts/whatIsNotInIDS7
 

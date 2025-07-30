@@ -7,6 +7,19 @@ LEARN
    :maxdepth: 1
 
 
+Fiona system
+--------------
+
+FIONA serves as an intermediary system that:
+
+* Receives medical image data from clinical PACS systems
+* Processes and classifies incoming DICOM studies
+* Anonymizes data according to research requirements
+* Manages data transfer back to research PACS systems
+* Provides project-specific data organization
+
+
+
 1. Project creation, setup and access
 ----------------------------------------
 
