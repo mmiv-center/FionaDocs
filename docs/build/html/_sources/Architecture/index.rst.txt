@@ -96,7 +96,7 @@ Folder and File structure
 
    <pre>
    /home/processing/
-   |          ├── bin/
+   |          └── bin/
    │               ├── <a href="scripts/anonymizeAndSend.html">anonymizeAndSend.py</a>
    │               ├── <a href="scripts/clearExports.html">clearExports.sh</a>
    │               ├── <a href="scripts/clearOldFiles.html">clearOldFiles.sh</a>
