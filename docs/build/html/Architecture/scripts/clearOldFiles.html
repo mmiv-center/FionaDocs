@@ -117,13 +117,10 @@
              
   <section id="clearoldfiles-sh">
 <h1>clearOldFiles.sh<a class="headerlink" href="#clearoldfiles-sh" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>clearOldFiles.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>find . -type d -maxdepth 1 -printf ‘%T+ “%p”n’ | sort | less</p>
 <p>delete oldest files until we have at least 20% free space on this partition</p>
 <p>TODO: delete links in /data/site/participants/</p>
 <p>TODO: delete links in /data/site/srs/</p>
-</section>
 </section>
 
 

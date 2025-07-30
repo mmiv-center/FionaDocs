@@ -58,8 +58,8 @@
 <li class="toctree-l4"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestProcessed.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequest.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestsForProcessed.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequests.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cron.html">cron.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
@@ -117,8 +117,6 @@
              
   <section id="heartbeat-sh">
 <h1>heartbeat.sh<a class="headerlink" href="#heartbeat-sh" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>heartbeat.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>create a heart beat for the storescp</p>
 <p>One way it can fail is if multiple associations are requested.</p>
 <p>If the timeout happens the connection will be unusable afterwards.</p>
@@ -127,7 +125,6 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*/1 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/heartbeat.sh
 </pre></div>
 </div>
-</section>
 </section>
 
 

@@ -58,8 +58,8 @@
 <li class="toctree-l4"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestProcessed.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequest.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestsForProcessed.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequests.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cron.html">cron.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
@@ -117,8 +117,6 @@
              
   <section id="sendfiles-sh">
 <h1>sendFiles.sh<a class="headerlink" href="#sendfiles-sh" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>sendFiles.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Example crontab entry that starts this script every 30 minutes</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*/30 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/sendFiles.sh
 </pre></div>
@@ -128,7 +126,6 @@
 </pre></div>
 </div>
 <p>This script is supposed to send compressed data files for DICOM and k-space to the DAIC endpoint using sftp. All data in the /data/outbox directory will be send using local and DAIC md5sum files.</p>
-</section>
 </section>
 
 

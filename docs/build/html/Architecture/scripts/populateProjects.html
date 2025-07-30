@@ -58,8 +58,8 @@
 <li class="toctree-l4"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestProcessed.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequest.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestsForProcessed.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequests.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cron.html">cron.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
@@ -117,13 +117,10 @@
              
   <section id="populateprojects-py">
 <h1>populateProjects.py<a class="headerlink" href="#populateprojects-py" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>populateProjects.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Each study that has been forwarded to PACS should appear in its own REDCap project.</p>
 <p>We can get a list of all transferred studies from incomings transfers. We get a token for the project and add the entry - if it does not exist yet.</p>
 <p>For informatino to appear in the Imaging instrument you need to set it up as a repeating instrument for “Event 1” (not a repeating event!).</p>
 <p>TODO: Without calling for specific projects does not work anymore. We need to get a list of all imaging projects and run them project by project.</p>
-</section>
 </section>
 
 
