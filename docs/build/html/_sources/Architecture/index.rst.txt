@@ -161,8 +161,8 @@ The FIONA system uses a hierarchical storage structure:
 
     /data/
     ├── site/
-    │   ├── .arrived/          # Initial file reception
-    │   ├── archive/           # Raw DICOM storage
+    │   ├── .arrived/         # Initial file reception
+    │   ├── archive/          # Raw DICOM storage
     │   ├── raw/              # Processed DICOM files
     │   └── output/           # Processing results
     ├── config/               # Configuration files

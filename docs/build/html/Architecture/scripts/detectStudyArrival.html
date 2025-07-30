@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>detectStudyArrival &mdash; FionaDocs  documentation</title>
+  <title>detectStudyArrival.sh &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=ac94c67f" />
@@ -65,10 +65,7 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-purpose">System Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#files-listed-alphabetically">Files Listed Alphabetically</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
@@ -79,7 +76,7 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequest.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cron.html">cron.sh</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">detectStudyArrival</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">detectStudyArrival.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="getAllPatients2.html">getAllPatients2.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="heartbeat.html">heartbeat.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="moveFromScanner.html">moveFromScanner.sh</a></li>
@@ -101,6 +98,8 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#fiona-layers">Fiona Layers</a></li>
 </ul>
 </li>
 </ul>
@@ -120,7 +119,7 @@ window.addEventListener("load", () => mermaid.run());
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
-      <li class="breadcrumb-item active">detectStudyArrival</li>
+      <li class="breadcrumb-item active">detectStudyArrival.sh</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/detectStudyArrival.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -130,8 +129,8 @@ window.addEventListener("load", () => mermaid.run());
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="detectstudyarrival">
-<h1>detectStudyArrival<a class="headerlink" href="#detectstudyarrival" title="Link to this heading"></a></h1>
+  <section id="detectstudyarrival-sh">
+<h1>detectStudyArrival.sh<a class="headerlink" href="#detectstudyarrival-sh" title="Link to this heading"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.</p>
 <p><strong>The Main Dependences:</strong></p>
 <div class="line-block">
@@ -287,8 +286,8 @@ class G,H inputFile" />
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/</span></code> - Log file location</div>
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/</span></code> - Lock file directory</div>
 </div>
-<section id="detectstudyarrival-sh">
-<h2>detectStudyArrival.sh<a class="headerlink" href="#detectstudyarrival-sh" title="Link to this heading"></a></h2>
+<section id="id1">
+<h2>detectStudyArrival.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>check the study job directory created by receiveSingleFile.sh</p>
 <p>if the file is old enough process it using the information provided</p>
 <p>Add this to “crontab -e” to check every 15 seconds if a new job arrived.

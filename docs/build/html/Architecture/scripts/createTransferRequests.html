@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>createTransferRequest.py &mdash; FionaDocs  documentation</title>
+  <title>createTransferRequests.py &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=ac94c67f" />
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="createZipFileCmd.php" href="createZipFileCmd.html" />
-    <link rel="prev" title="createTransferRequestProcessed.py" href="createTransferRequestsForProcessed.html" /> 
+    <link rel="prev" title="createTransferRequestsForProcessed.py" href="createTransferRequestsForProcessed.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,21 +51,18 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-purpose">System Purpose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#files-listed-alphabetically">Files Listed Alphabetically</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestProcessed.py</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">createTransferRequest.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestsForProcessed.py</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">createTransferRequests.py</a></li>
 <li class="toctree-l4"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cron.html">cron.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival</a></li>
+<li class="toctree-l4"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="getAllPatients2.html">getAllPatients2.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="heartbeat.html">heartbeat.sh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="moveFromScanner.html">moveFromScanner.sh</a></li>
@@ -87,6 +84,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#fiona-layers">Fiona Layers</a></li>
 </ul>
 </li>
 </ul>
@@ -106,7 +105,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
-      <li class="breadcrumb-item active">createTransferRequest.py</li>
+      <li class="breadcrumb-item active">createTransferRequests.py</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/createTransferRequests.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -116,16 +115,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="createtransferrequest-py">
-<h1>createTransferRequest.py<a class="headerlink" href="#createtransferrequest-py" title="Link to this heading"></a></h1>
+  <section id="createtransferrequests-py">
+<h1>createTransferRequests.py<a class="headerlink" href="#createtransferrequests-py" title="Link to this heading"></a></h1>
+<section id="createtransferrequest-py">
+<h2>createTransferRequest.py<a class="headerlink" href="#createtransferrequest-py" title="Link to this heading"></a></h2>
 <p>There is no docstring.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="createTransferRequestsForProcessed.html" class="btn btn-neutral float-left" title="createTransferRequestProcessed.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="createTransferRequestsForProcessed.html" class="btn btn-neutral float-left" title="createTransferRequestsForProcessed.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="createZipFileCmd.html" class="btn btn-neutral float-right" title="createZipFileCmd.php" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
