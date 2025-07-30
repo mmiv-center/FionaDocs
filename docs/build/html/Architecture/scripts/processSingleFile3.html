@@ -33,9 +33,7 @@ window.addEventListener("load", () => mermaid.run());
 </script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="process_tiff.sh" href="process_tiff.html" />
-    <link rel="prev" title="populateProjects.py" href="populateProjects.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,45 +61,8 @@ window.addEventListener("load", () => mermaid.run());
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ServerAdmin/index.html">ADMINISTRATION</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html#files-listed-alphabetically">Files Listed Alphabetically</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="anonymizeAndSend.html">anonymizeAndSend.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="clearExports.html">clearExports.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="clearOldFiles.html">clearOldFiles.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="clearStaleLinks.html">clearStaleLinks.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequestsForProcessed.html">createTransferRequestsForProcessed.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createTransferRequests.html">createTransferRequests.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="createZipFileCmd.html">createZipFileCmd.php</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cron.html">cron.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="detectStudyArrival.html">detectStudyArrival.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="getAllPatients2.html">getAllPatients2.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="heartbeat.html">heartbeat.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="moveFromScanner.html">moveFromScanner.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="mppsctl.html">mppsctl.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="parseAllPatients.html">parseAllPatients.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="populateAutoID.html">populateAutoID.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="populateIncoming.html">populateIncoming.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="populateProjects.html">populateProjects.py</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">processSingleFile3.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="process_tiff.html">process_tiff.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="removeOldEntries.html">removeOldEntries.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="resendProject.html">resendProject.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="runOneJob.html">runOneJob.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sendFiles.html">sendFiles.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="storectl.html">storectl.sh</a></li>
-<li class="toctree-l4"><a class="reference internal" href="whatIsInIDS7.html">whatIsInIDS7.py</a></li>
-<li class="toctree-l4"><a class="reference internal" href="whatIsNotInIDS7.html">whatIsNotInIDS7.py</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#fiona-layers">Fiona Layers</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a></li>
 </ul>
 
         </div>
@@ -118,7 +79,6 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">processSingleFile3.py</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/processSingleFile3.rst.txt" rel="nofollow"> View page source</a>
@@ -288,6 +248,9 @@ class PID,LOG,JSON,LINKS,DIRS outputFile" />
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">../logs/</span></code> - Log files directory</div>
 <div class="line">- <code class="docutils literal notranslate"><span class="pre">../.pids/</span></code> - Process ID files directory</div>
 </div>
+<p>Script docstring starts here —&gt;&gt;&gt;
+–&gt;&gt;
+–&gt;&gt;</p>
 <p>Create a daemon process that listens to send messages and reads a DICOM file,
 extracts the header information and creates a Study/Series symbolic link structure.</p>
 <dl class="simple">
@@ -299,10 +262,7 @@ extracts the header information and creates a Study/Series symbolic link structu
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="populateProjects.html" class="btn btn-neutral float-left" title="populateProjects.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="process_tiff.html" class="btn btn-neutral float-right" title="process_tiff.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

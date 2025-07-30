@@ -17,6 +17,20 @@
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -79,6 +93,68 @@
   <section id="fiona-documentation">
 <h1>FIONA Documentation<a class="headerlink" href="#fiona-documentation" title="Link to this heading"></a></h1>
 <p>FIONA (Flash-based Input/Output Network Appliance) - A secure research data gateway for medical imaging. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring GDPR compliance.</p>
+<p>The architecture of Fiona sysetem can be included included into a few layers: network layer, processing layer, storage layer, transfer layer and management layer</p>
+<img src="_images/mermaid-4988ce419744bfb9f969fef2cdd72d109cda4494.png" alt="flowchart TD
+    subgraph network [&quot; Network Layer &quot;]
+        PACS[📡 Clinical PACS&lt;br/&gt;DICOM Source]
+        StoreSCP[📥 storescpFIONA&lt;br/&gt;DICOM SCP]
+    end
+
+    subgraph processing [&quot; Processing Layer &quot;]
+        ProcessFile[🔄 processSingleFile3.py&lt;br/&gt;DICOM Processing]
+        DetectStudy[🔍 detectStudyArrival.sh&lt;br/&gt;Study Detection]
+        Classification[⚙️ Classification&lt;br/&gt;Rule Engine]
+        NamedPipe((Named Pipe))
+    end
+
+    subgraph storage [&quot; Storage Layer &quot;]
+        FileSystem[💾 File System&lt;br/&gt;/data/site/]
+        SymLinks[🔗 Symbolic Links&lt;br/&gt;Study/Series]
+    end
+
+    subgraph transfer [&quot; Transfer Layer &quot;]
+        Anonymize[🔒 anonymizeAndSend.py&lt;br/&gt;Anonymization]
+        SendFiles[📤 sendFiles.sh&lt;br/&gt;SFTP Transfer]
+        ResPACS[🏥 Research PACS&lt;br/&gt;Destination]
+        REDCap[(🗄️ REDCap)]
+    end
+
+    subgraph mgmt [&quot; Management Layer &quot;]
+        Management[⚙️ System Management&lt;br/&gt;heartbeat.sh, cron.sh, monitoring]
+    end
+
+    %% Data Flow
+    PACS --&gt;|DICOM| StoreSCP
+    StoreSCP --&gt;|DICOM Files| ProcessFile
+    ProcessFile --&gt;|metadata| NamedPipe
+    NamedPipe --&gt;|trigger| DetectStudy
+    DetectStudy --&gt;|study info| Classification
+    Classification --&gt;|classification| SymLinks
+    FileSystem --&gt;|files| SymLinks
+    SymLinks --&gt;|study data| Anonymize
+    Anonymize --&gt;|anonymized| SendFiles
+    SendFiles --&gt;|SFTP| ResPACS
+    REDCap --&gt;|consent| Anonymize
+
+    %% Management connections
+    Management -.-&gt;|monitor| StoreSCP
+    Management -.-&gt;|monitor| ProcessFile
+    Management -.-&gt;|monitor| FileSystem
+
+    %% Styling
+    classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef storage fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef transfer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+
+    class PACS,StoreSCP network
+    class ProcessFile,DetectStudy,Classification process
+    class FileSystem,SymLinks storage
+    class Anonymize,SendFiles,ResPACS,REDCap transfer
+    class Management mgmt
+    class NamedPipe pipe" />
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">

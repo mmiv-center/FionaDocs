@@ -187,6 +187,58 @@ Data Flow Overview
       F --> G
       G --> H
       
+Data flow ver. 1
+
+.. mermaid::
+
+   flowchart TB
+       PACS[Clinical PACS - DICOM Source]
+       StoreSCP[storescpFIONA - DICOM SCP]
+       NamedPipe((Named Pipe))
+       Arrived[Job Directory]
+       
+       ProcessDaemon[processSingleFile3.py]
+       ClassifyRules[classifyRules.json]
+       RawData[/data/site/raw/]
+       SymLinks[Symbolic Links]
+       
+       DetectStudy[detectStudyArrival.sh]
+       StudyJob[Study Job Directory]
+       Anonymize[anonymize.sh]
+       Archive[/data/site/archive/]
+       
+       AnonSend[anonymizeAndSend.py]
+       REDCap[REDCap API]
+       TransferReq[Transfer Requests]
+       
+       SendFiles[sendFiles.sh]
+       Outbox[/data/outbox/]
+       ResPACS[Research PACS]
+       DAIC[/data/DAIC/]
+       
+       PACS --> StoreSCP
+       StoreSCP --> NamedPipe
+       StoreSCP --> Arrived
+       NamedPipe --> ProcessDaemon
+       ProcessDaemon --> ClassifyRules
+       ProcessDaemon --> RawData
+       RawData --> SymLinks
+       
+       Arrived --> DetectStudy
+       DetectStudy --> StudyJob
+       SymLinks --> StudyJob
+       StudyJob --> Anonymize
+       Anonymize --> Archive
+       
+       Archive --> AnonSend
+       REDCap --> AnonSend
+       AnonSend --> TransferReq
+       TransferReq --> SendFiles
+       
+       SendFiles --> Outbox
+       Outbox --> ResPACS
+       ResPACS --> DAIC
+      
       
 Data flow diagram (ver.2 - more general)
 

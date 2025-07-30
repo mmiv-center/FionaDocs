@@ -260,6 +260,54 @@ window.addEventListener("load", () => mermaid.run());
     E --&gt; F
     F --&gt; G
     G --&gt; H" />
+<p>Data flow ver. 1</p>
+<img src="../_images/mermaid-12fc7085419961f463017bf9f9db05921e8f031b.png" alt="flowchart TB
+    PACS[Clinical PACS - DICOM Source]
+    StoreSCP[storescpFIONA - DICOM SCP]
+    NamedPipe((Named Pipe))
+    Arrived[Job Directory]
+
+    ProcessDaemon[processSingleFile3.py]
+    ClassifyRules[classifyRules.json]
+    RawData[/data/site/raw/]
+    SymLinks[Symbolic Links]
+
+    DetectStudy[detectStudyArrival.sh]
+    StudyJob[Study Job Directory]
+    Anonymize[anonymize.sh]
+    Archive[/data/site/archive/]
+
+    AnonSend[anonymizeAndSend.py]
+    REDCap[REDCap API]
+    TransferReq[Transfer Requests]
+
+    SendFiles[sendFiles.sh]
+    Outbox[/data/outbox/]
+    ResPACS[Research PACS]
+    DAIC[/data/DAIC/]
+
+    PACS --&gt; StoreSCP
+    StoreSCP --&gt; NamedPipe
+    StoreSCP --&gt; Arrived
+    NamedPipe --&gt; ProcessDaemon
+    ProcessDaemon --&gt; ClassifyRules
+    ProcessDaemon --&gt; RawData
+    RawData --&gt; SymLinks
+
+    Arrived --&gt; DetectStudy
+    DetectStudy --&gt; StudyJob
+    SymLinks --&gt; StudyJob
+    StudyJob --&gt; Anonymize
+    Anonymize --&gt; Archive
+
+    Archive --&gt; AnonSend
+    REDCap --&gt; AnonSend
+    AnonSend --&gt; TransferReq
+    TransferReq --&gt; SendFiles
+
+    SendFiles --&gt; Outbox
+    Outbox --&gt; ResPACS
+    ResPACS --&gt; DAIC" />
 <p>Data flow diagram (ver.2 - more general)</p>
 <img src="../_images/mermaid-80e988bae676d1a7604f1ffbe4815ec3a76aa6a0.png" alt="graph TB
     PACS[Clinical PACS]
