@@ -134,19 +134,23 @@ Folder and File structure
                 |                    └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
                 │
                 └── server/
-                       └── bin/
-                           ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
-                           ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
-                           ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
-                           ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
-                           ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
-                           ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
-                           └── <a href="scripts/storectl.html">storectl.sh</a>
+                       ├── bin/
+                       |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
+                       |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
+                       |    ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
+                       |    ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
+                       |    ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
+                       |    ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
+                       |    └── <a href="scripts/storectl.html">storectl.sh</a>
+                       |
+                       └── utils/
+                             └── <a href="scripts/s2m.html">s2m.sh</a>
+   
    </pre>
 
 
 
-Files Listed Alphabetically
+Components
 -----------------------------
 
 * :doc:`scripts/clearExports`
@@ -171,6 +175,7 @@ Files Listed Alphabetically
 * :doc:`scripts/removeOldEntries`
 * :doc:`scripts/resendProject`
 * :doc:`scripts/runOneJob`
+* :doc:`scripts/s2m`
 * :doc:`scripts/sendFiles`
 * :doc:`scripts/storectl`
 * :doc:`scripts/whatIsInIDS7`

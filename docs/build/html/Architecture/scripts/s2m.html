@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>populateIncoming.py &mdash; FionaDocs  documentation</title>
+  <title>s2m.sh &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=ac94c67f" />
@@ -60,7 +60,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../EndUser/index.html#export-to-project-specific-formats-nifti-and-zip-files">5.2 Export to project specific formats, NIfTI and zip-files</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../EndUser/index.html#research-information-system">Research Information System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../EndUser/index.html#research-information-system">6. Research Information System</a></li>
 </ul>
 </li>
 </ul>
@@ -105,9 +105,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">populateIncoming.py</li>
+      <li class="breadcrumb-item active">s2m.sh</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/Architecture/scripts/populateIncoming.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/Architecture/scripts/s2m.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -115,14 +115,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="populateincoming-py">
-<h1>populateIncoming.py<a class="headerlink" href="#populateincoming-py" title="Link to this heading"></a></h1>
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
-<p>This program fills in the Study and Series information in the Incoming table in REDCap.</p>
-<p>If a CouplingList entry exists its also adding a TransferRequest so that anonymizeAndSend can do its job.</p>
-<p>TODO: support a new CouplingList entry even if there is already a TransferRequest done.</p>
+  <section id="s2m-sh">
+<h1>s2m.sh<a class="headerlink" href="#s2m-sh" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>send to me (s2m)</p></li>
+<li><p>Sends a DICOM directory using the dcmtk docker container from the local machine to the local DICOM node. This script can be used to re-classify DICOM files (creates /data/site/raw and /data/site/participant information).</p></li>
+</ul>
+<p>Usage:</p>
+<blockquote>
+<div><p># Send a single directory with DICOM files
+s2m.sh &lt;DICOM directory to send&gt; [project]</p>
+<p># Send all studies of a single PatientID
+s2m.sh &lt;PatientID&gt; [project]</p>
+<p># send all studies of the last 7 days
+s2m.sh last 7 [project]</p>
+</div></blockquote>
 </section>
 
 

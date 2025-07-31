@@ -157,6 +157,36 @@ for file in "${files4[@]}"; do
   fi
 done
 
+
+# /var/www/html/server/utils
+files5=("s2m.sh");
+
+for file in "${files5[@]}"; do
+  source_file="/var/www/html/server/utils/$file"
+  
+  # Source file validation
+  if [[ ! -e "$source_file" ]]; then
+    echo "*** WARNING: Source file does not exist: $source_file"
+    continue
+  fi
+  
+  if [[ -L "$file" ]]; then
+    echo "*** $file: $MSG_SM_EXISTS"
+  elif [[ -e "$file" ]]; then
+    echo "*** $file: $MSG_FILE_EXISTS"
+  else
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "*** [DRY-RUN] Would create: ln -s $source_file $file"
+    else
+        ln -s "$source_file" "$file"
+    fi
+    echo "*** $file: $MSG_SM_CREATED"
+  fi
+done
+
+
+
+
 echo
 echo "$MSG_FOOTER"
 echo

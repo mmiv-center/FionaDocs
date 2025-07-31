@@ -82,6 +82,14 @@ autodoc_mock_imports = []
 #
 html_theme = 'sphinx_rtd_theme'
 
+html_theme_options = {
+    'navigation_depth': -1,  # Shows all levels
+    'collapse_navigation': False,  # Disables menu collapsing
+    'sticky_navigation': True,  # Menu stays in place when scrolling
+    'includehidden': True,  # Shows hidden elements
+    'titles_only': False  # Shows not only titles
+}
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
