@@ -49,20 +49,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#project-creation-setup-and-access">Project creation, setup and access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#access-to-redcap-for-structured-data">Access to REDCap for structured data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#access-to-the-sectra-dma-forskning-research-pacs-viewer">Access to the “Sectra DMA Forskning” research PACS viewer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#submit-data-to-the-research-information-system">Submit data to the Research Information System</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setup-of-a-new-project">Setup of a new project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-add-image-data">How to add image data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#verification-steps">Verification steps</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#export-image-data-from-research-pacs">Export image data from research PACS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#export-using-ids7">Export using IDS7</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#export-to-project-specific-formats-nifti-and-zip-files">5.2 Export to project specific formats, NIfTI and zip-files</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#research-information-system">6. Research Information System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submit-data-to-the-research-information-system">Submit data to the Research Information System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#export-image-data-from-research-pacs">Export image data from research PACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#research-information-system">Research Information System</a></li>
 </ul>
 </li>
 </ul>
@@ -168,12 +157,9 @@ here: <a class="reference external" href="https://www.google.com">https://www.go
 <li><p>Assign to project on <a class="reference external" href="https://fiona.medtek.hbe.med.nvsl.no/applications/Assign/">https://fiona.medtek.hbe.med.nvsl.no/applications/Assign/</a></p></li>
 </ol>
 <p>In step 1 data arrives in a <strong>quarantine</strong> location. In step 2 each DICOM study needs to be <strong>assigned to project</strong>, pseudonymized participant identifier and event name before it will be forwarded to the research PACS and becomes visible to the project users.</p>
-<section id="setup-of-a-new-project">
-<h3>Setup of a new project<a class="headerlink" href="#setup-of-a-new-project" title="Link to this heading"></a></h3>
+<p><strong>Setup of a new project</strong></p>
 <p>The project needs to exist on the research information system before participant data is collected. After a successful setup your project and event names should appear in the Assign application.</p>
-</section>
-<section id="how-to-add-image-data">
-<h3>How to add image data<a class="headerlink" href="#how-to-add-image-data" title="Link to this heading"></a></h3>
+<p><strong>How to add image data</strong></p>
 <p>The end-point for images is FIONA (<a class="reference external" href="https://fiona.ihelse.no">https://fiona.ihelse.no</a>):</p>
 <ul class="simple">
 <li><p>AETitle: FIONA</p></li>
@@ -195,13 +181,10 @@ confirm the assignment. This will forward a de-identified version of the study d
 Forskning”. If you do not assign your data on Assign they will not be forwarded. After a
 couple of days (7 days) such data will disappear from the list. Send an email to Hauke to request
 a resend.</p>
-<section id="verification-steps">
-<h4>Verification steps<a class="headerlink" href="#verification-steps" title="Link to this heading"></a></h4>
+<p><strong>Verification steps</strong></p>
 <p>After data arrived at the research PACS a verification step should ensure that all images have been received at the quarantine on FIONA and have been forwarded to research PACS. This can be done by comparing the number of images on the sending station with the number of images in IDS7.</p>
 <p>Furthermore the import step will also attempt to de-identify secondary capture images with burned in image information. This process is fully automated and can result in false positive and occasionally false negative results. After a review of the data in IDS7 the user may decide which secondary image series are “safe” to exclude from the pixel rewriting on import. For example a secondary capture series from DTI may not contain any burned in names or identifying numbers or dates. Such image series can be removed in REDCap from further pixel anonymization.</p>
 <p>If the number of images on FIONA does not correspond to the number of images available cache previous assignments and automatically forward such images to the research PACS using the reviously defined project, patient identifier and event name.</p>
-</section>
-</section>
 </section>
 <section id="export-image-data-from-research-pacs">
 <h2>Export image data from research PACS<a class="headerlink" href="#export-image-data-from-research-pacs" title="Link to this heading"></a></h2>
@@ -213,23 +196,19 @@ a resend.</p>
 <p>Pseudonymized data is defined here as data for which a coupling list exists somewhere in the universe. This is in contrast to anonymized data where such a list does not exist and can also not be created.</p>
 </div>
 <p>Further de-identification procedures might require changes to image data such as face stripping, removal of outer ear tissue, cortical folding pattern, etc.. Such potential sources of information for re-identification have been proposed in the literature but actual attacks based on them have not recently been documented. Better documented and perhaps more relevant are re-identification using spreadsheet data where external sources are linked to the projects data to discover the supposedly hidden identity of the research participants. For example it might be possible to link Gender, day of birth and the hospital name to a real participant name using a birth or voting registry.</p>
-<section id="export-using-ids7">
-<h3>Export using IDS7<a class="headerlink" href="#export-using-ids7" title="Link to this heading"></a></h3>
+<p><strong>Export using IDS7</strong></p>
 <p>The image data from a study can be exported from the research PACS using a right-click menu entry available in the Informasjonsvindu “Exporter til medium”. Such exports will generate either a derived patient ID – if an Anonymization Profile is selected or a faithful copy of the data with all pseudonymized DICOM tags intact.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This export does not prevent re-identification. Specifically the PatientID field is created from the pseudonymized ID used in the research PACS and therefore not random.</p>
 </div>
 <p>The export is also case-by-case, which is tedious if many data need to be exported. The export will also result in directory names that do not reflect the research project structure as participant identifier – event name – modality – image series. It may be advantageous to export from IDS7 if a single image study needs to be shared without special requirements. Such export folders will also contain an image viewer.</p>
-</section>
-<section id="export-to-project-specific-formats-nifti-and-zip-files">
-<h3>5.2 Export to project specific formats, NIfTI and zip-files<a class="headerlink" href="#export-to-project-specific-formats-nifti-and-zip-files" title="Link to this heading"></a></h3>
+<p><strong>Export to project specific formats, NIfTI and zip-files</strong></p>
 <p>The research information system supports a separate export facility that is more suited to implement project specific de-identification. Such export requirements include specific DICOM value changes (replacing underscores with dashes), adding birth date information back, formatting and cleaning of series descriptions, zip-file exports with specific folder structures etc.. This export is appropriate if the receiving institution has specific requirements on how data should be shared.</p>
 <p>Request access to the specialized data exports for your project from <a class="reference external" href="mailto:Hauke&#46;Bartsch&#37;&#52;&#48;helse-bergen&#46;no">Hauke<span>&#46;</span>Bartsch<span>&#64;</span>helse-bergen<span>&#46;</span>no</a>. Provide your export specification and we will implement your anonymization scheme and make it available to you and other researchers. As an example the “Export” application currently supports the export in NIfTI formats (using dcm2niix) and the export in several zip-file formats.</p>
 </section>
-</section>
 <section id="research-information-system">
-<h2>6. Research Information System<a class="headerlink" href="#research-information-system" title="Link to this heading"></a></h2>
+<h2>Research Information System<a class="headerlink" href="#research-information-system" title="Link to this heading"></a></h2>
 <p>The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the “Steve Project” is a secure computer system that stores research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the radiology department of Haukeland University Hospital and the Mohn Medical Imaging and Visualization Center and approved for research project use by IKT Helse Vest. The physical location of the data is at the premises of IKT Helse Vest Norway. Dedicated storage area and research software (Sectra, IDS7) provides researchers with appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project and not part of the functionality of the RIS.</p>
 <p>Based on the REK/DIPA rules for each project a lifetime tracking of the research data per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.</p>
 <p>Key features of the RIS include:</p>

@@ -71,13 +71,13 @@ The basic steps to submit data are:
 
 In step 1 data arrives in a **quarantine** location. In step 2 each DICOM study needs to be **assigned to project**, pseudonymized participant identifier and event name before it will be forwarded to the research PACS and becomes visible to the project users.
 
-Setup of a new project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Setup of a new project**
 
 The project needs to exist on the research information system before participant data is collected. After a successful setup your project and event names should appear in the Assign application.
 
-How to add image data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**How to add image data**
 
 The end-point for images is FIONA (`<https://fiona.ihelse.no>`_):
 
@@ -106,8 +106,8 @@ Forskning”. If you do not assign your data on Assign they will not be forwarde
 couple of days (7 days) such data will disappear from the list. Send an email to Hauke to request
 a resend.
 
-Verification steps
-^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Verification steps**
 
 After data arrived at the research PACS a verification step should ensure that all images have been received at the quarantine on FIONA and have been forwarded to research PACS. This can be done by comparing the number of images on the sending station with the number of images in IDS7.
 
@@ -130,8 +130,8 @@ Data stored in the research PACS is therefore in general suited for data sharing
 
 Further de-identification procedures might require changes to image data such as face stripping, removal of outer ear tissue, cortical folding pattern, etc.. Such potential sources of information for re-identification have been proposed in the literature but actual attacks based on them have not recently been documented. Better documented and perhaps more relevant are re-identification using spreadsheet data where external sources are linked to the projects data to discover the supposedly hidden identity of the research participants. For example it might be possible to link Gender, day of birth and the hospital name to a real participant name using a birth or voting registry.
 
-Export using IDS7
-~~~~~~~~~~~~~~~~~~~~~~
+
+**Export using IDS7**
 
 The image data from a study can be exported from the research PACS using a right-click menu entry available in the Informasjonsvindu “Exporter til medium”. Such exports will generate either a derived patient ID – if an Anonymization Profile is selected or a faithful copy of the data with all pseudonymized DICOM tags intact.
 
@@ -141,14 +141,14 @@ The image data from a study can be exported from the research PACS using a right
 
 The export is also case-by-case, which is tedious if many data need to be exported. The export will also result in directory names that do not reflect the research project structure as participant identifier – event name – modality – image series. It may be advantageous to export from IDS7 if a single image study needs to be shared without special requirements. Such export folders will also contain an image viewer.
 
-5.2 Export to project specific formats, NIfTI and zip-files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Export to project specific formats, NIfTI and zip-files**
 
 The research information system supports a separate export facility that is more suited to implement project specific de-identification. Such export requirements include specific DICOM value changes (replacing underscores with dashes), adding birth date information back, formatting and cleaning of series descriptions, zip-file exports with specific folder structures etc.. This export is appropriate if the receiving institution has specific requirements on how data should be shared.
 
 Request access to the specialized data exports for your project from Hauke.Bartsch@helse-bergen.no. Provide your export specification and we will implement your anonymization scheme and make it available to you and other researchers. As an example the “Export” application currently supports the export in NIfTI formats (using dcm2niix) and the export in several zip-file formats.
 
-6. Research Information System
+Research Information System
 --------------------------------
 
 The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the "Steve Project" is a secure computer system that stores research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the radiology department of Haukeland University Hospital and the Mohn Medical Imaging and Visualization Center and approved for research project use by IKT Helse Vest. The physical location of the data is at the premises of IKT Helse Vest Norway. Dedicated storage area and research software (Sectra, IDS7) provides researchers with appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project and not part of the functionality of the RIS.

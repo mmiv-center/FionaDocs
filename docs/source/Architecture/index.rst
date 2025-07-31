@@ -8,10 +8,6 @@ ARCHITECTURE
    
 
 
-
-Setup
-----------
-
 Here is the complete data flow through the FIONA system, from initial DICOM reception to final transfer to research PACS.
 
 
@@ -88,6 +84,19 @@ Legend:
   <span><span style="display:inline-block;width:32px;height:32px;background:#e8f5e8;border:1px solid #ccc;margin-right:5px;"></span>Temporary Data</span>
   </div>
     <br><br>
+
+
+Setup
+-------
+
+.. literalinclude:: config-example.json
+   :language: json
+   :linenos:
+   :emphasize-lines: 3,5
+   :caption: System configuration settings
+   :name: config.json
+
+
 
 Folder and File structure
 --------------------------

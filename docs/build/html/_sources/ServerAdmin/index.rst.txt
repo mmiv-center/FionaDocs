@@ -67,9 +67,8 @@ All other data should be stored in a separate REDCap “Data” project using th
    Sensitive data projects should be split into a REDCap project for data (using pseudonymized ids) and a REDCap project for sensitive data including the coupling list.
 
 
-User rights management
-~~~~~~~~~~~~~~~~~~~~~~~~
 
+**User rights management**
 
 When a project leader / principal investigator (PI) is given a REDCap account and project, they are given “project owner” roles. The project owner can then provide access to project members in “roles”. A role defines a given set of custom permissions which defines the user’s access to data, export permissions and ability to make changes to data.
 
@@ -78,14 +77,13 @@ Each project can have predefined roles. We recommend the predefined roles “Dat
 The user rights management is the responsibility of the project owner and/or the users they add to the project with User Rights access. User roles should be set at the lowest access level that is necessary (e.g., export rights only for users who need this permission). Access to the project should be reviewed regularly and personnel who no longer require access need to be removed from the project.
 
 
-User rights – multi-center projects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**User rights – multi-center projects**
 
 In a project where several institutions participate with their own project participants (several hospitals etc.) each group of participants should be assigned to a separate “data access group”. This functionality allows records in a study to be part of the user rights management. A user with access to a single data access group can only see participants that belong to this group. If this user creates a new participant, they will be automatically assigned to the group.
 
 
-How to handle Email Addresses in Data Projects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**How to handle Email Addresses in Data Projects**
 
 Email addresses are special identifying fields that can be stored in data projects for the purpose of creating automated invites for participants to fill out forms from home. In projects that use this feature email fields need to be present in the data project in order to allow for email distribution to participants.
 
@@ -95,8 +93,7 @@ Email addresses are special identifying fields that can be stored in data projec
 4. Add a field validation as “Email” to prevent some miss-typing of emails.
 
 
-Automatic data exports from REDCap
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Automatic data exports from REDCap**
 
 Data may be exported from REDCap using the REDCap API, a technical interface to automate the export of project and participant information using scripting. To provide such access a dedicated user-account "api_<real username>" should be created which is specific for a single project. Configure the account with a limited set of read permissions to specific fields or instruments using a new API role. The REDCap API will borrow these restrictive permissions for controlled access.
 
@@ -105,8 +102,7 @@ Setup: An administrator can generate an API "token" for this account and share t
 Any change in the role of the <real username> should also apply to the connected API account. Specifically loosing access to the project should be implemented for both <real username> and api_<real username>.
 
 
-Steps at the end of a REDCap project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Steps at the end of a REDCap project**
 
 REDCap is a tool for data collection. At the end of data capture projects using REDCap receive a notification of study end. At this point projects may provide updated REK information(extension of data capture notice). If no such notice is received REDCap projects will:
 

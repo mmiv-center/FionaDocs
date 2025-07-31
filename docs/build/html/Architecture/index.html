@@ -62,19 +62,8 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#project-creation-setup-and-access">Project creation, setup and access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#access-to-redcap-for-structured-data">Access to REDCap for structured data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#access-to-the-sectra-dma-forskning-research-pacs-viewer">Access to the “Sectra DMA Forskning” research PACS viewer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#submit-data-to-the-research-information-system">Submit data to the Research Information System</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../EndUser/index.html#setup-of-a-new-project">Setup of a new project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../EndUser/index.html#how-to-add-image-data">How to add image data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../EndUser/index.html#verification-steps">Verification steps</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#export-image-data-from-research-pacs">Export image data from research PACS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../EndUser/index.html#export-using-ids7">Export using IDS7</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../EndUser/index.html#export-to-project-specific-formats-nifti-and-zip-files">5.2 Export to project specific formats, NIfTI and zip-files</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#submit-data-to-the-research-information-system">Submit data to the Research Information System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#export-image-data-from-research-pacs">Export image data from research PACS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../EndUser/index.html#research-information-system">Research Information System</a></li>
 </ul>
 </li>
@@ -85,14 +74,7 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#features-for-data-migration">Features for data migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#how-to-handle-errors">How to handle errors?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ServerAdmin/index.html#user-rights-management">User rights management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ServerAdmin/index.html#user-rights-multi-center-projects">User rights – multi-center projects</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ServerAdmin/index.html#how-to-handle-email-addresses-in-data-projects">How to handle Email Addresses in Data Projects</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ServerAdmin/index.html#automatic-data-exports-from-redcap">Automatic data exports from REDCap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ServerAdmin/index.html#steps-at-the-end-of-a-redcap-project">Steps at the end of a REDCap project</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a></li>
 </ul>
 </li>
 </ul>
@@ -135,8 +117,6 @@ window.addEventListener("load", () => mermaid.run());
 <p><strong>For:</strong> Developers, system architects</p>
 <div class="toctree-wrapper compound">
 </div>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p>Here is the complete data flow through the FIONA system, from initial DICOM reception to final transfer to research PACS.</p>
 <img src="../_images/mermaid-5d2aec6456f790b9d99bc0a337c49f9343c7cade.png" alt="flowchart TB
 PACS[&quot;Clinical PACS - DICOM Source&quot;]
@@ -204,7 +184,55 @@ class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData" />
  <span><span style="display:inline-block;width:32px;height:32px;background:#fff3e0;border:1px solid #ccc;margin-right:5px;"></span>Scripts & Processes</span>
  <span><span style="display:inline-block;width:32px;height:32px;background:#e8f5e8;border:1px solid #ccc;margin-right:5px;"></span>Temporary Data</span>
  </div>
-   <br><br></section>
+   <br><br><section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<div class="literal-block-wrapper docutils container" id="config-json">
+<div class="code-block-caption"><span class="caption-text">System configuration settings</span><a class="headerlink" href="#config-json" title="Link to this code"></a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;DICOMIP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_dicom_server_ip&quot;</span><span class="p">,</span>
+<span class="hll"><span class="linenos"> 3</span><span class="w">    </span><span class="nt">&quot;DICOMPORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dicom_port&quot;</span><span class="p">,</span>
+</span><span class="linenos"> 4</span><span class="w">    </span><span class="nt">&quot;DICOMAETITLE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FIONA&quot;</span><span class="p">,</span>
+<span class="hll"><span class="linenos"> 5</span><span class="w">    </span><span class="nt">&quot;SCANNERIP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scanner_ip&quot;</span><span class="p">,</span>
+</span><span class="linenos"> 6</span><span class="w">    </span><span class="nt">&quot;SCANNERPORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scanner_port&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="nt">&quot;SCANNERAETITLE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scanner_application_entity_title&quot;</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="nt">&quot;SCANNERTYPE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scanner_device_type&quot;</span><span class="p">,</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nt">&quot;MPPSPORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;modality_performed_procedure_step_port&quot;</span><span class="p">,</span>
+<span class="linenos">10</span><span class="w">    </span><span class="nt">&quot;SERVERUSER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;server_user_name&quot;</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">    </span><span class="nt">&quot;DAICSERVER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daic_server_ip&quot;</span><span class="p">,</span>
+<span class="linenos">12</span><span class="w">    </span><span class="nt">&quot;PFILEDIR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/your/profile/directory&quot;</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">    </span><span class="nt">&quot;CONNECTION&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">    </span><span class="nt">&quot;DATADIR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/data/dir&quot;</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">    </span><span class="nt">&quot;LOCALTIMEZONE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_local_zone&quot;</span><span class="p">,</span>
+<span class="linenos">16</span><span class="w">    </span><span class="nt">&quot;PROCESSING_USER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;processing_user_name&quot;</span><span class="p">,</span>
+<span class="linenos">17</span><span class="w">    </span><span class="nt">&quot;PROJECTTOKEN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_project_token&quot;</span><span class="p">,</span>
+<span class="linenos">18</span><span class="w">    </span><span class="nt">&quot;Authentication&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">19</span><span class="w">	</span><span class="nt">&quot;Table-based&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">},</span>
+<span class="linenos">20</span><span class="w">	</span><span class="nt">&quot;LDAP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos">21</span><span class="w">	    </span><span class="p">{</span>
+<span class="linenos">22</span><span class="w">		</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">23</span><span class="w">		</span><span class="nt">&quot;connection&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">24</span><span class="w">		</span><span class="nt">&quot;certificate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">25</span><span class="w">		</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">26</span><span class="w">		</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">27</span><span class="w">		</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">28</span><span class="w">		</span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span>
+<span class="linenos">29</span><span class="w">	    </span><span class="p">},</span>
+<span class="linenos">30</span><span class="w">	    </span><span class="p">{</span>
+<span class="linenos">31</span><span class="w">		</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">32</span><span class="w">		</span><span class="nt">&quot;connection&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">33</span><span class="w">		</span><span class="nt">&quot;certificate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">34</span><span class="w">		</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">35</span><span class="w">		</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">36</span><span class="w">		</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
+<span class="linenos">37</span><span class="w">		</span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span>
+<span class="linenos">38</span><span class="w">	    </span><span class="p">}</span>
+<span class="linenos">39</span><span class="w">	</span><span class="p">]</span>
+<span class="linenos">40</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">41</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
 <section id="folder-and-file-structure">
 <h2>Folder and File structure<a class="headerlink" href="#folder-and-file-structure" title="Link to this heading"></a></h2>
 <pre>

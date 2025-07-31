@@ -1,15 +1,15 @@
 FIONA Documentation
 ===================
 
-FIONA (Flash-based Input/Output Network Appliance) - A secure research data gateway for medical imaging. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring GDPR compliance.
+FIONA (Flash-based Input/Output Network Appliance) - A secure research data gateway for medical imaging. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance.
 
-The architecture of Fiona sysetem can be included included into a few layers: network layer, processing layer, storage layer, transfer layer and management layer
+The architecture of the Fiona system consists of several layers: network layer, processing layer, storage layer, transfer layer and management layer.
 
 .. mermaid::    
     
     flowchart TD
         subgraph network [" Network Layer "]
-            PACS[📡 Clinical PACS<br/>DICOM Source]
+            PACS[📡 Clinical PACS<br/>DICOM File Source]
             StoreSCP[📥 storescpFIONA<br/>DICOM SCP]
         end
         

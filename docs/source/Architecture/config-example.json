@@ -1,0 +1,41 @@
+{
+    "DICOMIP": "your_dicom_server_ip",
+    "DICOMPORT": "dicom_port",
+    "DICOMAETITLE": "FIONA",
+    "SCANNERIP": "scanner_ip",
+    "SCANNERPORT": "scanner_port",
+    "SCANNERAETITLE": "scanner_application_entity_title",
+    "SCANNERTYPE": "scanner_device_type",
+    "MPPSPORT": "modality_performed_procedure_step_port",
+    "SERVERUSER": "server_user_name",
+    "DAICSERVER": "daic_server_ip",
+    "PFILEDIR": "/path/to/your/profile/directory",
+    "CONNECTION": "",
+    "DATADIR": "/path/to/data/dir",
+    "LOCALTIMEZONE": "your_local_zone",
+    "PROCESSING_USER": "processing_user_name",
+    "PROJECTTOKEN": "your_project_token",
+    "Authentication": {
+	"Table-based": { "enabled": 1 },
+	"LDAP": [
+	    {
+		"enabled": 0,
+		"connection": "your_value",
+		"certificate": "your_value",
+		"username": "your_value",
+		"password": "your_value",
+		"query": "your_value",
+		"dn": "your_value"
+	    },
+	    {
+		"enabled": 1,
+		"connection": "your_value",
+		"certificate": "your_value",
+		"username": "your_value",
+		"password": "your_value",
+		"query": "your_value",
+		"dn": "your_value"
+	    }
+	]
+    }
+}
