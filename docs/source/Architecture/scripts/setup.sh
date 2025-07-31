@@ -134,6 +134,8 @@ files4=("Assign/php/removeOldEntries.sh"
 
 for file in "${files4[@]}"; do
   source_file="/var/www/html/applications/$file"
+  # we need to extract only file name from the subpath
+    filename="${file##*/}"
   
   # Source file validation
   if [[ ! -e "$source_file" ]]; then
@@ -141,13 +143,11 @@ for file in "${files4[@]}"; do
     continue
   fi
   
-  if [[ -L "$file" ]]; then
-    echo "*** $file: $MSG_SM_EXISTS"
-  elif [[ -e "$file" ]]; then
-    echo "*** $file: $MSG_FILE_EXISTS"
+  if [[ -L "$filename" ]]; then
+    echo "*** $filename: $MSG_SM_EXISTS"
+  elif [[ -e "$filename" ]]; then
+    echo "*** $filename: $MSG_FILE_EXISTS"
   else
-    # we need to extract only file name from the subpath
-    filename="${file##*/}"
     if [[ "$DRY_RUN" == "true" ]]; then
         echo "*** [DRY-RUN] Would create: ln -s $source_file $filename"
     else
