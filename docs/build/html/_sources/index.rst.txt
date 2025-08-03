@@ -1,38 +1,38 @@
 FIONA Documentation
 ===================
 
-FIONA (Flash-based Input/Output Network Appliance) - A secure research data gateway for medical imaging. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance.
+**FIONA** is a comprehensive medical imaging data management and processing platform designed for healthcare research environments. The system handles DICOM medical imaging data throughout its entire lifecycle - from initial acquisition at imaging scanners to final anonymized export for research purposes. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance. 
 
-The architecture of the Fiona system consists of several layers: network layer, processing layer, storage layer, transfer layer and management layer.
+**The architecture** of the Fiona system can be divided into five layers: network layer, processing layer, storage layer, transfer layer and management layer.
 
 .. mermaid::    
     
     flowchart TD
-        subgraph network [" Network Layer "]
+        subgraph network [" <b>Network Layer</b> "]
             PACS[📡 Clinical PACS<br/>DICOM File Source]
             StoreSCP[📥 storescpFIONA<br/>DICOM SCP]
         end
         
-        subgraph processing [" Processing Layer "]
+        subgraph processing [" <b>Processing Layer</b> "]
             ProcessFile[🔄 processSingleFile3.py<br/>DICOM Processing]
             DetectStudy[🔍 detectStudyArrival.sh<br/>Study Detection]
             Classification[⚙️ Classification<br/>Rule Engine]
             NamedPipe((Named Pipe))
         end
         
-        subgraph storage [" Storage Layer "]
+        subgraph storage [" <b>Storage Layer</b> "]
             FileSystem[💾 File System<br/>/data/site/]
             SymLinks[🔗 Symbolic Links<br/>Study/Series]
         end
         
-        subgraph transfer [" Transfer Layer "]
+        subgraph transfer [" <b>Transfer Layer</b> "]
             Anonymize[🔒 anonymizeAndSend.py<br/>Anonymization]
             SendFiles[📤 sendFiles.sh<br/>SFTP Transfer]
             ResPACS[🏥 Research PACS<br/>Destination]
             REDCap[(🗄️ REDCap)]
         end
         
-        subgraph mgmt [" Management Layer "]
+        subgraph mgmt [" <b>Management Layer</b> "]
             Management[⚙️ System Management<br/>heartbeat.sh, cron.sh, monitoring]
         end
         
@@ -68,6 +68,16 @@ The architecture of the Fiona system consists of several layers: network layer, 
         class Anonymize,SendFiles,ResPACS,REDCap transfer
         class Management mgmt
         class NamedPipe pipe
+
+
+- **Network Layer**: DICOM communication services that receive imaging data from scanners and send to research PACS using standard medical imaging protocols.
+- **Processing Layer**: Core data processing engines that extract metadata, perform anonymization, and execute containerized analysis workflows on medical imaging studies.
+- **Storage Layer**: Organized file system architecture with symbolic links, structured directories, and automated lifecycle management for imaging data and metadata.
+- **Transfer Layer**: Secure data distribution system that creates anonymized exports, manages transfer requests, and delivers data to external research repositories.
+- **Management Layer**: Administrative services including health monitoring, configuration management, audit logging, and automated maintenance operations.
+
+The system operates as a distributed service with daemon processes, cron jobs, and web applications
+working together to provide automated medical imaging research data management.
 
 
 .. EndUser

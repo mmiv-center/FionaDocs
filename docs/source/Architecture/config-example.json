@@ -27,15 +27,6 @@
 		"query": "your_value",
 		"dn": "your_value"
 	    },
-	    {
-		"enabled": 1,
-		"connection": "your_value",
-		"certificate": "your_value",
-		"username": "your_value",
-		"password": "your_value",
-		"query": "your_value",
-		"dn": "your_value"
-	    }
 	]
     }
 }

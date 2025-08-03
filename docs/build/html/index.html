@@ -83,6 +83,8 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l2"><a class="reference internal" href="Architecture/index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Architecture/index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Architecture/index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture/index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture/index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Architecture/index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -114,34 +116,34 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="fiona-documentation">
 <h1>FIONA Documentation<a class="headerlink" href="#fiona-documentation" title="Link to this heading"></a></h1>
-<p>FIONA (Flash-based Input/Output Network Appliance) - A secure research data gateway for medical imaging. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance.</p>
-<p>The architecture of the Fiona system consists of several layers: network layer, processing layer, storage layer, transfer layer and management layer.</p>
-<img src="_images/mermaid-793a13da509d7ba572f024a19c1f8fc264df37eb.png" alt="flowchart TD
-    subgraph network [&quot; Network Layer &quot;]
+<p><strong>FIONA</strong> is a comprehensive medical imaging data management and processing platform designed for healthcare research environments. The system handles DICOM medical imaging data throughout its entire lifecycle - from initial acquisition at imaging scanners to final anonymized export for research purposes. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance.</p>
+<p><strong>The architecture</strong> of the Fiona system can be divided into five layers: network layer, processing layer, storage layer, transfer layer and management layer.</p>
+<img src="_images/mermaid-fa5d0497195ed68246d643b448ad5e1186c6025f.png" alt="flowchart TD
+    subgraph network [&quot; &lt;b&gt;Network Layer&lt;/b&gt; &quot;]
         PACS[📡 Clinical PACS&lt;br/&gt;DICOM File Source]
         StoreSCP[📥 storescpFIONA&lt;br/&gt;DICOM SCP]
     end
 
-    subgraph processing [&quot; Processing Layer &quot;]
+    subgraph processing [&quot; &lt;b&gt;Processing Layer&lt;/b&gt; &quot;]
         ProcessFile[🔄 processSingleFile3.py&lt;br/&gt;DICOM Processing]
         DetectStudy[🔍 detectStudyArrival.sh&lt;br/&gt;Study Detection]
         Classification[⚙️ Classification&lt;br/&gt;Rule Engine]
         NamedPipe((Named Pipe))
     end
 
-    subgraph storage [&quot; Storage Layer &quot;]
+    subgraph storage [&quot; &lt;b&gt;Storage Layer&lt;/b&gt; &quot;]
         FileSystem[💾 File System&lt;br/&gt;/data/site/]
         SymLinks[🔗 Symbolic Links&lt;br/&gt;Study/Series]
     end
 
-    subgraph transfer [&quot; Transfer Layer &quot;]
+    subgraph transfer [&quot; &lt;b&gt;Transfer Layer&lt;/b&gt; &quot;]
         Anonymize[🔒 anonymizeAndSend.py&lt;br/&gt;Anonymization]
         SendFiles[📤 sendFiles.sh&lt;br/&gt;SFTP Transfer]
         ResPACS[🏥 Research PACS&lt;br/&gt;Destination]
         REDCap[(🗄️ REDCap)]
     end
 
-    subgraph mgmt [&quot; Management Layer &quot;]
+    subgraph mgmt [&quot; &lt;b&gt;Management Layer&lt;/b&gt; &quot;]
         Management[⚙️ System Management&lt;br/&gt;heartbeat.sh, cron.sh, monitoring]
     end
 
@@ -177,6 +179,15 @@ window.addEventListener("load", () => mermaid.run());
     class Anonymize,SendFiles,ResPACS,REDCap transfer
     class Management mgmt
     class NamedPipe pipe" />
+<ul class="simple">
+<li><p><strong>Network Layer</strong>: DICOM communication services that receive imaging data from scanners and send to research PACS using standard medical imaging protocols.</p></li>
+<li><p><strong>Processing Layer</strong>: Core data processing engines that extract metadata, perform anonymization, and execute containerized analysis workflows on medical imaging studies.</p></li>
+<li><p><strong>Storage Layer</strong>: Organized file system architecture with symbolic links, structured directories, and automated lifecycle management for imaging data and metadata.</p></li>
+<li><p><strong>Transfer Layer</strong>: Secure data distribution system that creates anonymized exports, manages transfer requests, and delivers data to external research repositories.</p></li>
+<li><p><strong>Management Layer</strong>: Administrative services including health monitoring, configuration management, audit logging, and automated maintenance operations.</p></li>
+</ul>
+<p>The system operates as a distributed service with daemon processes, cron jobs, and web applications
+working together to provide automated medical imaging research data management.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">

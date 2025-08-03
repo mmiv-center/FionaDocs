@@ -83,6 +83,8 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -117,77 +119,129 @@ window.addEventListener("load", () => mermaid.run());
 <p><strong>For:</strong> Developers, system architects</p>
 <div class="toctree-wrapper compound">
 </div>
-<p>Here is the complete data flow through the FIONA system, from initial DICOM reception to final transfer to research PACS.</p>
-<img src="../_images/mermaid-5d2aec6456f790b9d99bc0a337c49f9343c7cade.png" alt="flowchart TB
-PACS[&quot;Clinical PACS - DICOM Source&quot;]
-StoreSCP[&quot;storescpFIONA - DICOM SCP&quot;]
-NamedPipe[(&quot;Named Pipe&quot;)]
-Arrived[&quot;Job Directory&quot;]
+<p><strong>FIONA System Architecture</strong></p>
+<p>A detailed system architecture including all system components is presented below</p>
+<figure class="align-default" id="id1">
+<img src="../_images/mermaid-9da9885c3b19c982e24620080add396e69c99ebf.png" alt="flowchart TD
+     subgraph network [&quot; &lt;b&gt;Network Layer&lt;/b&gt; &quot;]
+         PACS[📡 Clinical PACS&lt;br/&gt;DICOM File Source]
+         StoreSCP[📥 storescpFIONA&lt;br/&gt;DICOM SCP]
+         Scanner[🏥 Scanner Integration&lt;br/&gt;moveFromScanner.sh]
+         MPPS[📋 MPPS Service&lt;br/&gt;mppsctl.sh]
+     end
 
-ProcessDaemon[&quot;processSingleFile3.py&quot;]
-ClassifyRules[&quot;/data/config/classifyRules.json&quot;]
-RawData[&quot;/data/site/raw/&quot;]
-SymLinks[&quot;Symbolic Links&quot;]
+     subgraph processing [&quot; &lt;b&gt;Processing Layer&lt;/b&gt; &quot;]
+         ProcessFile[🔄 processSingleFile3.py&lt;br/&gt;DICOM Processing]
+         DetectStudy[🔍 detectStudyArrival.sh&lt;br/&gt;Study Detection]
+         Classification[⚙️ Classification&lt;br/&gt;Rule Engine]
+         ProcessTiff[🖼️ process_tiff.sh&lt;br/&gt;Pathology + Anonymization]
+         PopulateIncoming[📊 populateIncoming.py&lt;br/&gt;REDCap Population]
+         PopulateProjects[🗂️ populateProjects.py&lt;br/&gt;Project Distribution]
+         PopulateAutoID[🔢 populateAutoID.py&lt;br/&gt;Auto ID Generation]
+         RunJobs[⚙️ runOneJob.sh&lt;br/&gt;Workflow Execution]
+         NamedPipe((Named Pipe))
+     end
 
-DetectStudy[&quot;detectStudyArrival.sh&quot;]
-StudyJob[&quot;Study Job Directory&quot;]
-Anonymize[&quot;anonymize.sh&quot;]
-Archive[&quot;/data/site/archive/&quot;]
+     subgraph storage [&quot; &lt;b&gt;Storage Layer&lt;/b&gt; &quot;]
+         FileSystem[💾 File System&lt;br/&gt;/data/site/]
+         SymLinks[🔗 Symbolic Links&lt;br/&gt;Study/Series]
+         Archive[📚 Archive Management&lt;br/&gt;clearOldFiles.sh]
+         Inventory[📋 PACS Inventory&lt;br/&gt;whatIsInIDS7.py]
+         ValidationCleanup[🧹 Data Validation&lt;br/&gt;whatIsNotInIDS7.py]
+         GetPatients[👥 Patient Data&lt;br/&gt;getAllPatients2.sh]
+         ParsePatients[📊 Parse Patient Data&lt;br/&gt;parseAllPatients.sh]
+         StaleLinks[🔗 Link Cleanup&lt;br/&gt;clearStaleLinks.sh]
+     end
 
-AnonSend[&quot;anonymizeAndSend.py&quot;]
-REDCap[&quot;REDCap API&quot;]
-TransferReq[&quot;Transfer Requests&quot;]
+     subgraph transfer [&quot; &lt;b&gt;Transfer Layer&lt;/b&gt; &quot;]
+         CreateRequests[📝 createTransferRequests.py&lt;br/&gt;Transfer Management]
+         Anonymize[🔒 anonymizeAndSend.py&lt;br/&gt;Main Anonymization]
+         CreateZip[📦 createZipFileCmd.php&lt;br/&gt;Export Anonymization]
+         SendFiles[📤 sendFiles.sh&lt;br/&gt;SFTP Transfer]
+         ResendProject[🔄 resendProject.py&lt;br/&gt;Retry Logic]
+         ResPACS[🏥 Research PACS&lt;br/&gt;Destination]
+         REDCap[(🗄️ REDCap&lt;br/&gt;Database)]
+     end
 
-SendFiles[&quot;sendFiles.sh&quot;]
-Outbox[&quot;/data/outbox/&quot;]
-ResPACS[&quot;Research PACS&quot;]
-DAIC[&quot;/data/DAIC/&quot;]
+     subgraph mgmt [&quot; &lt;b&gt;Management Layer&lt;/b&gt; &quot;]
+         Heartbeat[💓 heartbeat.sh&lt;br/&gt;Health Monitoring]
+         CronSystem[⏰ cron.sh&lt;br/&gt;Event Automation]
+         Setup[⚙️ setup.sh&lt;br/&gt;Configuration]
+         ClearExports[🗑️ clearExports.sh&lt;br/&gt;Export Cleanup]
+         S2M[🔄 s2m.sh&lt;br/&gt;Reprocessing Tool]
+     end
 
-PACS --&gt; StoreSCP
-StoreSCP --&gt; NamedPipe
-StoreSCP --&gt; Arrived
-NamedPipe --&gt; ProcessDaemon
-ProcessDaemon --&gt; ClassifyRules
-ProcessDaemon --&gt; RawData
-RawData --&gt; SymLinks
+     %% Main Data Flow
+     PACS --&gt;|DICOM| StoreSCP
+     Scanner --&gt;|C-MOVE| StoreSCP
+     StoreSCP --&gt;|DICOM Files| ProcessFile
+     ProcessFile --&gt;|metadata| NamedPipe
+     NamedPipe --&gt;|trigger| DetectStudy
+     DetectStudy --&gt;|study info| Classification
+     ProcessFile --&gt;|pathology images| ProcessTiff
+     ProcessTiff --&gt;|anonymized DICOM| FileSystem
+     Classification --&gt;|routing| PopulateIncoming
+     PopulateIncoming --&gt;|data| REDCap
+     PopulateProjects --&gt;|project data| REDCap
+     PopulateAutoID --&gt;|auto IDs| REDCap
 
-Arrived --&gt; DetectStudy
-DetectStudy --&gt; StudyJob
-SymLinks --&gt; StudyJob
-StudyJob --&gt; Anonymize
-Anonymize --&gt; Archive
+     %% Storage Operations
+     ProcessFile --&gt;|files| FileSystem
+     FileSystem --&gt;|organization| SymLinks
+     GetPatients --&gt;|patient data| ParsePatients
+     ParsePatients --&gt;|parsed data| Inventory
+     Inventory --&gt;|validation| ValidationCleanup
+     ValidationCleanup --&gt;|cleanup| FileSystem
+     Archive --&gt;|cleanup| StaleLinks
+     StaleLinks --&gt;|clean links| SymLinks
 
-Archive --&gt; AnonSend
-REDCap --&gt; AnonSend
-AnonSend --&gt;TransferReq
-TransferReq --&gt; SendFiles
+     %% Transfer Operations
+     REDCap --&gt;|transfer rules| CreateRequests
+     CreateRequests --&gt;|requests| Anonymize
+     SymLinks --&gt;|study data| Anonymize
+     Anonymize --&gt;|anonymized DICOM| ResPACS
+     CreateZip --&gt;|export archives| SendFiles
+     SendFiles --&gt;|SFTP| ResPACS
+     ResendProject --&gt;|retry| Anonymize
 
-SendFiles --&gt; Outbox
-Outbox --&gt; ResPACS
-ResPACS --&gt; DAIC
-%% Styling
-classDef externalSystem fill:#e1f5fe
-classDef configFile fill:#e1f5fe
-classDef dataDirectory fill:#f3e5f5
-classDef processScript fill:#fff3e0
-classDef tempData fill:#e8f5e8
+     %% Management Operations
+     Heartbeat -.-&gt;|monitor| StoreSCP
+     Heartbeat -.-&gt;|monitor| ProcessFile
+     CronSystem -.-&gt;|automate| PopulateIncoming
+     CronSystem -.-&gt;|automate| CreateRequests
+     Archive -.-&gt;|cleanup| FileSystem
+     ClearExports -.-&gt;|cleanup| SendFiles
+     Setup -.-&gt;|configure| FileSystem
+     Setup -.-&gt;|configure| StoreSCP
+     S2M --&gt;|reprocess| ProcessFile
 
-class PACS,REDCap,ResPACS externalSystem
-class ClassifyRules configFile
-class RawData,Archive,Outbox,DAIC dataDirectory
-class StoreSCP,ProcessDaemon,DetectStudy,Anonymize,AnonSend,SendFiles processScript
-class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData" />
-<p>Legend:</p>
-<div style="display:flex;gap:20px;flex-wrap:wrap;">
- <span><span style="display:inline-block;width:32px;height:32px;background:#e1f5fe;border:1px solid #ccc;margin-right:5px;"></span>External Systems</span>
- <span><span style="display:inline-block;width:32px;height:32px;background:#f3e5f5;border:1px solid #ccc;margin-right:5px;"></span>Data Directories</span>
- <span><span style="display:inline-block;width:32px;height:32px;background:#fff3e0;border:1px solid #ccc;margin-right:5px;"></span>Scripts & Processes</span>
- <span><span style="display:inline-block;width:32px;height:32px;background:#e8f5e8;border:1px solid #ccc;margin-right:5px;"></span>Temporary Data</span>
- </div>
-   <br><br><section id="setup">
+     %% Workflow Integration
+     RunJobs --&gt;|analysis results| ResPACS
+
+     %% Styling
+     classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
+     classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+     classDef storage fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+     classDef transfer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+     classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+     classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+
+     class PACS,StoreSCP,Scanner,MPPS network
+     class ProcessFile,DetectStudy,Classification,ProcessTiff,PopulateIncoming,PopulateProjects,PopulateAutoID,RunJobs process
+     class FileSystem,SymLinks,Archive,Inventory,ValidationCleanup,GetPatients,ParsePatients,StaleLinks storage
+     class CreateRequests,Anonymize,CreateZip,SendFiles,ResendProject,ResPACS,REDCap transfer
+     class Heartbeat,CronSystem,Setup,ClearExports,S2M mgmt
+     class NamedPipe pipe" />
+<figcaption>
+<p><span class="caption-text">FIONA layered Architecture</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><a class="reference download internal" download="" href="../_downloads/1f7b0a49932f7850f32f6253315e1487/fiona-layers.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Dowlnoad</span> <span class="pre">image</span> <span class="pre">as</span> <span class="pre">PDF</span></code></a></p>
+<section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<p>To setup the system some mandatory information must be set set in <code class="docutils literal notranslate"><span class="pre">/data/config/conf.json</span></code> file. Fill values appropriate to your serwer as shown in example json file.</p>
 <div class="literal-block-wrapper docutils container" id="config-json">
-<div class="code-block-caption"><span class="caption-text">System configuration settings</span><a class="headerlink" href="#config-json" title="Link to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">System configuration example settings</span><a class="headerlink" href="#config-json" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">    </span><span class="nt">&quot;DICOMIP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_dicom_server_ip&quot;</span><span class="p">,</span>
 <span class="hll"><span class="linenos"> 3</span><span class="w">    </span><span class="nt">&quot;DICOMPORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dicom_port&quot;</span><span class="p">,</span>
@@ -217,18 +271,9 @@ class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData" />
 <span class="linenos">27</span><span class="w">		</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
 <span class="linenos">28</span><span class="w">		</span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span>
 <span class="linenos">29</span><span class="w">	    </span><span class="p">},</span>
-<span class="linenos">30</span><span class="w">	    </span><span class="p">{</span>
-<span class="linenos">31</span><span class="w">		</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="linenos">32</span><span class="w">		</span><span class="nt">&quot;connection&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
-<span class="linenos">33</span><span class="w">		</span><span class="nt">&quot;certificate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
-<span class="linenos">34</span><span class="w">		</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
-<span class="linenos">35</span><span class="w">		</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
-<span class="linenos">36</span><span class="w">		</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span><span class="p">,</span>
-<span class="linenos">37</span><span class="w">		</span><span class="nt">&quot;dn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span>
-<span class="linenos">38</span><span class="w">	    </span><span class="p">}</span>
-<span class="linenos">39</span><span class="w">	</span><span class="p">]</span>
-<span class="linenos">40</span><span class="w">    </span><span class="p">}</span>
-<span class="linenos">41</span><span class="p">}</span>
+<span class="linenos">30</span><span class="w">	</span><span class="p">]</span>
+<span class="linenos">31</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">32</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -291,35 +336,159 @@ class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData" />
 <section id="components">
 <h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="scripts/clearExports.html"><span class="doc">clearExports.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/anonymizeAndSend.html"><span class="doc">anonymizeAndSend.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/clearOldFiles.html"><span class="doc">clearOldFiles.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/clearStaleLinks.html"><span class="doc">clearStaleLinks.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/createTransferRequestsForProcessed.html"><span class="doc">createTransferRequestsForProcessed.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/createTransferRequests.html"><span class="doc">createTransferRequests.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/createZipFileCmd.html"><span class="doc">createZipFileCmd.php</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/cron.html"><span class="doc">cron.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/detectStudyArrival.html"><span class="doc">detectStudyArrival.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/getAllPatients2.html"><span class="doc">getAllPatients2.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/heartbeat.html"><span class="doc">heartbeat.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/moveFromScanner.html"><span class="doc">moveFromScanner.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/mppsctl.html"><span class="doc">mppsctl.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/parseAllPatients.html"><span class="doc">parseAllPatients.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/populateAutoID.html"><span class="doc">populateAutoID.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/populateIncoming.html"><span class="doc">populateIncoming.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/populateProjects.html"><span class="doc">populateProjects.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/processSingleFile3.html"><span class="doc">processSingleFile3.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/process_tiff.html"><span class="doc">process_tiff.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/removeOldEntries.html"><span class="doc">removeOldEntries.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/resendProject.html"><span class="doc">resendProject.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/runOneJob.html"><span class="doc">runOneJob.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/s2m.html"><span class="doc">s2m.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/sendFiles.html"><span class="doc">sendFiles.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/storectl.html"><span class="doc">storectl.sh</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/whatIsInIDS7.html"><span class="doc">whatIsInIDS7.py</span></a></p></li>
-<li><p><a class="reference internal" href="scripts/whatIsNotInIDS7.html"><span class="doc">whatIsNotInIDS7.py</span></a></p></li>
+<li><p><a class="reference internal" href="scripts/anonymizeAndSend.html"><span class="doc">anonymizeAndSend.py</span></a> - Processes imaging studies, performs anonymization, and sends them to research PACS</p></li>
+<li><p><a class="reference internal" href="scripts/clearExports.html"><span class="doc">clearExports.sh</span></a> - Removes old export files when storage reaches capacity thresholds</p></li>
+<li><p><a class="reference internal" href="scripts/clearOldFiles.html"><span class="doc">clearOldFiles.sh</span></a> - Removes old studies from <code class="docutils literal notranslate"><span class="pre">/data/site/archive</span></code> when disk usage exceeds 80%</p></li>
+<li><p><a class="reference internal" href="scripts/clearStaleLinks.html"><span class="doc">clearStaleLinks.sh</span></a> - Removes broken symbolic links and empty directories from data structures</p></li>
+<li><p><a class="reference internal" href="scripts/createTransferRequests.html"><span class="doc">createTransferRequests.py</span></a> - Generates transfer requests for studies that need anonymization and forwarding to research projects</p></li>
+<li><p><a class="reference internal" href="scripts/createTransferRequestsForProcessed.html"><span class="doc">createTransferRequestsForProcessed.py</span></a> - Handles transfer requests for processed/derived imaging data from workstations back to research PACS</p></li>
+<li><p><a class="reference internal" href="scripts/createZipFileCmd.html"><span class="doc">createZipFileCmd.php</span></a> -  Creates anonymized ZIP archives for research data distribution</p></li>
+<li><p><a class="reference internal" href="scripts/cron.html"><span class="doc">cron.sh</span></a> - Processes trigger-action pairs from JSON configuration files for event-driven automation</p></li>
+<li><p><a class="reference internal" href="scripts/detectStudyArrival.html"><span class="doc">detectStudyArrival.sh</span></a> - Triggers processing workflows when imaging studies are fully received</p></li>
+<li><p><a class="reference internal" href="scripts/getAllPatients2.html"><span class="doc">getAllPatients2.sh</span></a> - Retrieves patient and study information from research PACS using findscu</p></li>
+<li><p><a class="reference internal" href="scripts/heartbeat.html"><span class="doc">heartbeat.sh</span></a> - Checks DICOM service responsiveness and restarts failed components</p></li>
+<li><p><a class="reference internal" href="scripts/moveFromScanner.html"><span class="doc">moveFromScanner.sh</span></a> - Pulls imaging data from clinical scanners using DICOM C-MOVE operations</p></li>
+<li><p><a class="reference internal" href="scripts/mppsctl.html"><span class="doc">mppsctl.sh</span></a> - Controls DICOM Modality Performed Procedure Step (MPPS) service for tracking scan progress</p></li>
+<li><p><a class="reference internal" href="scripts/parseAllPatients.html"><span class="doc">parseAllPatients.sh</span></a> - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import</p></li>
+<li><p><a class="reference internal" href="scripts/populateAutoID.html"><span class="doc">populateAutoID.py</span></a> -  Generates automatic participant IDs for projects using pseudonymized identifiers</p></li>
+<li><p><a class="reference internal" href="scripts/populateIncoming.html"><span class="doc">populateIncoming.py</span></a> - Processes incoming DICOM studies and creates metadata records in REDCap</p></li>
+<li><p><a class="reference internal" href="scripts/populateProjects.html"><span class="doc">populateProjects.py</span></a> - Populates individual research project databases with distributed data</p></li>
+<li><p><a class="reference internal" href="scripts/processSingleFile3.html"><span class="doc">processSingleFile3.py</span></a> - Extracts metadata from DICOM files and creates directory structures</p></li>
+<li><p><a class="reference internal" href="scripts/process_tiff.html"><span class="doc">process_tiff.sh</span></a> - Converts whole slide imaging (WSI) files to DICOM format for pathology processing</p></li>
+<li><p><a class="reference internal" href="scripts/removeOldEntries.html"><span class="doc">removeOldEntries.sh</span></a> - Removes old entries from incoming data tracking files</p></li>
+<li><p><a class="reference internal" href="scripts/resendProject.html"><span class="doc">resendProject.py</span></a> - Handles re-transmission of studies when initial transfers fail or new data arrives</p></li>
+<li><p><a class="reference internal" href="scripts/runOneJob.html"><span class="doc">runOneJob.sh</span></a> - Processes containerized analysis jobs from job queue</p></li>
+<li><p><a class="reference internal" href="scripts/s2m.html"><span class="doc">s2m.sh</span></a> - Re-sends DICOM directories through the processing pipeline for re-classification</p></li>
+<li><p><a class="reference internal" href="scripts/sendFiles.html"><span class="doc">sendFiles.sh</span></a> - Uploads anonymized data to external research repositories via secure file transfer</p></li>
+<li><p><a class="reference internal" href="scripts/storectl.html"><span class="doc">storectl.sh</span></a> - Manages the main DICOM C-STORE receiver daemon</p></li>
+<li><p><a class="reference internal" href="scripts/whatIsInIDS7.html"><span class="doc">whatIsInIDS7.py</span></a>- Catalogs all studies present in the research imaging database</p></li>
+<li><p><a class="reference internal" href="scripts/whatIsNotInIDS7.html"><span class="doc">whatIsNotInIDS7.py</span></a>- Identifies and removes database entries for studies no longer in PACS</p></li>
 </ul>
 </section>
+<section id="system-setup-pipeline">
+<h2>System setup pipeline<a class="headerlink" href="#system-setup-pipeline" title="Link to this heading"></a></h2>
+<img src="../_images/mermaid-27bb51933b1966e1d751ecdc00171faa6e87050f.png" alt="flowchart TD
+    Start([System Boot]) --&gt;  CoreServices[Core Services]
+
+    subgraph CoreServices [Core Services]
+        StoreCTL[storectl.sh&lt;br/&gt;DICOM Receiver]
+        MPPS[mppsctl.sh&lt;br/&gt;MPPS Service]
+        Process[processSingleFile3.py&lt;br/&gt;Processing Daemon]
+    end
+
+    CoreServices --&gt; CronJobs[Cron Jobs]
+
+    subgraph CronJobs [Automatic Tasks]
+        Detect[detectStudyArrival.sh&lt;br/&gt;15 seconds]
+        Heartbeat[heartbeat.sh&lt;br/&gt;1 minute]
+        Populate[populateIncoming.py&lt;br/&gt;5 minutes]
+        Transfer[createTransferRequests.py&lt;br/&gt;10 minutes]
+        Anonymize[anonymizeAndSend.py&lt;br/&gt;continuous]
+        Jobs[runOneJob.sh&lt;br/&gt;job queue]
+    end
+
+    CronJobs --&gt; Maintenance[Daily/Hourly Tasks]
+
+    subgraph Maintenance [Maintenance Tasks]
+        Projects[populateProjects.py&lt;br/&gt;hourly]
+        AutoID[populateAutoID.py&lt;br/&gt;30 minutes]
+        SendFiles[sendFiles.sh&lt;br/&gt;30 minutes]
+        Cleanup[clearOldFiles.sh&lt;br/&gt;daily]
+        ClearExports[clearExports.sh&lt;br/&gt;daily]
+        StaleLinks[clearStaleLinks.sh&lt;br/&gt;daily]
+        RemoveOld[removeOldEntries.sh&lt;br/&gt;daily]
+    end
+
+    Maintenance --&gt; SystemReady[System Ready]
+
+    SystemReady --&gt; EventSystem[cron.sh&lt;br/&gt;Event Automation]
+
+    %% Styling
+    classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef storage fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef transfer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef system fill:#f0f0f0,stroke:#424242,stroke-width:2px
+
+    class StoreCTL,MPPS network
+    class Process,Detect,Populate,Jobs process
+    class Cleanup,StaleLinks storage
+    class Transfer,Anonymize,SendFiles transfer
+    class Setup,Heartbeat,Projects,AutoID,ClearExports,RemoveOld,EventSystem mgmt
+    class Start,SystemReady system" />
+<p><a class="reference download internal" download="" href="../_downloads/6aa147be5603ee9b835077104fa2f5ba/fiona-sequence.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Dowlnoad</span> <span class="pre">image</span> <span class="pre">as</span> <span class="pre">PDF</span></code></a></p>
+</section>
+<section id="data-flow">
+<h2>Data flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h2>
+<p>Data flow scheme through the FIONA system, from initial DICOM reception to final transfer to research PACS, is presented below.</p>
+<img src="../_images/mermaid-2c143b205df876f458b80202a59da9d6bc68c5b0.png" alt="flowchart TD
+   PACS[&quot;Clinical PACS - DICOM Source&quot;]
+   StoreSCP[&quot;storescpFIONA - DICOM SCP&quot;]
+   NamedPipe[(&quot;Named Pipe&quot;)]
+   Arrived[&quot;Job Directory&quot;]
+
+   ProcessDaemon[&quot;processSingleFile3.py&quot;]
+   ClassifyRules[&quot;/data/config/classifyRules.json&quot;]
+   RawData[&quot;/data/site/raw/&quot;]
+   SymLinks[&quot;Symbolic Links&quot;]
+
+   DetectStudy[&quot;detectStudyArrival.sh&quot;]
+   StudyJob[&quot;Study Job Directory&quot;]
+   Anonymize[&quot;anonymize.sh&quot;]
+   Archive[&quot;/data/site/archive/&quot;]
+
+   AnonSend[&quot;anonymizeAndSend.py&quot;]
+   REDCap[&quot;REDCap API&quot;]
+   TransferReq[&quot;Transfer Requests&quot;]
+
+   SendFiles[&quot;sendFiles.sh&quot;]
+   Outbox[&quot;/data/outbox/&quot;]
+   ResPACS[&quot;Research PACS&quot;]
+   DAIC[&quot;/data/DAIC/&quot;]
+
+   PACS --&gt; StoreSCP
+   StoreSCP --&gt; NamedPipe
+   StoreSCP --&gt; Arrived
+   NamedPipe --&gt; ProcessDaemon
+   ProcessDaemon --&gt; ClassifyRules
+   ProcessDaemon --&gt; RawData
+   RawData --&gt; SymLinks
+
+   Arrived --&gt; DetectStudy
+   DetectStudy --&gt; StudyJob
+   SymLinks --&gt; StudyJob
+   StudyJob --&gt; Anonymize
+   Anonymize --&gt; Archive
+
+   Archive --&gt; AnonSend
+   REDCap --&gt; AnonSend
+   AnonSend --&gt;TransferReq
+   TransferReq --&gt; SendFiles
+
+   SendFiles --&gt; Outbox
+   Outbox --&gt; ResPACS
+   ResPACS --&gt; DAIC
+   %% Styling
+   classDef externalSystem fill:#e1f5fe
+   classDef configFile fill:#e1f5fe
+   classDef dataDirectory fill:#f3e5f5
+   classDef processScript fill:#fff3e0
+   classDef tempData fill:#e8f5e8
+
+   class PACS,REDCap,ResPACS externalSystem
+   class ClassifyRules configFile
+   class RawData,Archive,Outbox,DAIC dataDirectory
+   class StoreSCP,ProcessDaemon,DetectStudy,Anonymize,AnonSend,SendFiles processScript
+   class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData" />
+<p>Legend:</p>
+<div style="display:flex;gap:20px;flex-wrap:wrap;">
+ <span><span style="display:inline-block;width:32px;height:32px;background:#e1f5fe;border:1px solid #ccc;margin-right:5px;"></span>External Systems</span>
+ <span><span style="display:inline-block;width:32px;height:32px;background:#f3e5f5;border:1px solid #ccc;margin-right:5px;"></span>Data Directories</span>
+ <span><span style="display:inline-block;width:32px;height:32px;background:#fff3e0;border:1px solid #ccc;margin-right:5px;"></span>Scripts & Processes</span>
+ <span><span style="display:inline-block;width:32px;height:32px;background:#e8f5e8;border:1px solid #ccc;margin-right:5px;"></span>Temporary Data</span>
+ </div>
+   <br><br></section>
 <section id="data-storage-structure">
 <h2>Data Storage Structure<a class="headerlink" href="#data-storage-structure" title="Link to this heading"></a></h2>
 <p>The FIONA system uses a hierarchical storage structure:</p>
