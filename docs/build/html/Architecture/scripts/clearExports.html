@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,53 @@
              
   <section id="clearexports-sh">
 <h1>clearExports.sh<a class="headerlink" href="#clearexports-sh" title="Link to this heading"></a></h1>
+<p>This bash script manages disk space by automatically deleting old export files when disk usage exceeds 80%. It first removes temporary directories older than 1000 minutes, then systematically deletes the oldest ZIP files in <code class="docutils literal notranslate"><span class="pre">/export2/Export/files/</span></code> until disk usage drops to 80% or below. The script provides timestamped logging throughout the cleanup process to track which files are being removed.</p>
+<p><strong>Related File</strong></p>
+<img src="../../_images/mermaid-f5123fe76c0421b1454652bc84ffa3c8a2af854d.png" alt="flowchart TD
+    A[&quot;clearExports.sh main script&quot;] --&gt; B[&quot;/export2/Export/&lt;br&gt;root directory&quot;]
+    A --&gt; C[&quot;/export2/Export/files/&lt;br&gt;zip directory&quot;]
+    B --&gt; D[&quot;tmp_* temporary directories&quot;]
+    C --&gt; E[&quot;*.zip export archive files&quot;]
+
+    classDef inputFile fill:#e1f5fe
+    classDef outputFile fill:#f3e5f5
+    classDef mainScript fill:#fff3e0
+
+    class A mainScript
+    class B,C,D,E inputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-484de5d34ce75b941377d91d6ed87378fe7ca762.png" alt="flowchart TD
+   A[&quot;/export2/Export/tmp_* directories&quot;] --&gt; B[&quot;clearExports.sh&quot;]
+   C[&quot;/export2/Export/files/*.zip files&quot;] --&gt; B
+   B --&gt; E[&quot;deleted tmp directories&quot;]
+   B --&gt; F[&quot;deleted zip files&quot;]
+   B --&gt; G[&quot;console output with timestamps&quot;]
+
+   classDef inputFile fill:#e1f5fe
+   classDef outputFile fill:#f3e5f5
+   classDef mainScript fill:#fff3e0
+
+   class B mainScript
+   class A,C inputFile
+   class E,F,G outputFile" />
+<p>Data paths</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Input directories:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/export2/Export/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/export2/Export/files/</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Output directories:</dt><dd><ul>
+<li><p>Files are deleted (no output directories)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,102 @@
              
   <section id="createtransferrequestsforprocessed-py">
 <h1>createTransferRequestsForProcessed.py<a class="headerlink" href="#createtransferrequestsforprocessed-py" title="Link to this heading"></a></h1>
+<p>This script automatically detects processed medical imaging series that need to be forwarded to research PACS systems by identifying series with <code class="docutils literal notranslate"><span class="pre">StudyInstanceUIDs</span></code> that contain dots (indicating they’re new/processed data). It retrieves transfer requests from REDCap, modifies DICOM metadata to match original study identifiers, and forwards the data either directly to storage or through anonymization processes depending on the project type. The script also extracts structured report data for specific projects like <code class="docutils literal notranslate"><span class="pre">Transpara</span></code> studies and <code class="docutils literal notranslate"><span class="pre">NOPARK</span></code>.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-5b957df7d5372c358e1c9450500d461cb7b9e382.png" alt="flowchart LR
+ A[&quot;createTransferRequestsForProcessed.py&quot;]
+ B[&quot;/home/processing/bin/extractDataFromTransparaSR.sh&quot;]
+ C[&quot;/home/processing/bin/extractDataFromDaTQUANT.sh&quot;]
+ D[&quot;/var/www/html/server/utils/s2m.sh&quot;]
+ E[&quot;/home/processing/logs/extractDataFromTransparaSR.log&quot;]
+ F[&quot;/home/processing/logs/extractDataFromDaTQUANT.log&quot;]
+ G[&quot;/usr/bin/dcmodify&quot;]
+ H[&quot;/usr/bin/storescu&quot;]
+ I[&quot;Docker containers (dcmtk)&quot;]
+ J[&quot;/data/site/raw/*/*.json&quot;]
+ K[&quot;/data/site/raw/*/series_folders&quot;]
+
+ J --&gt; |JSON metadata| A
+ K --&gt; |DICOM series data| A
+ A --&gt; |calls for Transpara projects| B
+ A --&gt; |calls for NOPARK project| C
+ A --&gt; |calls for anonymization| D
+ A --&gt; |uses for DICOM modification| G
+ A --&gt; |uses for direct PACS storage| H
+ A --&gt; |uses for DICOM operations| I
+ B --&gt; |processing logs| E
+ C --&gt; |extraction logs| F
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,G,H,I,J,K inputFile
+ class E,F outputFile
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-2fe924ffde769d9d81e8be3bc88c770a4f91b309.png" alt="flowchart LR
+   A[&quot;createTransferRequestsForProcessed.py&quot;]
+   B[&quot;/home/processing/bin/extractDataFromTransparaSR.sh&quot;]
+   C[&quot;/home/processing/bin/extractDataFromDaTQUANT.sh&quot;]
+   D[&quot;/var/www/html/server/utils/s2m.sh&quot;]
+   E[&quot;/home/processing/logs/extractDataFromTransparaSR.log&quot;]
+   F[&quot;/home/processing/logs/extractDataFromDaTQUANT.log&quot;]
+   G[&quot;/usr/bin/dcmodify&quot;]
+   H[&quot;/usr/bin/storescu&quot;]
+   I[&quot;Docker containers (dcmtk)&quot;]
+   J[&quot;/data/site/raw/*/*.json&quot;]
+   K[&quot;/data/site/raw/*/series_folders&quot;]
+
+   J --&gt; |JSON metadata| A
+   K --&gt; |DICOM series data| A
+   A --&gt; |calls for Transpara projects| B
+   A --&gt; |calls for NOPARK project| C
+   A --&gt; |calls for anonymization| D
+   A --&gt; |uses for DICOM modification| G
+   A --&gt; |uses for direct PACS storage| H
+   A --&gt; |uses for DICOM operations| I
+   B --&gt; |processing logs| E
+   C --&gt; |extraction logs| F
+
+   %% Styling
+   classDef inputFile fill:#e1f5fe
+   classDef outputFile fill:#f3e5f5
+   classDef mainScript fill:#fff3e0
+
+   class A mainScript
+   class B,C,D,G,H,I,J,K inputFile
+   class E,F outputFile
+
+   %% Styling
+   classDef inputFile fill:#e1f5fe
+   classDef outputFile fill:#f3e5f5
+   classDef mainScript fill:#fff3e0" />
+<p>Data paths:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Input Paths:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/*/</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Output Paths:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Research</span> <span class="pre">PACS</span> <span class="pre">server</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/processing/logs/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Temporary</span> <span class="pre">directories</span> <span class="pre">(created</span> <span class="pre">dynamically)</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,52 @@
              
   <section id="clearstalelinks-sh">
 <h1>clearStaleLinks.sh<a class="headerlink" href="#clearstalelinks-sh" title="Link to this heading"></a></h1>
+<p>This bash script performs maintenance on image archive directories by cleaning up broken symbolic links and empty folders. It processes three specific directories (<code class="docutils literal notranslate"><span class="pre">/data/site/raw/</span></code>, <code class="docutils literal notranslate"><span class="pre">/data/site/participants/</span></code>, <code class="docutils literal notranslate"><span class="pre">/data/site/srs/</span></code>) to remove stale symbolic links that no longer point to valid files, delete empty directories, and clean up orphaned JSON metadata files. The script ensures data integrity by maintaining a clean directory structure in the archive system.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-c4d47ff9912e1443edc348d8e0cb64cffd0af898.png" alt="flowchart TD
+ A[clearStaleLinks.sh] --&gt; B[&quot;/data/site/raw/&lt;br&gt;Raw image archive directory&quot;]
+ A --&gt; C[&quot;/data/site/participants/&lt;br&gt;Participants data directory&quot;]
+ A --&gt; D[&quot;/data/site/srs/&lt;br&gt;SRS data directory&quot;]
+ A --&gt; E[&quot;*.json files&lt;br&gt;Metadata files for directories&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,E inputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-15db36f85fa70977408bdd5a63fc45feccb1c596.png" alt="flowchart TD
+ A[&quot;Broken symbolic links&lt;br&gt;in target directories&quot;] --&gt; B[clearStaleLinks.sh]
+ C[&quot;Empty directories&lt;br&gt;in target directories&quot;] --&gt; B
+ D[&quot;Orphaned *.json files&lt;br&gt;without corresponding directories&quot;] --&gt; B
+
+ B --&gt; E[&quot;Cleaned directory structure&lt;br&gt;Removed stale links&quot;]
+ B --&gt; F[&quot;Deleted empty directories&lt;br&gt;Maintained directory hierarchy&quot;]
+ B --&gt; G[&quot;Removed orphaned JSON files&lt;br&gt;Clean metadata state&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D inputFile
+ class B mainScript
+ class E,F,G outputFile" />
+<p>Data paths</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Input/Processing Directories:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/participants/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/srs/</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Output: The same directories (cleaned and maintained)</p></li>
+</ul>
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

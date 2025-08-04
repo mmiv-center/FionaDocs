@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,95 @@
              
   <section id="createzipfilecmd-php">
 <h1>createZipFileCmd.php<a class="headerlink" href="#createzipfilecmd-php" title="Link to this heading"></a></h1>
+<p>This PHP script is a command-line cron job that processes medical imaging export requests by creating ZIP archives of DICOM studies. It pulls DICOM data from an imaging server, applies anonymization transformations based on project-specific rules, optionally converts to NIFTI format, and packages the results into downloadable ZIP files. The script handles secure email delivery with password protection and supports export to TSD (Norwegian research data storage).</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-275ee02d8ef939eb15788e35ac3845a7b84aec30.png" alt="flowchart TD
+ A[&quot;createZipFileCmd.php&quot;]
+ B[&quot;constants.php&quot;]
+ C[&quot;/var/www/html/php/AC.php&quot;]
+ D[&quot;/data/config/config.json&quot;]
+ E[&quot;prepared_downloads_list.jobs&quot;]
+ F[&quot;tokens.json&quot;]
+ G[&quot;execMeasurements.json&quot;]
+ H[&quot;pullStudyFromIDS7.sh&quot;]
+ I[&quot;mapping.json&quot;]
+ J[&quot;mapping2.json&quot;]
+
+ B --&gt; A
+ C --&gt; A
+ D --&gt; A
+ E --&gt; A
+ F --&gt; A
+ A --&gt; G
+ A --&gt; H
+ H --&gt; I
+ H --&gt; J
+ I --&gt; A
+ J --&gt; A
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,E,F,H,I,J inputFile
+ class G outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-3fb3e0068939e25580676a2a3a11e7fc16a2b0b5.png" alt="flowchart TD
+ A[&quot;Job List&lt;br&gt;prepared_downloads_list.jobs&quot;]
+ B[&quot;createZipFileCmd.php&quot;]
+ C[&quot;REDCap API&lt;br&gt;Patient Data&quot;]
+ D[&quot;IDS7 Imaging Server&lt;br&gt;DICOM Studies&quot;]
+ E[&quot;Temp Directory&lt;br&gt;/export2/Export/tmp_*&quot;]
+ F[&quot;ZIP Archive&lt;br&gt;/export2/Export/files/&quot;]
+ G[&quot;MD5 Checksum&lt;br&gt;*.md5&quot;]
+ H[&quot;TSD Upload&lt;br&gt;(optional)&quot;]
+ I[&quot;Email Notification&lt;br&gt;(optional)&quot;]
+ J[&quot;Log Files&lt;br&gt;/home/processing/logs/&quot;]
+
+ A --&gt;|&quot;Read job queue&quot;| B
+ C --&gt;|&quot;Patient metadata&quot;| B
+ D --&gt;|&quot;DICOM images&quot;| B
+ B --&gt;|&quot;Create temp files&quot;| E
+ B --&gt;|&quot;Anonymize &amp; package&quot;| F
+ B --&gt;|&quot;Generate checksum&quot;| G
+ B --&gt;|&quot;Upload to TSD&quot;| H
+ B --&gt;|&quot;Send secure link&quot;| I
+ B --&gt;|&quot;Log activities&quot;| J
+ E --&gt;|&quot;Clean up&quot;| B
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D inputFile
+ class B mainScript
+ class F,G,H,I,J outputFile
+ class E inputFile" />
+<p>Data pahts</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Input paths:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Exports/php/prepared_downloads_list.jobs</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Exports/php/tokens.json</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Output paths:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/export2/Export/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/export2/Export/files/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/processing/logs/</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Exports/php/execMeasurements.json</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>
