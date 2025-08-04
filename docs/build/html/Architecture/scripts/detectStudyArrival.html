@@ -82,6 +82,8 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -113,175 +115,96 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="detectstudyarrival-sh">
 <h1>detectStudyArrival.sh<a class="headerlink" href="#detectstudyarrival-sh" title="Link to this heading"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> monitors and processes incoming DICOM study arrivals in a medical imaging pipeline. The script checks for new study jobs created by receiveSingleFile.sh, processes them after a configurable delay, and triggers various quality control and compliance checks.</p>
-<p><strong>The Main Dependences:</strong></p>
-<div class="line-block">
-<div class="line">- <strong>user:</strong> none</div>
-<div class="line">- <strong>depends-on:</strong></div>
-<div class="line-block">
-<div class="line">- receiveSingleFile.sh</div>
-<div class="line">- anonymize.sh</div>
-<div class="line">- /data/config/config.json</div>
-<div class="line">- /tmp/.processSingleFilePipe</div>
-<div class="line">- /var/www/html/applications/Assign/incoming.txt</div>
-</div>
-<div class="line">- <strong>log-file:</strong></div>
-<div class="line-block">
-<div class="line">- ${SERVERDIR}/logs/detectStudyArrival.log</div>
-<div class="line">- SERVERDIR/logs/detectStudyArrival{SERVERDIR}/logs/detectStudyArrival</div>
-<div class="line">- SERVERDIR/logs/detectStudyArrival{projname}.log</div>
-</div>
-<div class="line">- <strong>pid-file:</strong></div>
-<div class="line-block">
-<div class="line">- SERVERDIR/.pids/detectStudyArrival{SERVERDIR}/.pids/detectStudyArrival</div>
-<div class="line">- SERVERDIR/.pids/detectStudyArrival{projname}.lock</div>
-</div>
-<div class="line">- <strong>start:</strong></div>
-<div class="line-block">
-<div class="line">- ./detectStudyArrival.sh</div>
-<div class="line">- ./detectStudyArrival.sh [PROJECT_NAME]</div>
-</div>
-<div class="line">- <strong>license:</strong> TBE</div>
-</div>
-<p><strong>cron Configuration</strong></p>
-<p>The script is designed to run via cron every 15 seconds to detect new arrivals and process studies for both ABCD and PCGC projects.
-Add these lines to crontab -e for 15-second monitoring intervals:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*/1 * * * * /data/code/bin/detectStudyArrival.sh
-*/1 * * * * sleep 15; /data/code/bin/detectStudyArrival.sh
-*/1 * * * * sleep 30; /data/code/bin/detectStudyArrival.sh
-*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh
-</pre></div>
-</div>
-<p>For PCGC project:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*/1 * * * * /data/code/bin/detectStudyArrival.sh PCGC
-*/1 * * * * sleep 15; /data/code/bin/detectStudyArrival.sh PCGC
-*/1 * * * * sleep 30; /data/code/bin/detectStudyArrival.sh PCGC
-*/1 * * * * sleep 45; /data/code/bin/detectStudyArrival.sh PCGC
-</pre></div>
-</div>
-<p><strong>Input/Output File Dependencies Diagram</strong></p>
-<img src="../../_images/mermaid-6a07ace84f13e3725b6bcc6d1d30aa8df307effe.png" alt="flowchart LR
-A[&quot;/data/config/config.json&quot;] --&gt;|&quot;reads config&quot;| B[&quot;detectStudyArrival.sh&quot;]
-C[&quot;/data/site/.arrived/*&quot;] --&gt;|&quot;monitors job files&quot;| B
-D[&quot;receiveSingleFile.sh&quot;] --&gt;|&quot;creates job files&quot;| C
-B --&gt;|&quot;calls&quot;| E[&quot;anonymize.sh&quot;]
-B --&gt;|&quot;writes to&quot;| F[&quot;/tmp/.processSingleFilePipe&quot;]
-B --&gt;|&quot;updates&quot;| G[&quot;/var/www/html/applications/Assign/incoming.txt&quot;]
-B --&gt;|&quot;creates&quot;| H[&quot;logs/detectStudyArrival.log&quot;]
-B --&gt;|&quot;creates lock&quot;| I[&quot;pids/detectStudyArrival.lock&quot;]
-B --&gt;|&quot;creates archives&quot;| J[&quot;quarantine/*.tgz&quot;]
-B --&gt;|&quot;creates checksums&quot;| K[&quot;quarantine/*.md5sum&quot;]
+<p><code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> is a DICOM processing daemon that monitors for newly arrived medical imaging studies and series. The script runs continuously via cron jobs (every 15 seconds) to detect completed file transfers, performs quality control checks using Docker containers, and manages the archival workflow for both ABCD and PCGC projects. It handles anonymization, phantom QA processing, series compliance validation, and prepares studies for transmission to data centers.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-863f9f09f6ee2814b552e8565e5721a6229f4730.png" alt="flowchart TD
+ B[&quot;receiveSingleFile.sh&lt;br&gt;(Creates job directories)&quot;] --&gt; A[&quot;detectStudyArrival.sh&lt;br&gt;(Main Script)&quot;]
+ E[&quot;/data/config/config.json&lt;br&gt;(Configuration file)&quot;] --&gt; A
+ A --&gt; C[&quot;anonymize.sh&lt;br&gt;(Anonymizes DICOM data)&quot;]
+ A --&gt; D[&quot;sendFiles.sh&lt;br&gt;(Sends processed data)&quot;]
+ A --&gt; F[&quot;Docker: ABCDPhantomQC&lt;br&gt;(Phantom quality control)&quot;]
+ A --&gt; G[&quot;Docker: compliance_check&lt;br&gt;(Series compliance validation)&quot;]
+ A --&gt; H[&quot;/tmp/.processSingleFilePipe&lt;br&gt;(Processing queue)&quot;]
+ A --&gt; I[&quot;/var/www/html/applications/&lt;br&gt;Assign/incoming.txt&lt;br&gt;(Web interface queue)&quot;]
 
-%% Styling
-classDef inputFile fill:#e1f5fe
-classDef outputFile fill:#f3e5f5
-classDef mainScript fill:#fff3e0
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
 
-class A,C,D inputFile
-class F,G,H,I,J,K outputFile
-class B,E mainScript" />
-<p><strong>File Descriptions:</strong>
-| 1. Input Files:</p>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> - Main configuration file with project settings</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/*</span></code> - Job files containing study arrival information</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">receiveSingleFile.sh</span></code> - Script creating study arrival job files</div>
-</div>
-<div class="line-block">
-<div class="line">2. Output Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/tmp/.processSingleFilePipe</span></code> - Named pipe for queuing files to process</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Assign/incoming.txt</span></code> - Web interface assignment list for studies</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">logs/detectStudyArrival.log</span></code> - Log file recording processing activities</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">pids/detectStudyArrival.lock</span></code> - Lock file preventing concurrent execution</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">quarantine/*.tgz</span></code> - Compressed archive files of processed data</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">quarantine/*.md5sum</span></code> - Checksum files for data integrity verification</div>
-</div>
-<div class="line-block">
-<div class="line">3. Scripts:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> - Main script monitoring DICOM study arrivals</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">anonymize.sh</span></code> - Script for anonymizing DICOM files</div>
-</div>
-<p><strong>Data Flow Dependencies</strong></p>
-<img src="../../_images/mermaid-4b5690ac216ff64ef341c2900c193f60650de046.png" alt="flowchart LR
-A[&quot;site/raw/SDIR/SSERIESDIR/&lt;br/&gt;Directory containing raw DICOM files&quot;] --&gt;|&quot;reads DICOM files&quot;| B[&quot;detectStudyArrival.sh&lt;br/&gt;Main script processing data flow&quot;]
-C[&quot;site/raw/SDIR/SSERIESDIR.json&lt;br/&gt;Metadata file with series information&quot;] --&gt;|&quot;reads metadata&quot;| B
-B --&gt;|&quot;processes to&quot;| D[&quot;site/archive/SDIR/&lt;br/&gt;Archive directory for processed studies&quot;]
-B --&gt;|&quot;outputs to&quot;| E[&quot;site/output/SDIR/&lt;br/&gt;Output directory for QC reports&quot;]
-B --&gt;|&quot;quarantines to&quot;| F[&quot;quarantine/&lt;br/&gt;Directory for quarantined data&quot;]
-B --&gt;|&quot;manages containers&quot;| G[&quot;Docker: ABCDPhantomQC&lt;br/&gt;Container for phantom quality control&quot;]
-B --&gt;|&quot;manages containers&quot;| H[&quot;Docker: compliance_check&lt;br/&gt;Container for protocol compliance&quot;]
-I[&quot;PFILEDIR/&lt;br/&gt;Directory for packed files storage&quot;] --&gt;|&quot;packed files storage&quot;| B
-B --&gt;|&quot;stores to&quot;| I
+ class A mainScript
+ class B,E inputFile
+ class C,D,F,G,H,I outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-507dbae468ddceaf789bdd274e64ead02f7bc024.png" alt="flowchart TD
+ A[&quot;/data/site/.arrived/&lt;br&gt;(Job trigger files)&quot;] --&gt; B[&quot;detectStudyArrival.sh&lt;br&gt;(Main Processing)&quot;]
+ C[&quot;/data/site/raw/&lt;br&gt;(Raw DICOM data)&quot;] --&gt; B
+ D[&quot;/data/config/config.json&lt;br&gt;(Configuration)&quot;] --&gt; B
 
-%% Styling
-classDef inputFile fill:#e1f5fe
-classDef outputFile fill:#f3e5f5
-classDef mainScript fill:#fff3e0
+ B --&gt; E[&quot;/data/site/archive/&lt;br&gt;(Archived studies)&quot;]
+ B --&gt; F[&quot;/data/site/output/&lt;br&gt;(Processing results)&quot;]
+ B --&gt; G[&quot;/data/quarantine/&lt;br&gt;(Quarantine area)&quot;]
+ B --&gt; H[&quot;/data/PFILEDIR/&lt;br&gt;(Processed files)&quot;]
+ B --&gt; I[&quot;Log files&lt;br&gt;(Processing logs)&quot;]
+ B --&gt; J[&quot;/var/www/html/applications/&lt;br&gt;Assign/incoming.txt&lt;br&gt;(Web interface)&quot;]
 
-class A,C,I inputFile
-class D,E,F outputFile
-class B mainScript
-class G,H inputFile" />
-<p><strong>Data Flow File Descriptions:</strong></p>
-<div class="line-block">
-<div class="line">1. Input Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/raw/SDIR/SSERIESDIR/</span></code> - Directory containing raw DICOM files</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/raw/SDIR/SSERIESDIR.json</span></code> - Metadata file with series information</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">PFILEDIR/</span></code> - Directory for packed files storage</div>
-</div>
-<div class="line-block">
-<div class="line">2. Output Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/archive/SDIR/</span></code> - Archive directory for processed studies</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">site/output/SDIR/</span></code> - Output directory for QC reports</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">quarantine/</span></code> - Directory for quarantined data</div>
-</div>
-<div class="line-block">
-<div class="line">3. Scripts:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">detectStudyArrival.sh</span></code> - Main script processing data flow</div>
-</div>
-<div class="line-block">
-<div class="line">4. Docker Containers:</div>
-</div>
-<div class="line-block">
-<div class="line">- Docker: <code class="docutils literal notranslate"><span class="pre">ABCDPhantomQC</span></code> - Container for phantom quality control</div>
-<div class="line">- Docker: <code class="docutils literal notranslate"><span class="pre">compliance_check</span></code> - Container for protocol compliance</div>
-</div>
-<p><strong>Directories:</strong></p>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/</span></code> - Job arrival directory (ABCD)</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data[PROJECT]/site/.arrived/</span></code> - Project-specific arrival directories</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/raw/</span></code> - Raw DICOM storage</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/archive/</span></code> - Archived studies</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/output/</span></code> - Processing results</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/quarantine/</span></code> - Quarantine storage</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${PFILEDIR}/</span></code> - Packed file directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/</span></code> - Log file location</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/</span></code> - Lock file directory</div>
-</div>
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D inputFile
+ class B mainScript
+ class E,F,G,H,I,J outputFile" />
+<p>Data paths</p>
+<ul>
+<li><p>Input Directories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/</span></code> - Job trigger files created by receiveSingleFile.sh</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/</span></code> - Raw DICOM data from scanners</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> - System configuration file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/archive/</span></code>- Archived study data for processing</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Output Directories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/output/</span></code> - Processing results and QC reports</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/quarantine/</span></code> - Temporary storage for processed series</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/PFILEDIR/</span></code> - Final processed files ready for transmission</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Assign/incoming.txt</span></code> - Web interface study queue</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/</span></code> - Processing and error logs</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Project-specific paths (for non-ABCD projects like PCGC):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data{PROJNAME}/site/.arrived/</span></code> - Project-specific job triggers</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Project-specific DATADIR and PFILEDIR from config.json</p>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>
 <p>check the study job directory created by receiveSingleFile.sh</p>
 <p>if the file is old enough process it using the information provided</p>
-<p>Add this to “crontab -e” to check every 15 seconds if a new job arrived.
-<code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">30;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">15;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">45;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">30;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">15;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">45;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></p>
+<p>Add this to “crontab -e” to check every 15 seconds if a new job arrived.</p>
+<div class="line-block">
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">30;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">15;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">45;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">30;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">15;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></div>
+<div class="line">- <code class="docutils literal notranslate"><span class="pre">*/1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">sleep</span> <span class="pre">45;</span> <span class="pre">/data/code/bin/detectStudyArrival.sh</span> <span class="pre">PCGC</span></code></div>
+</div>
 </section>
 
 

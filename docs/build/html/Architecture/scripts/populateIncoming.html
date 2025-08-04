@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,58 @@
              
   <section id="populateincoming-py">
 <h1>populateIncoming.py<a class="headerlink" href="#populateincoming-py" title="Link to this heading"></a></h1>
+<p>This Python script populates the Study and Series information in the Incoming table in REDCap by processing DICOM metadata JSON files. It reads imaging series data from the filesystem, matches them against routing rules and coupling lists, and creates transfer requests for appropriate research projects. The script communicates with REDCap via API calls to store study/series metadata and generate transfer requests for data anonymization and distribution. It supports both incremental updates for new series and full project reimports via command-line arguments.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-b46491e72cf166b12da7152f672b53a22c8fed3b.png" alt="flowchart TD
+ A[&quot;populateIncoming.py&lt;br&gt;(Main Script)&quot;] --&gt; B[&quot;REDCap API&lt;br&gt;(Coupling Lists)&quot;]
+ A --&gt; C[&quot;REDCap API&lt;br&gt;(Routing Rules)&quot;]
+ A --&gt; D[&quot;REDCap API&lt;br&gt;(Incoming Project)&quot;]
+ E[&quot;/data/site/raw/*/*.json&lt;br&gt;(DICOM Metadata)&quot;] --&gt; A
+ A --&gt; F[&quot;anonymizeAndSend.py&lt;br&gt;(Transfer Processing)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class E inputFile
+ class B,C,D,F outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-4a069d75039dcffe9a31ed8544fb4d06d512ac11.png" alt="flowchart TD
+ A[&quot;/data/site/raw/*/*.json&lt;br&gt;(DICOM Series Metadata)&quot;] --&gt; B[&quot;populateIncoming.py&lt;br&gt;(Main Processing)&quot;]
+ C[&quot;REDCap Coupling Lists&lt;br&gt;(Token: 03BAEA...)&quot;] --&gt; B
+ D[&quot;REDCap Routing Rules&lt;br&gt;(Token: BEE3E9F...)&quot;] --&gt; B
+ B --&gt; E[&quot;REDCap Incoming Project&lt;br&gt;(Token: 82A0E31C...)&quot;]
+ B --&gt; F[&quot;Transfer Requests&lt;br&gt;(for anonymizeAndSend)&quot;]
+ G[&quot;Command Line Args&lt;br&gt;(--importAll)&quot;] --&gt; B
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D,G inputFile
+ class B mainScript
+ class E,F outputFile" />
+<p>Data patsh</p>
+<ul class="simple">
+<li><p>Input Paths</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/*/*.json</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Output Paths</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>RedCap endpoint</p></li>
+</ul>
+</div></blockquote>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

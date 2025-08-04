@@ -92,6 +92,7 @@ Data pahts
    * ``/home/processing/logs/``,
    * ``/var/www/html/applications/Exports/php/execMeasurements.json`` 
 
+------
 
 .. include:: createZipFileCmd.php
    :start-after: /*** 

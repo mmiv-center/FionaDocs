@@ -53,6 +53,8 @@ Data paths
 - Output: The same directories (cleaned and maintained)
 
 
+-------
+
 .. include:: clearStaleLinks.sh
    :start-after: : ' 
    :end-before: ' #end-doc

@@ -59,6 +59,7 @@ Data paths
 - Output directories:
    * ``/home/processing/transfer_requests/``
 
+-------
 
 .. include:: createTransferRequests.py
    :start-after: """

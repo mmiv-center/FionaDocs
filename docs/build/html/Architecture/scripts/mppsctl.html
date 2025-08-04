@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,76 @@
              
   <section id="mppsctl-sh">
 <h1>mppsctl.sh<a class="headerlink" href="#mppsctl-sh" title="Link to this heading"></a></h1>
+<p>This bash script manages a DICOM Multiple Performed Procedure Steps (MPPS) server daemon. It starts the <code class="docutils literal notranslate"><span class="pre">ppsscpfs_e</span></code> daemon to track medical scans on the server, with configurable port settings and service enable/disable functionality. The script supports start/stop operations and includes logging capabilities for monitoring the MPPS service status. It’s designed to run as a cron job every minute to ensure the service remains active.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-eab53965ec272aed1968290d32d0b617f7cdc191.png" alt="flowchart LR
+ A[&quot;mppsctl.sh&quot;] --&gt; B[&quot;config.json&lt;br&gt;(/data/config/)&quot;]
+ A --&gt; C[&quot;enabled&lt;br&gt;(/data/config/)&quot;]
+ A --&gt; D[&quot;dicom.dic&lt;br&gt;(/usr/share/dcmtk/)&quot;]
+ A --&gt; E[&quot;dcmpps.lic&lt;br&gt;(/usr/share/dcmtk/)&quot;]
+ F[&quot;ppsscpfs_e&lt;br&gt;(DICOM daemon)&quot;]
+ A --&gt; G[&quot;mpps.pid&lt;br&gt;(PID file)&quot;]
+ A --&gt; H[&quot;ppsscpfs.log&lt;br&gt;(Log file)&quot;]
+
+ B --&gt;|&quot;reads port config&quot;| A
+ C --&gt;|&quot;checks if service enabled&quot;| A
+ D --&gt;|&quot;DICOM dictionary&quot;| F
+ E --&gt;|&quot;license file&quot;| F
+ A --&gt;|&quot;starts/stops&quot;| F
+ A --&gt;|&quot;creates/removes&quot;| G
+ A --&gt;|&quot;writes logs to&quot;| H
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,E,F inputFile
+ class G,H outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-1edec261c99dd3e42b9dcc13db483e5fd32dc8a3.png" alt="flowchart TD
+ A[&quot;Configuration Data&lt;br&gt;(/data/config/)&quot;] --&gt; B[&quot;mppsctl.sh&quot;]
+ C[&quot;DICOM Dictionary&lt;br&gt;(/usr/share/dcmtk/)&quot;] --&gt; B
+ B --&gt; D[&quot;ppsscpfs_e&lt;br&gt;(MPPS Daemon)&quot;]
+ D --&gt; E[&quot;Scanner Output&lt;br&gt;(/data/scanner/)&quot;]
+ B --&gt; F[&quot;PID File&lt;br&gt;(.pids/mpps.pid)&quot;]
+ B --&gt; G[&quot;Log File&lt;br&gt;(logs/ppsscpfs.log)&quot;]
+ H[&quot;DICOM Clients&quot;] &lt;--&gt; D
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class B mainScript
+ class A,C,D,H inputFile
+ class E,F,G outputFile" />
+<p>Data pahts</p>
+<ul class="simple">
+<li><p>Input Directories/Files:</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/enabled</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/dicom.dic</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/dcmpps.lic</span></code></p></li>
+</ul>
+<ul class="simple">
+<li><p>Output Directories/Files:</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/scanner/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/mpps.pid</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/ppsscpfs.log</span></code></p></li>
+</ul>
+<ul class="simple">
+<li><p>Working Directory:</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}</span></code></p></li>
+</ul>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

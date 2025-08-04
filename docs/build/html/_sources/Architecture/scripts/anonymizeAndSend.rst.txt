@@ -59,6 +59,10 @@ Data paths
 - Temporary processing:
    * System temp directories via ``tempfile.TemporaryDirectory()``
 
+
+---------
+
+
 .. include:: anonymizeAndSend.py
    :start-after: """
    :end-before: """

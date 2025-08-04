@@ -52,6 +52,7 @@ Data paths
 - Output folder: No output directories, delete only.
 
 
+--------
 
 .. include:: clearOldFiles.sh
    :start-after: : ' 

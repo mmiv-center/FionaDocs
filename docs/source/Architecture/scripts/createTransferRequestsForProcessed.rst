@@ -98,7 +98,7 @@ Data paths:
    * ``/home/processing/logs/``,
    * ``Temporary directories (created dynamically)``.
 
-
+-------
 
 .. include:: createTransferRequestsForProcessed.py 
    :start-after: """

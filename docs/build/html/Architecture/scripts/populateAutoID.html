@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,60 @@
              
   <section id="populateautoid-py">
 <h1>populateAutoID.py<a class="headerlink" href="#populateautoid-py" title="Link to this heading"></a></h1>
+<p>This script automates the creation of transfer requests for medical imaging studies by checking auto-ID enabled projects in REDCap. It retrieves incoming DICOM data, generates or retrieves existing patient IDs using configurable naming patterns, and creates transfer requests for studies that don’t already have them. The script interfaces with multiple REDCap databases using different API tokens and calls an external <code class="docutils literal notranslate"><span class="pre">gen-id.py</span></code> utility to generate new patient identifiers when needed.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-d380070ee69d8631f1ef801750cffee1e9f246d4.png" alt="flowchart TD
+ A[&quot;populateAutoID.py&quot;] --&gt; B[&quot;/home/processing/bin/gen-id/gen-id.py&lt;br&gt;(ID Generator)&quot;]
+ C[&quot;REDCap Project Database&lt;br&gt;(Auto-ID Config)&quot;] --&gt; A
+ D[&quot;REDCap Incoming Database&lt;br&gt;(Study Data)&quot;] --&gt; A
+ E[&quot;REDCap AutoID Database&lt;br&gt;(Generated IDs)&quot;] --&gt; A
+ A --&gt; F[&quot;REDCap Transfer Database&lt;br&gt;(Transfer Requests)&quot;]
+ A --&gt; E
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,E inputFile
+ class E,F outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-a715d091a7224b2de2146b45bb8c2ab8a43b04fc.png" alt="flowchart TD
+ A[&quot;REDCap Projects API&quot;] --&gt; B[&quot;populateAutoID.py&quot;]
+ C[&quot;REDCap Incoming API&lt;br&gt;(Study data from last 14 days)&quot;] --&gt; B
+ D[&quot;REDCap AutoID API&lt;br&gt;(Existing patient IDs)&quot;] --&gt; B
+ B --&gt; E[&quot;gen-id.py&lt;br&gt;(Generate new patient ID)&quot;]
+ E --&gt; B
+ B --&gt; F[&quot;REDCap AutoID API&lt;br&gt;(Store new patient ID)&quot;]
+ B --&gt; G[&quot;REDCap Transfer API&lt;br&gt;(Create transfer request)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D inputFile
+ class B,E mainScript
+ class F,G outputFile" />
+<p>Data path</p>
+<ul class="simple">
+<li><p>Input Sources:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/processing/bin/gen-id/gen-id.py</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Output Destinations:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Temporary files (created and cleaned up automatically)</p></li>
+</ul>
+</div></blockquote>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -68,6 +82,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
@@ -99,6 +115,73 @@
              
   <section id="movefromscanner-sh">
 <h1>moveFromScanner.sh<a class="headerlink" href="#movefromscanner-sh" title="Link to this heading"></a></h1>
+<p>This script is a DICOM scanner integration tool that automatically retrieves medical imaging data from a scanner via DICOM C-MOVE operations. It monitors active scan requests, checks for incomplete series, and pulls missing images using <code class="docutils literal notranslate"><span class="pre">DCMTK</span></code> tools (<code class="docutils literal notranslate"><span class="pre">findscu</span></code>, <code class="docutils literal notranslate"><span class="pre">movescu</span></code>). The script runs every 15 seconds via cron job and moves completed studies to finished-scans directory when all images are received and the procedure is complete.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-a7f0e542e0a3ef3377cefd2e3d98d79e11ecf308.png" alt="flowchart TD
+ B[&quot;/data/config/config.json&quot;] --&gt; A[&quot;moveFromScanner.sh&quot;]
+ C[&quot;/usr/share/dcmtk/dicom.dic&quot;] --&gt; A
+ D[&quot;/usr/bin/findscu&lt;br&gt;(DCMTK Tool)&quot;] --&gt; A
+ E[&quot;/usr/bin/movescu&lt;br&gt;(DCMTK Tool)&quot;] --&gt; A
+ F[&quot;/usr/bin/dump2dcm&lt;br&gt;(DCMTK Tool)&quot;] --&gt; A
+ G[&quot;/usr/bin/dcmdump&lt;br&gt;(DCMTK Tool)&quot;] --&gt; A
+ A --&gt; H[&quot;${SERVERDIR}/.pids/&lt;br&gt;moveFromScanner.lock&lt;br&gt;(Lock File)&quot;]
+ A --&gt; I[&quot;${SERVERDIR}/logs/&lt;br&gt;moveFromScanner.log&lt;br&gt;(Log File)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,E,F,G inputFile
+ class H,I outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-a4d04fe5cb2d293e82d4d95067e183c16f35d190.png" alt="flowchart TD
+ A[&quot;${DATADIR}/active-scans/&lt;br&gt;(Study Requests)&quot;] --&gt; B[&quot;moveFromScanner.sh&quot;]
+ C[&quot;${DATADIR}/scanner/&lt;br&gt;(MPPS Files)&quot;] --&gt; B
+ D[&quot;Scanner&lt;br&gt;(DICOM Server)&quot;] --&gt; B
+ B --&gt; E[&quot;${DATADIR}/site/raw/&lt;br&gt;${studyInstanceUID}/&lt;br&gt;${seriesInstanceUID}/&lt;br&gt;(DICOM Images)&quot;]
+ B --&gt; F[&quot;${DATADIR}/finished-scans/&lt;br&gt;(Completed Studies)&quot;]
+ B --&gt; G[&quot;${DATADIR}/failed-scans/&lt;br&gt;(Failed Studies)&quot;]
+ B --&gt; H[&quot;${SERVERDIR}/logs/&lt;br&gt;moveFromScanner.log&lt;br&gt;(Processing Log)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D inputFile
+ class B mainScript
+ class E,F,G,H outputFile" />
+<p>Data Paths</p>
+<ul class="simple">
+<li><p>Input Directories:</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/active-scans/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/scanner/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/config/enabled</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code></p></li>
+</ul>
+<ul class="simple">
+<li><p>Output Directories:</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/raw/${studyInstanceUID}/${seriesInstanceUID}/</span></code> -</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/finished-scans/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${DATADIR}/failed-scans/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/moveFromScanner.log</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/moveFromScanner.lock</span></code></p></li>
+</ul>
+<ul class="simple">
+<li><p>Configuration Variables:</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DATADIR</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCANNERIP</span></code>, <code class="docutils literal notranslate"><span class="pre">SCANNERPORT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCANNERAETITLE</span></code>, <code class="docutils literal notranslate"><span class="pre">DICOMAETITLE</span></code></p></li>
+</ul>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

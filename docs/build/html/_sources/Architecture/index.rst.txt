@@ -209,33 +209,33 @@ Folder and File structure
 Components
 -----------------------------
 
-* :doc:`scripts/anonymizeAndSend` - Processes imaging studies, performs anonymization, and sends them to research PACS
-* :doc:`scripts/clearExports` - Removes old export files when storage reaches capacity thresholds
-* :doc:`scripts/clearOldFiles` - Removes old studies from ``/data/site/archive`` when disk usage exceeds 80%
-* :doc:`scripts/clearStaleLinks` - Removes broken symbolic links and empty directories from data structures
-* :doc:`scripts/createTransferRequests` - Generates transfer requests for studies that need anonymization and forwarding to research projects
-* :doc:`scripts/createTransferRequestsForProcessed` - Handles transfer requests for processed/derived imaging data from workstations back to research PACS
-* :doc:`scripts/createZipFileCmd` -  Creates anonymized ZIP archives for research data distribution
-* :doc:`scripts/cron` - Processes trigger-action pairs from JSON configuration files for event-driven automation
-* :doc:`scripts/detectStudyArrival` - Triggers processing workflows when imaging studies are fully received
-* :doc:`scripts/getAllPatients2` - Retrieves patient and study information from research PACS using findscu
-* :doc:`scripts/heartbeat` - Checks DICOM service responsiveness and restarts failed components
-* :doc:`scripts/moveFromScanner` - Pulls imaging data from clinical scanners using DICOM C-MOVE operations
-* :doc:`scripts/mppsctl` - Controls DICOM Modality Performed Procedure Step (MPPS) service for tracking scan progress
-* :doc:`scripts/parseAllPatients` - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import
-* :doc:`scripts/populateAutoID` -  Generates automatic participant IDs for projects using pseudonymized identifiers
-* :doc:`scripts/populateIncoming` - Processes incoming DICOM studies and creates metadata records in REDCap
-* :doc:`scripts/populateProjects` - Populates individual research project databases with distributed data
-* :doc:`scripts/processSingleFile3` - Extracts metadata from DICOM files and creates directory structures
-* :doc:`scripts/process_tiff` - Converts whole slide imaging (WSI) files to DICOM format for pathology processing
-* :doc:`scripts/removeOldEntries` - Removes old entries from incoming data tracking files
-* :doc:`scripts/resendProject` - Handles re-transmission of studies when initial transfers fail or new data arrives
-* :doc:`scripts/runOneJob` - Processes containerized analysis jobs from job queue
-* :doc:`scripts/s2m` - Re-sends DICOM directories through the processing pipeline for re-classification
-* :doc:`scripts/sendFiles` - Uploads anonymized data to external research repositories via secure file transfer
-* :doc:`scripts/storectl` - Manages the main DICOM C-STORE receiver daemon
-* :doc:`scripts/whatIsInIDS7`- Catalogs all studies present in the research imaging database
-* :doc:`scripts/whatIsNotInIDS7`- Identifies and removes database entries for studies no longer in PACS
+#. :doc:`scripts/anonymizeAndSend` - Processes imaging studies, performs anonymization, and sends them to research PACS
+#. :doc:`scripts/clearExports` - Removes old export files when storage reaches capacity thresholds
+#. :doc:`scripts/clearOldFiles` - Removes old studies from ``/data/site/archive`` when disk usage exceeds 80%
+#. :doc:`scripts/clearStaleLinks` - Removes broken symbolic links and empty directories from data structures
+#. :doc:`scripts/createTransferRequests` - Generates transfer requests for studies that need anonymization and forwarding to research projects
+#. :doc:`scripts/createTransferRequestsForProcessed` - Handles transfer requests for processed/derived imaging data from workstations back to research PACS
+#. :doc:`scripts/createZipFileCmd` -  Creates anonymized ZIP archives for research data distribution
+#. :doc:`scripts/cron` - Processes trigger-action pairs from JSON configuration files for event-driven automation
+#. :doc:`scripts/detectStudyArrival` - Triggers processing workflows when imaging studies are fully received
+#. :doc:`scripts/getAllPatients2` - Retrieves patient and study information from research PACS using findscu
+#. :doc:`scripts/heartbeat` - Checks DICOM service responsiveness and restarts failed components
+#. :doc:`scripts/moveFromScanner` - Pulls imaging data from clinical scanners using DICOM C-MOVE operations
+#. :doc:`scripts/mppsctl` - Controls DICOM Modality Performed Procedure Step (MPPS) service for tracking scan progress
+#. :doc:`scripts/parseAllPatients` - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import
+#. :doc:`scripts/populateAutoID` -  Generates automatic participant IDs for projects using pseudonymized identifiers
+#. :doc:`scripts/populateIncoming` - Processes incoming DICOM studies and creates metadata records in REDCap
+#. :doc:`scripts/populateProjects` - Populates individual research project databases with distributed data
+#. :doc:`scripts/processSingleFile3` - Extracts metadata from DICOM files and creates directory structures
+#. :doc:`scripts/process_tiff` - Converts whole slide imaging (WSI) files to DICOM format for pathology processing
+#. :doc:`scripts/removeOldEntries` - Removes old entries from incoming data tracking files
+#. :doc:`scripts/resendProject` - Handles re-transmission of studies when initial transfers fail or new data arrives
+#. :doc:`scripts/runOneJob` - Processes containerized analysis jobs from job queue
+#. :doc:`scripts/s2m` - Re-sends DICOM directories through the processing pipeline for re-classification
+#. :doc:`scripts/sendFiles` - Uploads anonymized data to external research repositories via secure file transfer
+#. :doc:`scripts/storectl` - Manages the main DICOM C-STORE receiver daemon
+#. :doc:`scripts/whatIsInIDS7`- Catalogs all studies present in the research imaging database
+#. :doc:`scripts/whatIsNotInIDS7`- Identifies and removes database entries for studies no longer in PACS
 
 System setup pipeline
 ------------------------
