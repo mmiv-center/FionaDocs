@@ -115,163 +115,68 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="processsinglefile3-py">
 <h1>processSingleFile3.py<a class="headerlink" href="#processsinglefile3-py" title="Link to this heading"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">processSingleFile3.py</span></code> is a Python daemon process that monitors DICOM files, extracts header information, and creates Study/Series symbolic link structures. The script implements a generic daemon class and a specialized DICOM processing class that listens for incoming messages via named pipes, processes DICOM files, and organizes them into a structured directory hierarchy.</p>
-<p><strong>The Main Dependences</strong></p>
-<div class="line-block">
-<div class="line">- <strong>user:</strong></div>
-<div class="line">- <strong>depends-on:</strong></div>
-<div class="line">- <strong>log-file:</strong> /../logs/processSingleFile[projname].log</div>
-<div class="line">- <strong>pid-file:</strong></div>
-<div class="line-block">
-<div class="line">-        /../.pids/processSingleFile[projname].pid</div>
-<div class="line">-       /tmp/processSingleFile[projname].pid</div>
-</div>
-<div class="line">- <strong>start:</strong> python processSingleFile3.py start [projname]</div>
-<div class="line">- <strong>license:</strong> Tbe</div>
-</div>
-<p><strong>The processing workflow:</strong></p>
-<div class="line-block">
-<div class="line">- Receives file paths via named pipe</div>
-<div class="line">- Reads DICOM files and extracts metadata</div>
-<div class="line">- Parses Siemens CSA headers for additional information</div>
-<div class="line">- Applies classification rules from classifyRules.json</div>
-<div class="line">- Creates organized directory structure with symbolic links</div>
-<div class="line">- Generates JSON metadata files for each series</div>
-</div>
-<p><strong>Input/Output File Dependencies Diagram</strong></p>
-<img src="../../_images/mermaid-471345e5fef0fa730e81db312082dddc555c9426.png" alt="flowchart LR
-%% Input Files
-CONFIG[&quot;config.json&quot;]
-RULES[&quot;classifyRules.json&quot;]
-PIPE[&quot;named pipe&quot;]
-DICOM[&quot;DICOM files&quot;]
+<p>ProcessSingleFile3.py is a daemon process that monitors a named pipe for DICOM file processing requests and creates organized directory structures with symbolic links. The daemon reads DICOM files, extracts header information including Siemens CSA headers, and organizes them into Study/Series hierarchies while generating JSON metadata files. It supports classification rules for automatic categorization of medical imaging data and handles structured reports separately from regular imaging data.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-84182a4eeccfe4d0988296dd4ec803ea0d62b3ff.png" alt="flowchart TD
+ B[&quot;classifyRules.json&lt;br&gt;(Classification Rules)&quot;] --&gt; A[&quot;processSingleFile3.py&quot;]
+ C[&quot;/tmp/.processSingleFilePipe&lt;br&gt;(Named Pipe)&quot;] --&gt; A
+ F[&quot;/data/config/config.json&quot;] --&gt; A
+ A --&gt; D[&quot;../logs/processSingleFile*.log&quot;]
+ A --&gt; E[&quot;../.pids/processSingleFile*.pid&quot;]
 
-%% Main Script
-MAIN[&quot;processSingleFile3.py&quot;]
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
 
-%% Output Files
-PID[&quot;*.pid&quot;]
-LOG[&quot;*.log&quot;]
-JSON[&quot;*.json metadata&quot;]
-LINKS[&quot;symbolic links&quot;]
-DIRS[&quot;organized directories&quot;]
+ class A mainScript
+ class B,C,F inputFile
+ class D,E outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-e42a585c4c24787dc16b0878437cf50ab0483538.png" alt="flowchart TD
+ A[&quot;DICOM Files&quot;] --&gt; B[&quot;processSingleFile3.py&quot;]
+ C[&quot;Named Pipe&lt;br&gt;(/tmp/.processSingleFilePipe)&quot;] --&gt; B
+ D[&quot;classifyRules.json&lt;br&gt;(Rules File)&quot;] --&gt; B
+ E[&quot;/data/config/config.json&lt;br&gt;(Config File)&quot;] --&gt; B
 
-%% Dependencies
-CONFIG --&gt; MAIN
-RULES --&gt; MAIN
-PIPE --&gt; MAIN
-DICOM --&gt; MAIN
+ B --&gt; F[&quot;/data/site/raw/&lt;br&gt;StudyUID/SeriesUID/&lt;br&gt;(Symbolic Links)&quot;]
+ B --&gt; G[&quot;/data/site/participants/&lt;br&gt;PatientID/StudyDate_Time/&lt;br&gt;(Patient Structure)&quot;]
+ B --&gt; H[&quot;/data/site/srs/&lt;br&gt;Manufacturer/StudyUID/&lt;br&gt;(Structured Reports)&quot;]
+ B --&gt; I[&quot;/data/site/.arrived/&lt;br&gt;(Touch Files)&quot;]
+ B --&gt; J[&quot;Series JSON Files&lt;br&gt;(.json metadata)&quot;]
+ B --&gt; K[&quot;Log Files&lt;br&gt;(../logs/)&quot;]
 
-%% Outputs
-MAIN --&gt; PID
-MAIN --&gt; LOG
-MAIN --&gt; JSON
-MAIN --&gt; LINKS
-MAIN --&gt; DIRS
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
 
-%% Styling
-classDef inputFile fill:#e1f5fe
-classDef outputFile fill:#f3e5f5
-classDef mainScript fill:#fff3e0
-
-class CONFIG,RULES,PIPE,DICOM inputFile
-class PID,LOG,JSON,LINKS,DIRS outputFile
-class MAIN mainScript" />
-<p><strong>File Description:</strong></p>
-<div class="line-block">
-<div class="line">1. Input Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">config.json</span></code> - project configuration and directory paths</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">classifyRules.json</span></code> - DICOM series classification rules</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">named</span> <span class="pre">pipe</span></code> - daemon communication, receives file paths</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">DICOM</span> <span class="pre">files</span></code> - medical imaging files to be processed</div>
-</div>
-<div class="line-block">
-<div class="line">2. Output Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.pid</span></code> - daemon process ID</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.log</span></code> - operation and error logs</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.json</span> <span class="pre">metadata</span></code> - series metadata in JSON format</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">symbolic</span> <span class="pre">links</span></code> - links to original DICOM files</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">organized</span> <span class="pre">directories</span></code> - directory structure organized by patients/studies</div>
-</div>
-<p><strong>Data Flow Dependencies</strong></p>
-<img src="../../_images/mermaid-39ec4fbe90e5a768b173f38604f4994a833cb136.png" alt="flowchart LR
-%% Input Data
-CONFIG[&quot;config.json&quot;]
-RULES[&quot;classifyRules.json&quot;]
-PIPE[&quot;named pipe&quot;]
-DICOM[&quot;DICOM files&quot;]
-
-%% Main Process
-DAEMON[&quot;processSingleFile3.py&quot;]
-
-%% Output Data
-PID[&quot;*.pid&quot;]
-LOG[&quot;*.log&quot;]
-JSON[&quot;*.json&quot;]
-LINKS[&quot;symbolic links&quot;]
-DIRS[&quot;organized directories&quot;]
-
-%% Data Flow
-CONFIG --&gt; DAEMON
-RULES --&gt; DAEMON
-PIPE --&gt; DAEMON
-DICOM --&gt; DAEMON
-
-DAEMON --&gt; PID
-DAEMON --&gt; LOG
-DAEMON --&gt; JSON
-DAEMON --&gt; LINKS
-DAEMON --&gt; DIRS
-
-%% Styling
-classDef inputFile fill:#e1f5fe
-classDef process fill:#fff3e0
-classDef outputFile fill:#f3e5f5
-
-class CONFIG,RULES,PIPE,DICOM inputFile
-class DAEMON process
-class PID,LOG,JSON,LINKS,DIRS outputFile" />
-<p><strong>Data Flow components:</strong></p>
-<div class="line-block">
-<div class="line">1. Input Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">config.json</span></code> - system configuration file containing project settings and directory paths</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">classifyRules.json</span></code> - rule definitions for automatic DICOM series classification</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">named</span> <span class="pre">pipe</span></code> - inter-process communication channel receiving file processing commands</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">DICOM</span> <span class="pre">files</span></code> - medical imaging files in DICOM format containing patient data</div>
-</div>
-<div class="line-block">
-<div class="line">2. Main Process:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">processSingleFile3.py</span></code> - daemon process that orchestrates DICOM file processing and organization</div>
-</div>
-<div class="line-block">
-<div class="line">3. Output Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.pid</span></code> - process identifier files for daemon management and monitoring</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.log</span></code> - log files containing operational messages and error reports</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">*.json</span></code> - metadata files with extracted DICOM header information</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">symbolic</span> <span class="pre">links</span></code> - file system links organizing DICOM files by study structure</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">organized</span> <span class="pre">directories</span></code> - hierarchical directory structure arranged by patients and studies</div>
-</div>
-<p><strong>Directories:</strong></p>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data</span></code> - Default data directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/.arrived</span></code> - Touch files for series arrival detection</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/participants</span></code> - Patient-organized directory structure</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/srs</span></code> - Structured reports directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/raw</span></code> - Raw DICOM files organized by Study/Series</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/site/temp</span></code> - Temporary files directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">../logs/</span></code> - Log files directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">../.pids/</span></code> - Process ID files directory</div>
-</div>
+ class A,C,D,E inputFile
+ class B mainScript
+ class F,G,H,I,J,K outputFile" />
+<p>Data pahts</p>
+<ul class="simple">
+<li><p>Input Paths:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> - Configuration file containing project settings classifyRules.json - Classification rules file (same directory as script)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/.processSingleFilePipe[projname]</span></code> - Named pipe for receiving file processing requests</p></li>
+<li><p>Source DICOM files (paths received via named pipe)</p></li>
+</ul>
+</li>
+<li><p>Output Paths:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/[StudyUID]/[SeriesUID]/</span></code> - Organized DICOM structure with symbolic links</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/participants/[PatientID]/[StudyDate_StudyTime]/</span></code> - Patient-oriented  directory structure</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/srs/[Manufacturer]/[StudyUID]/</span></code> - Structured reports directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/</span></code> - Touch files for series arrival detection</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/temp/</span></code> - Temporary directory for atomic JSON file operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">../logs/processSingleFile[projname].log</span></code> - Log files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">../.pids/processSingleFile[projname].pid</span></code> - Process ID files</p></li>
+<li><p>Series JSON metadata files (.json files alongside DICOM directories)</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

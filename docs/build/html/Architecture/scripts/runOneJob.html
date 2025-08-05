@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -101,6 +115,65 @@
              
   <section id="runonejob-sh">
 <h1>runOneJob.sh<a class="headerlink" href="#runonejob-sh" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">runOneJob.sh</span></code> script processes workflow jobs by reading JSON job definitions from a queue file and executing containerized processing tasks using the ROR (Run on Request) system. It validates job parameters, creates working directories, executes Docker containers with specified images, and handles output validation by comparing DICOM StudyInstanceUIDs between input and output folders. Upon successful completion, it sends processed DICOM data to a FIONA storage system and optionally transfers results to REDCap, then removes completed jobs from the queue.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-cf47db8200324a581d7dcb5313d6b2aad8e0a560.png" alt="flowchart TD
+ A[&quot;workflow_joblist.jobs&quot;] --&gt; B[&quot;runOneJob.sh&quot;]
+ B --&gt; C[&quot;ror&lt;br&gt;(ROR executable)&quot;]
+ B --&gt; D[&quot;sendToREDCap.php&quot;]
+ B --&gt; E[&quot;dcmdump&lt;br&gt;(DICOM utility)&quot;]
+ B --&gt; F[&quot;storescu&lt;br&gt;(DICOM transfer)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A inputFile
+ class B mainScript
+ class C,D,E,F outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-cfedd27da447110d09a1491ce93af4c2bed391e9.png" alt="flowchart TD
+ A[&quot;workflow_joblist.jobs&quot;] --&gt; B[&quot;runOneJob.sh&quot;]
+ B --&gt; C[&quot;Docker Container&lt;br&gt;(Processing)&quot;]
+ D[&quot;Input DICOM data&lt;br&gt;(/export/Workflows/PROJECT/ror/)&quot;] --&gt; C
+ C --&gt; E[&quot;Output DICOM data&lt;br&gt;(datajob_*_output/)&quot;]
+ C --&gt; F[&quot;output.json&lt;br&gt;(REDCap data)&quot;]
+ E --&gt; G[&quot;FIONA DICOM Storage&quot;]
+ F --&gt; H[&quot;REDCap Database&quot;]
+ B --&gt; I[&quot;Log files&lt;br&gt;(/tmp/*.log)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,D inputFile
+ class B,C mainScript
+ class E,F,G,H,I outputFile" />
+<p>Data Paths</p>
+<ul>
+<li><p>Input Paths:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Workflows/php/workflow_joblist.jobs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/export/Workflows/{PROJECT}/ror/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Workflows/php/ror</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Output Paths:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/export/Workflows/{PROJECT}/ror/datajob_{JOB_NUMBER}_{IMAGE_NAME}_*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/export/Workflows/{PROJECT}/ror/datajob_{JOB_NUMBER}_{IMAGE_NAME}_*_output/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/{DIRECTORY_NAME}run.log</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/processing/logs/Workflows_RunOneJob.log</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -101,6 +115,56 @@
              
   <section id="populateprojects-py">
 <h1>populateProjects.py<a class="headerlink" href="#populateprojects-py" title="Link to this heading"></a></h1>
+<p>This Python script populates REDCap projects with imaging study information by retrieving transferred studies from incoming transfers and creating corresponding entries in target projects. The script fetches transfer data from a central REDCap database, matches it with project tokens, and creates participant records with associated imaging instrument data for each study that has been forwarded to PACS. It processes transfers either for all active projects or a specific project when the –project parameter is provided, ensuring each study appears in its own REDCap project with proper repeat instance management.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-eb6156b441b58ea0248c415e9aa1c90d3a918ef3.png" alt="flowchart TD
+ B[&quot;imagingProjects.json&lt;br&gt;(Configuration File)&quot;] --&gt; A[&quot;populateProjects.py&quot;]
+ C[&quot;REDCap API&lt;br&gt;(localhost:4444/api/)&quot;] --&gt; A
+ D[&quot;DataTransferProjects&lt;br&gt;(REDCap Project)&quot;] --&gt; A
+ E[&quot;Incoming Transfers&lt;br&gt;(REDCap Project)&quot;] --&gt; A
+ A --&gt; F[&quot;Target Projects&lt;br&gt;(REDCap Projects)&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D,E inputFile
+ class F outputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-60e48bc603089abdafcc83e8fe8235954d5c875f.png" alt="flowchart TD
+ A[&quot;/home/processing/bin/&lt;br&gt;imagingProjects.json&quot;] --&gt; B[&quot;populateProjects.py&quot;]
+ C[&quot;DataTransferProjects&quot;] --&gt; B
+ D[&quot;Incoming Transfers&lt;br&gt;&quot;] --&gt; B
+ B --&gt; E[&quot;Target REDCap&lt;br&gt;Projects&quot;]
+ B --&gt; F[&quot;REDCap API&lt;br&gt;Server&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A,C,D inputFile
+ class B mainScript
+ class E,F outputFile" />
+<p>Data paths</p>
+<ul class="simple">
+<li><p>Input Paths:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/processing/bin/imagingProjects.json</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Output Destinations:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Multiple REDCap projects (determined dynamically from DataTransferProjects)</p></li>
+</ul>
+</div></blockquote>
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>
