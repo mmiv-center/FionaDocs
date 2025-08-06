@@ -1,131 +1,98 @@
 storectl.sh
 ~~~~~~~~~~~~
 
-
-The ``storectl.sh`` script is a system service controller for managing DICOM storage operations. It starts/stops the storescpFIONA daemon which receives DICOM files over the network and processes them through a named pipe system. 
-
-
-**The Main Dependecnes:**
-
-| - **user:** processing
-| - **depends-on:** 
-|	- /data/config/config.json,
-|	- storescpFIONA,
-|	- receiveSingleFile.sh,
-|	- processSingleFile.py
-| - **log-file:** 
-|	- ${SERVERDIR}/logs/storescpd${projname}.log,
-|	- ${SERVERDIR}/logs/storescpd-start.log
-| - **pid-file:** ${SERVERDIR}/.pids/storescpd${projname}.pid
-| - **start:** ./storectl.sh start [PROJECT_NAME]
-| - **license:** TBE
+This script manages a DICOM storage service (``storescp`` daemon) that receives medical imaging data on a specified port. It starts or stops the ``storescpFIONA`` service for the  ``processing`` user, which listens for incoming DICOM files and moves them to project-specific directories. The service can be controlled via an enabled/disabled flag file and supports multiple projects with different configurations (ABCD as default).
 
 
-**Input/Output File Dependencies**
-
-.. mermaid::
-   
-   flowchart TD
-   config["/data/config/config.json"]
-   enabled["/data/enabled"]
-   dict["/usr/share/dcmtk/dicom.dic"]
-    
-   storectl["storectl.sh"]
-   receiveSingle["receiveSingleFile.sh"]
-    
-   pidFile["${SERVERDIR}/.pids/storescpd${projname}.pid"]
-   logFile["${SERVERDIR}/logs/storescpd${projname}.log"]
-   startLog["${SERVERDIR}/logs/storescpd-start.log"]
-    
-   config -->|"reads DATADIR, DICOMPORT"| storectl
-   enabled -->|"checks service status"| storectl
-   dict -->|"sets environment variable"| storectl
-    
-   storectl -->|"creates/deletes PID"| pidFile
-   storectl -->|"writes daemon logs"| logFile
-   storectl -->|"writes startup logs"| startLog
-   storectl -->|"executes on reception"| receiveSingle
-    
-   %% Styling
-   classDef inputFile fill:#e1f5fe
-   classDef outputFile fill:#f3e5f5
-   classDef mainScript fill:#fff3e0
-    
-   class config,enabled,dict inputFile
-   class pidFile,logFile,startLog outputFile
-   class storectl,receiveSingle mainScript
-   
-      
-**File Descriptions:**
-   
-| - ``config.json`` - Main configuration file containing DATADIR, DICOMPORT, and project settings
-| - ``enabled`` - Control file to enable/disable the service (first character: 0=disabled, 1=enabled)
-| - ``storectl.sh`` - Main control script for managing the DICOM storage daemon
-| - ``storescpd.pid`` - Process ID file for tracking the running daemon
-| - ``storescpd.log`` - Log file recording daemon activities and errors
-| - ``processSingleFilePipe`` - Named pipe for communicating file reception events to processing system
-
-
-
-**Data Flow Dependencies**
+**Related Files**
 
 .. mermaid::
 
    flowchart TD
-   dicomSender["DICOM Sender"]
-   storescpFIONA["storescpFIONA daemon"]
+    A["storectl.sh"]:::mainScript
+    B["/data/config/config.json"]:::inputFile
+    C["/data/config/enabled"]:::inputFile
+    D["/usr/share/dcmtk/dicom.dic"]:::inputFile
+    E["receiveSingleFile.sh"]:::outputFile
+    F["storescpFIONA"]:::outputFile
+    G["/tmp/.processSingleFilePipe<br>(Named Pipe)"]:::outputFile
+    H["logs/storescpd.log"]:::outputFile
+    I[".pids/storescpd.pid"]:::outputFile
     
-   arrivedDir["${DATADIR}/site/.arrived/"]
-   archiveDir["${DATADIR}/site/archive/"]
-   pipe["/tmp/.processSingleFilePipe${projname}"]
-   
-   receiveSingle["receiveSingleFile.sh"]
-   processSingle["processSingleFile.py"]
-   storectl["storectl.sh"]
+    B --> A
+    C --> A
+    D --> A
+    A --> F
+    A --> E
+    A --> G
+    A --> H
+    A --> I
+    F --> G
+
+    %% Styling
+    classDef inputFile fill:#e1f5fe
+    classDef outputFile fill:#f3e5f5
+    classDef mainScript fill:#fff3e0
     
-   dicomSender -->|"DICOM files"| storescpFIONA
-   storescpFIONA -->|"stores files"| arrivedDir
-   storescpFIONA -->|"archives files"| archiveDir
-   storescpFIONA -->|"triggers execution"| receiveSingle
-   receiveSingle -->|"sends events"| pipe
-   pipe -->|"processes events"| processSingle
+    class B,C,D inputFile
+    class E,F,G,H,I outputFile
+    class A mainScript
+
+
+**Data Flow Diagram**
+
+.. mermaid::
+
+
+   flowchart TD
+    A["DICOM Client"]:::inputFile
+    B["storectl.sh"]:::mainScript
+    C["storescpFIONA"]:::mainScript
+    D["Named Pipe<br>(/tmp/.processSingleFilePipe)"]:::outputFile
+    E["Archive Directory<br>(/data/site/archive)"]:::outputFile
+    F["Arrived Directory<br>(/data/site/.arrived)"]:::outputFile
+    G["processSingleFile.py"]:::outputFile
     
-   storectl -->|"starts/stops"| storescpFIONA
+    A --> |"DICOM data"| C
+    B --> |"start/stop"| C
+    C --> |"received<br>files"| E
+    C --> |"file events"| D
+    C --> |"metadata"| F
+    D --> |"file paths"| G
+
+    %% Styling
+    classDef inputFile fill:#e1f5fe
+    classDef outputFile fill:#f3e5f5
+    classDef mainScript fill:#fff3e0
     
-   %% Styling
-   classDef inputFile fill:#e1f5fe
-   classDef outputFile fill:#f3e5f5
-   classDef mainScript fill:#fff3e0
-    
-   class dicomSender,arrivedDir inputFile
-   class archiveDir,pipe outputFile
-   class storectl,receiveSingle,processSingle,storescpFIONA mainScript 
-   
- 
-**File Descriptions**
-
-| 1. Input Files:
-
-| - ``/data/config/config.json`` - Main configuration file containing data directories and DICOM ports
-| - ``/data/enabled`` - Optional control file to disable the service (first character "0" disables)
-| - ``/usr/share/dcmtk/dicom.dic`` - DICOM dictionary file for parsing DICOM data structures
-
-| 2. Output Files:
-
-| - ``${SERVERDIR}/.pids/storescpd${projname}.pid`` - Process ID file for daemon management
-| - ``${SERVERDIR}/logs/storescpd${projname}.log`` - Main service log file for daemon output
-| - ``${SERVERDIR}/logs/storescpd-start.log`` - Startup log file for initialization messages
-| - ``/tmp/.processSingleFilePipe${projname}`` - Named pipe for inter-process communication   
+    class A inputFile
+    class D,E,F,G outputFile
+    class B,C mainScript
 
 
-    
-**Directories:**
+Data Paths
 
-| - ``${DATADIR}/site/archive`` - DICOM file storage location
-| - ``${DATADIR}/site/.arrived`` - Temporary arrival directory
-| - ``${SERVERDIR}/.pids/`` - PID file storage
-| - ``${SERVERDIR}/logs/`` - Log file directory
 
+- Input paths:
+
+   * ``/data/config/``
+   * ``/usr/share/dcmtk/``
+   * ``/var/www/html/server/``
+
+- Output paths (data saved to):
+
+   * ``/data/site/archive/`` 
+   * ``/data/site/.arrived/``
+   * ``/var/www/html/server/logs/`` 
+   * ``/var/www/html/server/.pids/`` 
+   * ``/tmp/`` 
+
+
+
+
+
+
+---------------------------------
 
 .. include:: storectl.sh 
    :start-after: : '

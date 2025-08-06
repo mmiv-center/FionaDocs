@@ -17,6 +17,20 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">
+{
+    "theme": "neutral",
+    "themeVariables": {
+        "primaryColor": "#ff0000"
+    }
+}
+</script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -101,6 +115,54 @@
              
   <section id="whatisnotinids7-py">
 <h1>whatIsNotInIDS7.py<a class="headerlink" href="#whatisnotinids7-py" title="Link to this heading"></a></h1>
+<p>This script cleans up a REDCap database by removing records that no longer exist in the research PACS system. It queries the REDCap project “whatIsInIDS7” to retrieve all stored records, then validates each record’s existence in the research PACS using DICOM findscu commands. Records that are not found in the PACS (indicated by zero SeriesInstanceUID occurrences) are marked for deletion and optionally removed from REDCap in batches of 200.</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-112387485dd38850e9a405edfd75818395f48330.png" alt="flowchart TD
+ A[&quot;whatIsNotInIDS7.py&quot;] --&gt; B[&quot;findscu&lt;br&gt;(External DICOM Tool)&quot;]
+ B --&gt; C[&quot;Research PACS Server&quot;]
+ A --&gt; D[&quot;REDCap API&quot;]
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A mainScript
+ class B,C,D inputFile" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-3216f5903a07497760b6dfe4fe67be8301c7f226.png" alt="flowchart TD
+ A[&quot;REDCap Database&quot;] --&gt; B[&quot;whatIsNotInIDS7.py&quot;]
+ B --&gt; C[&quot;Research PACS&quot;]
+ C --&gt; B
+ B --&gt; A
+
+
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
+
+ class A inputFile
+ class B mainScript
+ class C inputFile" />
+<p>Data Paths</p>
+<ul>
+<li><p>Input Source:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">REDCap</span></code> API</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Output Destination:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">REDCap</span></code> API</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>

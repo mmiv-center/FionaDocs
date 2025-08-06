@@ -115,120 +115,86 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="storectl-sh">
 <h1>storectl.sh<a class="headerlink" href="#storectl-sh" title="Link to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">storectl.sh</span></code> script is a system service controller for managing DICOM storage operations. It starts/stops the storescpFIONA daemon which receives DICOM files over the network and processes them through a named pipe system.</p>
-<p><strong>The Main Dependecnes:</strong></p>
-<div class="line-block">
-<div class="line">- <strong>user:</strong> processing</div>
-<div class="line">- <strong>depends-on:</strong></div>
-<div class="line-block">
-<div class="line">- /data/config/config.json,</div>
-<div class="line">- storescpFIONA,</div>
-<div class="line">- receiveSingleFile.sh,</div>
-<div class="line">- processSingleFile.py</div>
-</div>
-<div class="line">- <strong>log-file:</strong></div>
-<div class="line-block">
-<div class="line">- ${SERVERDIR}/logs/storescpd${projname}.log,</div>
-<div class="line">- ${SERVERDIR}/logs/storescpd-start.log</div>
-</div>
-<div class="line">- <strong>pid-file:</strong> ${SERVERDIR}/.pids/storescpd${projname}.pid</div>
-<div class="line">- <strong>start:</strong> ./storectl.sh start [PROJECT_NAME]</div>
-<div class="line">- <strong>license:</strong> TBE</div>
-</div>
-<p><strong>Input/Output File Dependencies</strong></p>
-<img src="../../_images/mermaid-aa473b54619391da30506c9d3fca2c7636ecd8db.png" alt="flowchart TD
-config[&quot;/data/config/config.json&quot;]
-enabled[&quot;/data/enabled&quot;]
-dict[&quot;/usr/share/dcmtk/dicom.dic&quot;]
+<p>This script manages a DICOM storage service (<code class="docutils literal notranslate"><span class="pre">storescp</span></code> daemon) that receives medical imaging data on a specified port. It starts or stops the <code class="docutils literal notranslate"><span class="pre">storescpFIONA</span></code> service for the  <code class="docutils literal notranslate"><span class="pre">processing</span></code> user, which listens for incoming DICOM files and moves them to project-specific directories. The service can be controlled via an enabled/disabled flag file and supports multiple projects with different configurations (ABCD as default).</p>
+<p><strong>Related Files</strong></p>
+<img src="../../_images/mermaid-2db8802c18cde50a552b7f0d73de364716805f73.png" alt="flowchart TD
+ A[&quot;storectl.sh&quot;]:::mainScript
+ B[&quot;/data/config/config.json&quot;]:::inputFile
+ C[&quot;/data/config/enabled&quot;]:::inputFile
+ D[&quot;/usr/share/dcmtk/dicom.dic&quot;]:::inputFile
+ E[&quot;receiveSingleFile.sh&quot;]:::outputFile
+ F[&quot;storescpFIONA&quot;]:::outputFile
+ G[&quot;/tmp/.processSingleFilePipe&lt;br&gt;(Named Pipe)&quot;]:::outputFile
+ H[&quot;logs/storescpd.log&quot;]:::outputFile
+ I[&quot;.pids/storescpd.pid&quot;]:::outputFile
 
-storectl[&quot;storectl.sh&quot;]
-receiveSingle[&quot;receiveSingleFile.sh&quot;]
+ B --&gt; A
+ C --&gt; A
+ D --&gt; A
+ A --&gt; F
+ A --&gt; E
+ A --&gt; G
+ A --&gt; H
+ A --&gt; I
+ F --&gt; G
 
-pidFile[&quot;${SERVERDIR}/.pids/storescpd${projname}.pid&quot;]
-logFile[&quot;${SERVERDIR}/logs/storescpd${projname}.log&quot;]
-startLog[&quot;${SERVERDIR}/logs/storescpd-start.log&quot;]
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
 
-config --&gt;|&quot;reads DATADIR, DICOMPORT&quot;| storectl
-enabled --&gt;|&quot;checks service status&quot;| storectl
-dict --&gt;|&quot;sets environment variable&quot;| storectl
+ class B,C,D inputFile
+ class E,F,G,H,I outputFile
+ class A mainScript" />
+<p><strong>Data Flow Diagram</strong></p>
+<img src="../../_images/mermaid-00e98f308b538fc5303c16d8c012c965211ee75a.png" alt="flowchart TD
+ A[&quot;DICOM Client&quot;]:::inputFile
+ B[&quot;storectl.sh&quot;]:::mainScript
+ C[&quot;storescpFIONA&quot;]:::mainScript
+ D[&quot;Named Pipe&lt;br&gt;(/tmp/.processSingleFilePipe)&quot;]:::outputFile
+ E[&quot;Archive Directory&lt;br&gt;(/data/site/archive)&quot;]:::outputFile
+ F[&quot;Arrived Directory&lt;br&gt;(/data/site/.arrived)&quot;]:::outputFile
+ G[&quot;processSingleFile.py&quot;]:::outputFile
 
-storectl --&gt;|&quot;creates/deletes PID&quot;| pidFile
-storectl --&gt;|&quot;writes daemon logs&quot;| logFile
-storectl --&gt;|&quot;writes startup logs&quot;| startLog
-storectl --&gt;|&quot;executes on reception&quot;| receiveSingle
+ A --&gt; |&quot;DICOM data&quot;| C
+ B --&gt; |&quot;start/stop&quot;| C
+ C --&gt; |&quot;received&lt;br&gt;files&quot;| E
+ C --&gt; |&quot;file events&quot;| D
+ C --&gt; |&quot;metadata&quot;| F
+ D --&gt; |&quot;file paths&quot;| G
 
-%% Styling
-classDef inputFile fill:#e1f5fe
-classDef outputFile fill:#f3e5f5
-classDef mainScript fill:#fff3e0
+ %% Styling
+ classDef inputFile fill:#e1f5fe
+ classDef outputFile fill:#f3e5f5
+ classDef mainScript fill:#fff3e0
 
-class config,enabled,dict inputFile
-class pidFile,logFile,startLog outputFile
-class storectl,receiveSingle mainScript" />
-<p><strong>File Descriptions:</strong></p>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">config.json</span></code> - Main configuration file containing DATADIR, DICOMPORT, and project settings</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">enabled</span></code> - Control file to enable/disable the service (first character: 0=disabled, 1=enabled)</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">storectl.sh</span></code> - Main control script for managing the DICOM storage daemon</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">storescpd.pid</span></code> - Process ID file for tracking the running daemon</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">storescpd.log</span></code> - Log file recording daemon activities and errors</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">processSingleFilePipe</span></code> - Named pipe for communicating file reception events to processing system</div>
-</div>
-<p><strong>Data Flow Dependencies</strong></p>
-<img src="../../_images/mermaid-11e394135a2629a7c3c10f3946a24837dd34d222.png" alt="flowchart TD
-dicomSender[&quot;DICOM Sender&quot;]
-storescpFIONA[&quot;storescpFIONA daemon&quot;]
-
-arrivedDir[&quot;${DATADIR}/site/.arrived/&quot;]
-archiveDir[&quot;${DATADIR}/site/archive/&quot;]
-pipe[&quot;/tmp/.processSingleFilePipe${projname}&quot;]
-
-receiveSingle[&quot;receiveSingleFile.sh&quot;]
-processSingle[&quot;processSingleFile.py&quot;]
-storectl[&quot;storectl.sh&quot;]
-
-dicomSender --&gt;|&quot;DICOM files&quot;| storescpFIONA
-storescpFIONA --&gt;|&quot;stores files&quot;| arrivedDir
-storescpFIONA --&gt;|&quot;archives files&quot;| archiveDir
-storescpFIONA --&gt;|&quot;triggers execution&quot;| receiveSingle
-receiveSingle --&gt;|&quot;sends events&quot;| pipe
-pipe --&gt;|&quot;processes events&quot;| processSingle
-
-storectl --&gt;|&quot;starts/stops&quot;| storescpFIONA
-
-%% Styling
-classDef inputFile fill:#e1f5fe
-classDef outputFile fill:#f3e5f5
-classDef mainScript fill:#fff3e0
-
-class dicomSender,arrivedDir inputFile
-class archiveDir,pipe outputFile
-class storectl,receiveSingle,processSingle,storescpFIONA mainScript" />
-<p><strong>File Descriptions</strong></p>
-<div class="line-block">
-<div class="line">1. Input Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> - Main configuration file containing data directories and DICOM ports</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/data/enabled</span></code> - Optional control file to disable the service (first character “0” disables)</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/dicom.dic</span></code> - DICOM dictionary file for parsing DICOM data structures</div>
-</div>
-<div class="line-block">
-<div class="line">2. Output Files:</div>
-</div>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/storescpd${projname}.pid</span></code> - Process ID file for daemon management</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/storescpd${projname}.log</span></code> - Main service log file for daemon output</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/storescpd-start.log</span></code> - Startup log file for initialization messages</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">/tmp/.processSingleFilePipe${projname}</span></code> - Named pipe for inter-process communication</div>
-</div>
-<p><strong>Directories:</strong></p>
-<div class="line-block">
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/archive</span></code> - DICOM file storage location</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${DATADIR}/site/.arrived</span></code> - Temporary arrival directory</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/.pids/</span></code> - PID file storage</div>
-<div class="line">- <code class="docutils literal notranslate"><span class="pre">${SERVERDIR}/logs/</span></code> - Log file directory</div>
-</div>
+ class A inputFile
+ class D,E,F,G outputFile
+ class B,C mainScript" />
+<p>Data Paths</p>
+<ul>
+<li><p>Input paths:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/server/</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Output paths (data saved to):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/archive/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/server/logs/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/server/.pids/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<hr class="docutils" />
 <p>Script docstring starts here —&gt;&gt;&gt;
 –&gt;&gt;
 –&gt;&gt;</p>
