@@ -1,0 +1,19 @@
+{
+  "urls": {
+    "RedCap": "https://project-redcap.org"
+  },
+  "contacts": {
+    "admin": "admin@example.com"
+  },
+  "internal": {
+    "helpdesk": "http://helpdesk.company.local",
+    "intranet": "http://intranet.company.local"    
+  },
+  "bergen":{
+    "Fiona": "https://fiona.ihelse.net",
+    "IKT":"https://www.helse-vest-ikt.no",
+    "hus": "https://www.helse-bergen.no/en"
+  }
+
+}
+
