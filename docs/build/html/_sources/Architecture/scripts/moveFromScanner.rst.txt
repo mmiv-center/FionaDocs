@@ -55,20 +55,25 @@ This script is a DICOM scanner integration tool that automatically retrieves med
 Data Paths
 
 - Input Directories:
-* ``${DATADIR}/active-scans/``
-* ``${DATADIR}/scanner/`` 
-* ``${DATADIR}/config/enabled`` 
-* ``/data/config/config.json`` 
+
+  * ``${DATADIR}/active-scans/``
+  * ``${DATADIR}/scanner/`` 
+  * ``${DATADIR}/config/enabled`` 
+  * ``/data/config/config.json`` 
+
 - Output Directories:
-* ``${DATADIR}/site/raw/${studyInstanceUID}/${seriesInstanceUID}/`` -
-* ``${DATADIR}/finished-scans/`` 
-* ``${DATADIR}/failed-scans/``
-* ``${SERVERDIR}/logs/moveFromScanner.log`` 
-* ``${SERVERDIR}/.pids/moveFromScanner.lock`` 
+
+  * ``${DATADIR}/site/raw/${studyInstanceUID}/${seriesInstanceUID}/`` -
+  * ``${DATADIR}/finished-scans/`` 
+  * ``${DATADIR}/failed-scans/``
+  * ``${SERVERDIR}/logs/moveFromScanner.log`` 
+  * ``${SERVERDIR}/.pids/moveFromScanner.lock`` 
+
 - Configuration Variables:
-* ``DATADIR``
-* ``SCANNERIP``, ``SCANNERPORT``
-* ``SCANNERAETITLE``, ``DICOMAETITLE``
+
+  * ``DATADIR``
+  * ``SCANNERIP``, ``SCANNERPORT`` 
+  * ``SCANNERAETITLE``, ``DICOMAETITLE``
 
 
 

@@ -75,8 +75,7 @@ Data paths
 
 - Project-specific paths (for non-ABCD projects like PCGC):
 
-   * ``/data{PROJNAME}/site/.arrived/`` - Project-specific job triggers
-Project-specific DATADIR and PFILEDIR from config.json
+   * ``/data{PROJNAME}/site/.arrived/`` - Project-specific job triggers Project-specific DATADIR and PFILEDIR from config.json
 
 
 ----

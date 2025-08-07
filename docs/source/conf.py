@@ -12,9 +12,24 @@
 #
 import os
 import sys
+
+#from anyio import getnameinfo
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('Architecture/python'))
 sys.path.insert(0, os.path.abspath('Architecture'))
+sys.path.insert(0, os.path.abspath('.'))
+
+# -- Our helpers --------------------------------------------------------------
+
+# Import log_files
+from helpers import load_config, generate_substitutions
+
+# Load configurations and generate substitutions
+config = load_config()
+rst_prolog = generate_substitutions(config)
+
+
+
 
 
 # -- Project information -----------------------------------------------------
@@ -99,3 +114,6 @@ html_static_path = ['_static']
 
 # Add CSS description
 html_css_files = ['custom.css']
+
+
+

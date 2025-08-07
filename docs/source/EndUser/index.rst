@@ -9,14 +9,7 @@ LEARN
 
 Fiona system
 --------------
-
-FIONA serves as an intermediary system that:
-
-* Receives medical image data from clinical PACS systems
-* Processes and classifies incoming DICOM studies
-* Anonymizes data according to research requirements
-* Manages data transfer back to research PACS systems
-* Provides project-specific data organization
+The |fiona_link| system is a comprehensive solution for managing DICOM medical images in a research environment. The system enables automatic reception, processing, anonymization, and transfer of imaging data between Clinical and Research PACS (Picture Archiving and Communication System) systems.
 
 
 
@@ -25,26 +18,31 @@ Project creation, setup and access
 
 In order to apply for a new project on the research information system (research PACS)
 please fill out the application form available under “Apply/Apply for a new research project”
-here: `<https://www.google.com>`_ or `<ttps://fiona.medtek.hbe.med.nvsl.no/>`_.
+here: |fiona_url| or `<ttps://fiona.medtek.hbe.med.nvsl.no/>`.
 
 Additional user access can be requested by the principal investigator of the project under
 “Apply/Apply for access to an existing project”.
 
-If you encounter any problems with applying for access, contact Hauke.Bartsch@helse-bergen.no.
+If you encounter any problems with applying for access, contact |admin_email|.
 
 
 
 Access to REDCap for structured data
 ----------------------------------------
 
-Our project uses REDCap as an electronic data capture solution. Projects on the research information system can receive access to their REDCap project as well as access to the image data viewing (see next section).
+Our project uses |redcap_url| as an electronic data capture solution. Projects on the research information system can receive access to their |redcap_link| project as well as access to the image data viewing (see next section).
+
+
+* |hus_url|, |hus_link|
+* |Fiona_url|, |Fiona_link|
+* |RedCap_url|, |RedCap_link|
 
 
 
 Access to the “Sectra DMA Forskning” research PACS viewer
 -------------------------------------------------------------
 
-Access to the image data is provided by IKT. Such access requires a valid Haukeland University Hospital user account and a laptop or PACS workstation that is under control of IKT. If you contact IKT ask for the start menu item “Sectra DMA Forskning”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
+Access to the image data is provided by |ikt_url|. Such access requires a valid |hus_link| user account and a laptop or PACS workstation that is under control of |ikt_link|. If you contact IKT ask for the start menu item “Sectra DMA Forskning”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
 
 Without access to a specific research project you will not see any data in the research PACS. Each research projects requires specific permissions to become accessible for a user.
 
@@ -164,3 +162,9 @@ Key features of the RIS include:
 - Projects require a valid REK approval, such documentation has to be provided at the start of a project by the project owner.
 - The project owner can identify additional user accounts that can access the data.
 - User access to the research PACS is controlled by IKT and requires a valid Haukeland University Hospital user account.
+
+
+
+--------
+
+.. include:: exports.rst

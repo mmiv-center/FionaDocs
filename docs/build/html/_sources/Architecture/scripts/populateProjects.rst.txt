@@ -57,7 +57,7 @@ Data paths
  * Multiple REDCap projects (determined dynamically from DataTransferProjects)
 
 
- -------
+----------
 
 
 .. include:: populateProjects.py
