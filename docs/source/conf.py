@@ -28,7 +28,9 @@ from helpers import load_config, generate_substitutions
 config = load_config()
 rst_prolog = generate_substitutions(config)
 
-
+print("*******************")
+print(rst_prolog)
+print("*******************")
 
 
 
