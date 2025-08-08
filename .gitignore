@@ -3,3 +3,5 @@ docs/source/Architecture/scripts/*.py
 docs/source/Architecture/scripts/*.sh
 docs/source/Architecture/scripts/*.php
 
+**/__pycache__/
+
