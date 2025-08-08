@@ -9,7 +9,7 @@ LEARN
 
 Fiona system
 --------------
-The |fiona_link| system is a comprehensive solution for managing DICOM medical images in a research environment. The system enables automatic reception, processing, anonymization, and transfer of imaging data between Clinical and Research PACS (Picture Archiving and Communication System) systems.
+The Fiona system is a comprehensive solution for managing DICOM medical images in a research environment. The system enables automatic reception, processing, anonymization, and transfer of imaging data between Clinical and Research PACS (Picture Archiving and Communication System) systems.
 
 
 
@@ -34,15 +34,17 @@ Our project uses |redcap_url| as an electronic data capture solution. Projects o
 
 
 * |hus_url|, |hus_link|
-* |Fiona_url|, |Fiona_link|
-* |RedCap_url|, |RedCap_link|
+* |redcap_url|, |redcap_link|
+* |admin_email|, |admin_contact|
+
+
 
 
 
 Access to the “Sectra DMA Forskning” research PACS viewer
 -------------------------------------------------------------
 
-Access to the image data is provided by |ikt_url|. Such access requires a valid |hus_link| user account and a laptop or PACS workstation that is under control of |ikt_link|. If you contact IKT ask for the start menu item “Sectra DMA Forskning”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
+Access to the image data is provided by |ikt-bergen_url|. Such access requires a valid |hus_link| user account and a laptop or PACS workstation that is under control of |ikt-bergen_link|. If you contact IKT ask for the start menu item “Sectra DMA Forskning”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
 
 Without access to a specific research project you will not see any data in the research PACS. Each research projects requires specific permissions to become accessible for a user.
 
