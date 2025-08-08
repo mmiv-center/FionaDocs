@@ -4,8 +4,6 @@ import json
 from operator import sub
 import os
 
-from matplotlib.pylab import f
-
 
 def load_config(config_file='config/urls.json'):
     """
@@ -35,50 +33,42 @@ def load_config(config_file='config/urls.json'):
         return {}
 
 
+# helpers/config_loader.py
+
 def generate_substitutions(config):
     """
-    Generates substitutions for Sphinx base on configuration
-
-    Args:
-        config: configuration dictionary
-
-    Returns:
-        str: generated susbstitutions
-    
+    Generuje substitutions z obsługą niestandardowych nazw
     """
-
     substitutions = []
-
+    
     # URLs
     urls = config.get('urls', {})
-    for key, url in urls.items():
-        substitutions.append(f".. |{key}_url| replace:: {url}")
-        substitutions.append(f".. |{key}_link| replace:: `{key} <{url}>`__")
-
-    # Contacts
-    contacts = config.get('contacts', {})
-    for key, email in contacts.items():
-        substitutions.append(f".. |{key}_email| replace:: {email}")
-        substitutions.append(f".. |{key}_contact| replace:: `{email} <mailto:{email}>`__")
-
-    # Internal
-    internal = config.get('internal', {})
-    for key, url in internal.items():
-        substitutions.append(f".. |{key}_url| replace:: {url}")
-        substitutions.append(f".. |{key}_link| replace:: `{key} <{url}>`__")
-
-    # Bergen
-    internal = config.get('bergen', {})
-    for key, url in internal.items():
-        if key =="hus":
-            new_key = "Haukeland University Hospital"
+    for key, data in urls.items():
+        if isinstance(data, dict):
+            # A new structure with name i url
+            url = data.get('url', '')
+            name = data.get('name', url)
             substitutions.append(f".. |{key}_url| replace:: {url}")
-            substitutions.append(f".. |{key}_link| replace:: `{new_key} <{url}>`__")        
+            substitutions.append(f".. |{key}_link| replace:: `{name} <{url}>`__")
         else:
-            substitutions.append(f".. |{key}_url| replace:: {url}")
-            substitutions.append(f".. |{key}_link| replace:: `{key} <{url}>`__")
-
+            # Structure only with url
+            substitutions.append(f".. |{key}_url| replace:: {data}")
+            substitutions.append(f".. |{key}_link| replace:: `{data} <{data}>`__")
+    
+    # Contacts  
+    contacts = config.get('contacts', {})
+    for key, data in contacts.items():
+        if isinstance(data, dict):
+            # New structure
+            email = data.get('email', '')
+            name = data.get('name', email)
+            substitutions.append(f".. |{key}_email| replace:: {email}")
+            substitutions.append(f".. |{key}_contact| replace:: `{name} <mailto:{email}>`__")
+        else:
+            # Old structure - only email
+            substitutions.append(f".. |{key}_email| replace:: {data}")
+            substitutions.append(f".. |{key}_contact| replace:: `{data} <mailto:{data}>`__")
+    
     return '\n'.join(substitutions)
-
 
 
