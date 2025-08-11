@@ -3,7 +3,7 @@ Export image data from research PACS
 
 Data in the research PACS is secured by generic procedures during data import that delete or rewrite some DICOM tags, changes dates and replaces unique identifiers. A documentation of this process is available on the GitHub repository of the projects for removal of DICOM meta-tags: |github-dicomanonymizer_link| (|github-dicomanonymizer_url|), and for the removal of burned in image information: |github-rewritepixel_link| (|github-rewritepixel_url|).
 
-Data stored in the research PACS is therefore in general suited for data sharing IF pseudonymized data is allowed. In order to support users with the task of data pseudonymization the research information system provides the “Review” web application that lists all existing DICOM tags in a research project (`<https://fiona.ihelse.net>`_).
+Data stored in the research PACS is therefore in general suited for data sharing IF pseudonymized data is allowed. In order to support users with the task of data pseudonymization the research information system provides the “Review” web application that lists all existing DICOM tags in a research project (|fiona_url|).
 
 .. note::
 

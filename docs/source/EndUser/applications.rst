@@ -1,6 +1,8 @@
 RIS Exports - User Documentation
 ================================
 
+**Description of Assign, NoAssign, Export, Atttach, ReviewDICOMTags**
+
 Application Description
 -------------------------
 
