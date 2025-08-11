@@ -18,13 +18,11 @@ A detailed system architecture including all system components is presented belo
         subgraph network [" <b>Network Layer</b> "]
             PACS[📡 Clinical PACS<br/>DICOM File Source]
             StoreSCP[📥 storescpFIONA<br/>DICOM SCP]
-            Scanner[🏥 Scanner Integration<br/>moveFromScanner.sh]
             MPPS[📋 MPPS Service<br/>mppsctl.sh]
         end
         
         subgraph processing [" <b>Processing Layer</b> "]
             ProcessFile[🔄 processSingleFile3.py<br/>DICOM Processing]
-            DetectStudy[🔍 detectStudyArrival.sh<br/>Study Detection]
             Classification[⚙️ Classification<br/>Rule Engine]
             ProcessTiff[🖼️ process_tiff.sh<br/>Pathology + Anonymization]
             PopulateIncoming[📊 populateIncoming.py<br/>REDCap Population]
@@ -65,11 +63,9 @@ A detailed system architecture including all system components is presented belo
         
         %% Main Data Flow
         PACS -->|DICOM| StoreSCP
-        Scanner -->|C-MOVE| StoreSCP
         StoreSCP -->|DICOM Files| ProcessFile
         ProcessFile -->|metadata| NamedPipe
-        NamedPipe -->|trigger| DetectStudy
-        DetectStudy -->|study info| Classification
+        NamedPipe -->|study info| Classification
         ProcessFile -->|pathology images| ProcessTiff
         ProcessTiff -->|anonymized DICOM| FileSystem
         Classification -->|routing| PopulateIncoming
@@ -118,8 +114,8 @@ A detailed system architecture including all system components is presented belo
         classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
         classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
         
-        class PACS,StoreSCP,Scanner,MPPS network
-        class ProcessFile,DetectStudy,Classification,ProcessTiff,PopulateIncoming,PopulateProjects,PopulateAutoID,RunJobs process
+        class PACS,StoreSCP network
+        class ProcessFile,Classification,ProcessTiff,PopulateIncoming,PopulateProjects,PopulateAutoID,RunJobs process
         class FileSystem,SymLinks,Archive,Inventory,ValidationCleanup,GetPatients,ParsePatients,StaleLinks storage
         class CreateRequests,Anonymize,CreateZip,SendFiles,ResendProject,ResPACS,REDCap transfer
         class Heartbeat,CronSystem,Setup,ClearExports,S2M mgmt
@@ -191,10 +187,7 @@ Folder and File structure
                 │
                 └── server/
                        ├── bin/
-                       |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
                        |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
-                       |    ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
-                       |    ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
                        |    ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
                        |    ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
                        |    └── <a href="scripts/storectl.html">storectl.sh</a>
@@ -217,11 +210,8 @@ Components
 #. :doc:`scripts/createTransferRequestsForProcessed` - Handles transfer requests for processed/derived imaging data from workstations back to research PACS
 #. :doc:`scripts/createZipFileCmd` -  Creates anonymized ZIP archives for research data distribution
 #. :doc:`scripts/cron` - Processes trigger-action pairs from JSON configuration files for event-driven automation
-#. :doc:`scripts/detectStudyArrival` - Triggers processing workflows when imaging studies are fully received
 #. :doc:`scripts/getAllPatients2` - Retrieves patient and study information from research PACS using findscu
 #. :doc:`scripts/heartbeat` - Checks DICOM service responsiveness and restarts failed components
-#. :doc:`scripts/moveFromScanner` - Pulls imaging data from clinical scanners using DICOM C-MOVE operations
-#. :doc:`scripts/mppsctl` - Controls DICOM Modality Performed Procedure Step (MPPS) service for tracking scan progress
 #. :doc:`scripts/parseAllPatients` - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import
 #. :doc:`scripts/populateAutoID` -  Generates automatic participant IDs for projects using pseudonymized identifiers
 #. :doc:`scripts/populateIncoming` - Processes incoming DICOM studies and creates metadata records in REDCap
@@ -247,7 +237,6 @@ System setup pipeline
           
        subgraph CoreServices [Core Services]
            StoreCTL[storectl.sh<br/>DICOM Receiver]
-           MPPS[mppsctl.sh<br/>MPPS Service]
            Process[processSingleFile3.py<br/>Processing Daemon]
        end
        
@@ -313,7 +302,6 @@ Data flow scheme through the FIONA system, from initial DICOM reception to final
       RawData["/data/site/raw/"]
       SymLinks["Symbolic Links"]
     
-      DetectStudy["detectStudyArrival.sh"]
       StudyJob["Study Job Directory"]
       Anonymize["anonymize.sh"]
       Archive["/data/site/archive/"]
@@ -335,8 +323,7 @@ Data flow scheme through the FIONA system, from initial DICOM reception to final
       ProcessDaemon --> RawData
       RawData --> SymLinks
       
-      Arrived --> DetectStudy
-      DetectStudy --> StudyJob
+      Arrived -->  StudyJob
       SymLinks --> StudyJob
       StudyJob --> Anonymize
       Anonymize --> Archive
@@ -359,7 +346,7 @@ Data flow scheme through the FIONA system, from initial DICOM reception to final
       class PACS,REDCap,ResPACS externalSystem
       class ClassifyRules configFile
       class RawData,Archive,Outbox,DAIC dataDirectory
-      class StoreSCP,ProcessDaemon,DetectStudy,Anonymize,AnonSend,SendFiles processScript
+      class StoreSCP,ProcessDaemon,Anonymize,AnonSend,SendFiles processScript
       class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData
 
 Legend:

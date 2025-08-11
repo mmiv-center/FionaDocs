@@ -130,17 +130,15 @@ window.addEventListener("load", () => mermaid.run());
 <p><strong>FIONA System Architecture</strong></p>
 <p>A detailed system architecture including all system components is presented below</p>
 <figure class="align-default" id="id1">
-<img src="../_images/mermaid-9da9885c3b19c982e24620080add396e69c99ebf.png" alt="flowchart TD
+<img src="../_images/mermaid-d232899be5c16d633f58ea5dd0508da7ba94305f.png" alt="flowchart TD
      subgraph network [&quot; &lt;b&gt;Network Layer&lt;/b&gt; &quot;]
          PACS[📡 Clinical PACS&lt;br/&gt;DICOM File Source]
          StoreSCP[📥 storescpFIONA&lt;br/&gt;DICOM SCP]
-         Scanner[🏥 Scanner Integration&lt;br/&gt;moveFromScanner.sh]
          MPPS[📋 MPPS Service&lt;br/&gt;mppsctl.sh]
      end
 
      subgraph processing [&quot; &lt;b&gt;Processing Layer&lt;/b&gt; &quot;]
          ProcessFile[🔄 processSingleFile3.py&lt;br/&gt;DICOM Processing]
-         DetectStudy[🔍 detectStudyArrival.sh&lt;br/&gt;Study Detection]
          Classification[⚙️ Classification&lt;br/&gt;Rule Engine]
          ProcessTiff[🖼️ process_tiff.sh&lt;br/&gt;Pathology + Anonymization]
          PopulateIncoming[📊 populateIncoming.py&lt;br/&gt;REDCap Population]
@@ -181,11 +179,9 @@ window.addEventListener("load", () => mermaid.run());
 
      %% Main Data Flow
      PACS --&gt;|DICOM| StoreSCP
-     Scanner --&gt;|C-MOVE| StoreSCP
      StoreSCP --&gt;|DICOM Files| ProcessFile
      ProcessFile --&gt;|metadata| NamedPipe
-     NamedPipe --&gt;|trigger| DetectStudy
-     DetectStudy --&gt;|study info| Classification
+     NamedPipe --&gt;|study info| Classification
      ProcessFile --&gt;|pathology images| ProcessTiff
      ProcessTiff --&gt;|anonymized DICOM| FileSystem
      Classification --&gt;|routing| PopulateIncoming
@@ -234,8 +230,8 @@ window.addEventListener("load", () => mermaid.run());
      classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
      classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
 
-     class PACS,StoreSCP,Scanner,MPPS network
-     class ProcessFile,DetectStudy,Classification,ProcessTiff,PopulateIncoming,PopulateProjects,PopulateAutoID,RunJobs process
+     class PACS,StoreSCP network
+     class ProcessFile,Classification,ProcessTiff,PopulateIncoming,PopulateProjects,PopulateAutoID,RunJobs process
      class FileSystem,SymLinks,Archive,Inventory,ValidationCleanup,GetPatients,ParsePatients,StaleLinks storage
      class CreateRequests,Anonymize,CreateZip,SendFiles,ResendProject,ResPACS,REDCap transfer
      class Heartbeat,CronSystem,Setup,ClearExports,S2M mgmt
@@ -329,10 +325,7 @@ window.addEventListener("load", () => mermaid.run());
              │
              └── server/
                     ├── bin/
-                    |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
                     |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
-                    |    ├── <a href="scripts/moveFromScanner.html">moveFromScanner.sh</a>
-                    |    ├── <a href="scripts/mppsctl.html">mppsctl.sh</a>
                     |    ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
                     |    ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
                     |    └── <a href="scripts/storectl.html">storectl.sh</a>
@@ -352,11 +345,8 @@ window.addEventListener("load", () => mermaid.run());
 <li><p><a class="reference internal" href="scripts/createTransferRequestsForProcessed.html"><span class="doc">createTransferRequestsForProcessed.py</span></a> - Handles transfer requests for processed/derived imaging data from workstations back to research PACS</p></li>
 <li><p><a class="reference internal" href="scripts/createZipFileCmd.html"><span class="doc">createZipFileCmd.php</span></a> -  Creates anonymized ZIP archives for research data distribution</p></li>
 <li><p><a class="reference internal" href="scripts/cron.html"><span class="doc">cron.sh</span></a> - Processes trigger-action pairs from JSON configuration files for event-driven automation</p></li>
-<li><p><a class="reference internal" href="scripts/detectStudyArrival.html"><span class="doc">detectStudyArrival.sh</span></a> - Triggers processing workflows when imaging studies are fully received</p></li>
 <li><p><a class="reference internal" href="scripts/getAllPatients2.html"><span class="doc">getAllPatients2.sh</span></a> - Retrieves patient and study information from research PACS using findscu</p></li>
 <li><p><a class="reference internal" href="scripts/heartbeat.html"><span class="doc">heartbeat.sh</span></a> - Checks DICOM service responsiveness and restarts failed components</p></li>
-<li><p><a class="reference internal" href="scripts/moveFromScanner.html"><span class="doc">moveFromScanner.sh</span></a> - Pulls imaging data from clinical scanners using DICOM C-MOVE operations</p></li>
-<li><p><a class="reference internal" href="scripts/mppsctl.html"><span class="doc">mppsctl.sh</span></a> - Controls DICOM Modality Performed Procedure Step (MPPS) service for tracking scan progress</p></li>
 <li><p><a class="reference internal" href="scripts/parseAllPatients.html"><span class="doc">parseAllPatients.sh</span></a> - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import</p></li>
 <li><p><a class="reference internal" href="scripts/populateAutoID.html"><span class="doc">populateAutoID.py</span></a> -  Generates automatic participant IDs for projects using pseudonymized identifiers</p></li>
 <li><p><a class="reference internal" href="scripts/populateIncoming.html"><span class="doc">populateIncoming.py</span></a> - Processes incoming DICOM studies and creates metadata records in REDCap</p></li>
@@ -375,12 +365,11 @@ window.addEventListener("load", () => mermaid.run());
 </section>
 <section id="system-setup-pipeline">
 <h2>System setup pipeline<a class="headerlink" href="#system-setup-pipeline" title="Link to this heading"></a></h2>
-<img src="../_images/mermaid-27bb51933b1966e1d751ecdc00171faa6e87050f.png" alt="flowchart TD
+<img src="../_images/mermaid-293d21e3f411ff6e1053094a0c6b79a3ac21b34c.png" alt="flowchart TD
     Start([System Boot]) --&gt;  CoreServices[Core Services]
 
     subgraph CoreServices [Core Services]
         StoreCTL[storectl.sh&lt;br/&gt;DICOM Receiver]
-        MPPS[mppsctl.sh&lt;br/&gt;MPPS Service]
         Process[processSingleFile3.py&lt;br/&gt;Processing Daemon]
     end
 
@@ -430,7 +419,7 @@ window.addEventListener("load", () => mermaid.run());
 <section id="data-flow">
 <h2>Data flow<a class="headerlink" href="#data-flow" title="Link to this heading"></a></h2>
 <p>Data flow scheme through the FIONA system, from initial DICOM reception to final transfer to research PACS, is presented below.</p>
-<img src="../_images/mermaid-2c143b205df876f458b80202a59da9d6bc68c5b0.png" alt="flowchart TD
+<img src="../_images/mermaid-33e3dcd610758409c1e1b74133e51b8214305c98.png" alt="flowchart TD
    PACS[&quot;Clinical PACS - DICOM Source&quot;]
    StoreSCP[&quot;storescpFIONA - DICOM SCP&quot;]
    NamedPipe[(&quot;Named Pipe&quot;)]
@@ -441,7 +430,6 @@ window.addEventListener("load", () => mermaid.run());
    RawData[&quot;/data/site/raw/&quot;]
    SymLinks[&quot;Symbolic Links&quot;]
 
-   DetectStudy[&quot;detectStudyArrival.sh&quot;]
    StudyJob[&quot;Study Job Directory&quot;]
    Anonymize[&quot;anonymize.sh&quot;]
    Archive[&quot;/data/site/archive/&quot;]
@@ -463,8 +451,7 @@ window.addEventListener("load", () => mermaid.run());
    ProcessDaemon --&gt; RawData
    RawData --&gt; SymLinks
 
-   Arrived --&gt; DetectStudy
-   DetectStudy --&gt; StudyJob
+   Arrived --&gt;  StudyJob
    SymLinks --&gt; StudyJob
    StudyJob --&gt; Anonymize
    Anonymize --&gt; Archive
@@ -487,7 +474,7 @@ window.addEventListener("load", () => mermaid.run());
    class PACS,REDCap,ResPACS externalSystem
    class ClassifyRules configFile
    class RawData,Archive,Outbox,DAIC dataDirectory
-   class StoreSCP,ProcessDaemon,DetectStudy,Anonymize,AnonSend,SendFiles processScript
+   class StoreSCP,ProcessDaemon,Anonymize,AnonSend,SendFiles processScript
    class NamedPipe,Arrived,SymLinks,StudyJob,TransferReq tempData" />
 <p>Legend:</p>
 <div style="display:flex;gap:20px;flex-wrap:wrap;">
