@@ -3,7 +3,7 @@ FIONA Documentation
 
 **FIONA** is a comprehensive medical imaging data management and processing platform designed for healthcare research environments. The system handles DICOM medical imaging data throughout its entire lifecycle - from initial acquisition at imaging scanners to final anonymized export for research purposes. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance. 
 
-**The architecture** of the Fiona system can be divided into five layers: network layer, processing layer, storage layer, transfer layer and management layer.
+**The architecture** of the Fiona system can be divided into five layers, including: network layer, processing layer, storage layer, transfer layer and management layer.
 
 .. mermaid::    
     

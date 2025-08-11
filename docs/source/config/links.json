@@ -1,0 +1,64 @@
+{
+  "urls": 
+  {
+    "redcap-main": {
+      "url": "https://project-redcap.org",
+      "name": "REDCap"
+    },
+    "hus": {
+      "url": "https://www.helse-bergen.no/en", 
+      "name": "Haukeland University Hospital"
+    },
+    "github-fiona": {
+      "url": "https://github.com/mmiv-center/FionaDocs",
+      "name": "Fiona Documentation Repository"
+    },
+    "github-dicomanonymizer": {
+      "url": "https://github.com/mmiv-center/DICOMAnonymizer",
+      "name": "DICOMAnonymizer"
+    },
+    "github-rewritepixel": {
+      "url": "https://github.com/mmiv-center/RewritePixel",
+      "name": "RewritePixel"
+    },
+    "fiona": {
+      "url" : "https://fiona.local.server.no",
+      "name": "Fiona"
+    },
+    "fiona-assign":{
+      "url" : "https://fiona.local.server.no/applications/Assign/",
+      "name": "Assign"
+    },
+    "fiona-apply":{
+      "url" : "https://fiona.local.server.no/applications/Apply/",
+      "name": "Apply"
+    },
+    "fiona-redcap":{
+      "url" : "https://fiona.local.server.no:4444",
+      "name": "RedCap (Fiona, port 4444)"
+    },
+    "fiona-AETtitle":{
+      "url" : "AETtitle",
+      "name": "Application Entity Title"
+    },
+    "fiona-local-ip":{
+      "url" : "fiona:local.ip",
+      "name": "IP: xxx.xxx.xxx.xxx"
+    },
+    "it": {
+      "url" : "https://it.department.you.institution.no",
+      "name": "IT Department"
+    },
+    "ikt-bergen": {
+      "url": "https://www.helse-vest-ikt.no",
+      "name": "Helse Vest IKT"
+    }
+  },
+  "contacts":
+  {
+    "admin": {
+      "email": "local-admin@your-institution.com",
+      "name": "Local Fiona Admin"
+    }
+  }
+}

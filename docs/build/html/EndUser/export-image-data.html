@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Export image data from research PACS &mdash; FionaDocs  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=ac94c67f" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            FionaDocs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">END USER</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#fiona-system">Fiona system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#new-project-creation-setup-and-access">New project: creation, setup and access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#apply-for-a-new-project">Apply for a new project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#access-to-redcap-for-structured-data">Access to REDCap for structured data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#access-to-the-sectra-dma-forskning-research-pacs-viewer">Access to the “Sectra DMA Forskning” research PACS viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#submit-data-to-the-research-information-system">Submit data to the Research Information System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#how-to-add-image-data"><strong>How to add image data</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#export-image-data-from-research-pacs">Export image data from research PACS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#research-information-system">Research Information System</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html">ADMINISTRATION</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#end-user-contract">End-user contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#features-for-data-migration">Features for data migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#how-to-handle-errors">How to handle errors?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Architecture/index.html">ARCHITECTURE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Architecture/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Architecture/index.html#folder-and-file-structure">Folder and File structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Architecture/index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Architecture/index.html#system-setup-pipeline">System setup pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Architecture/index.html#data-flow">Data flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Architecture/index.html#data-storage-structure">Data Storage Structure</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FionaDocs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Export image data from research PACS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/EndUser/export-image-data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="export-image-data-from-research-pacs">
+<h1>Export image data from research PACS<a class="headerlink" href="#export-image-data-from-research-pacs" title="Link to this heading"></a></h1>
+<p>Data in the research PACS is secured by generic procedures during data import that delete or rewrite some DICOM tags, changes dates and replaces unique identifiers. A documentation of this process is available on the GitHub repository of the projects for removal of DICOM meta-tags: <a class="reference external" href="https://github.com/mmiv-center/DICOMAnonymizer">DICOMAnonymizer</a> (<a class="reference external" href="https://github.com/mmiv-center/DICOMAnonymizer">https://github.com/mmiv-center/DICOMAnonymizer</a>), and for the removal of burned in image information: <a class="reference external" href="https://github.com/mmiv-center/RewritePixel">RewritePixel</a> (<a class="reference external" href="https://github.com/mmiv-center/RewritePixel">https://github.com/mmiv-center/RewritePixel</a>).</p>
+<p>Data stored in the research PACS is therefore in general suited for data sharing IF pseudonymized data is allowed. In order to support users with the task of data pseudonymization the research information system provides the “Review” web application that lists all existing DICOM tags in a research project (<a class="reference external" href="https://fiona.ihelse.net">https://fiona.ihelse.net</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pseudonymized data is defined here as data for which a coupling list exists somewhere in the universe. This is in contrast to anonymized data where such a list does not exist and can also not be created.</p>
+</div>
+<p>Further de-identification procedures might require changes to image data such as face stripping, removal of outer ear tissue, cortical folding pattern, etc.. Such potential sources of information for re-identification have been proposed in the literature but actual attacks based on them have not recently been documented. Better documented and perhaps more relevant are re-identification using spreadsheet data where external sources are linked to the projects data to discover the supposedly hidden identity of the research participants. For example it might be possible to link Gender, day of birth and the hospital name to a real participant name using a birth or voting registry.</p>
+<p><strong>Export using IDS7</strong></p>
+<p>The image data from a study can be exported from the research PACS using a right-click menu entry available in the Informasjonsvindu “Exporter til medium”. Such exports will generate either a derived patient ID – if an Anonymization Profile is selected or a faithful copy of the data with all pseudonymized DICOM tags intact.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This export does not prevent re-identification. Specifically the PatientID field is created from the pseudonymized ID used in the research PACS and therefore not random.</p>
+</div>
+<p>The export is also case-by-case, which is tedious if many data need to be exported. The export will also result in directory names that do not reflect the research project structure as participant identifier – event name – modality – image series. It may be advantageous to export from IDS7 if a single image study needs to be shared without special requirements. Such export folders will also contain an image viewer.</p>
+<p><strong>Export to project specific formats, NIfTI and zip-files</strong></p>
+<p>The research information system supports a separate export facility that is more suited to implement project specific de-identification. Such export requirements include specific DICOM value changes (replacing underscores with dashes), adding birth date information back, formatting and cleaning of series descriptions, zip-file exports with specific folder structures etc.. This export is appropriate if the receiving institution has specific requirements on how data should be shared.</p>
+<p>Request access to the specialized data exports for your project from <a class="reference external" href="mailto:Hauke&#46;Bartsch&#37;&#52;&#48;helse-bergen&#46;no">Hauke<span>&#46;</span>Bartsch<span>&#64;</span>helse-bergen<span>&#46;</span>no</a>. Provide your export specification and we will implement your anonymization scheme and make it available to you and other researchers. As an example the “Export” application currently supports the export in NIfTI formats (using dcm2niix) and the export in several zip-file formats.</p>
+<section id="research-information-system">
+<h2>Research Information System<a class="headerlink" href="#research-information-system" title="Link to this heading"></a></h2>
+<p>The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the “Steve Project” is a secure computer system that stores research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the radiology department of Haukeland University Hospital and the Mohn Medical Imaging and Visualization Center and approved for research project use by IKT Helse Vest. The physical location of the data is at the premises of IKT Helse Vest Norway. Dedicated storage area and research software (Sectra, IDS7) provides researchers with appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project and not part of the functionality of the RIS.</p>
+<p>Based on the REK/DIPA rules for each project a lifetime tracking of the research data per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.</p>
+<p>Key features of the RIS include:</p>
+<ul class="simple">
+<li><p>Hosted side-by-side with the clinical PACS as an independent installation.</p></li>
+<li><p>Accepts de-identified patient identifiers only.</p></li>
+<li><p>All data is moved through a de-identification process upon import into RIS.</p></li>
+<li><p>All data is assigned to one or more specific research projects and the visibility of data is restricted to individuals with project role access rights.</p></li>
+<li><p>Projects require a valid REK approval, such documentation has to be provided at the start of a project by the project owner.</p></li>
+<li><p>The project owner can identify additional user accounts that can access the data.</p></li>
+<li><p>User access to the research PACS is controlled by IKT and requires a valid Haukeland University Hospital user account.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Hauke Bartsch.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -5,7 +5,7 @@ from operator import sub
 import os
 
 
-def load_config(config_file='config/urls.json'):
+def load_config(config_file='config/links.json'):
     """
     Load configuration from JSON file
 
