@@ -28,9 +28,9 @@ from helpers import load_config, generate_substitutions
 config = load_config()
 rst_prolog = generate_substitutions(config)
 
-print("*******************")
-print(rst_prolog)
-print("*******************")
+#print("*******************")
+#print(rst_prolog)
+#print("*******************")
 
 
 
@@ -104,7 +104,7 @@ html_theme_options = {
     'collapse_navigation': False,  # Disables menu collapsing
     'sticky_navigation': True,  # Menu stays in place when scrolling
     'includehidden': True,  # Shows hidden elements
-    'titles_only': False  # Shows not only titles
+    'titles_only': False,  # Shows not only titles
 }
 
 
@@ -115,7 +115,9 @@ html_static_path = ['_static']
 
 
 # Add CSS description
-html_css_files = ['custom.css']
+html_css_files = ['custom.css',]
 
+# Add non-statndad JavaScript
+html_js_files = ['custom.js',]
 
 

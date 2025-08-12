@@ -7,7 +7,15 @@
     },
     "hus": {
       "url": "https://www.helse-bergen.no/en", 
+      "name": "Mohn Medical Imaging and Visualization Centre"
+    },
+    "mmiv": {
+      "url": "https:/mmiv.no", 
       "name": "Haukeland University Hospital"
+    },
+    "ikt-helse-vest": {
+      "url": "https://www.helse-vest-ikt.no", 
+      "name": "Helse Vest IKT"
     },
     "github-fiona": {
       "url": "https://github.com/mmiv-center/FionaDocs",
@@ -33,6 +41,10 @@
       "url" : "https://fiona.local.server.no/applications/Apply/",
       "name": "Apply"
     },
+    "fiona-review-dicom-tags":{
+      "url" : "https://fiona.local.server.no/applications/ReviewDICOMTags/",
+      "name": "ReviewDICOMTags"
+    },
     "fiona-redcap":{
       "url" : "https://fiona.local.server.no:4444",
       "name": "RedCap (Fiona, port 4444)"
@@ -48,16 +60,12 @@
     "it": {
       "url" : "https://it.department.you.institution.no",
       "name": "IT Department"
-    },
-    "ikt-bergen": {
-      "url": "https://www.helse-vest-ikt.no",
-      "name": "Helse Vest IKT"
     }
   },
   "contacts":
   {
     "admin": {
-      "email": "local-admin@your-institution.com",
+      "email": "admin@your-institution.com",
       "name": "Local Fiona Admin"
     }
   }

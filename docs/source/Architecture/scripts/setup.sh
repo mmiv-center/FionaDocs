@@ -94,10 +94,7 @@ for file in "${files2[@]}"; do
 done
 
 # /var/www/html/server/bin
-files3=("detectStudyArrival.sh"
-  "heartbeat.sh"
-  "moveFromScanner.sh"
-  "mppsctl.sh"
+files3=("heartbeat.sh"
   "processSingleFile3.py"
   "sendFiles.sh"
   "storectl.sh");

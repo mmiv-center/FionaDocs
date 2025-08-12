@@ -9,7 +9,7 @@
   <title>Submit data to the Research Information System &mdash; FionaDocs  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=ac94c67f" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33ab7645" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -17,6 +17,7 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/custom.js?v=e7cb14c9"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -44,6 +45,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">END USER</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#fiona-system">Fiona system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#research-information-system">Research Information System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#new-project-creation-setup-and-access">New project: creation, setup and access</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="index.html#apply-for-a-new-project">Apply for a new project</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#access-to-redcap-for-structured-data">Access to REDCap for structured data</a></li>
@@ -54,20 +56,26 @@
 <li class="toctree-l3"><a class="reference internal" href="index.html#how-to-add-image-data"><strong>How to add image data</strong></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#export-image-data-from-research-pacs">Export image data from research PACS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#research-information-system">Research Information System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#export-image-data-from-research-pacs">Export image data from research PACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#end-user-contract">End-user contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#sensitive-data-projects">Sensitive Data Projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#separation-of-sensitive-information-and-data">Separation of Sensitive Information and Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#randomization">Randomization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#e-consent">e-Consent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#automatic-data-exports-from-redcap">Automatic data exports from REDCap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#steps-at-the-end-of-a-redcap-project">Steps at the end of a REDCap project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#external-resources">External resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#git-hub-repositories">Git-Hub Repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#redcap">REDCap</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html">ADMINISTRATION</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#end-user-contract">End-user contract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#features-for-data-migration">Features for data migration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#how-to-handle-errors">How to handle errors?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#export-to-project-specific-formats-nifti-and-zip-files">Export to project specific formats, NIfTI and zip-files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ServerAdmin/index.html#sensitive-data-projects-separation-of-sensitive-information-and-data">Sensitive Data Projects – Separation of Sensitive Information and Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ServerAdmin/index.html">ADMINISTRATION</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -141,7 +149,7 @@ and event names. Select the correct patient name and the event this study belong
 a couple of seconds a new button appears below the study entry. Use it to select and
 confirm the assignment. This will forward a de-identified version of the study data to “Sectra
 Forskning”. If you do not assign your data on Assign they will not be forwarded. After a
-couple of days (7 days) such data will disappear from the list. Send an email to <a class="reference external" href="mailto:local-admin&#37;&#52;&#48;your-institution&#46;com">Local Fiona Admin</a> to request a resend.</p>
+couple of days (7 days) such data will disappear from the list. Send an email to <a class="reference external" href="mailto:admin&#37;&#52;&#48;your-institution&#46;com">Local Fiona Admin</a> to request a resend.</p>
 <p><strong>Verification steps</strong></p>
 <p>After data arrived at the research PACS a verification step should ensure that all images have been received at the quarantine on FIONA and have been forwarded to research PACS. This can be done by comparing the number of images on the sending station with the number of images in IDS7.</p>
 <p>Furthermore the import step will also attempt to de-identify secondary capture images with burned in image information. This process is fully automated and can result in false positive and occasionally false negative results. After a review of the data in IDS7 the user may decide which secondary image series are “safe” to exclude from the pixel rewriting on import. For example a secondary capture series from DTI may not contain any burned in names or identifying numbers or dates. Such image series can be removed in REDCap from further pixel anonymization.</p>
@@ -155,7 +163,7 @@ automatically be assigned to the project.</p>
 <p><strong>How to handle errors?</strong></p>
 <p>Correcting errors during data import are not difficult to fix. Try to follow up on such errors
 on an ongoing basis. The quarantine FIONA station may have still have a copy of the data in
-its cache which simplifies the process. Contact <a class="reference external" href="mailto:local-admin&#37;&#52;&#48;your-institution&#46;com">Local Fiona Admin</a> in such cases and ask for help. This will allow you to fix issues such as:</p>
+its cache which simplifies the process. Contact <a class="reference external" href="mailto:admin&#37;&#52;&#48;your-institution&#46;com">Local Fiona Admin</a> in such cases and ask for help. This will allow you to fix issues such as:</p>
 <ul class="simple">
 <li><p>Wrong assignment of participant identifiers to DICOM studies</p></li>
 <li><p>Wrong assignment of event names to DICOM studies</p></li>
