@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="processSingleFile3.py" href="processSingleFile3.html" />
+    <link rel="prev" title="populateIncoming.py" href="populateIncoming.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">populateProjects.py</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/populateProjects.rst.txt" rel="nofollow"> View page source</a>
@@ -182,19 +187,34 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 </div></blockquote>
 <hr class="docutils" />
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
-<p>Each study that has been forwarded to PACS should appear in its own REDCap project.</p>
-<p>We can get a list of all transferred studies from incomings transfers. We get a token for the project and add the entry - if it does not exist yet.</p>
-<p>For informatino to appear in the Imaging instrument you need to set it up as a repeating instrument for “Event 1” (not a repeating event!).</p>
+<section id="id1">
+<h2>populateProjects.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Each study that has been forwarded to PACS should appear in its own REDCap project. Get a list of all transferred studies from REDCaps Incoming project (Transfers table). Get a token for the project and add the entry - if it does not exist yet. For information to appear in the Imaging instrument set it up as a repeating instrument for “Event 1” (not a repeating event).</p>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- InstitutionName specific REDCap project (repeating instrument Imaging for “Event 1”)
+- REDCap Projects table of projects with API key</p></li>
+<li><p>log-file:
+- ${SERVERDIR}/logs/populateProjects.log</p></li>
+<li><p>pid-file: ${SERVERDIR}/.pids/populateProjects.pid</p></li>
+<li><p>start:
+<a href="#id2"><span class="problematic" id="id3">*</span></a>/1 * * * *  /usr/bin/flock -n /home/processing/.pids/populateProjects.pid /home/processing/bin/populateProjects.py &gt;&gt; /home/processing/logs/populateProjects.log 2&gt;&amp;1</p></li>
+</ul>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
 <p>TODO: Without calling for specific projects does not work anymore. We need to get a list of all imaging projects and run them project by project.</p>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="populateIncoming.html" class="btn btn-neutral float-left" title="populateIncoming.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="processSingleFile3.html" class="btn btn-neutral float-right" title="processSingleFile3.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

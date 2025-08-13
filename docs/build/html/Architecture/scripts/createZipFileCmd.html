@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="cron.sh" href="cron.html" />
+    <link rel="prev" title="createTransferRequestsForProcessed.py" href="createTransferRequestsForProcessed.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">createZipFileCmd.php</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/createZipFileCmd.rst.txt" rel="nofollow"> View page source</a>
@@ -221,16 +226,33 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 <hr class="docutils" />
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
-<p>This is a docstring.</p>
+<section id="id1">
+<h2>createZipFileCmd.php<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>System service used by the Export application to create zip-compressed files.</p>
+<p>The command is called by cron approximately every 3 minutes. Data for export is requested from research PACS and
+stored inside a zip file in a export-type specific format. Exports in ‘PURE’ format for example are sorted into
+series directories.</p>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- /export2/Export/files/
+- /var/www/html/applications/Exports/php/execMeasurements.json (adds processing times by project)</p></li>
+<li><p>log-file:
+- ${SERVERDIR}/logs/Exports_PrepareDownload.log</p></li>
+<li><p>pid-file: ${SERVERDIR}/.pids/Exports_PrepareDownload.pid</p></li>
+<li><p>start:
+<a href="#id2"><span class="problematic" id="id3">*</span></a>/3 * * * * /usr/bin/flock -n /home/processing/.pids/Exports_PrepareDownload.pid /usr/bin/php /var/www/html/applications/Exports/php/createZipFileCmd.php &gt;&gt; /home/processing/logs/Exports_PrepareDownload.log 2&gt;&amp;1</p></li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="createTransferRequestsForProcessed.html" class="btn btn-neutral float-left" title="createTransferRequestsForProcessed.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cron.html" class="btn btn-neutral float-right" title="cron.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="sendFiles.sh" href="sendFiles.html" />
+    <link rel="prev" title="runOneJob.sh" href="runOneJob.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">s2m.sh</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/s2m.rst.txt" rel="nofollow"> View page source</a>
@@ -184,10 +189,9 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 <hr class="docutils" />
-<ul class="simple">
-<li><p>send to me (s2m)</p></li>
-<li><p>Sends a DICOM directory using the dcmtk docker container from the local machine to the local DICOM node. This script can be used to re-classify DICOM files (creates /data/site/raw and /data/site/participant information).</p></li>
-</ul>
+<section id="id1">
+<h2>s2m.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Send to me (s2m). Sends a DICOM directory using the dcmtk docker container from the local machine to the local DICOM node. This script can be used to re-classify DICOM files (creates /data/site/raw and /data/site/participant information). In rare cases the docker container might not work. In such cases as a fall-back strategy the systems storescu (DCMTK) executable is used instead.</p>
 <p>Usage:</p>
 <blockquote>
 <div><p># Send a single directory with DICOM files
@@ -197,12 +201,25 @@ s2m.sh &lt;PatientID&gt; [project]</p>
 <p># send all studies of the last 7 days
 s2m.sh last 7 [project]</p>
 </div></blockquote>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- storectrl receiver on FIONA (port 11112)
+- /data/config/config.json</p></li>
+<li><p>log-file:</p></li>
+<li><p>pid-file:</p></li>
+<li><p>start: manually</p></li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="runOneJob.html" class="btn btn-neutral float-left" title="runOneJob.sh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sendFiles.html" class="btn btn-neutral float-right" title="sendFiles.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

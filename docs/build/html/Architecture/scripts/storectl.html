@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="whatIsInIDS7.py" href="whatIsInIDS7.html" />
+    <link rel="prev" title="sendFiles.sh" href="sendFiles.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">storectl.sh</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/storectl.rst.txt" rel="nofollow"> View page source</a>
@@ -211,20 +216,38 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 <hr class="docutils" />
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
-<p>filename: storescpd</p>
-<p>purpose: start storescp server for processing user at boot time to receive data
-|         Move files to project specific file system</p>
-<p>This system service will fail if a control file /data/enabled exists and  its first character is a “0”.</p>
-<p>(Hauke Bartsch)</p>
+<section id="id1">
+<h2>storectl.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Start the service class provider (SCP) for the storage service class. DICOM files received this way will be stored in /data/site/archive/. This service will also announce each incoming image to processSingleFile3.py using a pipe. Processed files will appear in /data/site/raw and /data/site/participant as symbolic link sorted by study/patient and image series with JSON summary files on a series level.</p>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- /data/config/config.json,
+- storescpFIONA,
+- receiveSingleFile.sh,
+- processSingleFile3.py,
+- heartbeat.sh will try to contact the DICOM listener and restart this service in case of error</p></li>
+<li><p>log-file:
+- ${SERVERDIR}/logs/storescpd${projname}.log,
+- ${SERVERDIR}/logs/storescpd-start.log</p></li>
+<li><p>pid-file: ${SERVERDIR}/.pids/storescpd${projname}.pid</p></li>
+<li><p>start:
+<a href="#id2"><span class="problematic" id="id3">*</span></a>/10 * * * * env USER=$LOGNAME /var/www/html/server/bin/storectl.sh start &gt;&gt; /var/www/html/server/logs/storectl.log 2&gt;&amp;1</p></li>
+</ul>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<p>This system service will stop if a control file /data/enabled exists and its first character is a “0”.</p>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sendFiles.html" class="btn btn-neutral float-left" title="sendFiles.sh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="whatIsInIDS7.html" class="btn btn-neutral float-right" title="whatIsInIDS7.py" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

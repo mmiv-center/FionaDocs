@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="process_tiff.sh" href="process_tiff.html" />
+    <link rel="prev" title="populateProjects.py" href="populateProjects.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">processSingleFile3.py</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/processSingleFile3.rst.txt" rel="nofollow"> View page source</a>
@@ -193,21 +198,39 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 <hr class="docutils" />
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
+<section id="id1">
+<h2>processSingleFile3.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Create a daemon process that listens to send messages and reads a DICOM file,
 extracts the header information and creates a Study/Series symbolic link structure.</p>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- storectl.sh service storescpFIONA
+- /data/site/raw/
+- /data/site/participants/</p></li>
+<li><p>log-file:
+- ${SERVERDIR}/logs/processSingleFile.log</p></li>
+<li><p>pid-file:</p></li>
+<li><p>start:
+<a href="#id2"><span class="problematic" id="id3">*</span></a>/10 * * * * /usr/bin/python3 /var/www/html/server/bin/processSingleFile3.py start &gt;&gt; /var/www/html/server/logs/processSingleFile.log 2&gt;&amp;1</p></li>
+</ul>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>The parser for the Siemens CSA header have been adapted from</dt><dd><p><a class="reference external" href="https://scion.duhs.duke.edu/svn/vespa/tags/0_1_0/libduke_mr/util_dicom_siemens.py">https://scion.duhs.duke.edu/svn/vespa/tags/0_1_0/libduke_mr/util_dicom_siemens.py</a></p>
 </dd>
 </dl>
 </section>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="populateProjects.html" class="btn btn-neutral float-left" title="populateProjects.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="process_tiff.html" class="btn btn-neutral float-right" title="process_tiff.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

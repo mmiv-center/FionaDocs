@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="createZipFileCmd.php" href="createZipFileCmd.html" />
+    <link rel="prev" title="createTransferRequests.py" href="createTransferRequests.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">createTransferRequestsForProcessed.py</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/createTransferRequestsForProcessed.rst.txt" rel="nofollow"> View page source</a>
@@ -228,16 +233,55 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 <hr class="docutils" />
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
-<p>There is no docstring.</p>
+<section id="id1">
+<h2>createTransferRequestsForProcessed.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Detect if we have image series forwarded to FIONA
+that belong to a study that already exists on the research PACS.
+This happens if data is forwarded from the research PACS to a
+workstation. The workstation procudes new image series and forwards
+those to FIONA. There is no transfer request for them so they are not
+automatically forwarded and Assign is not displaying them because
+they have a study instance uid without a dot.</p>
+<p>We want to forward them by first finding them (no dot in raw and dot
+in series). Change their StudyInstanceUID to the incoming
+one that has a transfer request. Send them to fiona so they will
+show up in the correct folder, be detected as new incoming series for
+existing study and auto forward using createTransferRequests.py.</p>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- REDCap Incoming project</p></li>
+<li><p>log-file:
+- ${SERVERDIR}/logs/createTransferRequestsForProcessed.log</p></li>
+<li><p>pid-file: ${SERVERDIR}/.pids/createTransferRequestsForProcessed.pid</p></li>
+<li><p>start:
+<a href="#id2"><span class="problematic" id="id3">*</span></a>/30 * * * * /usr/bin/flock -n /home/processing/.pids/createTransferRequestsForProcessed.pid /home/processing/bin/createTransferRequestsForProcessed.py &gt;&gt; /home/processing/logs/createTransferRequestsForProcessed.log 2&gt;&amp;1</p></li>
+</ul>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<p>This script will create a SeriesInstanceUID compatible with FIONA’s anonymizer and use it to mark the new image series. If this identifier is changed the script needs to be updated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">lineos</span><span class="p">:</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hashID</span><span class="p">(</span> <span class="n">SeriesInstanceUID</span> <span class="p">):</span>
+    <span class="c1"># do the same operation that would be done by the anonymizer</span>
+    <span class="c1"># get a safe string</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">SeriesInstanceUID</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="n">org_root</span> <span class="o">=</span> <span class="s2">&quot;1.3.6.1.4.1.45037&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">org_root</span><span class="p">,</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">63</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="createTransferRequests.html" class="btn btn-neutral float-left" title="createTransferRequests.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="createZipFileCmd.html" class="btn btn-neutral float-right" title="createZipFileCmd.php" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

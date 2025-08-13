@@ -34,7 +34,9 @@ window.addEventListener("load", () => mermaid.run());
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="parseAllPatients.sh" href="parseAllPatients.html" />
+    <link rel="prev" title="getAllPatients2.sh" href="getAllPatients2.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,7 +99,9 @@ window.addEventListener("load", () => mermaid.run());
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
@@ -119,6 +123,7 @@ window.addEventListener("load", () => mermaid.run());
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">ARCHITECTURE</a></li>
       <li class="breadcrumb-item active">heartbeat.sh</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/Architecture/scripts/heartbeat.rst.txt" rel="nofollow"> View page source</a>
@@ -192,23 +197,35 @@ window.addEventListener("load", () => mermaid.run());
 </li>
 </ul>
 <hr class="docutils" />
-<p>Script docstring starts here —&gt;&gt;&gt;
-–&gt;&gt;
-–&gt;&gt;</p>
-<p>create a heart beat for the storescp</p>
-<p>One way it can fail is if multiple associations are requested.</p>
-<p>If the timeout happens the connection will be unusable afterwards.</p>
-<p>Here we simply use echoscu to test the connection and if that fails we will kill a running storescp (hoping that monit will start it again).</p>
-<p>In order to activate put this into the crontab of processing (every minute):</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*/1 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/heartbeat.sh
-</pre></div>
-</div>
+<section id="id1">
+<h2>heartbeat.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>A heartbeat service for the storage class provider running on FIONA. An echoscu will try to contact the local FIONA. If the call fails this script will assume that the service is no longer functioning and kill storectl.sh. This should force a restart with storectl.sh (runs every 10 min).</p>
+<p>As a shortcut, instead of actually testing with echoscu the heartbeat will check the last modification time of the storesctl.sh log file. If this file is new heartbeat assumes that the service is still running.</p>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<p>One way it can fail is if multiple associations are requested. If the timeout happens the connection will be unusable afterwards.</p>
+<ul class="simple">
+<li><p>user: processing</p></li>
+<li><p>depends-on:
+- /data/config/config.json,
+- storescpFIONA,</p></li>
+<li><p>log-file:
+- ${SERVERDIR}/logs/heartbeat${projname}.log</p></li>
+<li><p>pid-file:</p></li>
+<li><p>start:
+<a href="#id2"><span class="problematic" id="id3">*</span></a>/1 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/heartbeat.sh</p></li>
+</ul>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getAllPatients2.html" class="btn btn-neutral float-left" title="getAllPatients2.sh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parseAllPatients.html" class="btn btn-neutral float-right" title="parseAllPatients.sh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
