@@ -1,83 +1,26 @@
 FIONA Documentation
 ===================
 
-**FIONA** is a comprehensive medical imaging data management and processing platform designed for healthcare research environments. The system handles DICOM medical imaging data throughout its entire lifecycle - from initial acquisition at imaging scanners to final anonymized export for research purposes. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance. 
-
-**The architecture** of the Fiona system can be divided into five layers, including: network layer, processing layer, storage layer, transfer layer and management layer.
-
-.. mermaid::    
-    
-    flowchart TD
-        subgraph network [" <b>Network Layer</b> "]
-            PACS[📡 Clinical PACS<br/>DICOM File Source]
-            StoreSCP[📥 storescpFIONA<br/>DICOM SCP]
-        end
-        
-        subgraph processing [" <b>Processing Layer</b> "]
-            ProcessFile[🔄 processSingleFile3.py<br/>DICOM Processing]
-            DetectStudy[🔍 detectStudyArrival.sh<br/>Study Detection]
-            Classification[⚙️ Classification<br/>Rule Engine]
-            NamedPipe((Named Pipe))
-        end
-        
-        subgraph storage [" <b>Storage Layer</b> "]
-            FileSystem[💾 File System<br/>/data/site/]
-            SymLinks[🔗 Symbolic Links<br/>Study/Series]
-        end
-        
-        subgraph transfer [" <b>Transfer Layer</b> "]
-            Anonymize[🔒 anonymizeAndSend.py<br/>Anonymization]
-            SendFiles[📤 sendFiles.sh<br/>SFTP Transfer]
-            ResPACS[🏥 Research PACS<br/>Destination]
-            REDCap[(🗄️ REDCap)]
-        end
-        
-        subgraph mgmt [" <b>Management Layer</b> "]
-            Management[⚙️ System Management<br/>heartbeat.sh, cron.sh, monitoring]
-        end
-        
-        %% Data Flow
-        PACS -->|DICOM| StoreSCP
-        StoreSCP -->|DICOM Files| ProcessFile
-        ProcessFile -->|metadata| NamedPipe
-        NamedPipe -->|trigger| DetectStudy
-        DetectStudy -->|study info| Classification
-        Classification -->|classification| SymLinks
-        FileSystem -->|files| SymLinks
-        SymLinks -->|study data| Anonymize
-        Anonymize -->|anonymized| SendFiles
-        SendFiles -->|SFTP| ResPACS
-        REDCap -->|consent| Anonymize
-        
-        %% Management connections
-        Management -.->|monitor| StoreSCP
-        Management -.->|monitor| ProcessFile
-        Management -.->|monitor| FileSystem
-        
-        %% Styling
-        classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
-        classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-        classDef storage fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
-        classDef transfer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-        classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
-        classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
-        
-        class PACS,StoreSCP network
-        class ProcessFile,DetectStudy,Classification process
-        class FileSystem,SymLinks storage
-        class Anonymize,SendFiles,ResPACS,REDCap transfer
-        class Management mgmt
-        class NamedPipe pipe
+Research Information System
+-----------------------------
 
 
-- **Network Layer**: DICOM communication services that receive imaging data from scanners and send to research PACS using standard medical imaging protocols.
-- **Processing Layer**: Core data processing engines that extract metadata, perform anonymization, and execute containerized analysis workflows on medical imaging studies.
-- **Storage Layer**: Organized file system architecture with symbolic links, structured directories, and automated lifecycle management for imaging data and metadata.
-- **Transfer Layer**: Secure data distribution system that creates anonymized exports, manages transfer requests, and delivers data to external research repositories.
-- **Management Layer**: Administrative services including health monitoring, configuration management, audit logging, and automated maintenance operations.
+The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the "Steve Project" is a secure computer system that stores
+research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the
+radiology department of |hus_link| and the |mmiv_link| and approved for research project use by |ikt-helse-vest_link|. The physical location of the data is at the premises of IKT Helse Vest Norway. Dedicated storage area and research software (Sectra, IDS7) provides researchers with
+appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project
+and not part of the functionality of the RIS. Based on the REK/DIPA rules for each project a lifetime tracking of the research data
+per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if
+required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.
+Key features of the RIS include:•
 
-The system operates as a distributed service with daemon processes, cron jobs, and web applications
-working together to provide automated medical imaging research data management.
+- Hosted side-by-side with the clinical PACS as an independent installation.
+- Accepts de-identified patient identifiers only.
+- All data is moved through a de-identification process upon import into RIS.
+- All data is assigned to one or more specific research projects and the visibility of data is restricted to individuals with project role access rights.
+- Projects require a valid REK approval, such documentation has to be provided at the start of a project by the project owner.
+- The project owner can identify additional user accounts that can access the data.
+- User access to the research PACS is controlled by IKT and requires a valid Haukeland University Hospital user account.
 
 
 .. EndUser

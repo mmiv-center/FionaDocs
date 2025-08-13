@@ -17,20 +17,6 @@
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="_static/custom.js?v=e7cb14c9"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -60,7 +46,6 @@ window.addEventListener("load", () => mermaid.run());
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="EndUser/index.html">END USER</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="EndUser/index.html#fiona-system">Fiona system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="EndUser/index.html#research-information-system">Research Information System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="EndUser/index.html#new-project-creation-setup-and-access">New project: creation, setup and access</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="EndUser/index.html#apply-for-a-new-project">Apply for a new project</a></li>
 <li class="toctree-l3"><a class="reference internal" href="EndUser/index.html#access-to-redcap-for-structured-data">Access to REDCap for structured data</a></li>
@@ -130,78 +115,25 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="fiona-documentation">
 <h1>FIONA Documentation<a class="headerlink" href="#fiona-documentation" title="Link to this heading"></a></h1>
-<p><strong>FIONA</strong> is a comprehensive medical imaging data management and processing platform designed for healthcare research environments. The system handles DICOM medical imaging data throughout its entire lifecycle - from initial acquisition at imaging scanners to final anonymized export for research purposes. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance.</p>
-<p><strong>The architecture</strong> of the Fiona system can be divided into five layers, including: network layer, processing layer, storage layer, transfer layer and management layer.</p>
-<img src="_images/mermaid-fa5d0497195ed68246d643b448ad5e1186c6025f.png" alt="flowchart TD
-    subgraph network [&quot; &lt;b&gt;Network Layer&lt;/b&gt; &quot;]
-        PACS[📡 Clinical PACS&lt;br/&gt;DICOM File Source]
-        StoreSCP[📥 storescpFIONA&lt;br/&gt;DICOM SCP]
-    end
-
-    subgraph processing [&quot; &lt;b&gt;Processing Layer&lt;/b&gt; &quot;]
-        ProcessFile[🔄 processSingleFile3.py&lt;br/&gt;DICOM Processing]
-        DetectStudy[🔍 detectStudyArrival.sh&lt;br/&gt;Study Detection]
-        Classification[⚙️ Classification&lt;br/&gt;Rule Engine]
-        NamedPipe((Named Pipe))
-    end
-
-    subgraph storage [&quot; &lt;b&gt;Storage Layer&lt;/b&gt; &quot;]
-        FileSystem[💾 File System&lt;br/&gt;/data/site/]
-        SymLinks[🔗 Symbolic Links&lt;br/&gt;Study/Series]
-    end
-
-    subgraph transfer [&quot; &lt;b&gt;Transfer Layer&lt;/b&gt; &quot;]
-        Anonymize[🔒 anonymizeAndSend.py&lt;br/&gt;Anonymization]
-        SendFiles[📤 sendFiles.sh&lt;br/&gt;SFTP Transfer]
-        ResPACS[🏥 Research PACS&lt;br/&gt;Destination]
-        REDCap[(🗄️ REDCap)]
-    end
-
-    subgraph mgmt [&quot; &lt;b&gt;Management Layer&lt;/b&gt; &quot;]
-        Management[⚙️ System Management&lt;br/&gt;heartbeat.sh, cron.sh, monitoring]
-    end
-
-    %% Data Flow
-    PACS --&gt;|DICOM| StoreSCP
-    StoreSCP --&gt;|DICOM Files| ProcessFile
-    ProcessFile --&gt;|metadata| NamedPipe
-    NamedPipe --&gt;|trigger| DetectStudy
-    DetectStudy --&gt;|study info| Classification
-    Classification --&gt;|classification| SymLinks
-    FileSystem --&gt;|files| SymLinks
-    SymLinks --&gt;|study data| Anonymize
-    Anonymize --&gt;|anonymized| SendFiles
-    SendFiles --&gt;|SFTP| ResPACS
-    REDCap --&gt;|consent| Anonymize
-
-    %% Management connections
-    Management -.-&gt;|monitor| StoreSCP
-    Management -.-&gt;|monitor| ProcessFile
-    Management -.-&gt;|monitor| FileSystem
-
-    %% Styling
-    classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef storage fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
-    classDef transfer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef mgmt fill:#ffebee,stroke:#d32f2f,stroke-width:2px
-    classDef pipe fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
-
-    class PACS,StoreSCP network
-    class ProcessFile,DetectStudy,Classification process
-    class FileSystem,SymLinks storage
-    class Anonymize,SendFiles,ResPACS,REDCap transfer
-    class Management mgmt
-    class NamedPipe pipe" />
+<section id="research-information-system">
+<h2>Research Information System<a class="headerlink" href="#research-information-system" title="Link to this heading"></a></h2>
+<p>The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the “Steve Project” is a secure computer system that stores
+research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the
+radiology department of <a class="reference external" href="https://www.helse-bergen.no/en">Mohn Medical Imaging and Visualization Centre</a> and the <a class="reference external" href="https:/mmiv.no">Haukeland University Hospital</a> and approved for research project use by <a class="reference external" href="https://www.helse-vest-ikt.no">Helse Vest IKT</a>. The physical location of the data is at the premises of IKT Helse Vest Norway. Dedicated storage area and research software (Sectra, IDS7) provides researchers with
+appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project
+and not part of the functionality of the RIS. Based on the REK/DIPA rules for each project a lifetime tracking of the research data
+per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if
+required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.
+Key features of the RIS include:•</p>
 <ul class="simple">
-<li><p><strong>Network Layer</strong>: DICOM communication services that receive imaging data from scanners and send to research PACS using standard medical imaging protocols.</p></li>
-<li><p><strong>Processing Layer</strong>: Core data processing engines that extract metadata, perform anonymization, and execute containerized analysis workflows on medical imaging studies.</p></li>
-<li><p><strong>Storage Layer</strong>: Organized file system architecture with symbolic links, structured directories, and automated lifecycle management for imaging data and metadata.</p></li>
-<li><p><strong>Transfer Layer</strong>: Secure data distribution system that creates anonymized exports, manages transfer requests, and delivers data to external research repositories.</p></li>
-<li><p><strong>Management Layer</strong>: Administrative services including health monitoring, configuration management, audit logging, and automated maintenance operations.</p></li>
+<li><p>Hosted side-by-side with the clinical PACS as an independent installation.</p></li>
+<li><p>Accepts de-identified patient identifiers only.</p></li>
+<li><p>All data is moved through a de-identification process upon import into RIS.</p></li>
+<li><p>All data is assigned to one or more specific research projects and the visibility of data is restricted to individuals with project role access rights.</p></li>
+<li><p>Projects require a valid REK approval, such documentation has to be provided at the start of a project by the project owner.</p></li>
+<li><p>The project owner can identify additional user accounts that can access the data.</p></li>
+<li><p>User access to the research PACS is controlled by IKT and requires a valid Haukeland University Hospital user account.</p></li>
 </ul>
-<p>The system operates as a distributed service with daemon processes, cron jobs, and web applications
-working together to provide automated medical imaging research data management.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -210,6 +142,7 @@ working together to provide automated medical imaging research data management.<
 </div>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 <section id="contact-information">
 <h2>Contact Information<a class="headerlink" href="#contact-information" title="Link to this heading"></a></h2>
 <ul class="simple">

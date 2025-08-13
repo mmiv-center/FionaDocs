@@ -63,7 +63,7 @@
 
 
 \title{FionaDocs}
-\date{Aug 12, 2025}
+\date{Aug 13, 2025}
 \release{}
 \author{Hauke Bartsch, Marek Kociński}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -84,64 +84,9 @@
 \phantomsection\label{\detokenize{index::doc}}
 
 
-\sphinxAtStartPar
-\sphinxstylestrong{FIONA} is a comprehensive medical imaging data management and processing platform designed for healthcare research environments. The system handles DICOM medical imaging data throughout its entire lifecycle \sphinxhyphen{} from initial acquisition at imaging scanners to final anonymized export for research purposes. Provides DICOM anonymization, quarantine management, and automated transfer from clinical to research PACS systems while ensuring General Data Protection Regulation (GDPR) compliance.
 
-\sphinxAtStartPar
-\sphinxstylestrong{The architecture} of the Fiona system can be divided into five layers, including: network layer, processing layer, storage layer, transfer layer and management layer.
-
-\sphinxincludegraphics{mermaid-fa5d0497195ed68246d643b448ad5e1186c6025f.pdf}
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Network Layer}: DICOM communication services that receive imaging data from scanners and send to research PACS using standard medical imaging protocols.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Processing Layer}: Core data processing engines that extract metadata, perform anonymization, and execute containerized analysis workflows on medical imaging studies.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Storage Layer}: Organized file system architecture with symbolic links, structured directories, and automated lifecycle management for imaging data and metadata.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Transfer Layer}: Secure data distribution system that creates anonymized exports, manages transfer requests, and delivers data to external research repositories.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Management Layer}: Administrative services including health monitoring, configuration management, audit logging, and automated maintenance operations.
-
-\end{itemize}
-
-\sphinxAtStartPar
-The system operates as a distributed service with daemon processes, cron jobs, and web applications
-working together to provide automated medical imaging research data management.
-
-\sphinxstepscope
-
-
-\chapter{END USER}
-\label{\detokenize{EndUser/index:end-user}}\label{\detokenize{EndUser/index::doc}}
-\sphinxAtStartPar
-\sphinxstylestrong{For:} Doctors, researchers, medical personnel
-
-
-\section{Fiona system}
-\label{\detokenize{EndUser/index:fiona-system}}
-\sphinxAtStartPar
-The Fiona system is a comprehensive solution for managing DICOM medical images in a research environment. The system enables automatic reception, processing, anonymization, and transfer of imaging data between Clinical and Research PACS (Picture Archiving and Communication System) systems.
-
-\begin{figure}[htbp]
-\centering
-\capstart
-
-\noindent\sphinxincludegraphics{{steve-project}.png}
-\caption{Fiona front page.}\label{\detokenize{EndUser/index:id1}}\end{figure}
-
-
-\section{Research Information System}
-\label{\detokenize{EndUser/index:research-information-system}}
+\chapter{Research Information System}
+\label{\detokenize{index:research-information-system}}
 \sphinxAtStartPar
 The research information system (RIS) of the Western Norway Health Authorities (Helse\sphinxhyphen{}Vest) also called the “Steve Project” is a secure computer system that stores
 research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the
@@ -182,11 +127,32 @@ User access to the research PACS is controlled by IKT and requires a valid Hauke
 
 \end{itemize}
 
+\sphinxstepscope
 
-\section{New project: creation, setup and access}
+
+\section{END USER}
+\label{\detokenize{EndUser/index:end-user}}\label{\detokenize{EndUser/index::doc}}
+\sphinxAtStartPar
+\sphinxstylestrong{For:} Doctors, researchers, medical personnel
+
+
+\subsection{Fiona system}
+\label{\detokenize{EndUser/index:fiona-system}}
+\sphinxAtStartPar
+The Fiona system is a comprehensive solution for managing DICOM medical images in a research environment. The system enables automatic reception, processing, anonymization, and transfer of imaging data between Clinical and Research PACS (Picture Archiving and Communication System) systems.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics{{steve-project}.png}
+\caption{Fiona front page.}\label{\detokenize{EndUser/index:id1}}\end{figure}
+
+
+\subsection{New project: creation, setup and access}
 \label{\detokenize{EndUser/index:new-project-creation-setup-and-access}}
 
-\subsection{Apply for a new project}
+\subsubsection{Apply for a new project}
 \label{\detokenize{EndUser/index:apply-for-a-new-project}}
 \sphinxAtStartPar
 In order to apply for a new project on the research information system (research PACS)
@@ -201,13 +167,13 @@ Additional user access can be requested by the principal investigator of the pro
 If you encounter any problems with applying for access, contact \sphinxhref{mailto:admin@your-institution.com}{admin@your\sphinxhyphen{}institution.com}.
 
 
-\subsection{Access to REDCap for structured data}
+\subsubsection{Access to REDCap for structured data}
 \label{\detokenize{EndUser/index:access-to-redcap-for-structured-data}}
 \sphinxAtStartPar
 Our project uses \sphinxhref{https://project-redcap.org}{REDCap} as an electronic data capture solution. Projects on the research information system can receive access to their RedCap project as well as access to the image data viewing (see next section).
 
 
-\subsection{Access to the “Sectra DMA Forskning” research PACS viewer}
+\subsubsection{Access to the “Sectra DMA Forskning” research PACS viewer}
 \label{\detokenize{EndUser/index:access-to-the-sectra-dma-forskning-research-pacs-viewer}}
 \sphinxAtStartPar
 Access to the image data is provided by your \sphinxhref{https://it.department.you.institution.no}{IT Department}. Such access may require a valid local hospital user account and a laptop or PACS workstation that is under control of IT Department. If you contact IT Departmetn ask for the start menu item “\sphinxstylestrong{Sectra DMA Forskning}”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
@@ -226,7 +192,7 @@ The research PACS viewer is using a separate clinical PACS software installation
 \caption{Forskning PACS log\sphinxhyphen{}inn window to view image data by project.}\label{\detokenize{EndUser/index:id2}}\end{figure}
 
 
-\section{Submit data to the Research Information System}
+\subsection{Submit data to the Research Information System}
 \label{\detokenize{EndUser/index:submit-data-to-the-research-information-system}}
 \sphinxAtStartPar
 \sphinxstylestrong{The Research Information System} (RIS) contains two components. First, image data is stored in the Sectra DMA Forskning \sphinxhyphen{} an image viewer with a vendor neutral archive (VNA). Second, all meta\sphinxhyphen{}data is stored in table format in an electronic data capture system REDCap, that is Fiona server on port 4444, (\sphinxurl{https://fiona.local.server.no:4444}). Sending image data will create the appropriate entries in \sphinxhref{https://fiona.local.server.no:4444}{RedCap (Fiona, port 4444)}. Additional data collection instruments can be set up there and used to capture assessments, consent/assent and results from automated image processing. All image data is assigned to a project to allow for project specific data views for each research information user.
@@ -263,7 +229,7 @@ In step 1 data arrives in a \sphinxstylestrong{quarantine} location. In step 2 e
 The project needs to exist on the research information system before participant data is collected. After a successful setup your project and event names should appear in the Assign application.
 
 
-\subsection{\sphinxstylestrong{How to add image data}}
+\subsubsection{\sphinxstylestrong{How to add image data}}
 \label{\detokenize{EndUser/index:how-to-add-image-data}}
 \sphinxAtStartPar
 The end\sphinxhyphen{}point for images is \sphinxhref{https://fiona.local.server.no}{Fiona} (\sphinxurl{https://fiona.local.server.no}):
@@ -356,7 +322,7 @@ Missing entries for DICOM studies on “Assign”.
 \end{itemize}
 
 
-\section{Export image data from research PACS}
+\subsection{Export image data from research PACS}
 \label{\detokenize{EndUser/index:export-image-data-from-research-pacs}}
 \sphinxAtStartPar
 Data in the research PACS is secured by generic procedures during data import that delete or rewrite some DICOM tags, changes dates and replaces unique identifiers. A documentation of this process is available on the GitHub repository of the projects for removal of DICOM meta\sphinxhyphen{}tags: \sphinxhref{https://github.com/mmiv-center/DICOMAnonymizer}{DICOMAnonymizer}, and for the removal of burned in image information: \sphinxhref{https://github.com/mmiv-center/RewritePixel}{RewritePixel}.
@@ -396,7 +362,7 @@ The research information system supports a separate export facility that is more
 Request access to the specialized data exports for your project from \sphinxhref{mailto:admin@your-institution.com}{Local Fiona Admin}. Provide your export specification and we will implement your anonymization scheme and make it available to you and other researchers. As an example the “Export” application currently supports the export in NIfTI formats (using dcm2niix) and the export in several zip\sphinxhyphen{}file formats.
 
 
-\section{End\sphinxhyphen{}user contract}
+\subsection{End\sphinxhyphen{}user contract}
 \label{\detokenize{EndUser/index:end-user-contract}}
 \begin{sphinxadmonition}{attention}{Attention:}
 \sphinxAtStartPar
@@ -431,10 +397,10 @@ reported to the RIS team. At the end of the project period data can be either a)
 data will change to archive state, a copy is provided to the projects PI and the data can be deleted by the RIS team after about 1 year.
 
 
-\section{Sensitive Data Projects}
+\subsection{Sensitive Data Projects}
 \label{\detokenize{EndUser/index:sensitive-data-projects}}
 
-\subsection{Separation of Sensitive Information and Data}
+\subsubsection{Separation of Sensitive Information and Data}
 \label{\detokenize{EndUser/index:separation-of-sensitive-information-and-data}}
 \sphinxAtStartPar
 A sensitive data project is one that is used to capture human subject data and in general will require  REK (regional ethics board approval). In order to setup such a project in REDCap we suggest the follow structure and features of REDCap to be used. These recommendations have been generated based
@@ -528,7 +494,7 @@ Add a field validation as “Email” to prevent some miss\sphinxhyphen{}typing 
 \end{enumerate}
 
 
-\subsection{Randomization}
+\subsubsection{Randomization}
 \label{\detokenize{EndUser/index:randomization}}
 \sphinxAtStartPar
 Randomized studies have can remove biases caused by selection of participants for specific arms in a study. Such biases can prevent a fair assessment of a treatment option. The randomization feature of REDCap allows users to upload a randomization table that has been externally created before the start of the study \textendash{} usually by the statistician of the project. After participants are enrolled into the study the randomization entries for that person are “opened” and the choice of the randomization is stored in the project.
@@ -541,7 +507,7 @@ Randomized studies have can remove biases caused by selection of participants fo
 \caption{Basics of the randomization workflow in REDCap.}\label{\detokenize{EndUser/index:id4}}\end{figure}
 
 
-\subsection{e\sphinxhyphen{}Consent}
+\subsubsection{e\sphinxhyphen{}Consent}
 \label{\detokenize{EndUser/index:e-consent}}
 \sphinxAtStartPar
 In an e\sphinxhyphen{}Consent workflow the basics of the paper informed consent are maintained. An electronic consent document is created based on the approved language and design of the paper consent using HTML features in REDCap. The solution supports signature fields (stored as images) and creates resulting PDF (paper) versions of the consent as well as electronic versions of the consent. The following figures show some of the setup and resulting documentation that is created in the solution.
@@ -574,7 +540,7 @@ As informed consent document contain the name of the signatory and the one count
 \caption{Internal documentation of e\sphinxhyphen{}Consent in REDCap. Signatures have been captured and tracked. A paper version for export is available.}\label{\detokenize{EndUser/index:id7}}\end{figure}
 
 
-\subsection{Automatic data exports from REDCap}
+\subsubsection{Automatic data exports from REDCap}
 \label{\detokenize{EndUser/index:automatic-data-exports-from-redcap}}
 \sphinxAtStartPar
 Data may be exported from REDCap using the REDCap API, a technical interface to automate the export of project and participant information using scripting. To provide such access a dedicated user\sphinxhyphen{}account “api\_\textless{}real username\textgreater{}” should be created which is specific for a single project. Configure the account with a limited set of read permissions to specific fields or instruments using a new API role. The REDCap API will borrow these restrictive permissions for controlled access.
@@ -586,7 +552,7 @@ Setup: An administrator can generate an API “token” for this account and sha
 Any change in the role of the \textless{}real username\textgreater{} should also apply to the connected API account. Specifically loosing access to the project should be implemented for both \textless{}real username\textgreater{} and api\_\textless{}real username\textgreater{}.
 
 
-\subsection{Steps at the end of a REDCap project}
+\subsubsection{Steps at the end of a REDCap project}
 \label{\detokenize{EndUser/index:steps-at-the-end-of-a-redcap-project}}
 \sphinxAtStartPar
 REDCap is a tool for data collection. At the end of data capture projects using REDCap receive a notification of study end. At this point projects may provide updated REK information (extension of data capture notice). If no such notice is received REDCap projects will:
@@ -624,10 +590,10 @@ Permanently delete all project data.
 This process will be documented in the REDCap project tracking project “DataTransferProjects”, the project management tool with information on identity of the person requesting project removal and confirmations for all steps of the project removal process.
 
 
-\section{External resources}
+\subsection{External resources}
 \label{\detokenize{EndUser/index:external-resources}}
 
-\subsection{Git\sphinxhyphen{}Hub Repositories}
+\subsubsection{Git\sphinxhyphen{}Hub Repositories}
 \label{\detokenize{EndUser/index:git-hub-repositories}}\begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \item {} 
@@ -645,7 +611,7 @@ This process will be documented in the REDCap project tracking project “DataTr
 \end{enumerate}
 
 
-\subsection{REDCap}
+\subsubsection{REDCap}
 \label{\detokenize{EndUser/index:redcap}}\begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \item {} 
@@ -657,7 +623,7 @@ This process will be documented in the REDCap project tracking project “DataTr
 \sphinxstepscope
 
 
-\chapter{ADMINISTRATION}
+\section{ADMINISTRATION}
 \label{\detokenize{ServerAdmin/index:administration}}\label{\detokenize{ServerAdmin/index::doc}}
 \sphinxAtStartPar
 \sphinxstylestrong{For:} IT administrators, DevOps
@@ -665,73 +631,13 @@ This process will be documented in the REDCap project tracking project “DataTr
 \sphinxstepscope
 
 
-\chapter{ARCHITECTURE}
+\section{ARCHITECTURE}
 \label{\detokenize{Architecture/index:architecture}}\label{\detokenize{Architecture/index::doc}}
 \sphinxAtStartPar
 \sphinxstylestrong{For:} Developers, system architects
 
-\sphinxAtStartPar
-\sphinxstylestrong{FIONA System Architecture}
 
-\sphinxAtStartPar
-A detailed system architecture including all system components is presented below
-
-\begin{figure}[htbp]
-\centering
-\capstart
-
-\sphinxincludegraphics{mermaid-d232899be5c16d633f58ea5dd0508da7ba94305f.pdf}
-\caption{FIONA layered Architecture}\label{\detokenize{Architecture/index:id1}}\end{figure}
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{Dowlnoad image as PDF}}
-
-
-\section{Setup}
-\label{\detokenize{Architecture/index:setup}}
-\sphinxAtStartPar
-To setup the system some mandatory information must be set set in \sphinxcode{\sphinxupquote{/data/config/conf.json}} file. Fill values appropriate to your serwer as shown in example json file.
-\sphinxSetupCaptionForVerbatim{System configuration example settings}
-\def\sphinxLiteralBlockLabel{\label{\detokenize{Architecture/index:config-json}}}
-\fvset{hllines={, 3, 5,}}%
-\begin{sphinxVerbatim}[commandchars=\\\{\},numbers=left,firstnumber=1,stepnumber=1]
-\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}DICOMIP\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}dicom\PYGZus{}server\PYGZus{}ip\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}DICOMPORT\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}dicom\PYGZus{}port\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}DICOMAETITLE\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}FIONA\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}SCANNERIP\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}scanner\PYGZus{}ip\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}SCANNERPORT\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}scanner\PYGZus{}port\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}SCANNERAETITLE\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}scanner\PYGZus{}application\PYGZus{}entity\PYGZus{}title\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}SCANNERTYPE\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}scanner\PYGZus{}device\PYGZus{}type\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}MPPSPORT\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}modality\PYGZus{}performed\PYGZus{}procedure\PYGZus{}step\PYGZus{}port\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}SERVERUSER\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}server\PYGZus{}user\PYGZus{}name\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}DAICSERVER\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}daic\PYGZus{}server\PYGZus{}ip\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}PFILEDIR\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}/path/to/your/profile/directory\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}CONNECTION\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}DATADIR\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}/path/to/data/dir\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}LOCALTIMEZONE\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}local\PYGZus{}zone\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}PROCESSING\PYGZus{}USER\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}processing\PYGZus{}user\PYGZus{}name\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}PROJECTTOKEN\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}project\PYGZus{}token\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nt}{\PYGZdq{}Authentication\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{	}\PYG{n+nt}{\PYGZdq{}Table\PYGZhy{}based\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}enabled\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{\PYGZcb{},}
-\PYG{+w}{	}\PYG{n+nt}{\PYGZdq{}LDAP\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
-\PYG{+w}{	    }\PYG{p}{\PYGZob{}}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}enabled\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}connection\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}value\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}certificate\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}value\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}username\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}value\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}password\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}value\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}query\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}value\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{		}\PYG{n+nt}{\PYGZdq{}dn\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}your\PYGZus{}value\PYGZdq{}}
-\PYG{+w}{	    }\PYG{p}{\PYGZcb{},}
-\PYG{+w}{	}\PYG{p}{]}
-\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
-\PYG{p}{\PYGZcb{}}
-\end{sphinxVerbatim}
-\sphinxresetverbatimhllines
-
-
-\section{Folder and File structure}
+\subsection{Folder and File structure}
 \label{\detokenize{Architecture/index:folder-and-file-structure}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 /home/processing/
@@ -784,1038 +690,632 @@ To setup the system some mandatory information must be set set in \sphinxcode{\s
 \end{sphinxVerbatim}
 
 
-\section{Components}
+\subsection{Components}
 \label{\detokenize{Architecture/index:components}}
 \sphinxstepscope
 
 
-\subsection{anonymizeAndSend.py}
+\subsubsection{anonymizeAndSend.py}
 \label{\detokenize{Architecture/scripts/anonymizeAndSend:anonymizeandsend-py}}\label{\detokenize{Architecture/scripts/anonymizeAndSend::doc}}
 \sphinxAtStartPar
-This Python script processes DICOM medical imaging transfer requests by anonymizing patient data and sending anonymized studies to a research PACS system. The script reads JSON transfer requests, applies project\sphinxhyphen{}specific anonymization rules including burned\sphinxhyphen{}in image detection and pixel data rewriting, then sends the processed data via DICOM protocol while updating REDCap with transfer status. It handles various project features like presentation state removal, secondary capture filtering, and maintains audit trails of all processing operations.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-e5c394312c2dd9c356bebe6210bab34ccf563103.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data flow diagram}
-
-\sphinxincludegraphics{mermaid-a7c975261bb1dfeac5f51613f24cda5e5d667115.pdf}
-
-\sphinxAtStartPar
-Data paths
+For each transfer request created by createTransferRequests.py this script will anonymized all DICOM files before forwarding them to research PACS storage. Successful storage is marked in REDCap’s TransferRequest table (project Incoming). If errors are found during anonymization or during sending to research PACS errors are added to the TransferRequest REDCap table. Such errors are indicated by Assign as orange highlights.
 \begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input directories:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/transfer\_requests/}},
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/}}
+depends\sphinxhyphen{}on:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+createTransferRequests.py (/home/processing/transfer\_requests)
+
+\item {} 
+\sphinxAtStartPar
+REDCap \sphinxurl{https://localhost:4444/} (project Incoming, table TransferRequests)
+
+\item {} 
+\sphinxAtStartPar
+Series level JSON files in: /data/site/raw/\sphinxstyleemphasis{/}/{\color{red}\bfseries{}*}.json
 
 \end{itemize}
 
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output directories:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/transfers\_done/}},
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/anonymizeAndSend.log,
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/transfers\_fail/}}
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/anonymizeAndSend.pid
 
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Temporary processing:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-System temp directories via \sphinxcode{\sphinxupquote{tempfile.TemporaryDirectory()}}
-
-\end{itemize}
-
-\end{description}
+start:
+{\color{red}\bfseries{}*}/1 * * * *  /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/anonymizeAndSend.pid /home/processing/bin/anonymizeAndSend.py \textgreater{}\textgreater{} /home/processing/logs/anonymizeAndSend.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/anonymizeAndSend:notes}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-There is no docstring.
-
-\sphinxAtStartPar
-2025.06.17 mk
+During anonymization every study is marked with a StudyInstanceUID that identifies them as already anonymized. Currently the check performed will look for a specific root UID (“1.3.6.1.4.1.45037”) followed by a dot and a numeric sequence (without further dots).
 
 \sphinxstepscope
 
 
-\subsection{clearExports.sh}
+\subsubsection{clearExports.sh}
 \label{\detokenize{Architecture/scripts/clearExports:clearexports-sh}}\label{\detokenize{Architecture/scripts/clearExports::doc}}
 \sphinxAtStartPar
-This bash script manages disk space by automatically deleting old export files when disk usage exceeds 80\%. It first removes temporary directories older than 1000 minutes, then systematically deletes the oldest ZIP files in \sphinxcode{\sphinxupquote{/export2/Export/files/}} until disk usage drops to 80\% or below. The script provides timestamped logging throughout the cleanup process to track which files are being removed.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related File}
-
-\sphinxincludegraphics{mermaid-f5123fe76c0421b1454652bc84ffa3c8a2af854d.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-484de5d34ce75b941377d91d6ed87378fe7ca762.pdf}
-
-\sphinxAtStartPar
-Data paths
+Delete old entries in the /export2/Export/ folder (temporary folders older than 1000 minutes, requires permissions for processing user) and the oldest created zip files in /export2/Export/files/ until at least 90\% of space is available on this partition.
 \begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input directories:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export2/Export/}},
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export2/Export/files/}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /export2/Export/files/
+\sphinxhyphen{} /export2/Export/tmp\_*
 
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output directories:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Files are deleted (no output directories)
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/clearExports.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/clearExports.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+0 23 * * 3,6 /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/clearExports.pid /home/processing/bin/clearExports.sh \textgreater{}\textgreater{} /home/processing/logs/clearExports.log 2\textgreater{}\&1
 
 \end{itemize}
-
-\end{description}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-find . \sphinxhyphen{}type d \sphinxhyphen{}maxdepth 1 \sphinxhyphen{}printf ‘\%T+ “\%p”n’ | sort | less
-
-\sphinxAtStartPar
-delete oldest files until we have at least 20\% free space on this partition
 
 \sphinxstepscope
 
 
-\subsection{clearOldFiles.sh}
+\subsubsection{clearOldFiles.sh}
 \label{\detokenize{Architecture/scripts/clearOldFiles:clearoldfiles-sh}}\label{\detokenize{Architecture/scripts/clearOldFiles::doc}}
 \sphinxAtStartPar
-This bash script automatically manages disk space by deleting oldest archive directories when partition usage exceeds 80\%. It monitors the \sphinxcode{\sphinxupquote{/data/}} partition and systematically removes directories from \sphinxcode{\sphinxupquote{/data/site/archive/}} in chronological order (oldest first) until free space reaches at least 20\%. The script also removes corresponding directories in \sphinxcode{\sphinxupquote{/data/site/raw/}} based on extracted UIDs from archive directory names.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-1d195bba50838661402b0157c929359c39d5d57f.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-ad5c8f81b3f3e45af647710ec15b363dfb2e4076.pdf}
-
-\sphinxAtStartPar
-Data paths
+Delete the oldest files until we have at least 20\% free space on the data partition. This ensures that we can always receive new data on FIONA. Existing data that is not assigned (Assign) to a research project will be deleted.
 \begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input folder:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/archive/}},
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/}},
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /data/site/archive
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/}}
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/clearOldFiles.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/clearOldFiles.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+30 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/clearOldFiles.pid /home/processing/bin/clearOldFiles.sh \textgreater{}\textgreater{} /home/processing/logs/clearOldFiles.log 2\textgreater{}\&1
 
 \end{itemize}
 
-\end{description}
 
-\item {} 
-\sphinxAtStartPar
-Output folder: No output directories, delete only.
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-find . \sphinxhyphen{}type d \sphinxhyphen{}maxdepth 1 \sphinxhyphen{}printf ‘\%T+ “\%p”n’ | sort | less
-
-\sphinxAtStartPar
-delete oldest files until we have at least 20\% free space on this partition
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/clearOldFiles:notes}}
 \sphinxAtStartPar
 TODO: delete links in /data/site/participants/
-
-\sphinxAtStartPar
 TODO: delete links in /data/site/srs/
 
 \sphinxstepscope
 
 
-\subsection{clearStaleLinks.sh}
+\subsubsection{clearStaleLinks.sh}
 \label{\detokenize{Architecture/scripts/clearStaleLinks:clearstalelinks-sh}}\label{\detokenize{Architecture/scripts/clearStaleLinks::doc}}
-\sphinxAtStartPar
-This bash script performs maintenance on image archive directories by cleaning up broken symbolic links and empty folders. It processes three specific directories (\sphinxcode{\sphinxupquote{/data/site/raw/}}, \sphinxcode{\sphinxupquote{/data/site/participants/}}, \sphinxcode{\sphinxupquote{/data/site/srs/}}) to remove stale symbolic links that no longer point to valid files, delete empty directories, and clean up orphaned JSON metadata files. The script ensures data integrity by maintaining a clean directory structure in the archive system.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-c4d47ff9912e1443edc348d8e0cb64cffd0af898.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-15db36f85fa70977408bdd5a63fc45feccb1c596.pdf}
-
-\sphinxAtStartPar
-Data paths
-\begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input/Processing Directories:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/participants/}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/srs/}}
-
-\end{itemize}
-
-\end{description}
-
-\item {} 
-\sphinxAtStartPar
-Output: The same directories (cleaned and maintained)
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
 \sphinxAtStartPar
 Delete links that do not point to real images in archive.
 
 \sphinxAtStartPar
-Just to be sure we have a clear /data/site/raw folder we should remove broken symbolic link and empty folders.
+Just to be sure we have a clear /data/site/raw folder we remove broken symbolic link and empty folders.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /data/site/raw
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/clearStaleLinks.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/clearStaleLinks.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+2 3 * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/clearStaleLinks.pid /home/processing/bin/clearStaleLinks.sh \textgreater{}\textgreater{} /home/processing/logs/clearStaleLinks.log 2\textgreater{}\&1
+
+\end{itemize}
 
 \sphinxstepscope
 
 
-\subsection{createTransferRequests.py}
+\subsubsection{createTransferRequests.py}
 \label{\detokenize{Architecture/scripts/createTransferRequests:createtransferrequests-py}}\label{\detokenize{Architecture/scripts/createTransferRequests::doc}}
 \sphinxAtStartPar
-This Python script retrieves medical imaging transfer records from a REDCap database via API and creates JSON transfer request files for studies that need to be transferred. It checks for new image series by comparing transfer dates with file modification times in the raw data directory. The script only creates transfer requests for records that have complete information (project name, transfer name) and haven’t been processed yet.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-717f51467b776303143659f48be2cbf9d7e0783c.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-ffc67bf55700d5f0daa4fb7ce3f63e20402d1847.pdf}
-
-\sphinxAtStartPar
-Data paths
+Create a transfer request json in /home/processing/transfer\_requests based on all existing records in REDCap’s Incoming project. If there is no transfer date yet for an Incoming study or, if the transfer date is before the newest series date (JSON modification date in /data/site/raw) a new transfer request is created for anonymizeAndSend.py.
 \begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input directories:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/\{study\_instance\_uid\}/}}
+user: processing
 
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output directories:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/transfer\_requests/}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} anonymizeAndSend.py (processes files created in /home/processing/transfer\_requests)
+\sphinxhyphen{} REDCap \sphinxurl{https://localhost:4444/} (project Incoming, table TransferRequests)
+\sphinxhyphen{} Series level JSON files in: /data/site/raw/\sphinxstyleemphasis{/}/{\color{red}\bfseries{}*}.json
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/createTransferRequests.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/createTransferRequests.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/1 * * * *  /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/createTransferRequests.pid /home/processing/bin/createTransferRequests.py \textgreater{}\textgreater{} /home/processing/logs/createTransferRequests.log 2\textgreater{}\&1
 
 \end{itemize}
-
-\end{description}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-There is no docstring.
 
 \sphinxstepscope
 
 
-\subsection{createTransferRequestsForProcessed.py}
+\subsubsection{createTransferRequestsForProcessed.py}
 \label{\detokenize{Architecture/scripts/createTransferRequestsForProcessed:createtransferrequestsforprocessed-py}}\label{\detokenize{Architecture/scripts/createTransferRequestsForProcessed::doc}}
 \sphinxAtStartPar
-This script automatically detects processed medical imaging series that need to be forwarded to research PACS systems by identifying series with \sphinxcode{\sphinxupquote{StudyInstanceUIDs}} that contain dots (indicating they’re new/processed data). It retrieves transfer requests from REDCap, modifies DICOM metadata to match original study identifiers, and forwards the data either directly to storage or through anonymization processes depending on the project type. The script also extracts structured report data for specific projects like \sphinxcode{\sphinxupquote{Transpara}} studies and \sphinxcode{\sphinxupquote{NOPARK}}.
+Detect if we have image series forwarded to FIONA
+that belong to a study that already exists on the research PACS.
+This happens if data is forwarded from the research PACS to a
+workstation. The workstation procudes new image series and forwards
+those to FIONA. There is no transfer request for them so they are not
+automatically forwarded and Assign is not displaying them because
+they have a study instance uid without a dot.
 
 \sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-5b957df7d5372c358e1c9450500d461cb7b9e382.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-2fe924ffde769d9d81e8be3bc88c770a4f91b309.pdf}
-
-\sphinxAtStartPar
-Data paths:
+We want to forward them by first finding them (no dot in raw and dot
+in series). Change their StudyInstanceUID to the incoming
+one that has a transfer request. Send them to fiona so they will
+show up in the correct folder, be detected as new incoming series for
+existing study and auto forward using createTransferRequests.py.
 \begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input Paths:}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/*/}}
-
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output Paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{Research PACS server}},
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/logs/}},
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} REDCap Incoming project
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{Temporary directories (created dynamically)}}.
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/createTransferRequestsForProcessed.log
 
-\end{itemize}
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/createTransferRequestsForProcessed.pid
 
-\end{description}
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/30 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/createTransferRequestsForProcessed.pid /home/processing/bin/createTransferRequestsForProcessed.py \textgreater{}\textgreater{} /home/processing/logs/createTransferRequestsForProcessed.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/createTransferRequestsForProcessed:notes}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-There is no docstring.
-
-\sphinxstepscope
-
-
-\subsection{createZipFileCmd.php}
-\label{\detokenize{Architecture/scripts/createZipFileCmd:createzipfilecmd-php}}\label{\detokenize{Architecture/scripts/createZipFileCmd::doc}}
-\sphinxAtStartPar
-This PHP script is a command\sphinxhyphen{}line cron job that processes medical imaging export requests by creating ZIP archives of DICOM studies. It pulls DICOM data from an imaging server, applies anonymization transformations based on project\sphinxhyphen{}specific rules, optionally converts to NIFTI format, and packages the results into downloadable ZIP files. The script handles secure email delivery with password protection and supports export to TSD (Norwegian research data storage).
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-275ee02d8ef939eb15788e35ac3845a7b84aec30.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-3fb3e0068939e25580676a2a3a11e7fc16a2b0b5.pdf}
-
-\sphinxAtStartPar
-Data pahts
-\begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Exports/php/prepared\_downloads\_list.jobs}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/config/config.json}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Exports/php/tokens.json}}
-
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export2/Export/}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export2/Export/files/}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/logs/}},
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Exports/php/execMeasurements.json}}
-
-\end{itemize}
-
-\end{description}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-This is a docstring.
-
-\sphinxstepscope
-
-
-\subsection{cron.sh}
-\label{\detokenize{Architecture/scripts/cron:cron-sh}}\label{\detokenize{Architecture/scripts/cron::doc}}
-\sphinxAtStartPar
-This script is an automation scheduler that reads event\sphinxhyphen{}action links from a JSON configuration file (\sphinxcode{\sphinxupquote{/var/www/html/applications/User/asttt/code/links.json}}) and executes corresponding triggers and actions. It processes each link by checking if the associated event trigger conditions are met, and if so, executes the corresponding action script. The script supports email notifications with optional CSV attachments and uses temporary directories for processing outputs. It’s designed to run as a cron job for automated task execution based on predefined event\sphinxhyphen{}action mappings.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-8f5359b8346b658f99c25c8f01816ebe05e8b0fc.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-26d0768268ee9bdd2aaa82499f255bd1a12bca15.pdf}
-
-\sphinxAtStartPar
-Data Paths
-\begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input Paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/User/asttt/code/links.json}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/User/asttt/code/events/*}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/User/asttt/code/actions/*}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{events/*/info.json\textasciigrave{} and \textasciigrave{}actions/*/info.json}}
-
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output Paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/asst\_cronXXXXX/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/asst\_cronXXXXX/email.txt}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/asst\_cronXXXXX/attachment.csv}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\$\{script\}\_log}}
-
-\end{itemize}
-
-\end{description}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-There is no docstring.
-
-\sphinxstepscope
-
-
-\subsection{getAllPatients2.sh}
-\label{\detokenize{Architecture/scripts/getAllPatients2:getallpatients2-sh}}\label{\detokenize{Architecture/scripts/getAllPatients2::doc}}
-\sphinxAtStartPar
-This script retrieves DICOM patient study information from a remote DICOM Query/Retrieve SCP server using the findscu command. It can pull data for a specified number of days (default 7000) and optionally filter by institution name. The script handles large datasets by implementing fallback strategies including date\sphinxhyphen{}based queries and patient ID pattern matching when bulk queries fail. Results are stored as individual DICOM files in organized directory structures under \sphinxcode{\sphinxupquote{/tmp/allPatients{[}InstitutionName{]}}}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-e02d81cd95f1ec81fe87dc87063c918dd7baec04.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-82a41fd41e1df4290ce35672c731ed24becb5458.pdf}
-
-\sphinxAtStartPar
-Data pths
-\begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input Paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/usr/share/dcmtk/dicom.dic}}
-
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output Paths:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/allPatients{[}InstitutionName{]}/}} \sphinxhyphen{} Main output directory
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/allPatients{[}InstitutionName{]}/all\_at\_once/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/allPatients{[}InstitutionName{]}/YYYYMMDD/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/allPatients{[}InstitutionName{]}/YYYYMMDD\_{[}pattern{]}/}}
-
-\end{itemize}
-
-\end{description}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-We can provide an argument to this program, the maximum number of days we would like to pull. In general we might get away with a very short
-period because new scans will come in as recent scans. But some test data migth be very old. So we should do one long run at night and short
-runs during the day.
-
-\sphinxAtStartPar
-As a second argument allow a specific project name. The whole things takes too long right now. Treat some project as special here.
-
-\sphinxstepscope
-
-
-\subsection{heartbeat.sh}
-\label{\detokenize{Architecture/scripts/heartbeat:heartbeat-sh}}\label{\detokenize{Architecture/scripts/heartbeat::doc}}
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{heartbeat.sh}} is a monitoring script that performs health checks on DICOM \sphinxcode{\sphinxupquote{storescp}} services by testing connectivity with \sphinxcode{\sphinxupquote{echoscu}}. If the connection test fails, it terminates unresponsive storescp processes and cleans up stuck \sphinxcode{\sphinxupquote{detectStudyArrival.sh}} jobs that have been running for over an hour. The script is designed to run via cron every minute and relies on external process managers like monit to restart killed services automatically.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-98bbdeb209feed75b18728cb2b743c447e954c92.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-4735fd479de217ff607586cfd7332bf61866954f.pdf}
-
-\sphinxAtStartPar
-Data paths:
-\begin{itemize}
-\item {} \begin{description}
-\sphinxlineitem{Input Folders/Files:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/config/config.json}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/logs/storescpd*.log}}
-
-\end{itemize}
-
-\end{description}
-
-\item {} \begin{description}
-\sphinxlineitem{Output Folders/Files:}\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/logs/heartbeat*.log}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/.pids/detectStudyArrival*.lock}}
-
-\end{itemize}
-
-\end{description}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-create a heart beat for the storescp
-
-\sphinxAtStartPar
-One way it can fail is if multiple associations are requested.
-
-\sphinxAtStartPar
-If the timeout happens the connection will be unusable afterwards.
-
-\sphinxAtStartPar
-Here we simply use echoscu to test the connection and if that fails we will kill a running storescp (hoping that monit will start it again).
-
-\sphinxAtStartPar
-In order to activate put this into the crontab of processing (every minute):
+This script will create a SeriesInstanceUID compatible with FIONA’s anonymizer and use it to mark the new image series. If this identifier is changed the script needs to be updated.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-*/1 * * * * /usr/bin/nice \PYGZhy{}n 3 /var/www/html/server/bin/heartbeat.sh
+\PYG{p}{:}\PYG{n}{lineos}\PYG{p}{:}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{hashID}\PYG{p}{(} \PYG{n}{SeriesInstanceUID} \PYG{p}{)}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{} do the same operation that would be done by the anonymizer}
+    \PYG{c+c1}{\PYGZsh{} get a safe string}
+    \PYG{n}{s} \PYG{o}{=} \PYG{n}{SeriesInstanceUID}\PYG{o}{.}\PYG{n}{encode}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{utf\PYGZhy{}8}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{org\PYGZus{}root} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1.3.6.1.4.1.45037}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n}{h} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{.}\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{org\PYGZus{}root}\PYG{p}{,} \PYG{n}{hashlib}\PYG{o}{.}\PYG{n}{sha256}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)}\PYG{o}{.}\PYG{n}{hexdigest}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+    \PYG{k}{return} \PYG{n}{h}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{l+m+mi}{63}\PYG{p}{]}
 \end{sphinxVerbatim}
 
 \sphinxstepscope
 
 
-\subsection{parseAllPatients.sh}
+\subsubsection{createZipFileCmd.php}
+\label{\detokenize{Architecture/scripts/createZipFileCmd:createzipfilecmd-php}}\label{\detokenize{Architecture/scripts/createZipFileCmd::doc}}
+\sphinxAtStartPar
+System service used by the Export application to create zip\sphinxhyphen{}compressed files.
+
+\sphinxAtStartPar
+The command is called by cron approximately every 3 minutes. Data for export is requested from research PACS and
+stored inside a zip file in a export\sphinxhyphen{}type specific format. Exports in ‘PURE’ format for example are sorted into
+series directories.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /export2/Export/files/
+\sphinxhyphen{} /var/www/html/applications/Exports/php/execMeasurements.json (adds processing times by project)
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/Exports\_PrepareDownload.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/Exports\_PrepareDownload.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/3 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/Exports\_PrepareDownload.pid /usr/bin/php /var/www/html/applications/Exports/php/createZipFileCmd.php \textgreater{}\textgreater{} /home/processing/logs/Exports\_PrepareDownload.log 2\textgreater{}\&1
+
+\end{itemize}
+
+\sphinxstepscope
+
+
+\subsubsection{cron.sh}
+\label{\detokenize{Architecture/scripts/cron:cron-sh}}\label{\detokenize{Architecture/scripts/cron::doc}}
+\sphinxAtStartPar
+System service for the ASTTT service of the profile page on FIONA. Sends out emails if data arrives for projects the user is a member off.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /var/www/html/applications/User/asttt/
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/User\_asttt.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/User\_asttt.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/30 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/User\_asttt.pid /var/www/html/applications/User/asttt/code/cron.sh \textgreater{}\textgreater{} /home/processing/logs/User\_asttt.log 2\textgreater{}\&1
+
+\end{itemize}
+
+\sphinxstepscope
+
+
+\subsubsection{getAllPatients2.sh}
+\label{\detokenize{Architecture/scripts/getAllPatients2:getallpatients2-sh}}\label{\detokenize{Architecture/scripts/getAllPatients2::doc}}
+\sphinxAtStartPar
+Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh \sphinxhyphen{} parseAllPatients.sh \sphinxhyphen{} whatIsInIDS7.py.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /tmp/parseAllPatients\{projname\}/
+\sphinxhyphen{} /tmp/pullStudies\{projname\}/
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/whatIsInIDS7\{projname\}.log,
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/whatIsInIDS7\{projname\}.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/48 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/getAllPatients2\{projname\}.pid /bin/bash \sphinxhyphen{}c “/home/processing/bin/utils/getAllPatients2.sh 10000 “\{proejct\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1 \&\& /home/processing/bin/utils/parseAllPatients.sh “\{projname\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1 \&\& /home/processing/bin/utils/whatIsInIDS7.py “\{projname\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1”
+
+\end{itemize}
+
+
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/getAllPatients2:notes}}
+\sphinxAtStartPar
+We can provide an argument to this program, the maximum number of days we would like to pull. In general we might get away with a very short period because new scans will come in as recent scans. But some test data migth be very old. So we should do one long run at night and short runs during the day.
+
+\sphinxAtStartPar
+As a second argument allow a specific project name.
+
+\sphinxAtStartPar
+TODO: This runs too long. Treat some project as special here.
+
+\sphinxstepscope
+
+
+\subsubsection{heartbeat.sh}
+\label{\detokenize{Architecture/scripts/heartbeat:heartbeat-sh}}\label{\detokenize{Architecture/scripts/heartbeat::doc}}
+\sphinxAtStartPar
+A heartbeat service for the storage class provider running on FIONA. An echoscu will try to contact the local FIONA. If the call fails this script will assume that the service is no longer functioning and kill storectl.sh. This should force a restart with storectl.sh (runs every 10 min).
+
+\sphinxAtStartPar
+As a shortcut, instead of actually testing with echoscu the heartbeat will check the last modification time of the storesctl.sh log file. If this file is new heartbeat assumes that the service is still running.
+
+
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/heartbeat:notes}}
+\sphinxAtStartPar
+One way it can fail is if multiple associations are requested. If the timeout happens the connection will be unusable afterwards.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /data/config/config.json,
+\sphinxhyphen{} storescpFIONA,
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/heartbeat\$\{projname\}.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file:
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/1 * * * * /usr/bin/nice \sphinxhyphen{}n 3 /var/www/html/server/bin/heartbeat.sh
+
+\end{itemize}
+
+\sphinxstepscope
+
+
+\subsubsection{parseAllPatients.sh}
 \label{\detokenize{Architecture/scripts/parseAllPatients:parseallpatients-sh}}\label{\detokenize{Architecture/scripts/parseAllPatients::doc}}
 \sphinxAtStartPar
-This script processes DICOM files to extract unique patient IDs and retrieves study\sphinxhyphen{}level information for each patient from a DICOM Query/Retrieve service. It depends on output generated by \sphinxcode{\sphinxupquote{getAllPatients2.sh}} and uses DCMTK tools to parse DICOM files and query a remote PACS server. The script creates a directory structure organizing study information by patient ID and connects to a DICOM server to pull comprehensive study metadata including modalities, dates, and institutional information.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-fb0c7fe3e809188dafbcc72ff2d89b44fe6592f3.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-1c3893dec4badc488fddfa7dc5ca41f0b23d2a1e.pdf}
-
-\sphinxAtStartPar
-Data paths
+Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh \sphinxhyphen{} parseAllPatients.sh \sphinxhyphen{} whatIsInIDS7.py.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input Directories:
-
-\end{itemize}
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/allPatients\{InstitutionName\}/}}
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/usr/share/dcmtk/dicom.dic}}
-
-\end{itemize}
-
-\sphinxAtStartPar
-Output Directories:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/pullStudies\{InstitutionName\}/}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /tmp/parseAllPatients\{projname\}/
+\sphinxhyphen{} /tmp/pullStudies\{projname\}/
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/pullStudies\{InstitutionName\}/\{index\}/}}
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/whatIsInIDS7\{projname\}.log,
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/whatIsInIDS7\{projname\}.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/48 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/getAllPatients2\{projname\}.pid /bin/bash \sphinxhyphen{}c “/home/processing/bin/utils/getAllPatients2.sh 10000 “\{proejct\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1 \&\& /home/processing/bin/utils/parseAllPatients.sh “\{projname\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1 \&\& /home/processing/bin/utils/whatIsInIDS7.py “\{projname\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1”
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/parseAllPatients:notes}}
+\sphinxAtStartPar
+Depends on output generated by getAllPatients2.sh and provides input for whatIsInIDS7.sh (intermediate processing).
 
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-depends on output generated by getAllPatients2.sh
-
-\sphinxAtStartPar
-get list of optional findscu entries from \sphinxurl{http://dicom.nema.org/medical/dicom/current/output/html/part04.html\#sect\_C.6.1.1}
+Get list of optional findscu entries from \sphinxurl{http://dicom.nema.org/medical/dicom/current/output/html/part04.html\#sect\_C.6.1.1}
 
 \sphinxstepscope
 
 
-\subsection{populateAutoID.py}
+\subsubsection{populateAutoID.py}
 \label{\detokenize{Architecture/scripts/populateAutoID:populateautoid-py}}\label{\detokenize{Architecture/scripts/populateAutoID::doc}}
 \sphinxAtStartPar
-This script automates the creation of transfer requests for medical imaging studies by checking auto\sphinxhyphen{}ID enabled projects in REDCap. It retrieves incoming DICOM data, generates or retrieves existing patient IDs using configurable naming patterns, and creates transfer requests for studies that don’t already have them. The script interfaces with multiple REDCap databases using different API tokens and calls an external \sphinxcode{\sphinxupquote{gen\sphinxhyphen{}id.py}} utility to generate new patient identifiers when needed.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-d380070ee69d8631f1ef801750cffee1e9f246d4.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-a715d091a7224b2de2146b45bb8c2ab8a43b04fc.pdf}
-
-\sphinxAtStartPar
-Data path
+Check all auto\sphinxhyphen{}id projects and create new transfer requests for each. This functionality will remove the need to use Assign simply based on patient naming convention. Regular safety and quality control phantom scans might use this process to automate the forward of such cases to research PACS.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input Sources:
+user: processing
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/bin/gen\sphinxhyphen{}id/gen\sphinxhyphen{}id.py}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} REDCap AutoID marked projects
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Output Destinations:
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/populateAutoID.log
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Temporary files (created and cleaned up automatically)
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/populateAutoID.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/1 * * * *  /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/populateAutoID.pid /home/processing/bin/populateAutoID.py \textgreater{}\textgreater{} /home/processing/logs/populateAutoID.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/populateAutoID:notes}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-Check all auto\sphinxhyphen{}id projects and create new transfer requests for each
+If used projects that are the target of automatic transfers should be regularly screened. Data forwarded on error to such projects should be deleted from research PACS.
 
 \sphinxstepscope
 
 
-\subsection{populateIncoming.py}
+\subsubsection{populateIncoming.py}
 \label{\detokenize{Architecture/scripts/populateIncoming:populateincoming-py}}\label{\detokenize{Architecture/scripts/populateIncoming::doc}}
 \sphinxAtStartPar
-This Python script populates the Study and Series information in the Incoming table in REDCap by processing DICOM metadata JSON files. It reads imaging series data from the filesystem, matches them against routing rules and coupling lists, and creates transfer requests for appropriate research projects. The script communicates with REDCap via API calls to store study/series metadata and generate transfer requests for data anonymization and distribution. It supports both incremental updates for new series and full project reimports via command\sphinxhyphen{}line arguments.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-b46491e72cf166b12da7152f672b53a22c8fed3b.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-4a069d75039dcffe9a31ed8544fb4d06d512ac11.pdf}
-
-\sphinxAtStartPar
-Data patsh
+Fills in the Study and Series information in the Incoming table in REDCap. If a CouplingList entry exists its also adding a TransferRequest so that anonymizeAndSend can do its job.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input Paths
+user: processing
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/*/*.json}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} REDCap Incoming project
+\sphinxhyphen{} REDCap project “Projects” routing rules table
+\sphinxhyphen{} REDCap CouplingList project
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Output Paths
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/populateIncoming.log
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-RedCap endpoint
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/populateIncoming.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/1 * * * *  /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/populateIncoming.pid /home/processing/bin/populateIncoming.py \textgreater{}\textgreater{} /home/processing/logs/populateIncoming.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-This program fills in the Study and Series information in the Incoming table in REDCap.
-
-\sphinxAtStartPar
-If a CouplingList entry exists its also adding a TransferRequest so that anonymizeAndSend can do its job.
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/populateIncoming:notes}}
 \sphinxAtStartPar
 TODO: support a new CouplingList entry even if there is already a TransferRequest done.
 
 \sphinxstepscope
 
 
-\subsection{populateProjects.py}
+\subsubsection{populateProjects.py}
 \label{\detokenize{Architecture/scripts/populateProjects:populateprojects-py}}\label{\detokenize{Architecture/scripts/populateProjects::doc}}
 \sphinxAtStartPar
-This Python script populates REDCap projects with imaging study information by retrieving transferred studies from incoming transfers and creating corresponding entries in target projects. The script fetches transfer data from a central REDCap database, matches it with project tokens, and creates participant records with associated imaging instrument data for each study that has been forwarded to PACS. It processes transfers either for all active projects or a specific project when the \textendash{}project parameter is provided, ensuring each study appears in its own REDCap project with proper repeat instance management.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-eb6156b441b58ea0248c415e9aa1c90d3a918ef3.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-60e48bc603089abdafcc83e8fe8235954d5c875f.pdf}
-
-\sphinxAtStartPar
-Data paths
+Each study that has been forwarded to PACS should appear in its own REDCap project. Get a list of all transferred studies from REDCaps Incoming project (Transfers table). Get a token for the project and add the entry \sphinxhyphen{} if it does not exist yet. For information to appear in the Imaging instrument set it up as a repeating instrument for “Event 1” (not a repeating event).
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input Paths:
+user: processing
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/bin/imagingProjects.json}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} InstitutionName specific REDCap project (repeating instrument Imaging for “Event 1”)
+\sphinxhyphen{} REDCap Projects table of projects with API key
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Output Destinations:
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/populateProjects.log
 
-\end{itemize}
-\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Multiple REDCap projects (determined dynamically from DataTransferProjects)
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/populateProjects.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/1 * * * *  /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/populateProjects.pid /home/processing/bin/populateProjects.py \textgreater{}\textgreater{} /home/processing/logs/populateProjects.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-Each study that has been forwarded to PACS should appear in its own REDCap project.
-
-\sphinxAtStartPar
-We can get a list of all transferred studies from incomings transfers. We get a token for the project and add the entry \sphinxhyphen{} if it does not exist yet.
-
-\sphinxAtStartPar
-For informatino to appear in the Imaging instrument you need to set it up as a repeating instrument for “Event 1” (not a repeating event!).
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/populateProjects:notes}}
 \sphinxAtStartPar
 TODO: Without calling for specific projects does not work anymore. We need to get a list of all imaging projects and run them project by project.
 
 \sphinxstepscope
 
 
-\subsection{processSingleFile3.py}
+\subsubsection{processSingleFile3.py}
 \label{\detokenize{Architecture/scripts/processSingleFile3:processsinglefile3-py}}\label{\detokenize{Architecture/scripts/processSingleFile3::doc}}
-\sphinxAtStartPar
-ProcessSingleFile3.py is a daemon process that monitors a named pipe for DICOM file processing requests and creates organized directory structures with symbolic links. The daemon reads DICOM files, extracts header information including Siemens CSA headers, and organizes them into Study/Series hierarchies while generating JSON metadata files. It supports classification rules for automatic categorization of medical imaging data and handles structured reports separately from regular imaging data.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-84182a4eeccfe4d0988296dd4ec803ea0d62b3ff.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-e42a585c4c24787dc16b0878437cf50ab0483538.pdf}
-
-\sphinxAtStartPar
-Data pahts
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-Input Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/config/config.json}} \sphinxhyphen{} Configuration file containing project settings classifyRules.json \sphinxhyphen{} Classification rules file (same directory as script)
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/.processSingleFilePipe{[}projname{]}}} \sphinxhyphen{} Named pipe for receiving file processing requests
-
-\item {} 
-\sphinxAtStartPar
-Source DICOM files (paths received via named pipe)
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/{[}StudyUID{]}/{[}SeriesUID{]}/}} \sphinxhyphen{} Organized DICOM structure with symbolic links
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/participants/{[}PatientID{]}/{[}StudyDate\_StudyTime{]}/}} \sphinxhyphen{} Patient\sphinxhyphen{}oriented  directory structure
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/srs/{[}Manufacturer{]}/{[}StudyUID{]}/}} \sphinxhyphen{} Structured reports directory
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/.arrived/}} \sphinxhyphen{} Touch files for series arrival detection
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/temp/}} \sphinxhyphen{} Temporary directory for atomic JSON file operations
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{../logs/processSingleFile{[}projname{]}.log}} \sphinxhyphen{} Log files
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{../.pids/processSingleFile{[}projname{]}.pid}} \sphinxhyphen{} Process ID files
-
-\item {} 
-\sphinxAtStartPar
-Series JSON metadata files (.json files alongside DICOM directories)
-
-\end{itemize}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
 \sphinxAtStartPar
 Create a daemon process that listens to send messages and reads a DICOM file,
 extracts the header information and creates a Study/Series symbolic link structure.
-\begin{description}
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} storectl.sh service storescpFIONA
+\sphinxhyphen{} /data/site/raw/
+\sphinxhyphen{} /data/site/participants/
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/processSingleFile.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file:
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/10 * * * * /usr/bin/python3 /var/www/html/server/bin/processSingleFile3.py start \textgreater{}\textgreater{} /var/www/html/server/logs/processSingleFile.log 2\textgreater{}\&1
+
+\end{itemize}
+
+
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/processSingleFile3:notes}}\begin{description}
 \sphinxlineitem{The parser for the Siemens CSA header have been adapted from}
 \sphinxAtStartPar
 \sphinxurl{https://scion.duhs.duke.edu/svn/vespa/tags/0\_1\_0/libduke\_mr/util\_dicom\_siemens.py}
@@ -1825,259 +1325,122 @@ extracts the header information and creates a Study/Series symbolic link structu
 \sphinxstepscope
 
 
-\subsection{process\_tiff.sh}
+\subsubsection{process\_tiff.sh}
 \label{\detokenize{Architecture/scripts/process_tiff:process-tiff-sh}}\label{\detokenize{Architecture/scripts/process_tiff::doc}}
 \sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{process\_tiff.sh}} script processes pathology image files (SVS and NDPI formats) by extracting metadata, anonymizing the images, and either importing them directly to a PACS system or storing them in a designated project folder. It handles two workflow paths: path\sphinxhyphen{}based imports where files are pseudonymized and stored locally, and DICOM conversion where files are converted to DICOM format, anonymized, and sent to a research PACS. The script processes JSON metadata files from REDCap uploads, extracts scanner information, and updates the database with processing results.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-a779c612ce1263c7538d1f964687a3cffaf859c6.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-298f29d5087410a7a7c53d5a8a9f6788bb030076.pdf}
-
-\sphinxAtStartPar
-Data pats
+Whole\sphinxhyphen{}slide image file upload the research PACS using the Attach application. The application supports two modes, a DICOM conversion (from wsi) and a direct copy of the wsi\sphinxhyphen{}files to a shared import folder for research PACS.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Attach/uploads}} \sphinxhyphen{} Source JSON and image files
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Attach/storescu.cfg}} \sphinxhyphen{} DICOM configuration file
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /ifs/hvn/dma/forskning/pat/forskning\_short/SPIS\_Import/\{projname\}/
+\sphinxhyphen{} /var/www/html/applications/Attach/uploads\_done/
+\sphinxhyphen{} /var/www/html/applications/Attach/uploads/
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/Pathology\_process\_tiff.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/Pathology\_process\_tiff.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/1 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/Pathology\_process\_tiff.pid /var/www/html/applications/Attach/process\_tiff.sh \textgreater{}\textgreater{} /home/processing/logs/Pathology\_process\_tiff.log 2\textgreater{}\&1
 
 \end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Attach/uploads\_done}} \sphinxhyphen{} Processed JSON files Project\sphinxhyphen{}specific import folders (defined in JSON: project\_pat\_import\_folder)
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export2/Attach/project\_cache/\{InstitutionName\}/}} \sphinxhyphen{} Optional project backup cache Research PACS server \sphinxhyphen{} DICOM storage destination
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Temporary Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/}} \sphinxhyphen{} Temporary processing files Dynamically created temp directories for DICOM conversion and anonymization
-
-\end{itemize}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-To be updated.
 
 \sphinxstepscope
 
 
-\subsection{removeOldEntries.sh}
+\subsubsection{removeOldEntries.sh}
 \label{\detokenize{Architecture/scripts/removeOldEntries:removeoldentries-sh}}\label{\detokenize{Architecture/scripts/removeOldEntries::doc}}
 \sphinxAtStartPar
-This bash script removes old entries from the \sphinxcode{\sphinxupquote{incoming.txt}} file based on timestamp comparison. It reads each line from the file, extracts the first field as a timestamp, and keeps only entries that are newer than 7 days (604800 seconds). The script uses a temporary file for atomic file operations and provides detailed logging of the cleanup process.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-343235089cb951e015fe67e0e564637100a34d23.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-995d74236ac9f4dce1d7ca5aaa0880b02f7cb30e.pdf}
-
-\sphinxAtStartPar
-Data paths
+The Assign application keeps a jobs file /var/www/html/applications/Assign/incoming.txt around with job entries. This script will remove entries from that list if they are older than 7 days. If studies are send again they will appear again in incoming.txt.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input/Output Directories:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Assign/incoming.txt}}
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/.tfile}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /var/www/html/applications/Assign/incoming.txt
 
-\end{itemize}
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/removeOldEntries.log
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/removeOldEntries.pid
+
+\item {} 
+\sphinxAtStartPar
+start:
+2 {\color{red}\bfseries{}*}/4 * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/removeOldEntries.pid /var/www/html/applications/Assign/php/removeOldEntries.sh \textgreater{}\textgreater{} /home/processing/logs/removeOldEntries.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Note}
+\label{\detokenize{Architecture/scripts/removeOldEntries:note}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-Rremove any old entries from incoming.txt
+This will not remove such studies from FIONA, it will only make them inaccessible by Assign. They will be deleted if there is not enough space left on the data partition.
 
 \sphinxstepscope
 
 
-\subsection{resendProject.py}
+\subsubsection{resendProject.py}
 \label{\detokenize{Architecture/scripts/resendProject:resendproject-py}}\label{\detokenize{Architecture/scripts/resendProject::doc}}
 \sphinxAtStartPar
-This Python script manages medical imaging transfer requests by checking REDCap database records for studies where the transfer date occurred before the request date. It retrieves transfer requests from a REDCap API, filters them based on date logic to identify studies that need to be resent, and generates JSON transfer request files for reprocessing. The script supports filtering by specific project names and creates uniquely named JSON files in a designated transfer requests directory.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-f2cf7eff2fc74c3581e531ac7f5eefa28547c295.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-1ec94094390ad9087525c1d77dae1f0360844117.pdf}
-
-\sphinxAtStartPar
-Data paths
+Check all transfer requests (request date and transfer date). Generate transfer requests if the request date is newer than the transfer date.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-REDCap database
-
-\end{itemize}
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-Output Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\textasciigrave{}/home/processing/transfer\_requests/}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /home/processing/transfer\_requests/,
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{\{study\_instance\_uid\}\_\{transfer\_project\_name\}\_\{transfer\_name\}\_\{redcap\_repeat\_instance\}.json}}
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/resendProject.log,
 
-\end{itemize}
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file:
+
+\item {} 
+\sphinxAtStartPar
+start:
+1 * * * * /home/processing/bin/utils/resendProject.py \textgreater{}\textgreater{} /home/processing/logs/resendProject.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/resendProject:notes}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-check all transfer requests that have already been done
-
-\sphinxAtStartPar
-if the send date is before the request date send again
+If run from the command line with the \textendash{}importAll InstitutionName (project name) all transfer requests of this project will get a
+new /home/processing/transfer\_requests/ entry regardless of transfer date.
 
 \sphinxstepscope
 
 
-\subsection{runOneJob.sh}
+\subsubsection{runOneJob.sh}
 \label{\detokenize{Architecture/scripts/runOneJob:runonejob-sh}}\label{\detokenize{Architecture/scripts/runOneJob::doc}}
-\sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{runOneJob.sh}} script processes workflow jobs by reading JSON job definitions from a queue file and executing containerized processing tasks using the ROR (Run on Request) system. It validates job parameters, creates working directories, executes Docker containers with specified images, and handles output validation by comparing DICOM StudyInstanceUIDs between input and output folders. Upon successful completion, it sends processed DICOM data to a FIONA storage system and optionally transfers results to REDCap, then removes completed jobs from the queue.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-cf47db8200324a581d7dcb5313d6b2aad8e0a560.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-cfedd27da447110d09a1491ce93af4c2bed391e9.pdf}
-
-\sphinxAtStartPar
-Data Paths
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-Input Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Workflows/php/workflow\_joblist.jobs}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export/Workflows/\{PROJECT\}/ror/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/applications/Workflows/php/ror}}
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export/Workflows/\{PROJECT\}/ror/datajob\_\{JOB\_NUMBER\}\_\{IMAGE\_NAME\}\_*}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/export/Workflows/\{PROJECT\}/ror/datajob\_\{JOB\_NUMBER\}\_\{IMAGE\_NAME\}\_*\_output/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/\{DIRECTORY\_NAME\}run.log}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/home/processing/logs/Workflows\_RunOneJob.log}}
-
-\end{itemize}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
 \sphinxAtStartPar
 Run a single job from the workflow\_joblist.jobs file. The file contains json code per line.
 
@@ -2096,71 +1459,10 @@ Need to run as user “processing” with flock.
 \sphinxstepscope
 
 
-\subsection{s2m.sh}
+\subsubsection{s2m.sh}
 \label{\detokenize{Architecture/scripts/s2m:s2m-sh}}\label{\detokenize{Architecture/scripts/s2m::doc}}
 \sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{s2m.sh}} script is a DICOM file transmission utility that sends DICOM directories to a local DICOM node using the dcmtk docker container. It supports sending individual directories, all studies for a specific \sphinxcode{\sphinxupquote{PatientID}}, or all studies from the last N days. The script reads DICOM network configuration from \sphinxcode{\sphinxupquote{/data/config/config.json}} and can handle project\sphinxhyphen{}specific routing. It includes fallback mechanisms using direct storescu commands if Docker\sphinxhyphen{}based transmission fails.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-1d99f6557763bf5964a0d20d763f5c9b751791d9.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-8ec457521a2d3c7899ad9cb53a9b77e104b6d5d7.pdf}
-
-\sphinxAtStartPar
-Data paths
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-Input Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/config/config.json}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/archive/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/raw/*/*.json}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/usr/share/dcmtk/dicom.dic}}
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output Paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-Remote destination for DICOM files, no local output files.
-
-\end{itemize}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-send to me (s2m)
-
-\item {} 
-\sphinxAtStartPar
-Sends a DICOM directory using the dcmtk docker container from the local machine to the local DICOM node. This script can be used to re\sphinxhyphen{}classify DICOM files (creates /data/site/raw and /data/site/participant information).
-
-\end{itemize}
+Send to me (s2m). Sends a DICOM directory using the dcmtk docker container from the local machine to the local DICOM node. This script can be used to re\sphinxhyphen{}classify DICOM files (creates /data/site/raw and /data/site/participant information). In rare cases the docker container might not work. In such cases as a fall\sphinxhyphen{}back strategy the systems storescu (DCMTK) executable is used instead.
 
 \sphinxAtStartPar
 Usage:
@@ -2178,85 +1480,36 @@ s2m.sh \textless{}PatientID\textgreater{} {[}project{]}
 \# send all studies of the last 7 days
 s2m.sh last 7 {[}project{]}
 \end{quote}
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+user: processing
+
+\item {} 
+\sphinxAtStartPar
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} storectrl receiver on FIONA (port 11112)
+\sphinxhyphen{} /data/config/config.json
+
+\item {} 
+\sphinxAtStartPar
+log\sphinxhyphen{}file:
+
+\item {} 
+\sphinxAtStartPar
+pid\sphinxhyphen{}file:
+
+\item {} 
+\sphinxAtStartPar
+start: manually
+
+\end{itemize}
 
 \sphinxstepscope
 
 
-\subsection{sendFiles.sh}
+\subsubsection{sendFiles.sh}
 \label{\detokenize{Architecture/scripts/sendFiles:sendfiles-sh}}\label{\detokenize{Architecture/scripts/sendFiles::doc}}
-\sphinxAtStartPar
-This bash script automates the secure transfer of compressed DICOM and k\sphinxhyphen{}space data files from a local outbox directory to a remote DAIC (Data Analysis and Informatics Center) server using SFTP. The script compares local and remote MD5 checksums to avoid redundant transfers and implements file locking to prevent concurrent executions. It includes error handling for corrupt checksums, symbolic link conflicts, and disk space issues, with comprehensive logging of all operations.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-4aa99d633ed93d3ac00f07943f80d7ce723c016d.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-1765ba2a6f7e1693cc19bd530b6dbb75a1420d7e.pdf}
-
-\sphinxAtStartPar
-Data Paths
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-Input Directories:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/outbox/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/config/config.json}}
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output Directories:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/DAIC/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/logs/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/.pids/}}
-
-\item {} 
-\sphinxAtStartPar
-Remote DAIC server endpoint (specified in config.json)
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Temporary Directories:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/md5sums\_server\_XXXX}}
-
-\end{itemize}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
 \sphinxAtStartPar
 Example crontab entry that starts this script every 30 minutes
 
@@ -2277,213 +1530,92 @@ This script is supposed to send compressed data files for DICOM and k\sphinxhyph
 \sphinxstepscope
 
 
-\subsection{storectl.sh}
+\subsubsection{storectl.sh}
 \label{\detokenize{Architecture/scripts/storectl:storectl-sh}}\label{\detokenize{Architecture/scripts/storectl::doc}}
 \sphinxAtStartPar
-This script manages a DICOM storage service (\sphinxcode{\sphinxupquote{storescp}} daemon) that receives medical imaging data on a specified port. It starts or stops the \sphinxcode{\sphinxupquote{storescpFIONA}} service for the  \sphinxcode{\sphinxupquote{processing}} user, which listens for incoming DICOM files and moves them to project\sphinxhyphen{}specific directories. The service can be controlled via an enabled/disabled flag file and supports multiple projects with different configurations (ABCD as default).
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-2db8802c18cde50a552b7f0d73de364716805f73.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-00e98f308b538fc5303c16d8c012c965211ee75a.pdf}
-
-\sphinxAtStartPar
-Data Paths
+Start the service class provider (SCP) for the storage service class. DICOM files received this way will be stored in /data/site/archive/. This service will also announce each incoming image to processSingleFile3.py using a pipe. Processed files will appear in /data/site/raw and /data/site/participant as symbolic link sorted by study/patient and image series with JSON summary files on a series level.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/config/}}
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/usr/share/dcmtk/}}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /data/config/config.json,
+\sphinxhyphen{} storescpFIONA,
+\sphinxhyphen{} receiveSingleFile.sh,
+\sphinxhyphen{} processSingleFile3.py,
+\sphinxhyphen{} heartbeat.sh will try to contact the DICOM listener and restart this service in case of error
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/}}
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output paths (data saved to):
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/archive/}}
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/storescpd\$\{projname\}.log,
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/storescpd\sphinxhyphen{}start.log
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/data/site/.arrived/}}
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/storescpd\$\{projname\}.pid
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/logs/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/var/www/html/server/.pids/}}
-
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/}}
-
-\end{itemize}
+start:
+{\color{red}\bfseries{}*}/10 * * * * env USER=\$LOGNAME /var/www/html/server/bin/storectl.sh start \textgreater{}\textgreater{} /var/www/html/server/logs/storectl.log 2\textgreater{}\&1
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/storectl:notes}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-filename: storescpd
-
-\sphinxAtStartPar
-purpose: start storescp server for processing user at boot time to receive data
-|         Move files to project specific file system
-
-\sphinxAtStartPar
-This system service will fail if a control file /data/enabled exists and  its first character is a “0”.
-
-\sphinxAtStartPar
-(Hauke Bartsch)
+This system service will stop if a control file /data/enabled exists and its first character is a “0”.
 
 \sphinxstepscope
 
 
-\subsection{whatIsInIDS7.py}
+\subsubsection{whatIsInIDS7.py}
 \label{\detokenize{Architecture/scripts/whatIsInIDS7:whatisinids7-py}}\label{\detokenize{Architecture/scripts/whatIsInIDS7::doc}}
 \sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{whatIsInIDS7.py}} script processes DICOM medical imaging files from the IDS7 research PACS system and extracts metadata to populate a \sphinxcode{\sphinxupquote{REDCap}} database. It parses DICOM files using \sphinxcode{\sphinxupquote{dcm2json}}, extracts key study information (patient data, study details, series counts), handles duplicate studies by merging data, and uploads the processed information to REDCap via API calls. The script can process all studies or filter by institution name when provided as a command\sphinxhyphen{}line argument.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-85e87db37b7b120fbfb540f02cad88262dc89e0c.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-46fbbc979f0c7a2bdaef163e9c03aa3238759111.pdf}
-
-\sphinxAtStartPar
-Data Paths:
+Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh \sphinxhyphen{} parseAllPatients.sh \sphinxhyphen{} whatIsInIDS7.py.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-Input paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/tmp/pullStudies\{InstitutionName\}/*/*}} \sphinxhyphen{} DICOM files directory structure Command line arguments: sys.argv{[}1{]} (optional institution name filter)
-
-\end{itemize}
+user: processing
 
 \item {} 
 \sphinxAtStartPar
-Output paths:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{REDCap}} API endpoint
-
-\end{itemize}
+depends\sphinxhyphen{}on:
+\sphinxhyphen{} /tmp/parseAllPatients\{projname\}/
+\sphinxhyphen{} /tmp/pullStudies\{projname\}/
 
 \item {} 
 \sphinxAtStartPar
-External dependencies:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{dcm2json}} \sphinxhyphen{} DCMTK toolkit
+log\sphinxhyphen{}file:
+\sphinxhyphen{} \$\{SERVERDIR\}/logs/whatIsInIDS7\{projname\}.log,
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{/usr/share/dcmtk/dicom.dic}}
+pid\sphinxhyphen{}file: \$\{SERVERDIR\}/.pids/whatIsInIDS7\{projname\}.pid
 
-\end{itemize}
+\item {} 
+\sphinxAtStartPar
+start:
+{\color{red}\bfseries{}*}/48 * * * * /usr/bin/flock \sphinxhyphen{}n /home/processing/.pids/getAllPatients2\{projname\}.pid /bin/bash \sphinxhyphen{}c “/home/processing/bin/utils/getAllPatients2.sh 10000 “\{proejct\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1 \&\& /home/processing/bin/utils/parseAllPatients.sh “\{projname\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1 \&\& /home/processing/bin/utils/whatIsInIDS7.py “\{projname\}” \textgreater{}\textgreater{} /home/processing/logs/whatIsInIDS7/whatIsInIDS7\{projname\}.log 2\textgreater{}\&1”
 
 \end{itemize}
 
 
-\bigskip\hrule\bigskip
-
-
+\paragraph{Notes}
+\label{\detokenize{Architecture/scripts/whatIsInIDS7:notes}}
 \sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
-\sphinxAtStartPar
-TODO: check if the number of study related series is correct (looks too large in Export app)
+TODO: check if the number of study related series is correct (looks too large in Export app), seems to depend on \textendash{}repeat findscu.
 
 \sphinxstepscope
 
 
-\subsection{whatIsNotInIDS7.py}
+\subsubsection{whatIsNotInIDS7.py}
 \label{\detokenize{Architecture/scripts/whatIsNotInIDS7:whatisnotinids7-py}}\label{\detokenize{Architecture/scripts/whatIsNotInIDS7::doc}}
-\sphinxAtStartPar
-This script cleans up a REDCap database by removing records that no longer exist in the research PACS system. It queries the REDCap project “whatIsInIDS7” to retrieve all stored records, then validates each record’s existence in the research PACS using DICOM findscu commands. Records that are not found in the PACS (indicated by zero SeriesInstanceUID occurrences) are marked for deletion and optionally removed from REDCap in batches of 200.
-
-\sphinxAtStartPar
-\sphinxstylestrong{Related Files}
-
-\sphinxincludegraphics{mermaid-112387485dd38850e9a405edfd75818395f48330.pdf}
-
-\sphinxAtStartPar
-\sphinxstylestrong{Data Flow Diagram}
-
-\sphinxincludegraphics{mermaid-3216f5903a07497760b6dfe4fe67be8301c7f226.pdf}
-
-\sphinxAtStartPar
-Data Paths
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-Input Source:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{REDCap}} API
-
-\end{itemize}
-
-\item {} 
-\sphinxAtStartPar
-Output Destination:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{REDCap}} API
-
-\end{itemize}
-
-\end{itemize}
-
-
-\bigskip\hrule\bigskip
-
-
-\sphinxAtStartPar
-Script docstring starts here —\textgreater{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-\textendash{}\textgreater{}\textgreater{}
-
 \sphinxAtStartPar
 There is no docstring.
 \begin{enumerate}
@@ -2585,48 +1717,6 @@ There is no docstring.
 {\hyperref[\detokenize{Architecture/scripts/whatIsNotInIDS7::doc}]{\sphinxcrossref{\DUrole{doc}{whatIsNotInIDS7.py}}}}\sphinxhyphen{} Identifies and removes database entries for studies no longer in PACS
 
 \end{enumerate}
-
-
-\section{System setup pipeline}
-\label{\detokenize{Architecture/index:system-setup-pipeline}}
-\sphinxincludegraphics{mermaid-293d21e3f411ff6e1053094a0c6b79a3ac21b34c.pdf}
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{Dowlnoad image as PDF}}
-
-
-\section{Data flow}
-\label{\detokenize{Architecture/index:data-flow}}
-\sphinxAtStartPar
-Data flow scheme through the FIONA system, from initial DICOM reception to final transfer to research PACS, is presented below.
-
-\sphinxincludegraphics{mermaid-33e3dcd610758409c1e1b74133e51b8214305c98.pdf}
-
-\sphinxAtStartPar
-Legend:
-
-
-
-
-\section{Data Storage Structure}
-\label{\detokenize{Architecture/index:data-storage-structure}}
-\sphinxAtStartPar
-The FIONA system uses a hierarchical storage structure:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-/data/
-├── site/
-│   ├── .arrived/         \PYGZsh{} Initial file reception
-│   ├── archive/          \PYGZsh{} Raw DICOM storage
-│   ├── raw/              \PYGZsh{} Processed DICOM files
-│   └── output/           \PYGZsh{} Processing results
-├── config/               \PYGZsh{} Configuration files
-└── logs/                 \PYGZsh{} System logs
-\end{sphinxVerbatim}
-
-\sphinxAtStartPar
-Project\sphinxhyphen{}specific directories follow the pattern:
-/data\{PROJECT\}/site/…
 
 
 \chapter{Contact Information}
