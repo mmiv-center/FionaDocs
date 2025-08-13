@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,74 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="sendfiles-sh">
 <h1>sendFiles.sh<a class="headerlink" href="#sendfiles-sh" title="Link to this heading"></a></h1>
-<p>This bash script automates the secure transfer of compressed DICOM and k-space data files from a local outbox directory to a remote DAIC (Data Analysis and Informatics Center) server using SFTP. The script compares local and remote MD5 checksums to avoid redundant transfers and implements file locking to prevent concurrent executions. It includes error handling for corrupt checksums, symbolic link conflicts, and disk space issues, with comprehensive logging of all operations.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-4aa99d633ed93d3ac00f07943f80d7ce723c016d.png" alt="flowchart LR
- A[&quot;/data/config/config.json&quot;] --&gt; B[&quot;sendFiles.sh&quot;]
- B --&gt; C[&quot;/var/www/html/server/logs/&lt;br&gt;sendFiles.log&quot;]
- B --&gt; D[&quot;/var/www/html/server/bin/&lt;br&gt;CommandScript&quot;]
- B --&gt; E[&quot;/var/www/html/server/bin/&lt;br&gt;CommandScriptMD5s&quot;]
- B --&gt; F[&quot;/var/www/html/server/.pids/&lt;br&gt;sendFiles.lock&quot;]
- G[&quot;crontab&lt;br&gt;(Scheduler)&quot;] --&gt; B
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,G inputFile
- class C,D,E,F outputFile
- class B mainScript" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-1765ba2a6f7e1693cc19bd530b6dbb75a1420d7e.png" alt="flowchart LR
- A[&quot;/data/outbox/&lt;br&gt;*.tgz files&quot;] --&gt; B[&quot;sendFiles.sh&quot;]
- C[&quot;/data/outbox/&lt;br&gt;*.md5sum files&quot;] --&gt; B
- B --&gt; D[&quot;SFTP Transfer&lt;br&gt;to DAIC Server&quot;]
- D --&gt; E[&quot;Remote DAIC Server&lt;br&gt;/data/outbox/&quot;]
- B --&gt; F[&quot;/data/DAIC/&lt;br&gt;(Permanent Storage)&quot;]
- G[&quot;Remote MD5 Cache&lt;br&gt;md5server_cache.tar&quot;] --&gt; B
- B --&gt; H[&quot;/var/www/html/server/logs/&lt;br&gt;sendFiles.log&quot;]
- B --&gt; I[&quot;Shadow Copy Files&lt;br&gt;*.tgz shadow_copy&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,C,G inputFile
- class E,F,H,I outputFile
- class B mainScript" />
-<p>Data Paths</p>
-<ul>
-<li><p>Input Directories:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/outbox/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code></p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Output Directories:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/DAIC/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/server/logs/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/server/.pids/</span></code></p></li>
-<li><p>Remote DAIC server endpoint (specified in config.json)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Temporary Directories:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/md5sums_server_XXXX</span></code></p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>sendFiles.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Example crontab entry that starts this script every 30 minutes</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*/30 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/sendFiles.sh
 </pre></div>
@@ -213,7 +127,6 @@ window.addEventListener("load", () => mermaid.run());
 </pre></div>
 </div>
 <p>This script is supposed to send compressed data files for DICOM and k-space to the DAIC endpoint using sftp. All data in the /data/outbox directory will be send using local and DAIC md5sum files.</p>
-</section>
 </section>
 
 

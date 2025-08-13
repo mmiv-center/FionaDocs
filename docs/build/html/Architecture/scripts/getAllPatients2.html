@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,62 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="getallpatients2-sh">
 <h1>getAllPatients2.sh<a class="headerlink" href="#getallpatients2-sh" title="Link to this heading"></a></h1>
-<p>This script retrieves DICOM patient study information from a remote DICOM Query/Retrieve SCP server using the findscu command. It can pull data for a specified number of days (default 7000) and optionally filter by institution name. The script handles large datasets by implementing fallback strategies including date-based queries and patient ID pattern matching when bulk queries fail. Results are stored as individual DICOM files in organized directory structures under <code class="docutils literal notranslate"><span class="pre">/tmp/allPatients[InstitutionName]</span></code></p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-e02d81cd95f1ec81fe87dc87063c918dd7baec04.png" alt="flowchart TD
- A[&quot;getAllPatients2.sh&quot;] --&gt; B[&quot;/usr/bin/findscu&lt;br&gt;(DCMTK Tool)&quot;]
- A --&gt; C[&quot;/usr/share/dcmtk/dicom.dic&quot;]
- A --&gt; D[&quot;Remote DICOM Server&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A mainScript
- class B,C,D inputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-82a41fd41e1df4290ce35672c731ed24becb5458.png" alt="flowchart TD
- A[&quot;Command Line Arguments&lt;br&gt;(numberOfDays, InstitutionName)&quot;] --&gt; B[&quot;getAllPatients2.sh&quot;]
- C[&quot;Remote DICOM Server&quot;] --&gt; B
- D[&quot;/usr/share/dcmtk/dicom.dic&quot;] --&gt; B
-
- B --&gt; E[&quot;/tmp/allPatients[InstitutionName]/&lt;br&gt;(Output Directory)&quot;]
- E --&gt; F[&quot;/tmp/allPatients[InstitutionName]/all_at_once/&lt;br&gt;(Institution-specific queries)&quot;]
- E --&gt; G[&quot;/tmp/allPatients[InstitutionName]/YYYYMMDD/&lt;br&gt;(Date-based queries)&quot;]
- E --&gt; H[&quot;/tmp/allPatients[InstitutionName]/YYYYMMDD_[A-Z0-9]/&lt;br&gt;(Pattern-based fallback)&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,C,D inputFile
- class B mainScript
- class E,F,G,H outputFile" />
-<p>Data pths</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Input Paths:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/dicom.dic</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Output Paths:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/allPatients[InstitutionName]/</span></code> - Main output directory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/allPatients[InstitutionName]/all_at_once/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/allPatients[InstitutionName]/YYYYMMDD/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/allPatients[InstitutionName]/YYYYMMDD_[pattern]/</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>getAllPatients2.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh - parseAllPatients.sh - whatIsInIDS7.py.</p>
 <ul class="simple">
 <li><p>user: processing</p></li>
@@ -202,14 +128,13 @@ window.addEventListener("load", () => mermaid.run());
 - ${SERVERDIR}/logs/whatIsInIDS7{projname}.log,</p></li>
 <li><p>pid-file: ${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid</p></li>
 <li><p>start:
-<a href="#id2"><span class="problematic" id="id3">*</span></a>/48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c “/home/processing/bin/utils/getAllPatients2.sh 10000 “{proejct}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/parseAllPatients.sh “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/whatIsInIDS7.py “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1”</p></li>
+<a href="#id1"><span class="problematic" id="id2">*</span></a>/48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c “/home/processing/bin/utils/getAllPatients2.sh 10000 “{proejct}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/parseAllPatients.sh “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/whatIsInIDS7.py “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1”</p></li>
 </ul>
 <section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
 <p>We can provide an argument to this program, the maximum number of days we would like to pull. In general we might get away with a very short period because new scans will come in as recent scans. But some test data migth be very old. So we should do one long run at night and short runs during the day.</p>
 <p>As a second argument allow a specific project name.</p>
 <p>TODO: This runs too long. Treat some project as special here.</p>
-</section>
 </section>
 </section>
 

@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,75 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="cron-sh">
 <h1>cron.sh<a class="headerlink" href="#cron-sh" title="Link to this heading"></a></h1>
-<p>This script is an automation scheduler that reads event-action links from a JSON configuration file (<code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/User/asttt/code/links.json</span></code>) and executes corresponding triggers and actions. It processes each link by checking if the associated event trigger conditions are met, and if so, executes the corresponding action script. The script supports email notifications with optional CSV attachments and uses temporary directories for processing outputs. It’s designed to run as a cron job for automated task execution based on predefined event-action mappings.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-8f5359b8346b658f99c25c8f01816ebe05e8b0fc.png" alt="flowchart TD
- B[&quot;links.json&lt;br&gt;(Configuration)&quot;] --&gt; A[&quot;cron.sh&lt;br&gt;(Main Script)&quot;]
- C[&quot;events/*&lt;br&gt;(Trigger Scripts)&quot;] --&gt; A
- D[&quot;actions/*&lt;br&gt;(Action Scripts)&quot;] --&gt; A
- E[&quot;info.json&lt;br&gt;(Event Metadata)&quot;] --&gt; C
- F[&quot;info.json&lt;br&gt;(Action Metadata)&quot;] --&gt; D
- A --&gt; G[&quot;sendAsEmail.sh&lt;br&gt;(Email Handler)&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A mainScript
- class B,C,D,E,F inputFile
- class G outputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-26d0768268ee9bdd2aaa82499f255bd1a12bca15.png" alt="flowchart TD
- A[&quot;links.json&lt;br&gt;(Event-Action Links)&quot;] --&gt; B[&quot;cron.sh&lt;br&gt;(Main Processor)&quot;]
- C[&quot;events/*/info.json&lt;br&gt;(Event Configs)&quot;] --&gt; B
- D[&quot;events/*/script&lt;br&gt;(Trigger Scripts)&quot;] --&gt; B
- E[&quot;actions/*/info.json&lt;br&gt;(Action Configs)&quot;] --&gt; B
- F[&quot;actions/*/script&lt;br&gt;(Action Scripts)&quot;] --&gt; B
-
- B --&gt; G[&quot;Temporary Directory&lt;br&gt;(Process Output)&quot;]
- G --&gt; H[&quot;email.txt&lt;br&gt;(Email Content)&quot;]
- G --&gt; I[&quot;attachment.csv&lt;br&gt;(Optional Attachment)&quot;]
-
- H --&gt; J[&quot;sendAsEmail.sh&lt;br&gt;(Email Sender)&quot;]
- I --&gt; J
-
- B --&gt; K[&quot;Script Logs&lt;br&gt;(Error Logging)&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,C,D,E,F inputFile
- class B mainScript
- class G,H,I,J,K outputFile" />
-<p>Data Paths</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Input Paths:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/User/asttt/code/links.json</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/User/asttt/code/events/*</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/User/asttt/code/actions/*</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">events/*/info.json`</span> <span class="pre">and</span> <span class="pre">`actions/*/info.json</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Output Paths:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/asst_cronXXXXX/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/asst_cronXXXXX/email.txt</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/asst_cronXXXXX/attachment.csv</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">${script}_log</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>cron.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>System service for the ASTTT service of the profile page on FIONA. Sends out emails if data arrives for projects the user is a member off.</p>
 <ul class="simple">
 <li><p>user: processing</p></li>
@@ -214,9 +127,8 @@ window.addEventListener("load", () => mermaid.run());
 - ${SERVERDIR}/logs/User_asttt.log</p></li>
 <li><p>pid-file: ${SERVERDIR}/.pids/User_asttt.pid</p></li>
 <li><p>start:
-<a href="#id2"><span class="problematic" id="id3">*</span></a>/30 * * * * /usr/bin/flock -n /home/processing/.pids/User_asttt.pid /var/www/html/applications/User/asttt/code/cron.sh &gt;&gt; /home/processing/logs/User_asttt.log 2&gt;&amp;1</p></li>
+<a href="#id1"><span class="problematic" id="id2">*</span></a>/30 * * * * /usr/bin/flock -n /home/processing/.pids/User_asttt.pid /var/www/html/applications/User/asttt/code/cron.sh &gt;&gt; /home/processing/logs/User_asttt.log 2&gt;&amp;1</p></li>
 </ul>
-</section>
 </section>
 
 

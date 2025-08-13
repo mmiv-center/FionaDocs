@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,65 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="whatisinids7-py">
 <h1>whatIsInIDS7.py<a class="headerlink" href="#whatisinids7-py" title="Link to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">whatIsInIDS7.py</span></code> script processes DICOM medical imaging files from the IDS7 research PACS system and extracts metadata to populate a <code class="docutils literal notranslate"><span class="pre">REDCap</span></code> database. It parses DICOM files using <code class="docutils literal notranslate"><span class="pre">dcm2json</span></code>, extracts key study information (patient data, study details, series counts), handles duplicate studies by merging data, and uploads the processed information to REDCap via API calls. The script can process all studies or filter by institution name when provided as a command-line argument.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-85e87db37b7b120fbfb540f02cad88262dc89e0c.png" alt="flowchart TD
- A[&quot;getAllPatients)&quot;] --&gt; B[&quot;parseAllPatients&quot;]
- B --&gt; C[&quot;whatIsInIDS7.py&quot;]
- C --&gt; D[&quot;REDCap Database&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A inputFile
- class B inputFile
- class C mainScript
- class D outputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-46fbbc979f0c7a2bdaef163e9c03aa3238759111.png" alt="flowchart TD
- A[&quot;/tmp/pullStudies*/\*/\*&lt;br&gt;(DICOM files)&quot;] --&gt; B[&quot;whatIsInIDS7.py&quot;]
- B --&gt; C[&quot;REDCap Database&quot;]
- D[&quot;dcm2json&lt;br&gt;(DCMTK tool)&quot;] --&gt; B
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A inputFile
- class D inputFile
- class B mainScript
- class C outputFile" />
-<p>Data Paths:</p>
-<ul>
-<li><p>Input paths:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/pullStudies{InstitutionName}/*/*</span></code> - DICOM files directory structure Command line arguments: sys.argv[1] (optional institution name filter)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Output paths:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">REDCap</span></code> API endpoint</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>External dependencies:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dcm2json</span></code> - DCMTK toolkit</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/dicom.dic</span></code></p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>whatIsInIDS7.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh - parseAllPatients.sh - whatIsInIDS7.py.</p>
 <ul class="simple">
 <li><p>user: processing</p></li>
@@ -205,12 +128,11 @@ window.addEventListener("load", () => mermaid.run());
 - ${SERVERDIR}/logs/whatIsInIDS7{projname}.log,</p></li>
 <li><p>pid-file: ${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid</p></li>
 <li><p>start:
-<a href="#id2"><span class="problematic" id="id3">*</span></a>/48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c “/home/processing/bin/utils/getAllPatients2.sh 10000 “{proejct}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/parseAllPatients.sh “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/whatIsInIDS7.py “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1”</p></li>
+<a href="#id1"><span class="problematic" id="id2">*</span></a>/48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c “/home/processing/bin/utils/getAllPatients2.sh 10000 “{proejct}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/parseAllPatients.sh “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1 &amp;&amp; /home/processing/bin/utils/whatIsInIDS7.py “{projname}” &gt;&gt; /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2&gt;&amp;1”</p></li>
 </ul>
 <section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
 <p>TODO: check if the number of study related series is correct (looks too large in Export app), seems to depend on –repeat findscu.</p>
-</section>
 </section>
 </section>
 

@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,70 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="processsinglefile3-py">
 <h1>processSingleFile3.py<a class="headerlink" href="#processsinglefile3-py" title="Link to this heading"></a></h1>
-<p>ProcessSingleFile3.py is a daemon process that monitors a named pipe for DICOM file processing requests and creates organized directory structures with symbolic links. The daemon reads DICOM files, extracts header information including Siemens CSA headers, and organizes them into Study/Series hierarchies while generating JSON metadata files. It supports classification rules for automatic categorization of medical imaging data and handles structured reports separately from regular imaging data.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-84182a4eeccfe4d0988296dd4ec803ea0d62b3ff.png" alt="flowchart TD
- B[&quot;classifyRules.json&lt;br&gt;(Classification Rules)&quot;] --&gt; A[&quot;processSingleFile3.py&quot;]
- C[&quot;/tmp/.processSingleFilePipe&lt;br&gt;(Named Pipe)&quot;] --&gt; A
- F[&quot;/data/config/config.json&quot;] --&gt; A
- A --&gt; D[&quot;../logs/processSingleFile*.log&quot;]
- A --&gt; E[&quot;../.pids/processSingleFile*.pid&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A mainScript
- class B,C,F inputFile
- class D,E outputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-e42a585c4c24787dc16b0878437cf50ab0483538.png" alt="flowchart TD
- A[&quot;DICOM Files&quot;] --&gt; B[&quot;processSingleFile3.py&quot;]
- C[&quot;Named Pipe&lt;br&gt;(/tmp/.processSingleFilePipe)&quot;] --&gt; B
- D[&quot;classifyRules.json&lt;br&gt;(Rules File)&quot;] --&gt; B
- E[&quot;/data/config/config.json&lt;br&gt;(Config File)&quot;] --&gt; B
-
- B --&gt; F[&quot;/data/site/raw/&lt;br&gt;StudyUID/SeriesUID/&lt;br&gt;(Symbolic Links)&quot;]
- B --&gt; G[&quot;/data/site/participants/&lt;br&gt;PatientID/StudyDate_Time/&lt;br&gt;(Patient Structure)&quot;]
- B --&gt; H[&quot;/data/site/srs/&lt;br&gt;Manufacturer/StudyUID/&lt;br&gt;(Structured Reports)&quot;]
- B --&gt; I[&quot;/data/site/.arrived/&lt;br&gt;(Touch Files)&quot;]
- B --&gt; J[&quot;Series JSON Files&lt;br&gt;(.json metadata)&quot;]
- B --&gt; K[&quot;Log Files&lt;br&gt;(../logs/)&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,C,D,E inputFile
- class B mainScript
- class F,G,H,I,J,K outputFile" />
-<p>Data pahts</p>
-<ul class="simple">
-<li><p>Input Paths:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> - Configuration file containing project settings classifyRules.json - Classification rules file (same directory as script)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/.processSingleFilePipe[projname]</span></code> - Named pipe for receiving file processing requests</p></li>
-<li><p>Source DICOM files (paths received via named pipe)</p></li>
-</ul>
-</li>
-<li><p>Output Paths:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/[StudyUID]/[SeriesUID]/</span></code> - Organized DICOM structure with symbolic links</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/participants/[PatientID]/[StudyDate_StudyTime]/</span></code> - Patient-oriented  directory structure</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/srs/[Manufacturer]/[StudyUID]/</span></code> - Structured reports directory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/.arrived/</span></code> - Touch files for series arrival detection</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/temp/</span></code> - Temporary directory for atomic JSON file operations</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">../logs/processSingleFile[projname].log</span></code> - Log files</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">../.pids/processSingleFile[projname].pid</span></code> - Process ID files</p></li>
-<li><p>Series JSON metadata files (.json files alongside DICOM directories)</p></li>
-</ul>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>processSingleFile3.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Create a daemon process that listens to send messages and reads a DICOM file,
 extracts the header information and creates a Study/Series symbolic link structure.</p>
 <ul class="simple">
@@ -212,15 +130,14 @@ extracts the header information and creates a Study/Series symbolic link structu
 - ${SERVERDIR}/logs/processSingleFile.log</p></li>
 <li><p>pid-file:</p></li>
 <li><p>start:
-<a href="#id2"><span class="problematic" id="id3">*</span></a>/10 * * * * /usr/bin/python3 /var/www/html/server/bin/processSingleFile3.py start &gt;&gt; /var/www/html/server/logs/processSingleFile.log 2&gt;&amp;1</p></li>
+<a href="#id1"><span class="problematic" id="id2">*</span></a>/10 * * * * /usr/bin/python3 /var/www/html/server/bin/processSingleFile3.py start &gt;&gt; /var/www/html/server/logs/processSingleFile.log 2&gt;&amp;1</p></li>
 </ul>
 <section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
 <dl class="simple">
 <dt>The parser for the Siemens CSA header have been adapted from</dt><dd><p><a class="reference external" href="https://scion.duhs.duke.edu/svn/vespa/tags/0_1_0/libduke_mr/util_dicom_siemens.py">https://scion.duhs.duke.edu/svn/vespa/tags/0_1_0/libduke_mr/util_dicom_siemens.py</a></p>
 </dd>
 </dl>
-</section>
 </section>
 </section>
 

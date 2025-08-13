@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,52 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="removeoldentries-sh">
 <h1>removeOldEntries.sh<a class="headerlink" href="#removeoldentries-sh" title="Link to this heading"></a></h1>
-<p>This bash script removes old entries from the <code class="docutils literal notranslate"><span class="pre">incoming.txt</span></code> file based on timestamp comparison. It reads each line from the file, extracts the first field as a timestamp, and keeps only entries that are newer than 7 days (604800 seconds). The script uses a temporary file for atomic file operations and provides detailed logging of the cleanup process.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-343235089cb951e015fe67e0e564637100a34d23.png" alt="flowchart TD
- A[&quot;removeOldEntries.sh&quot;] --&gt; B[&quot;incoming.txt&lt;br&gt;(/var/www/html/applications/Assign/)&quot;]
- A --&gt; C[&quot;Temporary File&lt;br&gt;(/tmp/.tfile)&quot;]
- C --&gt; B
- D[&quot;System Date Command&lt;br&gt;(date)&quot;] --&gt; A
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A mainScript
- class B outputFile
- class C,D inputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-995d74236ac9f4dce1d7ca5aaa0880b02f7cb30e.png" alt="flowchart TD
- A[&quot;incoming.txt&lt;br&gt;(/var/www/html/applications/Assign/)&quot;] --&gt; B[&quot;removeOldEntries.sh&lt;br&gt;Timestamp Filtering&quot;]
- C[&quot;System Timestamp&lt;br&gt;(current date)&quot;] --&gt; B
- B --&gt; D[&quot;Temporary File&lt;br&gt;(/tmp/.tfile)&lt;br&gt;Filtered Data&quot;]
- D --&gt; E[&quot;incoming.txt&lt;br&gt;(/var/www/html/applications/Assign/)&lt;br&gt;Updated Output&quot;]
- B --&gt; F[&quot;Console Logs&lt;br&gt;Process Information&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,C inputFile
- class B mainScript
- class D,E,F outputFile" />
-<p>Data paths</p>
-<ul>
-<li><p>Input/Output Directories:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/var/www/html/applications/Assign/incoming.txt</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/tmp/.tfile</span></code></p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>removeOldEntries.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>The Assign application keeps a jobs file /var/www/html/applications/Assign/incoming.txt around with job entries. This script will remove entries from that list if they are older than 7 days. If studies are send again they will appear again in incoming.txt.</p>
 <ul class="simple">
 <li><p>user: processing</p></li>
@@ -191,12 +127,11 @@ window.addEventListener("load", () => mermaid.run());
 - ${SERVERDIR}/logs/removeOldEntries.log</p></li>
 <li><p>pid-file: ${SERVERDIR}/.pids/removeOldEntries.pid</p></li>
 <li><p>start:
-2 <a href="#id2"><span class="problematic" id="id3">*</span></a>/4 * * * /usr/bin/flock -n /home/processing/.pids/removeOldEntries.pid /var/www/html/applications/Assign/php/removeOldEntries.sh &gt;&gt; /home/processing/logs/removeOldEntries.log 2&gt;&amp;1</p></li>
+2 <a href="#id1"><span class="problematic" id="id2">*</span></a>/4 * * * /usr/bin/flock -n /home/processing/.pids/removeOldEntries.pid /var/www/html/applications/Assign/php/removeOldEntries.sh &gt;&gt; /home/processing/logs/removeOldEntries.log 2&gt;&amp;1</p></li>
 </ul>
 <section id="note">
-<h3>Note<a class="headerlink" href="#note" title="Link to this heading"></a></h3>
+<h2>Note<a class="headerlink" href="#note" title="Link to this heading"></a></h2>
 <p>This will not remove such studies from FIONA, it will only make them inaccessible by Assign. They will be deleted if there is not enough space left on the data partition.</p>
-</section>
 </section>
 </section>
 

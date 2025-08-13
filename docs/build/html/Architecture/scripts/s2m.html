@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,61 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="s2m-sh">
 <h1>s2m.sh<a class="headerlink" href="#s2m-sh" title="Link to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">s2m.sh</span></code> script is a DICOM file transmission utility that sends DICOM directories to a local DICOM node using the dcmtk docker container. It supports sending individual directories, all studies for a specific <code class="docutils literal notranslate"><span class="pre">PatientID</span></code>, or all studies from the last N days. The script reads DICOM network configuration from <code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code> and can handle project-specific routing. It includes fallback mechanisms using direct storescu commands if Docker-based transmission fails.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-1d99f6557763bf5964a0d20d763f5c9b751791d9.png" alt="flowchart LR
- A[&quot;s2m.share&quot;] --&gt; B[&quot;/data/config/config.json&quot;]
- A --&gt; C[&quot;dcmtk&lt;br&gt;(Docker Container)&quot;]
- A --&gt; D[&quot;/usr/bin/storescu&lt;br&gt;(DICOM command)&quot;]
- A --&gt; E[&quot;/data/site/raw/*/*.json&lt;br&gt;(Metadata Files)&quot;]
- A --&gt; F[&quot;/data/site/archive/&lt;br&gt;(DICOM Directories)&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A mainScript
- class B,C,D,E,F inputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-8ec457521a2d3c7899ad9cb53a9b77e104b6d5d7.png" alt="flowchart TD
- A[&quot;/data/site/archive/&lt;br&gt;(DICOM Source)&quot;] --&gt; B[&quot;s2m.sh&quot;]
- C[&quot;/data/config/config.json&lt;br&gt;(Network Config)&quot;] --&gt; B
- D[&quot;/data/site/raw/*/*.json&lt;br&gt;(Patient Metadata)&quot;] --&gt; B
- B --&gt; E[&quot;DICOM Node&lt;br&gt;(Remote Destination)&quot;]
- B --&gt; F[&quot;/usr/share/dcmtk/dicom.dic&lt;br&gt;(Dictionary File)&quot;]
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A,C,D,F inputFile
- class E outputFile
- class B mainScript" />
-<p>Data paths</p>
-<ul>
-<li><p>Input Paths:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/config/config.json</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/archive/</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/*/*.json</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/usr/share/dcmtk/dicom.dic</span></code></p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Output Paths:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Remote destination for DICOM files, no local output files.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>s2m.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Send to me (s2m). Sends a DICOM directory using the dcmtk docker container from the local machine to the local DICOM node. This script can be used to re-classify DICOM files (creates /data/site/raw and /data/site/participant information). In rare cases the docker container might not work. In such cases as a fall-back strategy the systems storescu (DCMTK) executable is used instead.</p>
 <p>Usage:</p>
 <blockquote>
@@ -210,7 +137,6 @@ s2m.sh last 7 [project]</p>
 <li><p>pid-file:</p></li>
 <li><p>start: manually</p></li>
 </ul>
-</section>
 </section>
 
 

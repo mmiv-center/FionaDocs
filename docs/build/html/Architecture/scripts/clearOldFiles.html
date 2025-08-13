@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,51 +118,6 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="clearoldfiles-sh">
 <h1>clearOldFiles.sh<a class="headerlink" href="#clearoldfiles-sh" title="Link to this heading"></a></h1>
-<p>This bash script automatically manages disk space by deleting oldest archive directories when partition usage exceeds 80%. It monitors the <code class="docutils literal notranslate"><span class="pre">/data/</span></code> partition and systematically removes directories from <code class="docutils literal notranslate"><span class="pre">/data/site/archive/</span></code> in chronological order (oldest first) until free space reaches at least 20%. The script also removes corresponding directories in <code class="docutils literal notranslate"><span class="pre">/data/site/raw/</span></code> based on extracted UIDs from archive directory names.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-1d195bba50838661402b0157c929359c39d5d57f.png" alt="flowchart TD
- A[&quot;/data/site/archive/&lt;br&gt;Archive directories sorted by age&quot;]:::inputFile
- B[&quot;clearOldFiles.sh&lt;br&gt;Main cleanup script&quot;]:::mainScript
- C[&quot;/data/site/raw/&lt;br&gt;Raw data directories&lt;br&gt;corresponding to archives&quot;]:::inputFile
-
- A --&gt; B
- C --&gt; B
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-ad5c8f81b3f3e45af647710ec15b363dfb2e4076.png" alt="flowchart TD
- A[&quot;/data partition&lt;br&gt;Disk usage monitoring&quot;]:::inputFile
- B[&quot;clearOldFiles.sh&lt;br&gt;Space management logic&quot;]:::mainScript
- C[&quot;/data/site/archive/&lt;br&gt;Oldest directories deleted&quot;]:::outputFile
- D[&quot;/data/site/raw/&lt;br&gt;Corresponding directories deleted&quot;]:::outputFile
-
- A --&gt; B
- B --&gt; C
- B --&gt; D
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0" />
-<p>Data paths</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Input folder:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/archive/</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p>Output folder: No output directories, delete only.</p></li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>clearOldFiles.sh<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Delete the oldest files until we have at least 20% free space on the data partition. This ensures that we can always receive new data on FIONA. Existing data that is not assigned (Assign) to a research project will be deleted.</p>
 <ul class="simple">
 <li><p>user: processing</p></li>
@@ -193,10 +130,9 @@ window.addEventListener("load", () => mermaid.run());
 30 * * * * /usr/bin/flock -n /home/processing/.pids/clearOldFiles.pid /home/processing/bin/clearOldFiles.sh &gt;&gt; /home/processing/logs/clearOldFiles.log 2&gt;&amp;1</p></li>
 </ul>
 <section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
 <p>TODO: delete links in /data/site/participants/
 TODO: delete links in /data/site/srs/</p>
-</section>
 </section>
 </section>
 

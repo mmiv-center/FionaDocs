@@ -17,20 +17,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">
-{
-    "theme": "neutral",
-    "themeVariables": {
-        "primaryColor": "#ff0000"
-    }
-}
-</script>
-      <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
       <script src="../../_static/custom.js?v=e7cb14c9"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,14 +83,10 @@ window.addEventListener("load", () => mermaid.run());
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">ARCHITECTURE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#folder-and-file-structure">Folder and File structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#components">Components</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#system-setup-pipeline">System setup pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-flow">Data flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#data-storage-structure">Data Storage Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -136,79 +118,19 @@ window.addEventListener("load", () => mermaid.run());
              
   <section id="createtransferrequests-py">
 <h1>createTransferRequests.py<a class="headerlink" href="#createtransferrequests-py" title="Link to this heading"></a></h1>
-<p>This Python script retrieves medical imaging transfer records from a REDCap database via API and creates JSON transfer request files for studies that need to be transferred. It checks for new image series by comparing transfer dates with file modification times in the raw data directory. The script only creates transfer requests for records that have complete information (project name, transfer name) and haven’t been processed yet.</p>
-<p><strong>Related Files</strong></p>
-<img src="../../_images/mermaid-717f51467b776303143659f48be2cbf9d7e0783c.png" alt="flowchart TD
- A[&quot;createTransferRequests.py&quot;]
- B[&quot;REDCap API&quot;]
- C[&quot;/data/site/raw/{study_uid}/*.json&quot;]
- D[&quot;/home/processing/transfer_requests/&lt;br&gt;generated transfer requests as JSON files&quot;]
-
- B --&gt; |DICOM data| A
- C --&gt; |Raw image series| A
- A --&gt; D
-
- %% Styling
- classDef inputFile fill:#e1f5fe
- classDef outputFile fill:#f3e5f5
- classDef mainScript fill:#fff3e0
-
- class A mainScript
- class B,C inputFile
- class D outputFile" />
-<p><strong>Data Flow Diagram</strong></p>
-<img src="../../_images/mermaid-ffc67bf55700d5f0daa4fb7ce3f63e20402d1847.png" alt="flowchart TD
-   A[&quot;REDCap&quot;]
-   B[&quot;createTransferRequests.py&quot;]
-   C[&quot;/data/site/raw/{study_uid}/*.json&quot;]
-   D[&quot;/home/processing/transfer_requests/&lt;br&gt;{study_uid}_{project}_{name}_{instance}.json&quot;]
-
-   A --&gt;|API call| B
-   C --&gt;|File timestamp check| B
-   B --&gt;|Creates JSON files| D
-
-   %% Styling
-   classDef inputFile fill:#e1f5fe
-   classDef outputFile fill:#f3e5f5
-   classDef mainScript fill:#fff3e0
-
-   class A,C inputFile
-   class B mainScript
-   class D outputFile" />
-<p>Data paths</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Input directories:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/data/site/raw/{study_instance_uid}/</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Output directories:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">/home/processing/transfer_requests/</span></code></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-<hr class="docutils" />
-<section id="id1">
-<h2>createTransferRequests.py<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>Create a transfer request json in /home/processing/transfer_requests based on all existing records in REDCap’s Incoming project. If there is no transfer date yet for an Incoming study or, if the transfer date is before the newest series date (JSON modification date in /data/site/raw) a new transfer request is created for anonymizeAndSend.py.</p>
 <ul class="simple">
 <li><p>user: processing</p></li>
 <li><p>depends-on:
 - anonymizeAndSend.py (processes files created in /home/processing/transfer_requests)
 - REDCap <a class="reference external" href="https://localhost:4444/">https://localhost:4444/</a> (project Incoming, table TransferRequests)
-- Series level JSON files in: /data/site/raw/<em>/</em>/<a href="#id2"><span class="problematic" id="id3">*</span></a>.json</p></li>
+- Series level JSON files in: /data/site/raw/<em>/</em>/<a href="#id1"><span class="problematic" id="id2">*</span></a>.json</p></li>
 <li><p>log-file:
 - ${SERVERDIR}/logs/createTransferRequests.log</p></li>
 <li><p>pid-file: ${SERVERDIR}/.pids/createTransferRequests.pid</p></li>
 <li><p>start:
-<a href="#id4"><span class="problematic" id="id5">*</span></a>/1 * * * *  /usr/bin/flock -n /home/processing/.pids/createTransferRequests.pid /home/processing/bin/createTransferRequests.py &gt;&gt; /home/processing/logs/createTransferRequests.log 2&gt;&amp;1</p></li>
+<a href="#id3"><span class="problematic" id="id4">*</span></a>/1 * * * *  /usr/bin/flock -n /home/processing/.pids/createTransferRequests.pid /home/processing/bin/createTransferRequests.py &gt;&gt; /home/processing/logs/createTransferRequests.log 2&gt;&amp;1</p></li>
 </ul>
-</section>
 </section>
 
 
