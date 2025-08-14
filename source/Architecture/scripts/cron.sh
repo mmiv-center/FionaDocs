@@ -3,16 +3,23 @@
 cron.sh
 ========
 
-System service for the ASTTT service of the profile page on FIONA. Sends out emails if data arrives for projects the user is a member off. 
+System service for the ASTTT service of the profile page on FIONA. Sends out emails if data arrives for projects the user is a member off.
 
 - user: processing
 - depends-on:
-  - /var/www/html/applications/User/asttt/
+
+  - ``/var/www/html/applications/User/asttt/``
+
 - log-file:
-  - ${SERVERDIR}/logs/User_asttt.log
-- pid-file: ${SERVERDIR}/.pids/User_asttt.pid
-- start: 
-  */30 * * * * /usr/bin/flock -n /home/processing/.pids/User_asttt.pid /var/www/html/applications/User/asttt/code/cron.sh >> /home/processing/logs/User_asttt.log 2>&1
+
+  - ``${SERVERDIR}/logs/User_asttt.log``
+
+- pid-file: ``${SERVERDIR}/.pids/User_asttt.pid``
+- start:
+
+.. code-block:: bash
+
+   */30 * * * * /usr/bin/flock -n /home/processing/.pids/User_asttt.pid /var/www/html/applications/User/asttt/code/cron.sh >> /home/processing/logs/User_asttt.log 2>&1
 
 ' #end-doc
 
@@ -61,7 +68,7 @@ while IFS= read -r line ; do
 			    /var/www/html/applications/User/asttt/code/sendAsEmail.sh "${user}" "${action} (${param})" "${process_dir}/email.txt" "$attachment"
 			fi
 			# Delete the directory afterwards again
-			
+
                     fi
                 done <<< "$actions"
             fi

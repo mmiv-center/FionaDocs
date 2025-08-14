@@ -8,15 +8,20 @@ For each transfer request created by createTransferRequests.py this script will 
 - user: processing
 - depends-on:
 
-  - createTransferRequests.py (/home/processing/transfer_requests)
+  - createTransferRequests.py (``/home/processing/transfer_requests``)
   - REDCap https://localhost:4444/ (project Incoming, table TransferRequests)
-  - Series level JSON files in: /data/site/raw/*/*/*.json
-  
+  - Series level JSON files in: ``/data/site/raw/*/*/*.json``
+
 - log-file:
-  - ${SERVERDIR}/logs/anonymizeAndSend.log,
-- pid-file: ${SERVERDIR}/.pids/anonymizeAndSend.pid
-- start: 
-  */1 * * * *  /usr/bin/flock -n /home/processing/.pids/anonymizeAndSend.pid /home/processing/bin/anonymizeAndSend.py >> /home/processing/logs/anonymizeAndSend.log 2>&1
+
+  - ``${SERVERDIR}/logs/anonymizeAndSend.log``,
+
+- pid-file: ``${SERVERDIR}/.pids/anonymizeAndSend.pid``
+- start:
+
+.. code-block:: bash
+
+   */1 * * * *  /usr/bin/flock -n /home/processing/.pids/anonymizeAndSend.pid /home/processing/bin/anonymizeAndSend.py >> /home/processing/logs/anonymizeAndSend.log 2>&1
 
 Notes
 -----
@@ -47,7 +52,7 @@ print("%s: [anonymizeAndSend.py] start processing" % (datetime.datetime.now().st
 
 def updateREDCap(vals):
     buf = io.BytesIO()
-    
+
     data = {
         'token': '82A0E31C415BF2215EBC3DC968616CD5',
         'content': 'record',
@@ -74,7 +79,7 @@ def updateREDCap(vals):
     ch.close()
     print("%s: [anonymizeAndSend.py] update %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), buf.getvalue()))
     buf.close()
-    
+
 
 # get all the exclusions per project for series that should not be rewrite pixel data
 def getRewritePixelExclusions():
@@ -138,10 +143,10 @@ def getRewritePixelExclusions():
             if not q['record_id'] in project_features:
                 project_features[q['record_id']] = { 'project_features___2': "1" }
             project_features[q['record_id']]['project_features___2'] = "1"
-        
+
     #print(json.dumps(val))
     return { 'rewritePixelExclusions': val, 'project_features': project_features }
-    
+
 
 # if we do some transfers we can have special settings for each in the DataTransferProject project, pull those and return as dictionary
 def getProjectTransferRules():
@@ -187,7 +192,7 @@ def getProjectTransferRules():
     #print(json.dumps(val))
     return val
 
-    
+
 # all transfers, are those too many?
 def getTransfers():
     files = glob.glob(request_dir + "*.json")
@@ -233,16 +238,16 @@ for idx, t in enumerate(transfers):
     if not os.path.isdir('/data/site/raw/' + t['study_instance_uid'] + '/'):
         print("%s: [anonymizeAndSend.py] Error, the path %s does not exist [idx: %d]. Resend from PACS!" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), '/data/site/raw/' + t['study_instance_uid'] + '/', idx))
         # TODO: here we store the request that contains fields like tranfer_error___1, something we later compute again, fix by putting only real request fields in here
-        errorMessages = { "request": t, "error": "Study has been deleted from Fiona. Resend from PACS!" } 
+        errorMessages = { "request": t, "error": "Study has been deleted from Fiona. Resend from PACS!" }
         # we should ignore this send request - move it to failed now
         nfn = '/home/processing/transfers_fail/%s_fail.log' % (os.path.basename(t['filename']))
         os.rename(t['filename'], nfn)
         nfn = '/home/processing/transfers_fail/%s_fail_messages.log' % (os.path.basename(t['filename']))
         with open(nfn,'w') as json_file:
             json.dump(errorMessages, json_file, indent=2, default=str)
-            
+
         continue
-        
+
     # we should process this one file and tell REDCap about it later
     # problem is that this could fail... we don't want to send an update if we encounter errors
     # we could store in REDCap if we run into a problem!
@@ -319,7 +324,7 @@ for idx, t in enumerate(transfers):
                                 print("%s: [anonymizeAndSend.py] Feature: [%s] found secondary image and \"Remove secondary capture objects during import\" flag is set. Skip import of this series [%s]." % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), t['transfer_project_name'], jsonfilename))
                                 continue
                                 pass
-                
+
                 # if we have a siemens NO-IMAGE file we cannot see it in PACS, add a new placeholder image for the same series
                 # Note: We need to make sure that images are added only once. Assume that there is a single file per series for NON-IMAGE.
                 if siemens_no_image:
@@ -340,7 +345,7 @@ for idx, t in enumerate(transfers):
                         if project_features[t['transfer_project_name']]['project_features___1'] == "1":
                             #print("project features: doimageanon set to False now for project %s" % (t['transfer_project_name']))
                             doimageanon = False
-                        
+
                 # we could have an exclusion for rewritepixel in rewritepixelexclusions for this project
                 if doimageanon:
                     if t['transfer_project_name'] in rewritePixelExclusions:
@@ -374,7 +379,7 @@ for idx, t in enumerate(transfers):
                                         doimageanon = False
                     else:
                         print("%s: [anonymizeAndSend.py] no exclusions for this project: %s %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), t['transfer_project_name'], json.dumps(rewritePixelExclusions)))
-                    
+
                 if doimageanon:
                     # copy and anon
                     # shutil.copy(os.path.join('/data/site/raw', t['study_instance_uid']), inputanon, follow_symlinks = True)
@@ -403,7 +408,7 @@ for idx, t in enumerate(transfers):
                     print("%s: [anonymizeAndSend.py] copytree %s %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), os.path.join('/data/site/raw', t['study_instance_uid'], series_instance_uid), os.path.join(inputanon, series_instance_uid)))
                     shutil.copytree(os.path.join('/data/site/raw', t['study_instance_uid'], series_instance_uid), os.path.join(inputanon, series_instance_uid), symlinks=False, ignore_dangling_symlinks = True)
 
-        
+
         # anonymize all files in this directory and send from there - hopefully there is enough space here
         #cmd = '/home/processing/bin/anonymize --input \"/data/site/archive/scp_%s\" --output \"%s\" -j \"%s\" --tagchange \"0008,0080=PROJECTNAME\" %s --patientid \"%s\" -b -m --numthreads 2' % (t['study_instance_uid'], tmpfn, t['transfer_project_name'],event_name,t['transfer_name'])
         # make a copy for debugging
@@ -417,10 +422,10 @@ for idx, t in enumerate(transfers):
         oldStyleFlag_str = ""
         if t['transfer_project_name'] in oldStyleProjects:
             oldStyleFlag_str = "-u"
-        
+
         cmd = '/home/processing/bin/anonymize --input \"%s\" --output \"%s\" -j \"%s\" --tagchange \"0008,0080=PROJECTNAME\" %s --patientid \"%s\" -b %s -m --numthreads 2 %s' % (inputanon, outputanon, t['transfer_project_name'],event_name,t['transfer_name'], oldStyleFlag_str, special_tag_changes)
 
-        
+
         # lets make sure the command line is kosher
         cmd = shlex.split(cmd)
         print("%s: [anonymizeAndSend.py] %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), cmd))
@@ -440,7 +445,7 @@ for idx, t in enumerate(transfers):
             errorMessages["anonymize_output"] = e.output
             #errorAnonymize = e.output if e.output is not None else "no message"
             errorAnonymize = "call to anonymize failed with error code %d" % (e.returncode)
-            
+
         # we should have a mapping file now at the output location with the new study instance uid
         # strange, I get an error that the file exists, but it cannot be read - its empty
         # this looks like a timing issue with the external program above, maybe its not finished
@@ -458,7 +463,7 @@ for idx, t in enumerate(transfers):
                     #print("\"", json_file.read(), "\"")
                     content = {}
                 mapped_uids = ",".join(map(str, list(content.values())))
-        
+
         print("%s: [anonymizeAndSend.py] storescu now the folder %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), outputanon))
         # can we send using docker, that might speed up this process due to network issues
         cmd = '/usr/bin/docker run --rm -v %s:/send dcmtk /usr/bin/storescu -xf /etc/dcmtk/storescu.cfg Default -nh -aec DICOM_STORAGE -aet FIONA +sd +r -v vir-app5274.ihelse.net 7810 \"/send\"' % (outputanon)
@@ -485,7 +490,7 @@ for idx, t in enumerate(transfers):
                 errorMessages["storescu_command"] = cmd
                 errorMessages["storescu_output"] = "OutOfResources in research PACS during send"
                 errorStoreSCU = errorMessages["storescu_output"] if errorMessages["storescu_output"] is not None else "no message"
-                
+
         # now send info back to REDCap about success (or not)
         anon_error = 0
         if len(errorAnonymize) > 0:

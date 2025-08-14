@@ -3,17 +3,30 @@
 parseAllPatients.sh
 ===================
 
-Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh - parseAllPatients.sh - whatIsInIDS7.py.
+Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts:
+
+  * getAllPatients2.sh
+  * parseAllPatients.sh
+  * whatIsInIDS7.py.
+
+
 
 - user: processing
 - depends-on:
-  - /tmp/parseAllPatients{projname}/
-  - /tmp/pullStudies{projname}/
+
+  - ``/tmp/parseAllPatients{projname}/``
+  - ``/tmp/pullStudies{projname}/``
+
 - log-file:
-  - ${SERVERDIR}/logs/whatIsInIDS7{projname}.log,
-- pid-file: ${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid
-- start: 
-  */48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c "/home/processing/bin/utils/getAllPatients2.sh 10000 "{proejct}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
+
+  - ``${SERVERDIR}/logs/whatIsInIDS7{projname}.log``,
+
+- pid-file: ``${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid``
+- start:
+
+.. code-block:: bash
+
+   */48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c "/home/processing/bin/utils/getAllPatients2.sh 10000 "{proejct}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
   && /home/processing/bin/utils/parseAllPatients.sh "{projname}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
   && /home/processing/bin/utils/whatIsInIDS7.py "{projname}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1"
 

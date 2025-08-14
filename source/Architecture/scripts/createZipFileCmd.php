@@ -12,13 +12,19 @@ series directories.
 
 - user: processing
 - depends-on:
-  - /export2/Export/files/
-  - /var/www/html/applications/Exports/php/execMeasurements.json (adds processing times by project)
+
+  - ``/export2/Export/files/``
+  - ``/var/www/html/applications/Exports/php/execMeasurements.json`` (adds processing times by project)
+
 - log-file:
-  - ${SERVERDIR}/logs/Exports_PrepareDownload.log
-- pid-file: ${SERVERDIR}/.pids/Exports_PrepareDownload.pid
-- start: 
-  *\/3 * * * * /usr/bin/flock -n /home/processing/.pids/Exports_PrepareDownload.pid /usr/bin/php /var/www/html/applications/Exports/php/createZipFileCmd.php >> /home/processing/logs/Exports_PrepareDownload.log 2>&1
+  - ``${SERVERDIR}/logs/Exports_PrepareDownload.log``
+
+- pid-file: ``${SERVERDIR}/.pids/Exports_PrepareDownload.pid``
+- start:
+
+.. code-block:: bash
+
+   */3 * * * * /usr/bin/flock -n /home/processing/.pids/Exports_PrepareDownload.pid /usr/bin/php /var/www/html/applications/Exports/php/createZipFileCmd.php >> /home/processing/logs/Exports_PrepareDownload.log 2>&1
 
 
 ***/
@@ -45,7 +51,7 @@ $configUser = $configData['PROCESSING_USER'];
 if ($processUser['name'] !== $configUser) {
     echo("Permission denied.".PHP_EOL);
     audit('createZipFileCmd', $processUser['name'], 'FAILURE');
-    die();   
+    die();
 }
 
 function storeLog($message, $type) {
@@ -120,7 +126,7 @@ function writeAverageExecutionTime($project, $execTime)
 {
     $fname = "/var/www/html/applications/Exports/php/execMeasurements.json";
     $measurements = array();
-    
+
     if (file_exists($fname)) {
         storeLog("found execMeasurements.json", "INFO");
       $fileData = file_get_contents($fname);
@@ -173,7 +179,7 @@ foreach ($downloadJobs as $jobKey => $job) {
     $currentJob = $job;
     $project = $currentJob['project'];
     $patientid = $currentJob['patientid'];
-    $studyinstanceuid = $currentJob['studyinstanceuid']; 
+    $studyinstanceuid = $currentJob['studyinstanceuid'];
     $exportType = $currentJob['exportType'];
     $downloadAttempts = $currentJob['downloadAttempts'];
     $accessionnumber = $currentJob['accessionnumber'];
@@ -191,7 +197,7 @@ foreach ($downloadJobs as $jobKey => $job) {
     $exportFolder = "/export2/Export/files/";
     $fn = $project."_".$patientid."_*_".$studyinstanceuid."_".$accessionnumber."_".$exportType.".zip";
     $filePath = glob($exportFolder.$fn);
-    
+
     if ($filePath) {
 	foreach ($filePath as $f) {
             if (!file_exists($f)) {
@@ -234,8 +240,8 @@ if ($nextJob === null) {
     return;
 }
 
-$project = $nextJob['project']; 
-$studyinstanceuid = $nextJob['studyinstanceuid']; 
+$project = $nextJob['project'];
+$studyinstanceuid = $nextJob['studyinstanceuid'];
 $accessionnumber = $nextJob['accessionnumber'];
 $exportType = $nextJob['exportType'];
 $patientid = $nextJob['patientid'];
@@ -251,7 +257,7 @@ $allowedTSD = false;
 function startsWith($string, $startString) {
     $len = strlen($startString);
     return (substr($string, 0, $len) === $startString);
-} 
+}
 
 if ($project == "RAM-MS") {
    $event = $patientid . '_' . $event;
@@ -321,7 +327,7 @@ if ($ret_val != 0) {
      //unset($downloadJobs[$keyToRemove]);
      setJobList($downloadJobs, null);
    }
-  
+
    return; // bail out here
 }
 
@@ -474,7 +480,7 @@ if ($exportType == "RAM-MS") {
             $control['tags']['StudyDate'] = $d->format("Ymd");
         }
     }
-   
+
     if ($control['tags']['PatientAge'] == "") {
         $control['tags']['PatientAge'] = ""; // recompute the patient age from the dob
         // keep the patient sex (could be from REDCap)
@@ -683,21 +689,21 @@ try {
                     // lets look at the different variables
                     if ($mapping2[$fname]['SeriesNumber'] == "-1") {
                         $mapping2[$fname]['SeriesNumber'] = "unknown";
-                    }	     
+                    }
 
                     $path = $mapping2[$fname]['InstitutionName'].
 		        "/".$mapping2[$fname]['PatientID'].
                         "/".$mapping2[$fname]['StudyDate'].
                         "_".$mapping2[$fname]['StudyTime'].
                         "/".$mapping2[$fname]['SeriesNumber'].
-                        "_".str_replace(" ","_",$mapping2[$fname]['SeriesDescription']).			
+                        "_".str_replace(" ","_",$mapping2[$fname]['SeriesDescription']).
                         "/".basename($relativePath);
                     $relativePath = $path;
                 }
 	        // for Spectroscopy delete all files but the once that are of type
 		// (0002,0002) UI [1.3.12.2.1107.5.9.1]                    #  20, 1 MediaStorageSOPClassUID
-		
-  	        $cmd = "/usr/bin/dcmdump +P SOPClassUID \"".$filePath."\" | cut -d'[' -f2 | cut -d']' -f1 | head -1 | tr -d '\n'";	
+
+  	        $cmd = "/usr/bin/dcmdump +P SOPClassUID \"".$filePath."\" | cut -d'[' -f2 | cut -d']' -f1 | head -1 | tr -d '\n'";
 		$SOPClassUID = shell_exec($cmd);
 		//syslog(LOG_EMERG, "test for SOPCLASSUID as ".$SOPClassUID);
 		if (strcmp($SOPClassUID, "1.3.12.2.1107.5.9.1") !== 0) {
@@ -721,7 +727,7 @@ try {
     // point. Check and put a message in there.
     if ($counter == 0) {
        // no file?
-       $zip->addFromString('warning.txt', 'Empty zip file was created. Check if there are real DICOM images in this study. Presentation state objects and structured reports might be filtered out based on your export type setting.'); 
+       $zip->addFromString('warning.txt', 'Empty zip file was created. Check if there are real DICOM images in this study. Presentation state objects and structured reports might be filtered out based on your export type setting.');
     }
 
     //syslog(LOG_EMERG, "ADD A FILEs TO ".$fn_folder.$fn.". Added ".$counter." files.");
@@ -738,7 +744,7 @@ try {
 	    $email = $nextJob['email'];
 	    $emailParts = explode('@', $email);
             $domain = array_pop($emailParts);
-            
+
             if (!in_array($domain, ['helse-bergen.no', 'ihelse.net'])) {
                 echo "Domain name of the email for secured download is not valid!\n";
             } else {
@@ -755,7 +761,7 @@ try {
             //echo "Error ocured in the process of archiving with 7z. File not found!\n";
 		   die();
 		}
-	
+
                 $from = "no-reply@helse-bergen.no";
                 $headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -807,7 +813,7 @@ try {
             unlink($fn_folder.$fn);
  	}
     }
-  
+
 } catch (Exception $e) {
     //syslog(LOG_EMERG, 'Caught exception: '.$e->getMessage()."\n");
     $zip->close();
@@ -924,7 +930,7 @@ function uploadToTSD($fn_folder, $fn) {
 
     if ($group == "" || $id == "") {
         echo("{ \"message\": \"Error: Export to TSD not setup for this project.\" }");
-        return;   
+        return;
     }
 
     // ok now we have all the information we need, we can upload to TSD using curl
@@ -975,7 +981,7 @@ function uploadToTSD($fn_folder, $fn) {
     //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
     //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     //$output = curl_exec($ch);
-   
+
     //syslog(LOG_EMERG, json_encode(curl_getinfo($ch))." ".$output);
 
     $JWT = json_decode($output, TRUE);

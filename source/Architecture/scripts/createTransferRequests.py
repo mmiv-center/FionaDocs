@@ -3,19 +3,25 @@
 createTransferRequests.py
 =========================
 
-Create a transfer request json in /home/processing/transfer_requests based on all existing records in REDCap's Incoming project. If there is no transfer date yet for an Incoming study or, if the transfer date is before the newest series date (JSON modification date in /data/site/raw) a new transfer request is created for anonymizeAndSend.py.
+Create a transfer request json in ``/home/processing/transfer_requests`` based on all existing records in REDCap's Incoming project. If there is no transfer date yet for an Incoming study or, if the transfer date is before the newest series date (JSON modification date in ``/data/site/raw``) a new transfer request is created for anonymizeAndSend.py.
 
 - user: processing
 - depends-on:
-  - anonymizeAndSend.py (processes files created in /home/processing/transfer_requests)
+
+  - anonymizeAndSend.py (processes files created in ``/home/processing/transfer_requests``)
   - REDCap https://localhost:4444/ (project Incoming, table TransferRequests)
-  - Series level JSON files in: /data/site/raw/*/*/*.json
+  - Series level JSON files in: ``/data/site/raw/*/*/*.json``
+
 - log-file:
-  - ${SERVERDIR}/logs/createTransferRequests.log
+
+  - ``${SERVERDIR}/logs/createTransferRequests.log``
 - pid-file: ${SERVERDIR}/.pids/createTransferRequests.pid
-- start: 
-  */1 * * * *  /usr/bin/flock -n /home/processing/.pids/createTransferRequests.pid /home/processing/bin/createTransferRequests.py >> /home/processing/logs/createTransferRequests.log 2>&1
- 
+- start:
+
+.. code-block:: bash
+
+   */1 * * * *  /usr/bin/flock -n /home/processing/.pids/createTransferRequests.pid /home/processing/bin/createTransferRequests.py >> /home/processing/logs/createTransferRequests.log 2>&1
+
 
 """
 
@@ -119,4 +125,4 @@ for t in transfers:
         print("%s: [createTransferRequests.py] Wrote transfer request: %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), json.dumps(t)))
 
 print("%s: [createTransferRequests.py] end processing" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
- 
+

@@ -19,12 +19,20 @@ existing study and auto forward using createTransferRequests.py.
 
 - user: processing
 - depends-on:
+
   - REDCap Incoming project
+
 - log-file:
-  - ${SERVERDIR}/logs/createTransferRequestsForProcessed.log
-- pid-file: ${SERVERDIR}/.pids/createTransferRequestsForProcessed.pid
+
+  - ``${SERVERDIR}/logs/createTransferRequestsForProcessed.log``
+
+- pid-file: ``${SERVERDIR}/.pids/createTransferRequestsForProcessed.pid``
 - start:
-  */30 * * * * /usr/bin/flock -n /home/processing/.pids/createTransferRequestsForProcessed.pid /home/processing/bin/createTransferRequestsForProcessed.py >> /home/processing/logs/createTransferRequestsForProcessed.log 2>&1
+
+.. code-block:: bash
+
+   */30 * * * * /usr/bin/flock -n /home/processing/.pids/createTransferRequestsForProcessed.pid /home/processing/bin/createTransferRequestsForProcessed.py >> /home/processing/logs/createTransferRequestsForProcessed.log 2>&1
+
 
 Notes
 -----
@@ -33,16 +41,14 @@ This script will create a SeriesInstanceUID compatible with FIONA's anonymizer a
 
 .. code-block:: python
 
-  :lineos:
-  
   def hashID( SeriesInstanceUID ):
       # do the same operation that would be done by the anonymizer
       # get a safe string
       s = SeriesInstanceUID.encode("utf-8")
-      org_root = "1.3.6.1.4.1.45037"    
+      org_root = "1.3.6.1.4.1.45037"
       h = "%s.%s" % (org_root, hashlib.sha256(s).hexdigest());
       return h[0:63]
-  
+
 
 """
 
@@ -115,7 +121,7 @@ def hashID( SeriesInstanceUID ):
     # do the same operation that would be done by the anonymizer
     # get a safe string
     s = SeriesInstanceUID.encode("utf-8")
-    org_root = "1.3.6.1.4.1.45037"    
+    org_root = "1.3.6.1.4.1.45037"
     h = "%s.%s" % (org_root, hashlib.sha256(s).hexdigest());
     return h[0:63]
 
@@ -169,7 +175,7 @@ def getSeriesInstanceUIDs():
             # hash the SeriesInstanceUID
             hashedSeriesInstanceUID = hashID(SeriesInstanceUID)
             erg[StudyInstanceUID].append(hashedSeriesInstanceUID)
-    
+
     # this should get us the redcap_repeat_instance as well
     return erg
 
@@ -194,17 +200,17 @@ for study in studies:
     # study. But we would like to rewrite those studies StudyInstaceUID - to the original and send them
     # to FIONA. They would show up as new series for the old StudyInstanceUIDs and therefore trigger a
     # resend. - so we can not test this here.
-    
+
     ##if str_without_root.find(".") != -1:
     ##    print("Skip a study because there was a dot in the study instance uid \"%s\"" % study)
     ##    continue
-    
+
     studyInstanceUID = study.replace("/data/site/raw/", "")
     studyInstanceUID = studyInstanceUID.replace("/","")
     org_root = "1.3.6.1.4.1.45037"
     newStyleStudyInstanceUID = org_root + "." + studyInstanceUID
     newStyleStudyInstanceUID = newStyleStudyInstanceUID[0:63]
-            
+
     #print("Found a study : %s" % (study))
     series = glob.glob(study + "/*.json")
     for serie in series:
@@ -225,7 +231,7 @@ for study in studies:
         SeriesNumber = ""
         if ('SeriesNumber' in data) and (data['SeriesNumber'] != ""):
             SeriesNumber = data['SeriesNumber']
-        
+
         realSeriesInstanceUID = os.path.basename(serie).replace(".json","")
         seriesInstanceUID = os.path.basename(serie).replace(".json", "")
         org_root = "1.3.6.1.4.1.45037"
@@ -264,7 +270,7 @@ for study in studies:
                         if ('study_date' in transfer) and (transfer['study_date'] != ""):
                             StudyDate = transfer['study_date']
                             break
-                
+
                 # Now the question is if that series is new?
                 # If its new we want to do something, if its old we don't. We need to see if the
                 # series under that studyInstanceUID is not there -> send or if the
@@ -311,12 +317,12 @@ for study in studies:
                     else:
                         print("%s: [createTransferRequestsForProcessed.py] INFO did not find realStudyInstanceUID %s in Incoming" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), realStudyInstanceUID))
 
-                    
+
                 if newSeries:
                     # we might reference here some image series, those referenced UID's need to be replaced as well
                     # as an example we might have a structured report that is relative to an existing series
                     # so we need to collect those, find them in REDCap and replace them below, most likely there is only
-                    # a single one... 
+                    # a single one...
                     # Build a lookup table for all uids for this study and add their hash codes for a reverse lookup
                     # all this work... maybe we should just forward the images directly? At least do this for some
                     # projects?
@@ -330,7 +336,7 @@ for study in studies:
                     # TODO: secondary capture image series require the InstitutionName entry to be visible in research PACS.
                     # For Transpara that tag is not written so reports are only visible to users with full access. Check and
                     # add the InstitutionName tag to such image series.
-                    
+
                     print("%s: [createTransferRequestsForProcessed.py] INFO process series by changing the StudyInstanceUID (\"%s\") and sending it again to fiona - will trigger forward." % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), realStudyInstanceUID))
                     with tempfile.TemporaryDirectory() as tmpdir_KK:
                         # copy the data to a temp folder
@@ -342,7 +348,7 @@ for study in studies:
                             # copy directly if we are in the right projects
                             if ProjectName == "TransparaBergen" or ProjectName == "TransparaStavanger" or ProjectName == "TransparaVEST" or ProjectName == "TransparaVEST2020-2022" or ProjectName == "TransparaVEST22" or ProjectName == "TransparaForde" or ProjectName == "TransparaReview" or ProjectName == "BADDI" or ProjectName == "TOBE2L":
                                 # TODO: add InstitutionName to each image
-                                
+
                                 print("%s: [createTransferRequestsForProcessed.py] INFO start sending to DICOM_STORAGE" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
                                 os.system("/usr/bin/docker run --rm -i -v %s/input:/send dcmtk /usr/bin/storescu -xf /etc/dcmtk/storescu.cfg Default -nh -aec DICOM_STORAGE -aet FIONA +sd +r -v vir-app5274.ihelse.net 7810 /send" % (tmpdir_KK))
                                 print("%s: [createTransferRequestsForProcessed.py] INFO this is a %s case. Forward to research PACS as original done." % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), ProjectName))
@@ -371,13 +377,13 @@ for study in studies:
                                     os.system("/home/processing/bin/extractDataFromDaTQUANT.sh \"%s/input\" \"%s_arm_1\" >> /home/processing/logs/extractDataFromDaTQUANT.log" % (tmpdir_KK, EventName))
                                     print("%s: [createTransferRequestsForProcessed.py] INFO Stored report scores for DaTQUANT in REDCap for \"%s\", data in %s/input with event: %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), seriesFolder, tmpdir_KK, EventName))
                                     print("%s: [createTransferRequestsForProcessed.py] INFO This is a %s case [%s]. Forward to research PACS as original done." % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), ProjectName, PatientID))
-                                # here the temp folder is deleted again so nothing remains                                
-                                
+                                # here the temp folder is deleted again so nothing remains
+
             #else:
             #    print("Error: We do nothing because real study instance uid could not be found")
         #else:
         #    # this means that we always need a "." in a series that should be added again (minux the org_root)
         #    print("Info: We do nothing for this series \"%s\", it does not contain a dot so we assume its already anonymized" % seriesInstanceUID)
-                            
+
 
 print("%s: [createTransferRequestsForProcessed.py] End processing" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))

@@ -14,13 +14,20 @@ One way it can fail is if multiple associations are requested. If the timeout ha
 
 - user: processing
 - depends-on:
-  - /data/config/config.json,
-  - storescpFIONA,
+
+  - ``/data/config/config.json``,
+  - ``storescpFIONA``,
+
 - log-file:
-  - ${SERVERDIR}/logs/heartbeat${projname}.log
+
+  - ``${SERVERDIR}/logs/heartbeat${projname}.log``
+
 - pid-file:
-- start: 
-  */1 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/heartbeat.sh
+- start:
+
+.. code-block:: bash
+
+   */1 * * * * /usr/bin/nice -n 3 /var/www/html/server/bin/heartbeat.sh
 
 
 ' #end-doc
@@ -94,7 +101,7 @@ if (($? != 0)); then
       echo "`date +'%Y-%m-%d %H:%M:%S'`: WARNING the port is still in use by a process ($proc) with id $id, kill it" >> $log
       kill $id
       # and check again
-      portstr=`netstat -lnp | grep $PARENTPORT`   
+      portstr=`netstat -lnp | grep $PARENTPORT`
    done
 fi
 

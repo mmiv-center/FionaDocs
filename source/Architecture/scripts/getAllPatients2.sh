@@ -7,13 +7,20 @@ Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. 
 
 - user: processing
 - depends-on:
-  - /tmp/parseAllPatients{projname}/
-  - /tmp/pullStudies{projname}/
+
+  - ``/tmp/parseAllPatients{projname}/``
+  - ``/tmp/pullStudies{projname}/``
+
 - log-file:
-  - ${SERVERDIR}/logs/whatIsInIDS7{projname}.log,
-- pid-file: ${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid
-- start: 
-  */48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c "/home/processing/bin/utils/getAllPatients2.sh 10000 "{proejct}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
+
+  - ``${SERVERDIR}/logs/whatIsInIDS7{projname}.log``,
+
+- pid-file: ``${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid``
+- start:
+
+.. code-block:: bash
+
+   */48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c "/home/processing/bin/utils/getAllPatients2.sh 10000 "{proejct}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
   && /home/processing/bin/utils/parseAllPatients.sh "{projname}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
   && /home/processing/bin/utils/whatIsInIDS7.py "{projname}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1"
 
@@ -23,7 +30,7 @@ Notes
 
 We can provide an argument to this program, the maximum number of days we would like to pull. In general we might get away with a very short period because new scans will come in as recent scans. But some test data migth be very old. So we should do one long run at night and short runs during the day.
 
-As a second argument allow a specific project name. 
+As a second argument allow a specific project name.
 
 TODO: This runs too long. Treat some project as special here.
 
@@ -45,7 +52,7 @@ if [ "$#" -eq 0 ]; then
    echo "Usage: <days since today> [<project name>]"
 fi
 
-  
+
 # store the result in the following folder:
 od="/tmp/allPatients${InstitutionName}"
 if [ ! -d "$od" ]; then
@@ -68,7 +75,7 @@ containsElement () {
 # if that does not work we can try with individual month or individual days.
 if [ ! -z "${InstitutionName}" ]; then
     # try to get all at once, no dates
-    
+
     DCMDICTPATH="/usr/share/dcmtk/dicom.dic"
     mkdir "${od}/all_at_once"
     name_site="-k \"(0008,0080)=${InstitutionName}\""
@@ -150,7 +157,7 @@ if [ ! -z "${InstitutionName}" ]; then
 		done
 		IFS="$OIFS"
 	    fi
-	done	
+	done
     fi
     # it worked, we are done
     echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [getAllPatients2.sh] done with getAllPatients2.sh for project ${InstitutionName}, number of days ${numberOfDays}, data in ${od}/all_at_once"
