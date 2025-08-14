@@ -2,12 +2,12 @@ Submit data to the Research Information System
 ------------------------------------------------
 
 
-**The Research Information System** (RIS) contains two components. First, image data is stored in the Sectra DMA Forskning - an image viewer with a vendor neutral archive (VNA). Second, all meta-data is stored in table format in an electronic data capture system REDCap, that is Fiona server on port 4444, (|fiona-redcap_url|). Sending image data will create the appropriate entries in |fiona-redcap_link|. Additional data collection instruments can be set up there and used to capture assessments, consent/assent and results from automated image processing. All image data is assigned to a project to allow for project specific data views for each research information user.
+**The Research Information System** (RIS) contains two components. First, image data is stored in the Sectra DMA Forskning - an image viewer with a vendor neutral archive (VNA). Second, all meta-data is stored in table format in an electronic data capture system REDCap, that is Fiona server on port 4444, (|fiona-redcap_url|). Sending image data will create the appropriate entries in |fiona-redcap_name|. Additional data collection instruments can be set up there and used to capture assessments, consent/assent and results from automated image processing. All image data is assigned to a project to allow for project specific data views for each research information user.
 
 The basic steps to submit data are:
 
 1. Send DICOM studies to “Fiona” (modality station)
-2. |fiona-assign_link| to project on |fiona-assign_url|.
+2. |fiona-assign_name| to project on |fiona-assign_url|.
 
 In step 1 data arrives in a **quarantine** location. In step 2 each DICOM study needs to be **assigned to project**, pseudonymized participant identifier and event name before it will be forwarded to the research PACS and becomes visible to the project users.
 
@@ -30,10 +30,10 @@ The project needs to exist on the research information system before participant
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-The end-point for images is |fiona_link| (|fiona_url|):
+The end-point for images is |fiona_name| (|fiona_url|):
 
-- AETitle: |fiona-AETtitle_link|
-- |fiona-local-ip_link|
+- AETitle: |fiona-AETtitle_name|
+- |fiona-local-ip_name|
 - Port: 11112
 
 Images that arrive at this endpoint are added to a quarantine system (FIONA, |fiona-redcap_url|) running the REDCap software. Automatic routing rules (stored in REDCap) are used to anonymize and forward the data to the image storage. If such routing has not been set up, the “Assign” application (see below) needs to be used to forward individual studies based on pre-existing patient ID lists.
@@ -53,7 +53,7 @@ and event names. Select the correct patient name and the event this study belong
 a couple of seconds a new button appears below the study entry. Use it to select and
 confirm the assignment. This will forward a de-identified version of the study data to “Sectra
 Forskning”. If you do not assign your data on Assign they will not be forwarded. After a
-couple of days (7 days) such data will disappear from the list. Send an email to |admin_contact| to request a resend.
+couple of days (7 days) such data will disappear from the list. Send an email to |admin_url| to request a resend.
 
 
 **Verification steps**
@@ -67,7 +67,7 @@ If the number of images on FIONA does not correspond to the number of images ava
 
 **Features for data migration**
 
-The |fiona-assign_link| web-application allows users to upload a coupling list that maps the accession
+The |fiona-assign_name| web-application allows users to upload a coupling list that maps the accession
 number (Undersøkelse-ID) of the study to the pseudonymized participant identifier. Such
 mappings must be uploaded before the first image study of the project has been forwarded
 to FIONA. Incoming DICOM studies in FIONA that match entries in the coupling list will
@@ -77,7 +77,7 @@ automatically be assigned to the project.
 
 Correcting errors during data import are not difficult to fix. Try to follow up on such errors
 on an ongoing basis. The quarantine FIONA station may have still have a copy of the data in
-its cache which simplifies the process. Contact |admin_contact| in such cases and ask for help. This will allow you to fix issues such as:
+its cache which simplifies the process. Contact |admin_name| in such cases and ask for help. This will allow you to fix issues such as:
 
 • Wrong assignment of participant identifiers to DICOM studies
 • Wrong assignment of event names to DICOM studies

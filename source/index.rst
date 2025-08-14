@@ -69,7 +69,7 @@ Key features of the RIS include:
 Contact Information
 -------------------
 
-* Website: https://fiona.ihelse.net
+* Website: |fiona-bergen_url|
 * Location: Haukeland University Hospital, Bergen, Norway
 
 Indices and tables

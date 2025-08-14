@@ -54,7 +54,22 @@ def generate_substitutions(config):
             # Structure only with url
             substitutions.append(f".. |{key}_url| replace:: {data}")
             substitutions.append(f".. |{key}_link| replace:: `{data} <{data}>`__")
+    # fake-urls
+    fake = config.get('fake-urls', {})
+    for key, data in fake.items():
+        if isinstance(data, dict):
+            # A new structure with name i url
+            url = data.get('url', '')
+            name = data.get('name', url)
+            substitutions.append(f".. |{key}_url| replace:: \\{url}")
+            substitutions.append(f".. |{key}_name| replace:: **{name}**")
+        else:
+            # Structure only with url
+            substitutions.append(f".. |{key}_url| replace:: \\{data}")
+            substitutions.append(f".. |{key}_link| replace:: {data}")
     
+
+
     # Contacts  
     contacts = config.get('contacts', {})
     for key, data in contacts.items():

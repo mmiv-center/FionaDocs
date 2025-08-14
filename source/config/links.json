@@ -7,11 +7,11 @@
     },
     "hus": {
       "url": "https://www.helse-bergen.no/en", 
-      "name": "Mohn Medical Imaging and Visualization Centre"
+      "name": "Haukeland University Hospital"
     },
     "mmiv": {
       "url": "https://mmiv.no", 
-      "name": "Haukeland University Hospital"
+      "name": "Mohn Medical Imaging and Visualization Centre"
     },
     "ikt-helse-vest": {
       "url": "https://www.helse-vest-ikt.no", 
@@ -28,26 +28,33 @@
     "github-rewritepixel": {
       "url": "https://github.com/mmiv-center/RewritePixel",
       "name": "RewritePixel"
+    }
+  },
+  "fake-urls":
+  {
+    "fiona-bergen": {
+      "url" : "https://fiona.ihelse.net",
+      "name": "Fiona"
     },
     "fiona": {
-      "url" : "https://fiona.local.server.no",
+      "url" : "https://fiona.local.server",
       "name": "Fiona"
     },
     "fiona-assign":{
-      "url" : "https://fiona.local.server.no/applications/Assign/",
-      "name": "Assign"
+      "url" : "https://fiona.local.server/applications/Assign/",
+      "name": "Fiona/Assign"
     },
     "fiona-apply":{
-      "url" : "https://fiona.local.server.no/applications/Apply/",
-      "name": "Apply"
+      "url" : "https://fiona.local.server/applications/Apply/",
+      "name": "Fiona/Apply"
     },
     "fiona-review-dicom-tags":{
-      "url" : "https://fiona.local.server.no/applications/ReviewDICOMTags/",
-      "name": "ReviewDICOMTags"
+      "url" : "https://fiona.local.server/applications/ReviewDICOMTags/",
+      "name": "Fiona/Review Meta-Data"
     },
     "fiona-redcap":{
-      "url" : "https://fiona.local.server.no:4444",
-      "name": "RedCap (Fiona, port 4444)"
+      "url" : "https://fiona.local.server:4444",
+      "name": "Fiona/RedCap"
     },
     "fiona-AETtitle":{
       "url" : "AETtitle",
@@ -57,16 +64,17 @@
       "url" : "fiona:local.ip",
       "name": "IP: xxx.xxx.xxx.xxx"
     },
+    "admin": {
+      "url":"admin[at]your-institution.com",
+      "name": "Local Fiona Admin"
+    },
     "it": {
-      "url" : "https://it.department.your.institution.com",
-      "name": "IT Department"
+      "url" : "https://it.department.your.institution",
+      "name": "Institution IT Department"
     }
   },
   "contacts":
   {
-    "admin": {
-      "email": "admin@your-institution.com",
-      "name": "Local Fiona Admin"
-    }
+
   }
 }

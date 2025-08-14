@@ -29,7 +29,7 @@ config = load_config()
 rst_prolog = generate_substitutions(config)
 
 #print("*******************")
-#print(rst_prolog)
+print(rst_prolog)
 #print("*******************")
 
 
