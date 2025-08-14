@@ -24,4 +24,5 @@ The Fiona system is a comprehensive solution for managing DICOM medical images i
 .. include:: export-image-data.rst
 .. include:: end-user-contract.rst
 .. include:: sensitive-data.rst
+.. include:: faq.rst
 .. include:: external-resources.rst

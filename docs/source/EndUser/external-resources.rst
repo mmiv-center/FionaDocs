@@ -3,7 +3,7 @@ External resources
 ---------------------
 
 
-Git-Hub Repositories
+GitHub Repositories
 ~~~~~~~~~~~~~~~~~~~~~~
 
 #. |github-fiona_link| - |github-fiona_url|

@@ -26,7 +26,7 @@ Our project uses |redcap-main_link| as an electronic data capture solution. Proj
 Access to the “Sectra DMA Forskning” research PACS viewer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Access to the image data is provided by your |it_link|. Such access may require a valid local hospital user account and a laptop or PACS workstation that is under control of IT Department. If you contact IT Departmetn ask for the start menu item “**Sectra DMA Forskning**”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
+Access to the image data is provided by your |it_link|. Such access may require a valid local hospital user account and a laptop or PACS workstation that is under control of IT Department. If you contact IT Departmetnt ask for the start menu item “**Sectra DMA Forskning**”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
 
 Without access to a specific research project you will not see any data in the research PACS. Each research projects requires specific permissions to become accessible for a user.
 
