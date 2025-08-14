@@ -7,12 +7,11 @@ Research Information System
 
 The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the "Steve Project" is a secure computer system that stores
 research data for approved research projects at Haukeland University Hospital and connected hospitals of the Helse Vest region. The project is supported by the
-radiology department of |hus_link| and the |mmiv_link| and approved for research project use by |ikt-helse-vest_link|. The physical location of the data is at the premises of IKT Helse Vest Norway. Dedicated storage area and research software (Sectra, IDS7) provides researchers with
-appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project
-and not part of the functionality of the RIS. Based on the REK/DIPA rules for each project a lifetime tracking of the research data
-per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if
-required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.
-Key features of the RIS include:•
+radiology department of |hus_link| and the |mmiv_link| and approved for research project use by |ikt-helse-vest_link|. The physical location of the data is at the premises of IKT Helse Vest Norway. A dedicated storage area and research software (Sectra, IDS7) provides researchers with appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project and not part of the functionality of the RIS.
+
+Based on the REK/DIPA rules for each project a lifetime tracking of the research data per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.
+
+Key features of the RIS include:
 
 - Hosted side-by-side with the clinical PACS as an independent installation.
 - Accepts de-identified patient identifiers only.

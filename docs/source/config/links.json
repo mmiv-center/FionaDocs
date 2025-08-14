@@ -10,7 +10,7 @@
       "name": "Mohn Medical Imaging and Visualization Centre"
     },
     "mmiv": {
-      "url": "https:/mmiv.no", 
+      "url": "https://mmiv.no", 
       "name": "Haukeland University Hospital"
     },
     "ikt-helse-vest": {
@@ -58,7 +58,7 @@
       "name": "IP: xxx.xxx.xxx.xxx"
     },
     "it": {
-      "url" : "https://it.department.you.institution.no",
+      "url" : "https://it.department.your.institution.com",
       "name": "IT Department"
     }
   },
