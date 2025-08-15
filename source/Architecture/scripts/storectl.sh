@@ -3,22 +3,29 @@
 storectl.sh
 ===========
 
-Start the service class provider (SCP) for the storage service class. DICOM files received this way will be stored in /data/site/archive/. This service will also announce each incoming image to processSingleFile3.py using a pipe. Processed files will appear in /data/site/raw and /data/site/participant as symbolic link sorted by study/patient and image series with JSON summary files on a series level.
+Start the service class provider (SCP) for the storage service class. DICOM files received this way will be stored in ``/data/site/archive/``. This service will also announce each incoming image to processSingleFile3.py using a pipe. Processed files will appear in ``/data/site/raw`` and ``/data/site/participant`` as symbolic link sorted by study/patient and image series with JSON summary files on a series level.
 
 
 - user: processing
 - depends-on:
-  - /data/config/config.json,
-  - storescpFIONA,
-  - receiveSingleFile.sh,
-  - processSingleFile3.py,
-  - heartbeat.sh will try to contact the DICOM listener and restart this service in case of error
+
+  - ``/data/config/config.json``,
+  - ``storescpFIONA``,
+  - ``receiveSingleFile.sh``,
+  - ``processSingleFile3.py``,
+  - ``heartbeat.sh`` will try to contact the DICOM listener and restart this service in case of error
+
 - log-file:
-  - ${SERVERDIR}/logs/storescpd${projname}.log,
-  - ${SERVERDIR}/logs/storescpd-start.log
-- pid-file: ${SERVERDIR}/.pids/storescpd${projname}.pid
-- start: 
-  */10 * * * * env USER=$LOGNAME /var/www/html/server/bin/storectl.sh start >> /var/www/html/server/logs/storectl.log 2>&1
+
+  - ``${SERVERDIR}/logs/storescpd${projname}.log``,
+  - ``${SERVERDIR}/logs/storescpd-start.log``
+
+- pid-file: ``${SERVERDIR}/.pids/storescpd${projname}.pid``
+- start:
+
+   .. code-block:: bash
+
+      */10 * * * * env USER=$LOGNAME /var/www/html/server/bin/storectl.sh start >> /var/www/html/server/logs/storectl.log 2>&1
 
 Notes
 -----
@@ -115,8 +122,8 @@ case $1 in
             --output-directory "$od" \
             $port >> ${SERVERDIR}/logs/storescpd${projname}.log 2>&1  &
 	# new options
-	#             --accept-all 
-        #             --write-xfer-same 
+	#             --accept-all
+        #             --write-xfer-same
 
         pid=$!
         echo $pid > $pidfile

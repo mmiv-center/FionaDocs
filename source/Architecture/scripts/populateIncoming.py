@@ -7,13 +7,20 @@ Fills in the Study and Series information in the Incoming table in REDCap. If a 
 
 - user: processing
 - depends-on:
+
   - REDCap Incoming project
   - REDCap project "Projects" routing rules table
   - REDCap CouplingList project
+
 - log-file:
-  - ${SERVERDIR}/logs/populateIncoming.log
+
+  - ``${SERVERDIR}/logs/populateIncoming.log``
+
 - pid-file: ${SERVERDIR}/.pids/populateIncoming.pid
 - start:
+
+.. code-block:: bash
+
   */1 * * * *  /usr/bin/flock -n /home/processing/.pids/populateIncoming.pid /home/processing/bin/populateIncoming.py >> /home/processing/logs/populateIncoming.log 2>&1
 
 Notes
@@ -44,11 +51,11 @@ if args.importAll != None:
 
 start_time = datetime.datetime.now()
 print("%s: [populateIncoming.py] populateIncoming start" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
-   
+
 def getAllCouplingLists():
     token = '03BAEA1CCCEF8E89A44E16775FEA0109'
     buf = io.BytesIO()
-    
+
     data = {
         'token': token,
         'content': 'record',
@@ -89,7 +96,7 @@ def getAllCouplingLists():
 def getAllRoutingRules():
     token = 'BEE3E9F1346C64B08807E0BD505703B4'
     buf = io.BytesIO()
-    
+
     data = {
         'token': token,
         'content': 'record',
@@ -130,7 +137,7 @@ def getAllRoutingRules():
     # written on the dropdown - only the label can have spaces and we need those for some
     # projects.
     buf = io.BytesIO()
-    
+
     data2 = {
         'token': token,
         'content': 'metadata',
@@ -165,13 +172,13 @@ def getAllRoutingRules():
             #print("FOUND REPLACEMENT FOR DEST_PROJECT: %s is now \"%s\"" % (q['routing_dest_project'], paired_dict[q['routing_dest_project']]))
             data[idx]['routing_dest_project'] = paired_dict[q['routing_dest_project']]
     #print("routing rules are now: %s" % (json.dumps(data)))
-    
+
     return data
 
 
 def updateREDCap(vals):
     buf = io.BytesIO()
-    
+
     data = {
         'token': '82A0E31C415BF2215EBC3DC968616CD5',
         'content': 'record',
@@ -198,7 +205,7 @@ def updateREDCap(vals):
     ch.close()
     print("%s: [populateIncoming.py] INFO received from REDCap: %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), buf.getvalue()))
     buf.close()
-    
+
 
 # all transfers, are those too many?
 # TODO: This takes quite some time for each participant.
@@ -246,7 +253,7 @@ def getTransfers(StudyInstanceUID):
     return qdata
 
 
-    
+
 # create a new transfer request for that study - assume that the patient is used as patientID patientName
 # this call is only made when we see a series in this study the first time. That means we can safely create
 # a transfer request without checking first if one already exists. TODO: change this so it works with already
@@ -291,10 +298,10 @@ def createNewTransferRequest( studyInstanceUID, target_project, patient, event):
     print("%s: [populateIncoming.py] update REDCap with: %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), json.dumps(dat)))
     updateREDCap( [ dat ] )
 
-    
+
 def createNewStudyInstanceUID(vals):
     buf = io.BytesIO()
-    
+
     data = {
         'token': '82A0E31C415BF2215EBC3DC968616CD5',
         'content': 'record',
@@ -327,13 +334,13 @@ def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
-    
+
 
 # return a dictionary of studyInstanceUID related values
 def getDataForStudyInstanceUIDs(ar):
     qdata = {}
     # query REDCap in chunks to speed up processing without inflicting pain
-    for chunk in chunks(ar,50):    
+    for chunk in chunks(ar,50):
         buf = io.BytesIO()
         data = {
             'token': '82A0E31C415BF2215EBC3DC968616CD5',
@@ -369,7 +376,7 @@ def getDataForStudyInstanceUIDs(ar):
                     continue
                 if not(s['study_instance_uid'] in qdata):
                     qdata[s['study_instance_uid']] = []
-                qdata[s['study_instance_uid']].append(s)               
+                qdata[s['study_instance_uid']].append(s)
         except json.decoder.JSONDecodeError:
             pass
         buf.close()
@@ -435,7 +442,7 @@ for file in files:
     if (tnow - tstamp) < (1*60):
         print("%s: [populateIncoming.py] INFO wait a bit for '%s', file is still being changed (%ds)" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), file, (tnow - tstamp)))
         continue
-    
+
     with open(file, 'r') as myfile:
         data = json.load(myfile)
     if not data['StudyInstanceUID'] in db.keys():
@@ -465,7 +472,7 @@ for studyInstanceUID in db.keys():
         accession_number = data[0]['AccessionNumber']
     except KeyError:
         accession_number = ""
-    
+
     for coupling_entry in reversed(coupling):
         # check if the coupling list matches (use AccessionNumber or StudyInstanceUID)
         if (( len(coupling_entry['cl_accessionnumber'].strip()) > 0) and (accession_number == coupling_entry['cl_accessionnumber']) ) or ( (len(coupling_entry['cl_studyinstanceuid'].strip()) > 0) and (studyInstanceUID == coupling_entry['cl_studyinstanceuid'])):
@@ -475,7 +482,7 @@ for studyInstanceUID in db.keys():
             #print("coupling list entry matches with the following project: ", target_project, " Patientid:",
             #      patient, " event name: ", target_event_name)
             createNewTransferRequest( studyInstanceUID, target_project, patient, target_event_name )
-    
+
     # the data that is already in REDCap
     # we need to combine different calls into one, this spams REDCap and will be slow and stop working if the number of calls per minute is larger than 800
     #if not(studyInstanceUID in suiddata):
@@ -495,7 +502,7 @@ for studyInstanceUID in db.keys():
         for q in data:
             if q['SeriesInstanceUID'] == d['series_instance_uid']:
                 # we have a repeat instrument here for series, no transfer information
-                
+
                 # remember the repeat instance number for this series
                 q['redcap_repeat_instance'] = d['redcap_repeat_instance']
                 # remove this entry - if its not different
@@ -518,7 +525,7 @@ for studyInstanceUID in db.keys():
     if len(data)!=1:
         plurals = "s"
     print("%s: [populateIncoming.py] process with %d record%s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), len(data), plurals))
-    
+
     try:
         study_description = data[0]['StudyDescription']
     except KeyError:
@@ -636,7 +643,7 @@ for studyInstanceUID in db.keys():
         if modeRewriteAll:
             if modeRewriteProject != route['routing_dest_project']:
                 continue
-        
+
         # all our rules are active (see reading in function)
         #print("%s We have a route here which is: %s" % (datetime.datetime.now(), json.dumps(route)))
         incoming_aetitle = route['routing_incoming_aetitle'].strip()
@@ -668,8 +675,8 @@ for studyInstanceUID in db.keys():
         #          match1, " match for sending AETitle: ", match4, " match for patientid: ", match2, " and match for patient name: ",
         #          match3, " with the following settings: ", aetitle_addressed, " patientid:",
         #          patient_id, " patientname:", patient_name, " Target: ", target_project, " sender_aetitle: \"", sender_aetitle, "\" aetitle_sender: \"", aetitle_sender, "\"", sep='')
-            
-            
+
+
         # debug information
         if ((match1 == True) or (match4 == True)) and ((match2 == True) or (match3 == True)):
             print("%s: [populateIncoming.py] routing for rule: " % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')), route, " results in match for incoming_aetitle ",

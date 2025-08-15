@@ -7,15 +7,23 @@ The Assign application keeps a jobs file /var/www/html/applications/Assign/incom
 
 - user: processing
 - depends-on:
-  - /var/www/html/applications/Assign/incoming.txt
+
+  - ``/var/www/html/applications/Assign/incoming.txt``
+
 - log-file:
-  - ${SERVERDIR}/logs/removeOldEntries.log
-- pid-file: ${SERVERDIR}/.pids/removeOldEntries.pid
-- start: 
-  2 */4 * * * /usr/bin/flock -n /home/processing/.pids/removeOldEntries.pid /var/www/html/applications/Assign/php/removeOldEntries.sh >> /home/processing/logs/removeOldEntries.log 2>&1
+
+  - ``${SERVERDIR}/logs/removeOldEntries.log``
+
+- pid-file: ``${SERVERDIR}/.pids/removeOldEntries.pid``
+- start:
+
+   .. code-block:: bash
+
+      2 */4 * * * /usr/bin/flock -n /home/processing/.pids/removeOldEntries.pid /var/www/html/applications/Assign/php/removeOldEntries.sh >> /home/processing/logs/removeOldEntries.log 2>&1
+
 
 Note
-----
+-----
 
 This will not remove such studies from FIONA, it will only make them inaccessible by Assign. They will be deleted if there is not enough space left on the data partition.
 

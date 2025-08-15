@@ -6,13 +6,19 @@ populateAutoID.py
 Check all auto-id projects and create new transfer requests for each. This functionality will remove the need to use Assign simply based on patient naming convention. Regular safety and quality control phantom scans might use this process to automate the forward of such cases to research PACS.
 
 - user: processing
-- depends-on:
-  - REDCap AutoID marked projects
+- depends-on
+
+   - REDCap AutoID marked projects
+
 - log-file:
   - ${SERVERDIR}/logs/populateAutoID.log
-- pid-file: ${SERVERDIR}/.pids/populateAutoID.pid
-- start: 
-  */1 * * * *  /usr/bin/flock -n /home/processing/.pids/populateAutoID.pid /home/processing/bin/populateAutoID.py >> /home/processing/logs/populateAutoID.log 2>&1
+
+- pid-file: ``${SERVERDIR}/.pids/populateAutoID.pid``
+- start:
+
+   .. code-block:: bash
+
+      */1 * * * *  /usr/bin/flock -n /home/processing/.pids/populateAutoID.pid /home/processing/bin/populateAutoID.py >> /home/processing/logs/populateAutoID.log 2>&1
 
 Notes
 -----
@@ -87,11 +93,11 @@ def getAutoIDEnabled():
         if (q['project_use_autoid'] == '1') and (q['project_autoid_aetitle'] != ''):
             data.append(q)
     return data
-    
+
 
 def updateREDCap(vals):
     buf = io.BytesIO()
-    
+
     data = {
         'token': '82A0E31C415BF2215EBC3DC968616CD5',
         'content': 'record',
@@ -118,7 +124,7 @@ def updateREDCap(vals):
     ch.close()
     print("%s: [populateAutoID.py] INFO %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),buf.getvalue()))
     buf.close()
-    
+
 
 def getIncomingData( autoid_projects ):
     # only get the latest incoming data, we need to know if a transfer request has already been created
@@ -127,7 +133,7 @@ def getIncomingData( autoid_projects ):
     # use a date 14 days in the past (to limit the amount of data requested from REDCap)
     today = datetime.datetime.now()
     inpast = today - datetime.timedelta(days=14)
-    
+
     data = {
             'token': '82A0E31C415BF2215EBC3DC968616CD5',
             'content': 'record',
@@ -214,7 +220,7 @@ def createNewTransferRequest( studyInstanceUID, target_project, patient, event):
         event = event.decode("utf-8")
     except (UnicodeDecodeError, AttributeError):
         pass
-    
+
     dat = {
         'study_instance_uid': studyInstanceUID,
         'redcap_repeat_instance': 1,
@@ -269,7 +275,7 @@ def getExistingAutoIDs( project_name ):
         if q['autoid_project_name'] == project_name:
             data.append(q)
     return data
-    
+
 def addToAutoIDTable( data_add ):
     # generate a new record_id in the autoid table and store the data
     buf = io.BytesIO()
@@ -355,7 +361,7 @@ for project_name in project_names:
             project_patient_naming = str(q['project_patient_naming'])
             project_real_name = str(q['project_name'])
     print("%s: [populateAutoID.py] INFO the rule for this project (%s) naming is \"%s\" from autoid_projects_data %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), project_name, project_patient_naming, json.dumps(autoid_projects_data)))
-    
+
     existingIDs = getExistingAutoIDs(project_real_name)
     for kq in range(0,len(incomingData)):
        q = incomingData[kq]
@@ -429,5 +435,5 @@ for project_name in project_names:
         print("%s: [populateAutoID.py] INFO create a transfer request for %s %s %s %s %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), q['study_instance_uid'], q['project_name'], project_real_name, q['suggested_transfer_id'], q['suggested_transfer_hash']))
         createNewTransferRequest( q['study_instance_uid'], project_real_name, q['suggested_transfer_id'], '' )
 
-        
+
 print("%s: [populateAutoID.py] end" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))

@@ -7,14 +7,21 @@ Whole-slide image file upload the research PACS using the Attach application. Th
 
 - user: processing
 - depends-on:
-  - /ifs/hvn/dma/forskning/pat/forskning_short/SPIS_Import/{projname}/
-  - /var/www/html/applications/Attach/uploads_done/
-  - /var/www/html/applications/Attach/uploads/
+
+  - ``/ifs/hvn/dma/forskning/pat/forskning_short/SPIS_Import/{projname}/``
+  - ``/var/www/html/applications/Attach/uploads_done/``
+  - ``/var/www/html/applications/Attach/uploads/``
+
 - log-file:
-  - ${SERVERDIR}/logs/Pathology_process_tiff.log
-- pid-file: ${SERVERDIR}/.pids/Pathology_process_tiff.pid
-- start: 
-  */1 * * * * /usr/bin/flock -n /home/processing/.pids/Pathology_process_tiff.pid /var/www/html/applications/Attach/process_tiff.sh >> /home/processing/logs/Pathology_process_tiff.log 2>&1
+
+  - ``${SERVERDIR}/logs/Pathology_process_tiff.log``
+
+- pid-file: ``${SERVERDIR}/.pids/Pathology_process_tiff.pid``
+- start:
+
+   .. code-block:: bash
+
+      */1 * * * * /usr/bin/flock -n /home/processing/.pids/Pathology_process_tiff.pid /var/www/html/applications/Attach/process_tiff.sh >> /home/processing/logs/Pathology_process_tiff.log 2>&1
 
 
 ' #end-doc
@@ -88,7 +95,7 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
 	ImageSizeX=`echo "${res}" | cut -d':' -f2 | cut -d' ' -f2`
 	ImageSizeY=`echo "${res}" | cut -d':' -f3 | cut -d' ' -f2`
 	/usr/bin/jq ". += { \"patho_image_size_x\": \"${ImageSizeX}\", \"patho_image_size_y\": \"${ImageSizeY}\" }" "${json_file}" > /tmp/tmp_added_size.json
-	/bin/mv /tmp/tmp_added_size.json "${json_file}"	
+	/bin/mv /tmp/tmp_added_size.json "${json_file}"
     elif [[ "${extension}" == "ndpi" ]]; then
 	Manufacturer="Hamamatsu"
 	# tiffinfo kidney_00036_00128_001199_002187_02_04_SOH_51567006.ndpi | grep "Product" | head -1 | cut -d'=' -f2
@@ -115,7 +122,7 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
 	echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] Error: unknown file extension \"${extension}\". Scanner extraction only supported for svs and ndpi files"
     fi
 
-    
+
     ExamId="${Participant}"
     LabId="${Department}"
     SlideN="${SlideNR}"
@@ -125,8 +132,8 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
     #RequestId="${Participant}_${Biopsy}_${DatabaseID}"
     # With this entry it seems to work, just bad that the participant ID contains the biopsy-ID.
     RequestId="${Participant}_${BiopsyID}"
-    # Haukeland, Radiology at MMIV and Research and Innovation department, UiB Associated Prof. in Computer Science, Visualization grou, part of writing team for federated learning, 
-    
+    # Haukeland, Radiology at MMIV and Research and Innovation department, UiB Associated Prof. in Computer Science, Visualization grou, part of writing team for federated learning,
+
     echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] Path: ${Path}"
     echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] image_file: ${image_file}"
 
@@ -166,11 +173,11 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
 	if [ -z "${Scanner}" ]; then
 	    Scanner="unknown"
 	fi
-	
+
 	# need to add all the fields below to make the name more unique
 	new_name="${Specimen}_${Biopsy}_${SlideNR}_${ImageID}_${SlideN}_${RequestId}_${ExamId}_${LabId}_${Block}_${Department}_${Stain}"
 	echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] Suggested name is: ${new_name}"
-	
+
 	# import_json=$(basename "$image_file")
 	import_json="${new_name}.${extension}"
 	# the import file needs to keep the full filename including the extension .svs (make .svs.import)
@@ -206,10 +213,10 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
 	#  -u     If flag is set, tiff directory will NOT be unlinked
 	#
 	#  Note: For file formats using JPEG compression this does not work currently.
-	
+
 	# this might fail (Error Could not find IFD of label image in Aperio format...)
 	add_opt=""
-	if [ "${DoNotRemoveMacro}" == "1" ]; then	    
+	if [ "${DoNotRemoveMacro}" == "1" ]; then
 	    echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] INFO add option -m to wsi_anon"
 	    add_opt=" -m "
 	fi
@@ -250,7 +257,7 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
 	    echo "$(jq '. += {"md5": "'${MD5}'"}' "${json_file}")" > /tmp/md5temp && mv /tmp/md5temp "${json_file}"
 	    cp "$image_file" "${json_file}" "${copy_folder_location}/${upload_date}/"
 	fi
-	
+
 	# the next entries will fill up the disk (all original files end up in the uploads_done_dir)
 	# Instead we should only copy the json and remove the raw data instead.
 	# We are now removing the svs/ndpi files after 7 days from the uploads_done folder.
@@ -267,16 +274,16 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
 
     # 0020,0010 needs to be unique for this participant
     StudyID="${Block}${Biopsy}${SlideNR}"
-    
+
     # do all processing in a temporary folder
     tmp_dir=`/bin/mktemp -d -t create_dicom_XXXXXX`
-    
+
     tiff_file_path="${image_file}"
     tiff_filepath=`/usr/bin/dirname "${tiff_file_path}"`
     tiff_file=`/usr/bin/basename "${tiff_file_path}"`
     output_dir="${tmp_dir}"
     anonymized_dir=`/bin/mktemp -d -t anonymize_dicom_XXXXXX`
-    
+
     # 1. Convert tiff to DICOM
     echo "docker run -i --rm -v \"${tiff_filepath}\":/data -v \"${tmp_dir}\":/output dicom_wsi:latest --input \"/data/$tiff_file\" --seriesDescription \"${SeriesDescription}\" --outFolder /output --sparse 2>&1 | jq -Rsa ."
     convert_message=`docker run -i --rm -v "${tiff_filepath}":/data -v "${tmp_dir}":/output dicom_wsi:latest --input "/data/${tiff_file}" --seriesDescription "${SeriesDescription}" --outFolder /output --sparse 2>&1 | jq -Rsa .`
@@ -294,13 +301,13 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
     #  0020,000E Series Instance UID, same for all files in the slide
     #  0020,0010 StudyID, reportIT/T number of the sending lab, T16-12345
     #  0040,0560 Specimen Description Sequence, Specimen, block and staining information, Example: IIB HE, based on Specimen, block and staining information is read from this sequence according to supplement 122 (ftp://medical.nema.org/medical/dicom/final/sup122_ft2.pdf). Specimen and block name is read using code P3-4000A / 111709 (or 121041 if missing). Staining is read from P3-00003 / F-61D98
-    
+
     #
-    
+
     StudyDate=`date +%Y%m%d`
     StudyTime=`date +%H%M%S`
     anon_output=`/home/processing/bin/anonymize --input "$tmp_dir" --output "$anonymized_dir" -j "${InstitutionName}" --tagchange "0008,0080=PROJECTNAME" --patientid "${Participant}" --tagchange "0040,2001=EventName:${Event}" --tagchange "0040,1002=EventName:${Event}" --tagchange "0008,0090=EventName:${Event}" --tagchange "0008,1030=${StudyDescription}" --tagchange "0020,0010=${StudyID}" --tagchange "0010,4000=${Stain}" --tagchange "0008,0020=${StudyDate}" --tagchange "0008,0030=${StudyTime}" -b -m --numthreads 2 2>&1 | jq -Rsa .`
-    
+
     # 3. Send anonymized output to the research PACS
     # storescu
     storescu_output=`/usr/bin/storescu -xf /var/www/html/applications/Attach/storescu.cfg Default -nh -aec DICOM_STORAGE -aet FIONA +sd +r -v vir-app5274.ihelse.net 7810 "${anonymized_dir}" 2>&1 | jq -Rsa .`
@@ -308,7 +315,7 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
     # get the StudyInstanceUID, SeriesInstanceUID for this upload -- needs to be tested
     StudyInstanceUID=`find "${anonymized_dir}" -type f | grep -v "json" | head -1 | xargs -I'{}' dcmdump +P StudyInstanceUID {} | cut -d'[' -f2 | cut -d']' -f1`
     SeriesInstanceUID=`find "${anonymized_dir}" -type f | grep -v "json" | head -1 | xargs -I'{}' dcmdump +P SeriesInstanceUID {} | cut -d'[' -f2 | cut -d']' -f1`
-    
+
     # copy json to "done"-folder and delete the input ndpi/svs
     fname=`basename "${json_file}"`
     /bin/mv "${json_file}" "${uploads_done_dir}"
@@ -319,11 +326,11 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
     /usr/bin/jq ". += { \"convert_message\": ${convert_message}, \"anon_message\": ${anon_output}, \"storescu_message\": ${storescu_output}, \"patho_study_instance_uid\": \"${StudyInstanceUID}\", \"patho_series_instance_uid\": \"${SeriesInstanceUID}\" }" "${uploads_done_dir}/${fname}" > /tmp/tmp_added_message.json
     /bin/mv /tmp/tmp_added_message.json "${uploads_done_dir}/${fname}"
 
-    
+
     # TODY: add some information to REDCap for this project - we need a transfer request + all the structured information in the project
     echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] INFO: start updatePathologyREDCap.py with \"${uploads_done_dir}/${fname}\""
     /var/www/html/applications/Attach/updatePathologyREDCap.py "${uploads_done_dir}/${fname}"
-    
+
     # cleanup storage in tmp for tmp_dir and anonymized_dir
     # we are removing files from uploads and uploads_done based on the 7 days rule now (keeping the json files around)
     if [ -e "${image_file}" ]; then
@@ -338,7 +345,7 @@ for json_file in $(find /var/www/html/applications/Attach/uploads -type f -name 
     procTimeInSeconds=$(($end-$start))
     /usr/bin/jq ". += { \"transfer_active_proc_time\": \"${procTimeInSeconds}\" }" "${uploads_done_dir}/${fname}" > /tmp/tmp_added_message.json
     /bin/mv /tmp/tmp_added_message.json "${uploads_done_dir}/${fname}"
-    
+
     echo "`date +'%Y-%m-%d %H:%M:%S.%06N'`: [process_tiff.sh] done in $(($end-$start)) seconds"
     exit
 done

@@ -8,16 +8,23 @@ Each study that has been forwarded to PACS should appear in its own REDCap proje
 
 - user: processing
 - depends-on:
+
   - InstitutionName specific REDCap project (repeating instrument Imaging for "Event 1")
-  - REDCap Projects table of projects with API key 
+  - REDCap Projects table of projects with API key
+
 - log-file:
-  - ${SERVERDIR}/logs/populateProjects.log
-- pid-file: ${SERVERDIR}/.pids/populateProjects.pid
-- start: 
-  */1 * * * *  /usr/bin/flock -n /home/processing/.pids/populateProjects.pid /home/processing/bin/populateProjects.py >> /home/processing/logs/populateProjects.log 2>&1
+
+  - ``${SERVERDIR}/logs/populateProjects.log``
+
+- pid-file: ``${SERVERDIR}/.pids/populateProjects.pid``
+- start:
+
+    .. code-block:: bash
+
+       */1 * * * *  /usr/bin/flock -n /home/processing/.pids/populateProjects.pid /home/processing/bin/populateProjects.py >> /home/processing/logs/populateProjects.log 2>&1
 
 Notes
-----
+------
 
 TODO: Without calling for specific projects does not work anymore. We need to get a list of all imaging projects and run them project by project.
 
@@ -45,7 +52,7 @@ if args.project != None:
     print("%s: [populateProjects.py] Limit processing to project \"%s\"" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), args.project))
     limitToProject = args.project
 
-    
+
 def sendToREDCap(token, vals, site):
     # TODO: remove duplicates from the vals based on record id and event name
     cache_tmp = []
@@ -55,9 +62,9 @@ def sendToREDCap(token, vals, site):
         if not(key in cache_tmp):
             cache_tmp.append(key)
             good_data.append(d)
-    
+
     buf = io.BytesIO()
-    
+
     data = {
         'token': token,
         'content': 'record',
@@ -116,16 +123,16 @@ def validImagingFields(token):
     for d in data:
         ret.append(d["field_name"])
     return ret
-    
+
 def chunks(l, n):
     # looping till length l
     for i in range(0, len(l), n):
         yield l[i:i + n]
-    
+
 # test if study entry exists already in that project
 def updateStudyInProject(token, data2, site):
     list_of_existing_fields = validImagingFields(token)
-    
+
     # query all existing studies for the participants
     participantList = {}
     for d in data2:
@@ -134,7 +141,7 @@ def updateStudyInProject(token, data2, site):
     # print("participant LIST: %s" % (json.dumps(participantList)))
     # TODO, if there are too many studies in a project we should chunk this
     # for about 20 of each
-    
+
     buf = io.BytesIO()
     data = {
         'token': token,
@@ -197,7 +204,7 @@ def updateStudyInProject(token, data2, site):
             if not('record_id' in dat2):
                 print("%s: [populateProjects.py] Error: expected record_id in dat2" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
                 continue
-            
+
             if participant != dat2['record_id']: # ignore this entry
                 continue
 
@@ -207,7 +214,7 @@ def updateStudyInProject(token, data2, site):
             if dat2['img_study_instance_uid'] == studyInstanceUID:
                 # print("This study exists already in the imaging instrument")
                 studyExists = True
-            
+
         if not(studyExists):
             # this is a new study, we should add
             # print(" We found a new study, needs to be added as a new repeat instance")
@@ -240,8 +247,8 @@ def updateStudyInProject(token, data2, site):
         # chunk the send operation here
         ll = chunks(results,200)
         for chunk in ll:
-            sendToREDCap(token, chunk, site)   
-        
+            sendToREDCap(token, chunk, site)
+
 
 def addStudyLevelInfo(transfer, token):
     valid_fields = validImagingFields(token)
@@ -252,7 +259,7 @@ def addStudyLevelInfo(transfer, token):
         # do nothing for this project
         return transfer
 
-    
+
     # lookup all study_instance_uids in Incoming and extract the study description and the original accession number from there
     # update those fields in each of the transfers
     studyInstanceUIDs = []
@@ -261,7 +268,7 @@ def addStudyLevelInfo(transfer, token):
             studyInstanceUIDs.append(t["study_instance_uid"])
     # get the unique keys
     studyInstanceUIDs = list(set(studyInstanceUIDs))
-            
+
     data = {
         'token': '82A0E31C415BF2215EBC3DC968616CD5',
         'content': 'record',
@@ -284,7 +291,7 @@ def addStudyLevelInfo(transfer, token):
         for c in chunk:
             data_tmp["record[%d]" % counter] = c
             counter = counter + 1
-            
+
         ch = pycurl.Curl()
         #ch.setopt(ch.URL, 'https://10.94.209.30:4444/api/')
         ch.setopt(ch.URL, 'https://localhost:4444/api/')
@@ -309,10 +316,10 @@ def addStudyLevelInfo(transfer, token):
                         t['study_description'] = q['study_description']
                     if 'img_incoming_accession_number' in t and 'img_incoming_accession_number' in q:
                         t['img_incoming_accession_number'] = q['img_incoming_accession_number']
-    
+
     return transfer
 
-    
+
 
 # get sufficient information to identify what has been transferred and to where
 # TODO: These transfers do not contain the study level information like study_description and Accession number of the incoming study.
@@ -432,7 +439,7 @@ if limitToProject != None:
         if transfer['transfer_project_name'] == limitToProject:
             t_tmp.append(transfer)
     transfers = t_tmp
-        
+
 if len(imagingProjects['projects']) == 0:
     print("%s: [populateProjects.py] Error: could not find imagingProjects.json" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
 
@@ -477,7 +484,7 @@ for siteKey in transferPerSite.keys():
 
     # add missing fields from the study level instrument in incoming
     for transfer in addStudyLevelInfo(transferPerSite[siteKey], token):
-        
+
         redcap_event_name = 'event_1_arm_1'
         if ('transfer_event_name' in transfer) and (transfer['transfer_event_name'] != ''):
             redcap_event_name = "%s_arm_1" % ((transfer['transfer_event_name']).lower())
@@ -514,5 +521,5 @@ for siteKey in transferPerSite.keys():
         updateStudyInProject(token, data2, site)
     else:
         print("%s: [populateProjects.py] ERROR Site \"%s\" ignored, not in imagingProjects %s" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), site, imaging_projects_path))
-    
+
 print("%s: [populateProjects.py] end" % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))

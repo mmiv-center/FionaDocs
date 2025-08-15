@@ -8,20 +8,27 @@ extracts the header information and creates a Study/Series symbolic link structu
 
 - user: processing
 - depends-on:
+
   - storectl.sh service storescpFIONA
-  - /data/site/raw/
-  - /data/site/participants/
+  - ``/data/site/raw/``
+  - ``/data/site/participants/``
+
 - log-file:
-  - ${SERVERDIR}/logs/processSingleFile.log
-- pid-file: 
-- start: 
-  */10 * * * * /usr/bin/python3 /var/www/html/server/bin/processSingleFile3.py start >> /var/www/html/server/logs/processSingleFile.log 2>&1
+
+  - ``${SERVERDIR}/logs/processSingleFile.log``
+
+- pid-file:
+- start:
+
+  .. code-block:: bash
+
+     */10 * * * * /usr/bin/python3 /var/www/html/server/bin/processSingleFile3.py start >> /var/www/html/server/logs/processSingleFile.log 2>&1
 
 
 Notes
 -----
 
-The parser for the Siemens CSA header have been adapted from 
+The parser for the Siemens CSA header have been adapted from
    https://scion.duhs.duke.edu/svn/vespa/tags/0_1_0/libduke_mr/util_dicom_siemens.py
 
 """
@@ -37,7 +44,7 @@ ASSERTIONS_ENABLED = False
 class Daemon:
         """
         A generic daemon class.
-        
+
         Usage: subclass the Daemon class and override the run() method
         """
         def __init__(self, pidfile, stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
@@ -48,7 +55,7 @@ class Daemon:
                     self.projname = ''
                     self.datadir = '/data'
                     self.pipename = '/tmp/.processSingleFilePipe'
-                    
+
         def daemonize(self):
                     """
                     do the UNIX double-fork magic, see Stevens' "Advanced
@@ -68,7 +75,7 @@ class Daemon:
                     os.chdir("/")
                     os.setsid()
                     os.umask(0)
-                
+
                     # do second fork
                     try:
                                 pid = os.fork()
@@ -93,7 +100,7 @@ class Daemon:
                     atexit.register(self.delpid)
                     pid = str(os.getpid())
                     open(self.pidfile,'w+').write("%s\n" % pid)
-                    
+
         def delpid(self):
                     try:
                             os.remove(self.pidfile)
@@ -128,7 +135,7 @@ class Daemon:
                                     os.remove(self.pidfile)
 
                             sys.exit(1)
-                            
+
                     # Start the daemon
                     print(' start the daemon')
                     self.daemonize()
@@ -167,7 +174,7 @@ class Daemon:
                             pf.close()
                     except IOError:
                             pid = None
-                            
+
                     if not pid:
                             message = "pidfile %s does not exist. Daemon not running?\n"
                             sys.stderr.write(message % self.pidfile)
@@ -178,7 +185,7 @@ class Daemon:
                                     os.remove(self.pipename)
 
                             return # not an error in a restart
-                                
+
                     # Try killing the daemon process
                     try:
                                 while 1:
@@ -194,14 +201,14 @@ class Daemon:
                                             print(str(err))
                                             logging.error(str(err))
                                             sys.exit(1)
-                                                        
+
         def restart(self):
                     """
                     Restart the daemon
                     """
                     self.stop()
                     self.start()
-                    
+
         def run(self):
                     """
                     You should override this method when you subclass Daemon. It will be called after the process has been
@@ -220,7 +227,7 @@ class ProcessSingleFile(Daemon):
                             # Todo: add a check to the program to make sure that the rules are ok
                             # we need to be able to reference a specific rule (id tag?)
                             self.classify_rules = self.resolveClassifyRules(self.classify_rules)
-                            
+
                     else:
                             print("Warning: no %s/classifyRules.json file could be found" % os.path.dirname(os.path.abspath(__file__)))
 
@@ -255,11 +262,11 @@ class ProcessSingleFile(Daemon):
                                                         print("Error: could not find a rule with ID %s" % r[ruleornotrule])
                                                         logging.info("Error: could not find a rule with ID %s" % r[ruleornotrule])
                                                         continue
-                                
+
                         if not didChange:
                                 break
                 return classify_rules
-                
+
         def resolveValue(self,tag,dataset,data):
                 # a value can be a tag (array of string length 1) or a tag (array of string length 2) or a specific index into a tag (array of string length 3)
                 v = ''
@@ -294,7 +301,7 @@ class ProcessSingleFile(Daemon):
                 i = s.find(chr(0))
                 if i != -1:
                         s = s[:i]
-                        
+
                 return s
 
 
@@ -321,7 +328,7 @@ class ProcessSingleFile(Daemon):
                 chunks = struct.unpack(format, tag[index:index + size])
 
                 chunks = [self._scrub(item) for item in chunks]
-        
+
                 return (size, chunks)
 
         def _my_assert(self, expression):
@@ -350,26 +357,26 @@ class ProcessSingleFile(Daemon):
                 a string. Any of the following tags should work: (0x0029, 0x1010),
                 (0x0029, 0x1210), (0x0029, 0x1110), (0x0029, 0x1020), (0x0029, 0x1220),
                 (0x0029, 0x1120).
-                
+
                 The function returns a dictionary keyed by element name.
                 """
                 # Let's have a bit of fun, shall we? A Siemens CSA header is a mix of
                 # binary glop, ASCII, binary masquerading as ASCII, and noise masquerading
                 # as signal. It's also undocumented, so there's no specification to which
                 # to refer.
-                
+
                 # The format is a good one to show to anyone who complains about XML being
                 # verbose or hard to read. Spend an afternoon with this and XML will
                 # look terse and read like a Shakespearean sonnet.
-                
+
                 # The algorithm below is a translation of the GDCM project's
                 # CSAHeader::LoadFromDataElement() inside gdcmCSAHeader.cxx. I don't know
                 # how that code's author figured out what's in a CSA header, but the
                 # code works.
-                
+
                 # I added comments and observations, but they're inferences. I might
                 # be wrong. YMMV.
-                
+
                 # Some observations --
                 # - If you need to debug this code, a hexdump of the tag data will be
                 #   your best friend.
@@ -384,7 +391,7 @@ class ProcessSingleFile(Daemon):
                 # - Delimiters are thrown in here and there; they are 0x4d = 77 which is
                 #   ASCII 'M' and 0xcd = 205 which has no ASCII representation.
                 # - Strings in the data are C-style NULL terminated.
-                
+
                 # I sometimes read delimiters as strings and sometimes as longs.
                 DELIMITERS = ("M", "\xcd", 0x4d, 0xcd)
 
@@ -408,7 +415,7 @@ class ProcessSingleFile(Daemon):
                 size, chunks = self._get_chunks(tag, current, "L")
                 current += size
                 element_count = chunks[0]
-                
+
                 # Eat a delimiter (should be 0x77)
                 size, chunks = self._get_chunks(tag, current, "4s")
                 current += size
@@ -436,7 +443,7 @@ class ProcessSingleFile(Daemon):
                         # The subelements hold zero or more strings. Those strings are stored
                         # temporarily in the values list.
                         values = [ ]
-                        
+
                         for j in range(subelement_count):
                                 # Each subelement looks like this:
                                 # - (4 x 4 = 16 bytes) Call these four bytes A, B, C and D. For
@@ -448,7 +455,7 @@ class ProcessSingleFile(Daemon):
                                 # - (m bytes) Padding if length is not an even multiple of four.
                                 size, chunks = self._get_chunks(tag, current, "4L")
                                 current += size
-                                
+
                                 self._my_assert(chunks[0] == chunks[1])
                                 self._my_assert(chunks[1] == chunks[3])
                                 self._my_assert(chunks[2] in DELIMITERS)
@@ -460,7 +467,7 @@ class ProcessSingleFile(Daemon):
                                 current += size
                                 if chunks[0]:
                                         values.append(chunks[0])
-                                        
+
                                 # If we're not at a 4 byte boundary, move.
                                 # Clever modulus code below swiped from GDCM
                                 current += (4 - (length % 4)) % 4
@@ -471,12 +478,12 @@ class ProcessSingleFile(Daemon):
                                 values = ""
                         if len(values) == 1:
                                 values = values[0]
-                        
+
                         self._my_assert(name not in elements)
                         elements[name] = values
 
                 return elements
-                        
+
         def classify(self,dataset,data,classifyTypes):
                 # read the classify rules
                 if self.classify_rules == 0:
@@ -535,7 +542,7 @@ class ProcessSingleFile(Daemon):
                                         except TypeError:
                                                 print ("pattern: %s, vstring: %s (of type: %s)" % (v2, vstring, type(str(vstring)).__name__))
                                                 print ("%s" % pattern.search(vstring))
-                                                
+
                                 elif op == "==":
                                         try:
                                           if isnegate(not float(v2) == float(v)):
@@ -607,7 +614,7 @@ class ProcessSingleFile(Daemon):
                         if seriesLevelCheck and not ok and (t in classifyTypes):
                                 classifyTypes = [y for y in classifyTypes if y != t]
                 return classifyTypes
-                                
+
         def run(self):
                 try:
                         os.mkfifo(self.pipename)
@@ -622,7 +629,7 @@ class ProcessSingleFile(Daemon):
                         print('Error: could not open named pipe for reading commands')
                         logging.error('Error: could not open named pipe for reading commands')
                         sys.exit(1)
-                        
+
                 # remove any zero bytes from the filename
                 _split = re.compile(r'[\0%s]' % re.escape(''.join([os.path.sep, os.path.altsep or ''])))
                 while True:
@@ -668,7 +675,7 @@ class ProcessSingleFile(Daemon):
                                 except OSError:
                                         print("Could not access file:", response)
                                         logging.error('Could not access file: %s' % response)
-                                        continue                                        
+                                        continue
                                 except IOError:
                                         print("Could not find file:", response)
                                         logging.error('Could not find file: %s' % response)
@@ -707,7 +714,7 @@ class ProcessSingleFile(Daemon):
                                         tag_data = self._get(dataset, tag, None)
                                         if tag_data:
                                                 break
-                                                
+
                                 if tag_data:
                                         try:
                                                 ptag_img = self._parse_csa_header(tag_data)
@@ -721,7 +728,7 @@ class ProcessSingleFile(Daemon):
                                         tag_data = self._get(dataset, tag, None)
                                         if tag_data:
                                                 break
-                                        
+
                                 if tag_data:
                                         try:
                                                 ptag_ser = self._parse_csa_header(tag_data)
@@ -756,7 +763,7 @@ class ProcessSingleFile(Daemon):
                                         oldmask = os.umask(0)
                                         os.makedirs(srdir,0o777)
                                         os.umask(oldmask)
-                                
+
                                 outdir = datadir + '/site/raw'
                                 #print 'DEBUG: outdir: ', outdir
                                 if not os.path.exists(outdir):
@@ -818,7 +825,7 @@ class ProcessSingleFile(Daemon):
                                                         os.symlink( os.path.join(outdir, dataset.StudyInstanceUID, dataset.SeriesInstanceUID, dataset.SOPInstanceUID), sr_file_path)
                                         except:
                                                 pass
-                                        
+
                                 #else:
                                 #  continue # don't  do anything because the file exists already
                                 # lets store some data in a series specific file
@@ -1016,7 +1023,7 @@ class ProcessSingleFile(Daemon):
                                         data['Private0043_1039'] = dataset[0x0043,0x1039].value
                                 except:
                                         pass
-                                
+
                                 # Collect the UUID from the ptag_ser structure
                                 if ptag_ser:
                                         try:
@@ -1072,7 +1079,7 @@ class ProcessSingleFile(Daemon):
                                                 siemensDiffusionInformation['DiffusionGradientDirection'] = ptag_img['DiffusionGradientDirection']
                                         except:
                                                 pass
-                                        try: 
+                                        try:
                                                 data['PhaseEncodingDirectionPositive'] = ptag_img['PhaseEncodingDirectionPositive']
                                         except:
                                                 pass
@@ -1144,7 +1151,7 @@ class ProcessSingleFile(Daemon):
 
 # There are two files that make this thing work, one is the .pid file for the daemon
 # the second is the named pipe in /tmp/.processSingleFile
-#  Hauke,    July 2015               
+#  Hauke,    July 2015
 if __name__ == "__main__":
         projname = ''
         if (sys.argv[1] != "send") and (len(sys.argv) == 3):

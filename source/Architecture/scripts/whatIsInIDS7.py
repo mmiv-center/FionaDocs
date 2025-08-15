@@ -3,17 +3,30 @@
 whatIsInIDS7.py
 ===============
 
-Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts: getAllPatients2.sh - parseAllPatients.sh - whatIsInIDS7.py.
+Populate the WhatIsInIDS7 table in REDCap for a specific project using findscu. This script is part of a sequence of scripts:
+- ``getAllPatients2.sh``
+- ``parseAllPatients.sh``
+- ``whatIsInIDS7.py``.
+
+
 
 - user: processing
 - depends-on:
-  - /tmp/parseAllPatients{projname}/
-  - /tmp/pullStudies{projname}/
+
+  - ``/tmp/parseAllPatients{projname}/``
+  - ``/tmp/pullStudies{projname}/``
+
 - log-file:
-  - ${SERVERDIR}/logs/whatIsInIDS7{projname}.log,
-- pid-file: ${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid
-- start: 
-  */48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c "/home/processing/bin/utils/getAllPatients2.sh 10000 "{proejct}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
+
+  - ``${SERVERDIR}/logs/whatIsInIDS7{projname}.log``,
+
+- pid-file: ``${SERVERDIR}/.pids/whatIsInIDS7{projname}.pid``
+
+- start:
+
+    .. code-block:: bash
+
+      */48 * * * * /usr/bin/flock -n /home/processing/.pids/getAllPatients2{projname}.pid /bin/bash -c "/home/processing/bin/utils/getAllPatients2.sh 10000 "{proejct}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
   && /home/processing/bin/utils/parseAllPatients.sh "{projname}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1 \
   && /home/processing/bin/utils/whatIsInIDS7.py "{projname}" >> /home/processing/logs/whatIsInIDS7/whatIsInIDS7{projname}.log 2>&1"
 
@@ -32,13 +45,13 @@ import pycurl, glob, json, io, subprocess, datetime, hashlib, sys
 from urllib.parse import urlencode
 
 
-# depends on a previous run of getAllPatients and parseAllPatients 
+# depends on a previous run of getAllPatients and parseAllPatients
 
 # D7EEAFD0C83FA9BA81A5D427534A071E
 
 def updateREDCap(vals):
     buf = io.BytesIO()
-    
+
     data = {
         'token': 'D7EEAFD0C83FA9BA81A5D427534A071E',
         'content': 'record',
@@ -88,7 +101,7 @@ def getValue(entry, key):
     if (type(a) is dict) and ("Alphabetic" in a):
         a = a["Alphabetic"]
     return a
-    
+
 # if we have an argument for a project, only process data from that project
 InstitutionName=""
 if len(sys.argv) == 2:
@@ -107,7 +120,7 @@ for file in files:
     # So instead of calling dcmdump so many times calling dcm2json once might be an option.
     dicom_meta_tmp=subprocess.check_output("DCMDICTPATH=/usr/share/dcmtk/dicom.dic dcm2json \"" + file + "\"", shell=True).strip()
     dicom_meta=json.loads(dicom_meta_tmp)
-    StudyInstanceUID=getValue(dicom_meta, "0020000D")    
+    StudyInstanceUID=getValue(dicom_meta, "0020000D")
     PatientID=getValue(dicom_meta,"00100020")
     PatientName=getValue(dicom_meta,"00100010")
     StudyDescription=getValue(dicom_meta,"00081030")
@@ -120,7 +133,7 @@ for file in files:
     StudyID=getValue(dicom_meta,"00200010")
     ModalitiesInStudy=getValue(dicom_meta,"00080061")
     AccessionNumber=getValue(dicom_meta,"00080050")
-    
+
     # check_output
     ##StudyInstanceUID=subprocess.check_output("DCMDICTPATH=/usr/share/dcmtk/dicom.dic dcmdump +P \"StudyInstanceUID\" " + file + " | cut -d'[' -f2 | cut -d']' -f1", shell=True).strip()
     # check_output
@@ -203,7 +216,7 @@ def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
-                        
+
 # now store those values in REDCap
 print("%s: [whatIsInIDS7.py] send %d %s entries to REDCap..." %  (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"), len(vals), InstitutionName))
 #print(json.dumps(vals))
