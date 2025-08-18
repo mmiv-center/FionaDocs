@@ -9,8 +9,25 @@ ADMINISTRATION
 
 
 
-Long-term support
------------------
+System maintenance
+------------------
+
+In the Helse Vest health region FIONA is running on an Ubuntu LTS server with automated updates (unattended-upgrades package). A reboot entry in cron ensures that kernel updates become effective on a weekly basis.
+
+.. code-block:: bash
+   // default entries in /etc/apt.conf.d/50unattended-upgrades
+   Unattended-Upgrade::Allowed-Origins {
+      "${distro_id}:${distro_codename}";
+      "${distro_id}:${distro_codename}-security";
+      "${distro_id}ESMApps:${distro_codename}-apps-security";
+      "${distro_id}ESM:${distro_codename}-infra-security";
+   }
+
+We have made good experiences with always upgrading to the lastest LTS release with ```do-release-upgrade```.
+
+
+Yearly maintenance
+^^^^^^^^^^^^^^^^^^
 
 FIONA will use the database of REDCap continuously requesting information and updating entries. As REDCap is 
 HIPPA compliant (21 CFR Part 11) it will log all such access in two databases that can grow over time to contain
