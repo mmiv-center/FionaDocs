@@ -4,8 +4,8 @@ ARCHITECTURE
 **For:** Developers, system architects
 
 .. toctree::
-   :maxdepth: 0
-   
+   :maxdepth: 1
+
 
 Folder and File structure
 --------------------------
@@ -13,7 +13,7 @@ Folder and File structure
 .. only:: html
 
     .. raw:: html
-    
+
        <pre>
        /home/processing/
        |          └── bin/
@@ -62,7 +62,7 @@ Folder and File structure
                            |
                            └── utils/
                                  └── <a href="scripts/s2m.html">s2m.sh</a>
-       
+
        </pre>
 
 
@@ -70,24 +70,24 @@ Folder and File structure
 .. only:: latex
 
     .. code-block:: html
-    
+
        /home/processing/
        |          └── bin/
        │               ├── anonymizeAndSend.py
        │               ├── clearExports.sh
        │               ├── clearOldFiles.sh
        │               ├── clearStaleLinks.sh
-       │               ├── createTransferRequestsForProcessed.py 
-       │               ├── createTransferRequests.py 
-       │               ├── populateAutoID.py 
-       │               ├── populateIncoming.py 
-       │               ├── populateProjects.py 
+       │               ├── createTransferRequestsForProcessed.py
+       │               ├── createTransferRequests.py
+       │               ├── populateAutoID.py
+       │               ├── populateIncoming.py
+       │               ├── populateProjects.py
        │               └── utils/
-       │                      ├── getAllPatients2.sh 
-       │                      ├── parseAllPatients.sh 
-       │                      ├── resendProject.py 
-       │                      ├── whatIsInIDS7.py 
-       │                      └── whatIsNotInIDS7.py 
+       │                      ├── getAllPatients2.sh
+       │                      ├── parseAllPatients.sh
+       │                      ├── resendProject.py
+       │                      ├── whatIsInIDS7.py
+       │                      └── whatIsNotInIDS7.py
        │
        /var/
          └── www/
@@ -95,30 +95,30 @@ Folder and File structure
                     ├── applications/
                     │          ├── Assign/
                     │          │     └── php
-                    |          |          └── removeOldEntries.sh 
+                    |          |          └── removeOldEntries.sh
                     │          ├── Attach/
-                    │          │     └── process_tiff.sh 
+                    │          │     └── process_tiff.sh
                     │          ├── Exports/
                     │          │     └── php
-                    |          |          └── createZipFileCmd.php 
+                    |          |          └── createZipFileCmd.php
                     │          ├── User/
                     │          │     └── asttt/
                     │          │            └── code/
-                    │          │                  └── cron.sh 
+                    │          │                  └── cron.sh
                     │          └── Workflows/
                     │                 └──php
-                    |                    └── runOneJob.sh 
+                    |                    └── runOneJob.sh
                     │
                     └── server/
                            ├── bin/
-                           |    ├── heartbeat.sh 
-                           |    ├── processSingleFile3.py 
-                           |    ├── sendFiles.sh 
-                           |    └── storectl.sh 
+                           |    ├── heartbeat.sh
+                           |    ├── processSingleFile3.py
+                           |    ├── sendFiles.sh
+                           |    └── storectl.sh
                            |
                            └── utils/
-                                 └── s2m.sh 
-       
+                                 └── s2m.sh
+
 
 
 
@@ -131,7 +131,7 @@ Components
     .. toctree::
        :maxdepth: 2
        :hidden:
-       
+
        scripts/anonymizeAndSend
        scripts/clearExports
        scripts/clearOldFiles
