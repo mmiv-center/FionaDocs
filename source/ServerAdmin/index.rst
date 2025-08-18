@@ -25,6 +25,8 @@ In the Helse Vest health region FIONA is running on an Ubuntu LTS server with au
 
 We have made good experiences with always upgrading to the lastest LTS release with ```do-release-upgrade```.
 
+REDCap (Research Electronic Data Capture) is a database interface used by FIONA to store temporary information on the assignment of research identifies to clinical data (based on DICOM numeric IDs such as StudyInstanceUID). Updates of REDCap are frequent and may include security relevant updates. At regular intervals (suggested weekly) check the REDCap Control Center for "New REDCap versions are available to upgrade". Install these updates regularly using REDCap's we interface. REDCap will download and install the newest version on request of the admin user and perform any required updates to its SQL database table structures.
+
 
 Yearly maintenance
 ^^^^^^^^^^^^^^^^^^
