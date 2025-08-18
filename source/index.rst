@@ -26,7 +26,7 @@ Key features of the RIS include:
 .. -------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :hidden:
    
    EndUser/index
@@ -37,7 +37,7 @@ Key features of the RIS include:
 .. ------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :hidden:
 
    ServerAdmin/index
@@ -49,21 +49,11 @@ Key features of the RIS include:
 .. -------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :hidden:
    
    Architecture/index
    
-
-.. Possible updates (temporary)
-.. -----------------------------
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Possible updates (tmp)
-   :hidden:
-   
-..   Temp/index
 
    
 Contact Information
