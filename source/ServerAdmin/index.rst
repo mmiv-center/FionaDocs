@@ -8,7 +8,7 @@ Setup / Installation
 
 FIONA can be deployed on a single virtual machine. For best performance we suggest to use a dedicated database system (MariaDB). At Helse Vest FIONA is setup as
 
-.. code-block:: JSON
+.. code-block::
    {
      "architecture": "x86_64",
      "cpus": "16, Intel(R) Xeon(R) Gold 6154 @ 3.00GHz",
@@ -29,7 +29,7 @@ System maintenance
 
 In the Helse Vest health region FIONA is running on an Ubuntu LTS server with automated updates (unattended-upgrades package). A reboot entry in cron ensures that kernel updates become effective on a weekly basis.
 
-.. code-block:: guess
+.. code-block::
    // default entries in /etc/apt.conf.d/50unattended-upgrades
    Unattended-Upgrade::Allowed-Origins {
       "${distro_id}:${distro_codename}";
