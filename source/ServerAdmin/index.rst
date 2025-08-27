@@ -8,7 +8,7 @@ Setup / Installation
 
 FIONA can be deployed on a single virtual machine. For best performance we suggest to use a dedicated database system (MariaDB). At Helse Vest FIONA is setup as
 
-.. code-block:: guess
+.. code-block:: JSON
    {
      "architecture": "x86_64",
      "cpus": "16, Intel(R) Xeon(R) Gold 6154 @ 3.00GHz",
