@@ -3,9 +3,23 @@ ADMINISTRATION
 
 **For:** IT administrators, DevOps
 
-.. toctree::
-   :maxdepth: 1
+Setup / Installation
+--------------------
 
+FIONA can be deployed on a single virtual machine. For best performance we suggest to use a dedicated database system (MariaDB). At Helse Vest FIONA is setup as
+
+.. code-block:: json
+   {
+     "architecture": "x86_64",
+     "cpus": "16, Intel(R) Xeon(R) Gold 6154 @ 3.00GHz",
+     "memory": "64GB",
+     "partitions": { 
+       "/": "200G",
+       "/data": "1,000G",
+       "/export": "2,000G",
+       "/var/lib/docker/overlay2": "200G"
+     }
+   }
 
 
 
