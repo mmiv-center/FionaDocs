@@ -1,7 +1,7 @@
 # Local scripts (php, py, sh)
-source/Architecture/scripts/*.py
-source/Architecture/scripts/*.sh
-source/Architecture/scripts/*.php
+source/Developer/scripts/*.py
+source/Developer/scripts/*.sh
+source/Developer/scripts/*.php
 
 **/__pycache__/*
 
