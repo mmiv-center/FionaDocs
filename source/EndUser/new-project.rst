@@ -3,7 +3,7 @@ New project: creation, setup and access
 -----------------------------------------
 
 Apply for a new project
-~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to apply for a new project on the research information system (research PACS)
 please fill out the application form available under “**Apply for a new research project**”
@@ -17,14 +17,14 @@ If you encounter any problems with applying for access, contact |admin_url|.
 
 
 Access to REDCap for structured data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Our project uses |redcap-main_link| as an electronic data capture solution. Projects on the research information system can receive access to their RedCap project as well as access to the image data viewing (see next section).
 
 
 
 Access to the “Sectra DMA Forskning” research PACS viewer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Access to the image data is provided by your |it_name|. Such access may require a valid local hospital user account and a laptop or PACS workstation that is under control of IT Department. If you contact IT Departmetnt ask for the start menu item “**Sectra DMA Forskning**”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
 

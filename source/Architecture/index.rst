@@ -1,14 +1,15 @@
-ARCHITECTURE
-==============
+Developer Documentation
+*************************
 
 **For:** Developers, system architects
+
 
 .. toctree::
    :maxdepth: 1
 
 
 Folder and File structure
---------------------------
+===========================
 
 .. only:: html
 
@@ -124,7 +125,7 @@ Folder and File structure
 
 
 Components
------------------------------
+=============
 
 .. only:: latex
 

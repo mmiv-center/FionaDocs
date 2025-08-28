@@ -1,24 +1,27 @@
-ADMINISTRATION
-===============
+System Administration
+***********************
 
-**For:** FIONA admins
+
+Fiona Admin
+=============
+
+**For:** Fiona admin
 
 System administration is act if
 
   - creation of a new project
   - provide access to existing project to new user
   - fix pseudonymization errors on request from users
+  - archive finished projects
 
 
+IT Admin
+==========
 
-
-
-
-
-**For:** IT administrators, DevOps
+**For:** IT admin
 
 Setup / Installation
---------------------
+----------------------
 
 FIONA can be deployed on a single Linux-based virtual machine. For best performance we suggest to use a dedicated database system (MariaDB). At Helse Vest the FIONA virtual machine setup is
 
@@ -42,7 +45,7 @@ The FIONA website is running on apache2 as the webserver, which requires a certi
 
 
 System maintenance
-------------------
+--------------------
 
 In the Helse Vest health region FIONA is running on an Ubuntu LTS server with automated updates (unattended-upgrades package). A reboot entry in cron ensures that kernel updates become effective on a weekly basis.
 
@@ -62,7 +65,7 @@ REDCap (Research Electronic Data Capture) is a database interface used by FIONA 
 
 
 Yearly maintenance
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
 FIONA will use the database of REDCap continuously requesting information and updating entries. As REDCap is 
 HIPPA compliant (21 CFR Part 11) it will log all such access in two databases that can grow over time to contain
@@ -96,6 +99,5 @@ To remove entries regularly (once a year) we use code like the following (SQL):
 The above SQL procedure will chunk the operation based on the index log_event_id. This works even if the database already contains millions of log entries. Note that such removal only marks rows as empty. It does not reduce the size of the database without further optimization. But the removal of log entries will allow the system to re-use them for the continued operation.
 
 The above code removes log events created by the admin user for a project ID "28". This corresponds on our system to a FIONA specific REDCap project called "WhatIsInIDS7". Further project_id's for which entries can be removed are project "Incoming", "Routing" and "ResearchProjects". You can lookup their numeric ids in REDCap's user interface.
-
 
 

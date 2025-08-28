@@ -1,8 +1,8 @@
-FIONA Documentation
-===================
+FIONA Documetation
+---------------------
 
-Research Information System
------------------------------
+**Research Information System**
+
 
 
 The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the "Steve Project" is a secure computer system that stores
@@ -22,8 +22,8 @@ Key features of the RIS include:
 - User access to the research PACS is controlled by IKT and requires a valid Haukeland University Hospital user account.
 
 
-.. EndUser
-.. -------
+.. End User Documentation
+.. -----------------------
 
 .. toctree::
    :maxdepth: 2
@@ -45,8 +45,8 @@ Key features of the RIS include:
 
 
 
-.. Architecture
-.. -------------
+.. Developer Documentations
+.. -------------------------
 
 .. toctree::
    :maxdepth: 2
@@ -57,14 +57,8 @@ Key features of the RIS include:
 
    
 Contact Information
--------------------
+*********************
 
 * Website: |fiona-bergen_url|
 * Location: Haukeland University Hospital, Bergen, Norway
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
