@@ -4,7 +4,7 @@ External resources
 
 
 GitHub Repositories
-~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 #. |github-fiona_link| - |github-fiona_url|
 #. |github-dicomanonymizer_link| - |github-dicomanonymizer_url|
@@ -12,6 +12,6 @@ GitHub Repositories
 
 
 REDCap
-~~~~~~~~
+^^^^^^^
 
 #. |redcap-main_link| - |redcap-main_url|

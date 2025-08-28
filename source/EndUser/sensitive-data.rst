@@ -2,9 +2,8 @@
 Sensitive Data Projects
 ------------------------
 
-
 Separation of Sensitive Information and Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A sensitive data project is one that is used to capture human subject data and in general will require  REK (regional ethics board approval). In order to setup such a project in REDCap we suggest the follow structure and features of REDCap to be used. These recommendations have been generated based
 on discussions in relevant risk assessments.

@@ -1,8 +1,6 @@
 Frequently asked questions
 --------------------------
 
-How can we help you?
-~~~~~~~~~~~~~~~~~~~~
 
 How do I start using the system?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
