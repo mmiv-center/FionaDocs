@@ -25,9 +25,7 @@ In step 1 data arrives in a **quarantine** location. In step 2 each DICOM study 
 
 The project needs to exist on the research information system before participant data is collected. After a successful setup your project and event names should appear in the Assign application.
 
-
 **How to add image data**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 The end-point for images is |fiona_name| (|fiona_url|):

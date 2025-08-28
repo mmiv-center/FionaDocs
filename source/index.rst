@@ -40,7 +40,7 @@ Key features of the RIS include:
    :maxdepth: 2
    :hidden:
 
-   ServerAdmin/index
+   SystemAdmin/index
   
 
 
@@ -52,7 +52,7 @@ Key features of the RIS include:
    :maxdepth: 2
    :hidden:
    
-   Architecture/index
+   Developer/index
    
 
    
