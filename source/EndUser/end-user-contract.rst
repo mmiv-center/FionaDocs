@@ -7,7 +7,7 @@ End-user contract
 
 .. attention::
 
-   The following text is from the Apply website for the Steve system. Please check this page for updates to the wording.
+   The following text is from the Apply website for the Fiona system. Please check this page for updates to the wording.
 
 
 By creating a project on the research information system you agree to the following:

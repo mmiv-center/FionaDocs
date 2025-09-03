@@ -5,9 +5,9 @@ Frequently asked questions
 How do I start using the system?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Creating a project for your data is of course the first step. One the frontpage of Steve use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**.
+Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**.
 
-Creating a project for your data is of course the first step. One the frontpage of Steve use the link at the top to apply for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in How to send data. Information about these first steps are available in the EK handbook (see Forskning / Forskningsprosedyrer, 02.20.7.1 Forsknings PACS).
+Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to apply for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in How to send data. Information about these first steps are available in the EK handbook (see Forskning / Forskningsprosedyrer, 02.20.7.1 Forsknings PACS).
 
 
 Where does the data come from?
@@ -86,7 +86,7 @@ As copies of the image data may exist in clinical systems, research image data i
 Do you change the data in any way?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Yes. With input from the project we attempt to anonymize all data forwarded into the project space. This includes changes to the meta-data section and changes to burned in image information of some of the incoming data (secondary captures). These data processing steps are implemented to ensure an anonymization of the data with respect to the Steve system and a pseudonymization of the data towards the project as they may retain a coupling list.
+Yes. With input from the project we attempt to anonymize all data forwarded into the project space. This includes changes to the meta-data section and changes to burned in image information of some of the incoming data (secondary captures). These data processing steps are implemented to ensure an anonymization of the data with respect to the Fiona system and a pseudonymization of the data towards the project as they may retain a coupling list.
 
 Why are all the study dates wrong?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -136,10 +136,6 @@ Some of the spectroscopy DICOM files are non-image files. PACS viewers might not
 
 The generation of the secondary capture image is currently limited to Siemens non-image files (SOPClassUID = 1.3.12.2.1107.5.9.1). Contact your FIONA team if you want to include other files.
 
-Why the name "Steve Project"?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-So that you are less afraid of adopting a new workflow. The "Over the Hedge" movie from 2006 had this scary hedge, everyone was affraid of it, it was new and looked big and scary. They suggested to call the hedge "Steve" and it was not so scary anymore. For the same reason our research information system portal is also called Steve - its a nice name and makes the system much less scary to use.
 
 Research information system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,7 +144,7 @@ We have created a research information system in response to common issues faced
 
 Based on these experiences we realized that many research tasks required for the successful running of a medical research study like data identification, data export, de-identification are not well supported if research institutions are setup as external entities to the health-care enterprise they are supposed to benefit.
 
-The purpose of the Steve Project is to create a research information system that no-one is affraid of using and that provides an interface between hospital procedures that generate data and research institutions that consume them. The system focuses on supporting two aspects of medical data - all the lab samples, questionnaires, diagnosis reports and clinical history and the medical image data in the form of DICOM images.
+The purpose of the Fiona Project is to create a research information system that no-one is affraid of using and that provides an interface between hospital procedures that generate data and research institutions that consume them. The system focuses on supporting two aspects of medical data - all the lab samples, questionnaires, diagnosis reports and clinical history and the medical image data in the form of DICOM images.
 
 
 Safety first - Separation of hospital and research
@@ -202,7 +198,7 @@ Specialized applications
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-To provide access to the feature of the research PACS we provide web-applications for data submission, project setup and configuration, review and data export. All of these features are accessible on the home page of the Steve project page at the institution. Based on your role you will need to use only some of these applications.
+To provide access to the feature of the research PACS we provide web-applications for data submission, project setup and configuration, review and data export. All of these features are accessible on the home page of the Fiona project page at the institution. Based on your role you will need to use only some of these applications.
 
 Assign
 ^^^^^^

@@ -6,7 +6,7 @@ Submit data to the Research Information System
 
 The basic steps to submit data are:
 
-1. Send DICOM studies to “Fiona” (modality station)
+1. Send DICOM studies to “Fiona” (either from clinical PACS or direct from modality station)
 2. |fiona-assign_name| to project on |fiona-assign_url|.
 
 In step 1 data arrives in a **quarantine** location. In step 2 each DICOM study needs to be **assigned to project**, pseudonymized participant identifier and event name before it will be forwarded to the research PACS and becomes visible to the project users.
