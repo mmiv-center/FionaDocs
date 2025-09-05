@@ -61,7 +61,8 @@ An issue that requires further work is how to finally remove the project data fr
 Specialty projects
 ------------------
 
-Fiona supports pathology image pipelines as well as DICOM based image distribution.
+Fiona supports pathology image pipelines as well as DICOM based image distribution. Such projects can be setup in two ways. Either as DICOM supported projects or as WSI supported projects. Both are options that the PACS need to support. As most scanners (and historic data) is probably collected as WSI images in .svs or .hdpi format check during project creation what the needs of the project are. Either convert all incoming WSI images to DICOM (on Attach) or deliver WSI images to the PACS using shared folder.
+
 
 
 IT Admin
