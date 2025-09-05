@@ -98,10 +98,10 @@ Is there a list of DICOM tags changed during import?
 
 Yes, a list of about 270 tags inspected during import is available as part of the source code of the anonymization tool |github-dicomanonymizer_link| (|github-dicomanonymizer_url|). Tags listed with "remove" are deleted, tags listed with "keep" are kept etc.. The following list has been extracted from the anonymizer 2025-09-05.
 
-.. csv-table:: DICOM tags
+.. csv-table:: The list of DICOM tags changed during import
    :file: dicom-tags.csv
    :header-rows: 1
-   :widths: 10, 10, 40, 15, 15
+   
 
 CIM* - createIfMissing
 
