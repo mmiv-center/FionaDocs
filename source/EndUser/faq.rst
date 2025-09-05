@@ -383,8 +383,8 @@ The placeholder "PROJECTNAME" will be replaced with the name of the research pro
 
 Tags not listed above are untouched by the pseudonymization tool.
 
-Can I export to TSD/Safe?
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Can I export to TSD/Safe/HUNT cloud?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 TSD supports data upload links. This API is expected by our system to allow a direct submission of data folders (zip-format) to your TSD storage space. This feature has to be setup for your projects, contact us to receive more information. There is no comparable technology for Safe yet. Contact Christine Stansberg to request such an interface.
 
@@ -393,6 +393,8 @@ The following information from your TSD project on (https://data.tsd.usit.no/i/)
  - TSD group name:
  - TSD ID: e0b0c0e-abcd-abcd-abcd-a0b0c0d0e0f0 (example)
  - TSD user name.
+
+For HUNT cloud the functionality relies on the 'sftp' data transfer protocol. Work on integrating these transfers to Fiona are ongoing.
 
 
 Can I export to clinical PACS?
