@@ -45,6 +45,18 @@ As a last step inform the user that he/she can start again sending the data to F
 Note: For a while Fiona will have a copy of the data. Such copies are deleted automatically by Fiona over time. If you want to remove this cache you can manually delete such cases from /data/site/archive/scp_<study instance uid>/ and from /data/site/raw/<study instance uid>. If you remove the data in such a way you still need to remove them with the above mentioned steps from Incoming and from PACS.
 
 
+Archive finished projects
+-------------------------
+
+Project data can be assigned to a project space as long as the project is under a current institutional review board permission (REK). At the end of that period, after all data have been added to the project the "Active Project" checkbox in DataTransferProjects should be removed. This will remove the projects name from the Assign application on Fiona so no more data can be added.
+
+If the REDCap project is used for additional data capture it should also be moved to data analysis and archive state.
+
+Such archiving should be done in communication with the researcher. They can request a offline version of their data - use the Fiona application "Export".
+
+An issue that requires further work is how to finally remove the project data from PACS to free up space. Different from clinical data which is stored for longer periods the research data can be archived on external systems (like Sigma2). Access to the PACS system is required to delete data on bulk.
+
+
 IT Admin
 ==========
 
@@ -95,7 +107,7 @@ REDCap (Research Electronic Data Capture) is a database interface used by FIONA 
 
 
 Yearly maintenance
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 FIONA will use the database of REDCap continuously requesting information and updating entries. As REDCap is 
 HIPPA compliant (21 CFR Part 11) it will log all such access in two databases that can grow over time to contain
