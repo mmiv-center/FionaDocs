@@ -28,6 +28,22 @@ Create the project space on PACS. This depends on the PACS but it should code fo
 
 Enable the project by setting the DataTransferProjects table entry for "Active Project" to allow it to show up on Fiona.
 
+Provide access to new user
+--------------------------
+
+A new user needs access to PACS and a role assignment that allows them to see the image data there. No dedicated account is required on Fiona or REDCap. Such access is only provided if Fiona is used for automated data export (can also be done directly from PACS) or if REDCap is used by the project to collect additional research information.
+
+Fix pseudonymization errors upon request
+----------------------------------------
+
+As DICOM data arrives randomly on Fiona based on other traffic on the network the research identify of a clinical dataset is cached in REDCap (project `Incoming`). In case an assignment was done in error such cached information needs to be removed before data can be forwarded again to fix the issue.
+
+Identify the study using the Incoming project on REDCap. Records are stored there by study instance uid. Each record will have a transfer request attached. Delete either the whole record or the transfer request. Secondarily remove the data from research PACS. This might involve 3 separate steps. First you need to pull the study from the PACS archive, next you need to reset the study to original (removes the archive copy) and lastly you can delete the study. These steps require special permissions on the PACS system.
+
+As a last step inform the user that he/she can start again sending the data to Fiona and use Assign to enter the correct research identity for that record.
+
+Note: For a while Fiona will have a copy of the data. Such copies are deleted automatically by Fiona over time. If you want to remove this cache you can manually delete such cases from /data/site/archive/scp_<study instance uid>/ and from /data/site/raw/<study instance uid>. If you remove the data in such a way you still need to remove them with the above mentioned steps from Incoming and from PACS.
+
 
 IT Admin
 ==========
