@@ -379,7 +379,7 @@ Yes, a list of about 270 tags inspected during import is available as part of th
 | 0071 | 1022 | SIEMENS MED PT |                     incrementdatetime |
 +----------------------------------------------------------------------+
 
-
+The placeholder "PROJECTNAME" will be replaced with the name of the research project during pseudonymization.
 
 Tags not listed above are untouched by the pseudonymization tool.
 
