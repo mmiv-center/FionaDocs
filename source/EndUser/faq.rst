@@ -487,6 +487,9 @@ Specialized applications
 
 To provide access to the feature of the research PACS we provide web-applications for data submission, project setup and configuration, review and data export. All of these features are accessible on the home page of the Fiona project page at the institution. Based on your role you will need to use only some of these applications.
 
+
+.. _assing-label:
+
 Assign
 ^^^^^^
 
@@ -501,6 +504,8 @@ Assign
 The Assign application is the entry page for project data. The application lists incoming data that is in quarantine and allows the user to select the appropriate project, de-identified participant name and the event name of the imaging study. This is sufficient for a manual assignment of captured data as it is aquired in the hospital setting. For legacy data and external data in large quantities several automated import strategies are available. If data is de-identified outside of the research information system by writing a new patient ID such files are recognized by the edge system using either the send destination (AETitle of the addressed service on the edge FIONA) or by the pattern used in the patient ID. This detection of incoming data is used to detect the destination research project and trigger the de-identification step without another manual identification step. Additionally to such automated data routing the Assign application also provides a mapping table upload that can be used to identify project and event based on the datas accession number.
 
 
+.. _export-label:
+
 Export
 ^^^^^^
 
@@ -513,6 +518,9 @@ Export
    <div style="margin-bottom: 20px;"></div>
 
 As data is already in de-identified format in the research PACS exporting them for the use in external systems is straight forward. The VNA system for example allows users to export individual imaging studies with an embedded image viewer in the same way as clinical systems do. To allow for greater flexibility in data export capabilities the Export web-application allows user to export image data for a project in a variety of file formats. This includes study specific zip files that follow detailed specifications on the embedded directory structures, side-loading description files and the naming of DICOM tags and dates embedded in the data. The Export tool also supports more generic export formats such as NIFTI-format files for volumetric data.
+
+
+.. _noassign-label:
 
 NoAssign
 ^^^^^^^^
@@ -527,6 +535,7 @@ NoAssign
 
 Fiona's NoAssign application can be used to pseudonymize data without adding them to research PACS. Studies need to be forwarded to fiona.ihelse.net but will remain in quarantine there (for up to 7 days). If NoAssign is used during this time period the user may select a study from the list and either "download" the study as a pseudonymized zip file or forward the pseudonymized study to other clinical systems like "CDRobot" or "clinical PACS".
 
+.. _review-label:
 
 Review
 ^^^^^^
@@ -541,6 +550,7 @@ Review
 
 Any automated de-identification requires frequent review to ensure that the process is working as expected. In order to support this work by the research project without requiring technical expertise we provide the Review web-application that lists all remaining tags in the data after the anonymization.
 
+.. _attach-label:
 
 Attach
 ^^^^^^
@@ -554,6 +564,8 @@ Attach
    <div style="margin-bottom: 20px;"></div>
 
 Image data not already in clinical systems can be uploaded in the Attach application. This includes DICOM files from USB/CD/DVD as well as whole-slide images files for pathology. After uploading them using Attach they will appear in the list of examinations on FIONA and can be either forwarded to research PACS using Assign, or exported again using NoAssign.
+
+.. _processing-label:
 
 Processing
 ^^^^^^^^^^
