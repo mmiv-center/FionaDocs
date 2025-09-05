@@ -3,6 +3,14 @@ Developer Documentation
 
 **For:** Developers, system architects
 
+Fiona has been developed in Bergen, Norway on behalf of the Helse Vest regional health authorities as a platform to organize data exchange between the different health regions nationally. Specifically Fiona is supposed to enable the secure and high-quality exchange of medical images between research projects in Norway. Such data exchange is required for multi-center projects and for projects in which data processing is done outside the health region that collected the image data.
+
+For such tasks Fiona is supposed to (i) provide tools that link image data across Fiona instances. (ii) Provide algorithms that can process image data across institutional borders and (iii) verify and ensure that data processing tasks leave data in a state suitable for further data exchange and analysis. 
+
+Fiona is organized as a hierarchical system of applications that access common functionality and data processing services. Each application is build for a specific purpose and allows for access control and tracking of all user initiated actions. Any new application should use existing base services and work together with other applications. Its design should allow us to distribute such applications to any other Fiona instance.
+
+
+
 
 .. toctree::
    :maxdepth: 1
