@@ -9,6 +9,19 @@ For such tasks Fiona is supposed to (i) provide tools that link image data acros
 
 Fiona is organized as a hierarchical system of applications that access common functionality and data processing services. Each application is build for a specific purpose and allows for access control and tracking of all user initiated actions. Any new application should use existing base services and work together with other applications. Its design should allow us to distribute such applications to any other Fiona instance.
 
+Setup a new application
+-----------------------
+
+Start by copying an existing application that provides a similar user interface. Applications use Bootstrap for a consistent user interface design. Update the bootstrap version of your application to the latest version available on getbootstrap.com. Download all libraries as ESM modules or self contained javascript (min.js) files and add them to the applications /js/ directory. This step is required in case a Fiona installation is working without access to the internet. It is also considered useful to prevent external tracking of the use of these libraries.
+
+All backend features on Fiona are exposed as paths that accept JSON for configuration and deliver data as JSON. These functions are written in php and they will check for local permissions of the current user based on session information.
+
+User permissions
+----------------
+
+The permission framework on Fiona uses a role-based authorization with basic authentication. The application **User** provides access to this setup. Create a new set of permissions and a role for your application. Add the permissions to your role and assign the role to a test user.
+
+Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
 
 
