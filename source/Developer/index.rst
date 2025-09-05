@@ -9,6 +9,9 @@ For such tasks Fiona is supposed to (i) provide tools that link image data acros
 
 Fiona is organized as a hierarchical system of applications that access common functionality and data processing services. Each application is build for a specific purpose and allows for access control and tracking of all user initiated actions. Any new application should use existing base services and work together with other applications. Its design should allow us to distribute such applications to any other Fiona instance.
 
+Note: Inform us on any development you are starting. We would like to support such works if possible to enhance Fiona and make it easier for researchers to use the system.
+
+
 Setup a new application
 -----------------------
 
