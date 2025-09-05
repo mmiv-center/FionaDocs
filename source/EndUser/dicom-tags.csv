@@ -43,14 +43,14 @@ fffc,fffc,DataSetTrailingPadding,remove
 0018,1200,DateofLastCalibration,incrementdate
 0018,700c,DateofLastDetectorCalibration,incrementdate
 0018,1012,DateOfSecondaryCapture,incrementdate, CIM*
-0012,0063,DeIdentificationMethod,always,{Per DICOM PS 3.15 AnnexE} CIM*
-0012,0064,DeIdentificationMethodCodeSequence,always,113100/113101/113105/... CIM*
-0012,0062,PatientIdentityRemoved,always,YES CIM*
-0012,0020,Clinical Trial Protocol ID,always,ProjectName CIM*
-0012,0021,Clinical Trial Protocol Name,always,ProjectName CIM*
-0012,0040,Clinical Trial Subject ID,always,PatientID CIM*
-0012,0050,Clinical Trial Time Point ID,always,EventName CIM*
-0012,0051,Clinical Trial Time Point Description,always,EventName CIM*
+0012,0063,DeIdentificationMethod,always,{Per DICOM PS 3.15 AnnexE}; CIM*
+0012,0064,DeIdentificationMethodCodeSequence,always,113100/113101/113105/...; CIM*
+0012,0062,PatientIdentityRemoved,always,YES; CIM*
+0012,0020,Clinical Trial Protocol ID,always,ProjectName; CIM*
+0012,0021,Clinical Trial Protocol Name,always,ProjectName; CIM*
+0012,0040,Clinical Trial Subject ID,always,PatientID; CIM*
+0012,0050,Clinical Trial Time Point ID,always,EventName; CIM*
+0012,0051,Clinical Trial Time Point Description,always,EventName; CIM*
 0008,2111,DerivationDescription,keep
 0018,700a,DetectorID,keep
 0018,1000,DeviceSerialNumber,keep
@@ -83,7 +83,7 @@ fffa,fffa,DigitalSignaturesSeq,remove
 0008,0081,InstitutionAddress,remove
 0008,1040,InstitutionalDepartmentName,remove
 0008,0082,InstitutionCodeSequence,remove
-0008,0080,InstitutionName,always,ProjectName CIM*
+0008,0080,InstitutionName,always,ProjectName; CIM*
 0010,1050,InsurancePlanIdentification,remove
 0040,1011,IntendedRecipientsOfResultsIDSequence,remove
 4008,0111,InterpretationApproverSequence,remove
@@ -132,11 +132,11 @@ fffa,fffa,DigitalSignaturesSeq,remove
 0010,1005,PatientBirthName,remove
 0010,0032,PatientBirthTime,remove
 0010,4000,PatientComments,keep
-0010,0020,PatientID,always,Re-Mapped CIM*
+0010,0020,PatientID,always,Re-Mapped; CIM*
 0038,0400,PatientInstitutionResidence,remove
 0010,0050,PatientInsurancePlanCodeSeq,remove
 0010,1060,PatientMotherBirthName,remove
-0010,0010,PatientName,always,Re-Mapped CIM*
+0010,0010,PatientName,always,Re-Mapped; CIM*
 0010,2154,PatientPhoneNumbers,remove
 0010,0101,PatientPrimaryLanguageCodeSeq,remove
 0010,0102,PatientPrimaryLanguageModifierCodeSeq,remove
