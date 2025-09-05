@@ -36,10 +36,27 @@ print(rst_prolog)
 
 # -- Project information -----------------------------------------------------
 
-project = 'FionaDocs'
+project = 'Fiona Documentation'
 copyright = '2025, Hauke Bartsch'
-author = 'Hauke Bartsch, Marek Kociński'
+#version = 'Haukeland University Hospital'
+#author = '''Haukeland University Hospital \
+#Department of Radiology, \
+#Mohn Medical Imaging and Visualization Centre \
+#Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie'''
 
+institution = "Haukeland University Hospital, Department of Radiology,\n"
+center = "Mohn Medical Imaging and Visualization Centre,\n"
+authors = "0" \
+""
+author = f"{institution}, {center} {authors}"
+
+#author = ('Haukeland University Hospital, Department of Radiology,\n'
+#          'Mohn Medical Imaging and Visualization Centre\n'
+#          'Autor 1, Autor 2, Autor 3')
+
+#author = '''Haukeland University Hospital, Department of Radiology,  
+#Mohn Medical Imaging and Visualization Centre  
+#Autor 1, Autor 2, Autor 3'''
 
 # -- General configuration ---------------------------------------------------
 
@@ -71,6 +88,28 @@ mermaid_init_js = """
     }
 }
 """
+
+# Front page
+latex_elements = {
+   'maketitle': r'''
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+
+{\fontsize{36}{40}\selectfont\bfseries Fiona Documentation}\\[2.5cm]
+
+{\fontsize{20}{24}\selectfont\bfseries Haukeland University Hospital}\\[1.5cm]
+{\fontsize{16}{20}\selectfont\bfseries Department of Radiology}\\[0.3cm] 
+{\fontsize{16}{20}\selectfont\bfseries Mohn Medical Imaging and Visualization Centre}\\[2cm]
+
+{\large Hauke Bartsch \quad $\bullet$ \quad Marek Koci\'nski \quad $\bullet$ \quad Line Nigardsøy Lie}\\[3cm]
+
+\vfill
+{\large \today}
+\end{titlepage}
+''',
+}
+
 # -----------------------------------------------------------------------------
 
 # List of patterns, relative to source directory, that match files and
