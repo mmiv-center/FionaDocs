@@ -6,12 +6,27 @@ Fiona Admin
 
 **For:** Fiona admin
 
-System administration is act if
+Fiona administration will need to perform the following tasks
 
-  - creation of a new project
+  - create of a new project
   - provide access to existing project to new user
   - fix pseudonymization errors on request from users
   - archive finished projects
+
+Create a new project space
+--------------------------
+
+A new project is created in the `DataTransferProjects` table (REDCap). The information in that form indicate how images are changed from clinical space into (pseudonymized) research space. For example incoming DICOM data can contains measurements (presentation state objects) and screenshots (secondary capture images). Some project would want to have such data removed and only transfer 'raw data'. The DataTransferProjects record will indicate these choices for each individual project. Fiona reads that information from DataTransferProjects when new images arrive.
+
+Additionally to the record in DataTransferProjects a new project also receives a dedicated REDCap project with the same name as the record identifier in DataTransferProjects. This project is used to `design` the study layout. For example how many visits will be moved for each participant in the study. These REDCap "events" are read by Fiona and used to populate the "Assign" page (list of named visits).
+
+Note: If the REDCap project is used by the researchers for collecting additional data some events might be non-imaging. Those events can be marked in the REDCap project and will not appear on the Fiona interface.
+
+Create a new API key for your admin user to access the project. Store that access key in the DataTransferProjects record for the project together with the project number.
+
+Create the project space on PACS. This depends on the PACS but it should code for project identity in the image data using the "InstitutionName" DICOM tag as the project name. Users with a project role should be able to see such DICOM files.
+
+Enable the project by setting the DataTransferProjects table entry for "Active Project" to allow it to show up on Fiona.
 
 
 IT Admin
