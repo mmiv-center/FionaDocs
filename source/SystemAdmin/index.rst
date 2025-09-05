@@ -58,6 +58,11 @@ Such archiving should be done in communication with the researcher. They can req
 
 An issue that requires further work is how to finally remove the project data from PACS to free up space. Different from clinical data which is stored for longer periods the research data can be archived on external systems (like Sigma2). Access to the PACS system is required to delete data on bulk.
 
+Specialty projects
+------------------
+
+Fiona supports pathology image pipelines as well as DICOM based image distribution.
+
 
 IT Admin
 ==========
