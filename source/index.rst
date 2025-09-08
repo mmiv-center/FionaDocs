@@ -2,14 +2,27 @@
 FIONA Documetation
 ===================
 
+|
+
 .. raw:: html
+   
+   <div style="text-align: center;">
+      <h2 style="margin-bottom:25px;">Haukeland University Hospital</h2>
+      <h3 style="margin-bottom:5px;">Department of Radiology</h3>
+      <h4 style="margin-bottom:40px;">Mohn Medical Imaging and Visualization Centre</h4>
+      <p>Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie</p>
+   </div>
 
-  <h2 style="margin-bottom:5px;">Haukeland University Hospital</h2>
-  <h3 style="margin-bottom:5px;">Department of Radiology</h3>
-  <h4 style="margin-bottom:10px;">Mohn Medical Imaging and Visualization Centre</h4>
-  <p>Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie</p>
+|
+|
 
+.. image:: _static/leaf10.png
+   :width: 400px
+   :align: center
+   :alt: Opis obrazka
 
+|
+|
 
 **Research Information System**
 

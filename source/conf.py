@@ -15,11 +15,13 @@ import sys
 
 #from anyio import getnameinfo
 # sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('Architecture/python'))
-sys.path.insert(0, os.path.abspath('Architecture'))
+#sys.path.insert(0, os.path.abspath('Architecture/python'))
+#sys.path.insert(0, os.path.abspath('Architecture'))
 sys.path.insert(0, os.path.abspath('.'))
 
 # -- Our helpers --------------------------------------------------------------
+# Functions in config_loader.py module to load config/links.json file
+
 
 # Import log_files
 from helpers import load_config, generate_substitutions
@@ -29,44 +31,42 @@ config = load_config()
 rst_prolog = generate_substitutions(config)
 
 #print("*******************")
-print(rst_prolog)
+# print(rst_prolog)
 #print("*******************")
 
 
 
-# -- Project information -----------------------------------------------------
+# -- Project information for HTML ------------------------------------------
 
 project = 'Fiona Documentation'
 copyright = '2025, Hauke Bartsch'
-#version = 'Haukeland University Hospital'
-#author = '''Haukeland University Hospital \
-#Department of Radiology, \
-#Mohn Medical Imaging and Visualization Centre \
-#Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie'''
+version = '0.1'
 
-institution = "Haukeland University Hospital, Department of Radiology,\n"
-center = "Mohn Medical Imaging and Visualization Centre,\n"
-authors = "0" \
-""
-author = f"{institution}, {center} {authors}"
 
-#author = ('Haukeland University Hospital, Department of Radiology,\n'
-#          'Mohn Medical Imaging and Visualization Centre\n'
-#          'Autor 1, Autor 2, Autor 3')
+#institution = "Haukeland University Hospital, Department of Radiology,\n"
+#center = "Mohn Medical Imaging and Visualization Centre,\n"
+#authors = "Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie"
+#author = f"{institution}, {center} {authors} blablabla"
 
-#author = '''Haukeland University Hospital, Department of Radiology,  
-#Mohn Medical Imaging and Visualization Centre  
-#Autor 1, Autor 2, Autor 3'''
+
+
+
 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+
+# Allows to enbeded Mermaid graphs into the documentation
 extensions = ['sphinxcontrib.mermaid']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+
+
+
 
 # ----------- 2025.07.28 - mk --- add latex setup ----------------------------
 # Mermaid configuration
@@ -89,26 +89,19 @@ mermaid_init_js = """
 }
 """
 
-# Front page
+# LaTeX front page, load from a tex file
+with open('titlepage.tex', 'r', encoding='utf-8') as f:
+    titlepage_content = f.read()
+
 latex_elements = {
-   'maketitle': r'''
-\begin{titlepage}
-\centering
-\vspace*{2cm}
-
-{\fontsize{36}{40}\selectfont\bfseries Fiona Documentation}\\[2.5cm]
-
-{\fontsize{20}{24}\selectfont\bfseries Haukeland University Hospital}\\[1.5cm]
-{\fontsize{16}{20}\selectfont\bfseries Department of Radiology}\\[0.3cm] 
-{\fontsize{16}{20}\selectfont\bfseries Mohn Medical Imaging and Visualization Centre}\\[2cm]
-
-{\large Hauke Bartsch \quad $\bullet$ \quad Marek Koci\'nski \quad $\bullet$ \quad Line Nigardsøy Lie}\\[3cm]
-
-\vfill
-{\large \today}
-\end{titlepage}
-''',
+   'preamble': r'''
+        \usepackage{graphicx}
+        ''',
+    'maketitle': titlepage_content,
 }
+
+# Files that must be copied manually or semimanually
+latex_additional_files = ['_static/leaf10.png']
 
 # -----------------------------------------------------------------------------
 
@@ -116,6 +109,8 @@ latex_elements = {
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
+
+
 
 # -- Autodoc configuration (by mk) ------------------------------------------
 autodoc_default_options = {
@@ -129,6 +124,7 @@ autodoc_default_options = {
 
 # Temporary Ignore file compilaton due to import errors
 autodoc_mock_imports = []
+
 
 
 # -- Options for HTML output -------------------------------------------------
