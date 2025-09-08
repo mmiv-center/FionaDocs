@@ -219,7 +219,7 @@ To provide access to the feature of the research PACS we provide web-application
 Assign
 ^^^^^^
 
-.. figure:: ../_static/assign.jpeg
+.. figure:: ../_static/assign.png
    :align: center
    :scale: 50%
 
@@ -234,7 +234,7 @@ The Assign application is the entry page for project data. The application lists
 Export
 ^^^^^^
 
-.. figure:: ../_static/export.jpeg
+.. figure:: ../_static/export.png
    :align: center
    :scale: 50%
 
@@ -249,7 +249,7 @@ As data is already in de-identified format in the research PACS exporting them f
 NoAssign
 ^^^^^^^^
 
-.. figure:: ../_static/noassign.jpeg
+.. figure:: ../_static/noassign.png
    :align: center
    :scale: 50%
 
@@ -263,7 +263,7 @@ Fiona's NoAssign application can be used to pseudonymize data without adding the
 Review
 ^^^^^^
 
-.. figure:: ../_static/review-dicom.jpeg
+.. figure:: ../_static/review-meta-data.png
    :align: center
    :scale: 50%
 
@@ -277,7 +277,7 @@ Any automated de-identification requires frequent review to ensure that the proc
 Attach
 ^^^^^^
 
-.. figure:: ../_static/attach.jpeg
+.. figure:: ../_static/attach.png
    :align: center
    :scale: 50%
 
