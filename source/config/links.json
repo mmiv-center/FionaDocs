@@ -13,6 +13,14 @@
       "url": "https://mmiv.no", 
       "name": "Mohn Medical Imaging and Visualization Centre"
     },
+     "radiology-department": {
+      "url": "https://www.helse-bergen.no/en/departments/radiologisk-avdeling", 
+      "name": "Radiology Department"
+    },
+     "helse-vest-region": {
+      "url": "https://www.helse-vest.no", 
+      "name": "Helse Vest RHF"
+    },
     "ikt-helse-vest": {
       "url": "https://www.helse-vest-ikt.no", 
       "name": "Helse Vest IKT"

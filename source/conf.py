@@ -13,10 +13,6 @@
 import os
 import sys
 
-#from anyio import getnameinfo
-# sys.path.insert(0, os.path.abspath('.'))
-#sys.path.insert(0, os.path.abspath('Architecture/python'))
-#sys.path.insert(0, os.path.abspath('Architecture'))
 sys.path.insert(0, os.path.abspath('.'))
 
 # -- Our helpers --------------------------------------------------------------
@@ -63,7 +59,6 @@ extensions = ['sphinxcontrib.mermaid']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
 
 
 
