@@ -16,10 +16,12 @@ FIONA Documetation
 |
 |
 
-.. image:: _static/leaf10.png
-   :width: 400px
-   :align: center
-   :alt: Opis obrazka
+.. only:: html
+
+   .. image:: _static/leaf10.png
+      :width: 400px
+      :align: center
+      :alt: Opis obrazka
 
 |
 |
