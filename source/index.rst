@@ -1,6 +1,6 @@
-===================
+####################
 FIONA Documentation
-===================
+####################
 
 |
 
@@ -27,6 +27,7 @@ FIONA Documentation
 |
 
 .. _ris:
+
 
 **Research Information System**
 
@@ -56,7 +57,7 @@ Key features of the RIS include:
    :maxdepth: 3
    :hidden:
    
-   EndUser/index
+   EndUser/end-user-index
 
 
 
@@ -67,7 +68,7 @@ Key features of the RIS include:
    :maxdepth: 3
    :hidden:
 
-   SystemAdmin/index
+   SystemAdmin/system-admin-index
   
 
 
@@ -79,7 +80,7 @@ Key features of the RIS include:
    :maxdepth: 3
    :hidden:
    
-   Developer/index
+   Developer/developer-index
    
 
    
