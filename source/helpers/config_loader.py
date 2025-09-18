@@ -62,7 +62,7 @@ def generate_substitutions(config):
             url = data.get('url', '')
             name = data.get('name', url)
             substitutions.append(f".. |{key}_url| replace:: \\{url}")
-            substitutions.append(f".. |{key}_name| replace:: **{name}**")
+            substitutions.append(f".. |{key}_name| replace:: {name}")
         else:
             # Structure only with url
             substitutions.append(f".. |{key}_url| replace:: \\{data}")
