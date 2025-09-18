@@ -73,13 +73,21 @@ The basic steps to submit data are:
 In step 1 data arrives in a **quarantine** location. In step 2 each DICOM study needs to be **assigned to project**, pseudonymized participant identifier and event name before it will be forwarded to the research PACS and becomes visible to the project users.
 
 
-.. figure:: ../_static/fiona-assign-view.png   
-   :align: center
+.. container:: responsive-images
 
-.. raw:: html
+   .. container:: image-item
 
-   <div style="margin-bottom: 30px;"></div>
+      .. figure:: ../_static/assign-1.jpeg
+         :width: 100%
+         
+         :ref:`assign` web application (upper view). Data in queue to be assigned to a project, after sending them to Fiona. 
 
+   .. container:: image-item
+
+      .. figure:: ../_static/assign-2.jpeg
+         :width: 100%
+         
+         :ref:`assign` Web application (lower interface). Transfer history panel showing current uploads and recently completed data transfers.
 
 
 Setup of a new project
@@ -349,14 +357,6 @@ This process will be documented in the REDCap project tracking project “DataTr
 
 
 
-#############################################################
-
-
-
-.. include:: faq.rst
-
-
-
 
 Frequently asked questions
 ==============================
@@ -459,7 +459,7 @@ Is there a list of DICOM tags changed during import?
 Yes, a list of about 270 tags inspected during import is available as part of the source code of the anonymization tool |github-dicomanonymizer_link| (|github-dicomanonymizer_url|). Tags listed with "remove" are deleted, tags listed with "keep" are kept etc.. The following list has been extracted from the anonymizer 2025-09-05.
 
 .. csv-table:: The list of DICOM tags changed during import
-   :file: dicom-tags.csv
+   :file: sorted-dicom-tags.csv
    :header-rows: 1
    
 
