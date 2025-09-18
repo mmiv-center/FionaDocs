@@ -6,11 +6,10 @@ Apply for a new project
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to apply for a new project on the research information system (research PACS)
-please fill out the application form available under “**Apply for a new research project**”
-here: |fiona_url|.
+please fill out the application form available under “**Apply for a new research project**”.
 
 Additional user access can be requested by the principal investigator of the project under
-|fiona-apply_name| (|fiona-apply_url|) “**Apply for access to an existing project**”.
+|fiona-apply_name|“**Apply for access to an existing project**”.
 
 If you encounter any problems with applying for access, contact |admin_url|.
 

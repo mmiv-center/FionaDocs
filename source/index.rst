@@ -1,5 +1,5 @@
 ===================
-FIONA Documetation
+FIONA Documentation
 ===================
 
 |
@@ -32,7 +32,7 @@ FIONA Documetation
 
 
 
-The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the "Fiona Project" is a secure computer system that stores
+The research information system (RIS) of the Western Norway Health Authorities (Helse-Vest) also called the **Fiona Project** is a secure computer system that stores
 research data for approved research projects at Haukeland University Hospital |hus_link| and connected hospitals of the |helse-vest-region_link|. The project is supported by the 
 |radiology-department_link| of Haukeland University Hospital and the |mmiv_link| and approved for research project use by |ikt-helse-vest_link|. The physical location of the data is at the premises of IKT Helse Vest Norway. A dedicated storage area and research software (Sectra, IDS7) provides researchers with appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project and not part of the functionality of the RIS.
 
@@ -46,25 +46,25 @@ Key features of the RIS include:
 - All data is assigned to one or more specific research projects and the visibility of data is restricted to individuals with project role access rights.
 - Projects require a valid REK approval, such documentation has to be provided at the start of a project by the project owner.
 - The project owner can identify additional user accounts that can access the data.
-- User access to the research PACS is controlled by IKT and requires a valid Haukeland University Hospital user account.
+- User access to the research PACS is controlled by IKT and requires a valid (Haukeland) University Hospital user account.
 
 
 .. End User Documentation
 .. -----------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
    
    EndUser/index
 
 
 
-.. Server Admin
+.. System Admin
 .. ------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
 
    SystemAdmin/index
@@ -76,7 +76,7 @@ Key features of the RIS include:
 .. -------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
    
    Developer/index
@@ -86,6 +86,6 @@ Key features of the RIS include:
 Contact Information
 *********************
 
-* Website: |fiona-bergen_url|
-* Location: Haukeland University Hospital, Bergen, Norway
+* Hauke Bartsch 
+* Helse Bergen HF Haukeland universitetssjukehus, Radiologisk avdeling, Postboks 1400, 5021 Bergen
 

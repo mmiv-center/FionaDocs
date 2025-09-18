@@ -1,5 +1,6 @@
+#########################
 Developer Documentation
-*************************
+#########################
 
 **For:** Developers, system architects
 
@@ -11,24 +12,24 @@ Fiona is organized as a hierarchical system of applications that access common f
 
 Note: Inform us on any development you are starting. We would like to support such works if possible to enhance Fiona and make it easier for researchers to use the system.
 
-
+************************
 Setup a new application
------------------------
+************************
 
 Start by copying an existing application that provides a similar user interface. Applications use Bootstrap for a consistent user interface design. Update the bootstrap version of your application to the latest version available on getbootstrap.com. Download all libraries as ESM modules or self contained javascript (min.js) files and add them to the applications /js/ directory. This step is required in case a Fiona installation is working without access to the internet. It is also considered useful to prevent external tracking of the use of these libraries.
 
 All backend features on Fiona are exposed as paths that accept JSON for configuration and deliver data as JSON. These functions are written in php and they will check for local permissions of the current user based on session information.
 
 User permissions
-----------------
+=================
 
 The permission framework on Fiona uses a role-based authorization with basic authentication. The application **User** provides access to this setup. Create a new set of permissions and a role for your application. Add the permissions to your role and assign the role to a test user.
 
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
-
+***********
 Components
-=============
+***********
 
 #. :doc:`scripts/anonymizeAndSend` - Processes imaging studies, performs anonymization, and sends them to research PACS
 #. :doc:`scripts/clearExports` - Removes old export files when storage reaches capacity thresholds
@@ -55,8 +56,10 @@ Components
 #. :doc:`scripts/whatIsInIDS7`- Catalogs all studies present in the research imaging database
 #. :doc:`scripts/whatIsNotInIDS7`- Identifies and removes database entries for studies no longer in PACS
 
+
+***************************
 Folder and File structure
-===========================
+***************************
 
 .. only:: html
 

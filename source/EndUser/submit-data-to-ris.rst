@@ -34,11 +34,11 @@ The end-point for images is |fiona_name| (|fiona_url|):
 - |fiona-local-ip_name|
 - Port: 11112
 
-Images that arrive at this endpoint are added to a quarantine system (FIONA, |fiona-redcap_url|) running the REDCap software. Automatic routing rules (stored in REDCap) are used to anonymize and forward the data to the image storage. If such routing has not been set up, the “Assign” application (see below) needs to be used to forward individual studies based on pre-existing patient ID lists.
+Images that arrive at this endpoint are added to a quarantine system (Fiona, |fiona-redcap_url|) running the REDCap software. Automatic routing rules (stored in REDCap) are used to anonymize and forward the data to the image storage. If such routing has not been set up, the “Assign” application (see below) needs to be used to forward individual studies based on pre-existing patient ID lists.
 
-From Sectra Production you can send image data to the endpoint “HBE Fiona”. Modality stations might also have the “FIONA” endpoint setup. If the data is already anonymized and has a de-identified PatientName/PatientID entry that indicates the project the FIONA system will attempt to de-identify (pseudonymization) further DICOM tags and forward the images to IDS7 (may take minutes). No further action is needed. If you suspect this did not work, see the corresponding section about the representation of transfers in REDCap.
+From Sectra Production you can send image data to the endpoint “HBE Fiona”. Modality stations might also have the “Fiona” endpoint setup. If the data is already anonymized and has a de-identified PatientName/PatientID entry that indicates the project the Fiona system will attempt to de-identify (pseudonymization) further DICOM tags and forward the images to IDS7 (may take minutes). No further action is needed. If you suspect this did not work, see the corresponding section about the representation of transfers in REDCap.
 
-Image data that contains patient information cannot be automatically assigned to the appropriate project as there is only a single endpoint for FIONA shared by all projects. To assign participants correctly to projects and de-identified participant identifiers a user can perform the assignment to project, participant ID and event name in the “Assign” web application.
+Image data that contains patient information cannot be automatically assigned to the appropriate project as there is only a single endpoint for Fiona shared by all projects. To assign participants correctly to projects and de-identified participant identifiers a user can perform the assignment to project, participant ID and event name in the “Assign” web application.
 
 If the participant identifiers do not exist yet user may add new project specific identifiers in “Assign”. Such identifiers need to follow the naming rules for a project and are verified using regular expression pattern specific for each project.
 
@@ -56,11 +56,11 @@ couple of days (7 days) such data will disappear from the list. Send an email to
 
 **Verification steps**
 
-After data arrived at the research PACS a verification step should ensure that all images have been received at the quarantine on FIONA and have been forwarded to research PACS. This can be done by comparing the number of images on the sending station with the number of images in IDS7.
+After data arrived at the research PACS a verification step should ensure that all images have been received at the quarantine on Fiona and have been forwarded to research PACS. This can be done by comparing the number of images on the sending station with the number of images in IDS7.
 
 Furthermore the import step will also attempt to de-identify secondary capture images with burned in image information. This process is fully automated and can result in false positive and occasionally false negative results. After a review of the data in IDS7 the user may decide which secondary image series are “safe” to exclude from the pixel rewriting on import. For example a secondary capture series from DTI may not contain any burned in names or identifying numbers or dates. Such image series can be removed in REDCap from further pixel anonymization.
 
-If the number of images on FIONA does not correspond to the number of images available cache previous assignments and automatically forward such images to the research PACS using the previously defined project, patient identifier and event name.
+If the number of images on Fiona does not correspond to the number of images available cache previous assignments and automatically forward such images to the research PACS using the previously defined project, patient identifier and event name.
 
 
 **Features for data migration**
@@ -68,13 +68,13 @@ If the number of images on FIONA does not correspond to the number of images ava
 The |fiona-assign_name| web-application allows users to upload a coupling list that maps the accession
 number (Undersøkelse-ID) of the study to the pseudonymized participant identifier. Such
 mappings must be uploaded before the first image study of the project has been forwarded
-to FIONA. Incoming DICOM studies in FIONA that match entries in the coupling list will
+to Fiona. Incoming DICOM studies in Fiona that match entries in the coupling list will
 automatically be assigned to the project.
 
 **How to handle errors?**
 
 Correcting errors during data import are not difficult to fix. Try to follow up on such errors
-on an ongoing basis. The quarantine FIONA station may have still have a copy of the data in
+on an ongoing basis. The quarantine Fiona station may have still have a copy of the data in
 its cache which simplifies the process. Contact |admin_name| in such cases and ask for help. This will allow you to fix issues such as:
 
 • Wrong assignment of participant identifiers to DICOM studies
