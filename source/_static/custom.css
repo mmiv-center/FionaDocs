@@ -41,3 +41,28 @@
 }
 
 
+
+/* Display two images in one row (two columns) on desktop and two rows (one column) on mobile*/
+.responsive-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start; /* Wyrównuje obrazki do góry */
+}
+
+.image-item {
+    width: 100%;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* Media query dla telefonów */
+@media screen and (max-width: 768px) {
+    .responsive-images {
+        grid-template-columns: 1fr; /* Jeden obrazek na wiersz */
+        gap: 15px;
+    }
+}
