@@ -197,9 +197,9 @@ The research information system supports a separate export facility that is more
 Request access to the specialized data exports for your project from |admin_name|. Provide your export specification and we will implement your anonymization scheme and make it available to you and other researchers. As an example the :ref:`export` application currently supports the export in NIfTI formats (using dcm2niix) and the export in several zip-file formats.
 
 
-
+******************
 End-user contract
-==================
+******************
 
 .. attention::
 
@@ -210,7 +210,7 @@ By creating a project on the research information system you agree to the follow
 
 1. All data stored in the RIS belongs to the research project owner represented by the PI of the project. Adding and verifying added data to the RIS is the responsibility of the project owner. The RIS team will help research projects to automate this process.
 
-2. Sensitive participant information needs to be stored under a separate account and needs to be accessible to authorized (data-manager and above) user accounts only. All other research data is stored as de-identified data (pseudonymized, with external coupling list) or in an anonymized format. This restriction includes sensitive information such as Norwegian identification numbers, real names or parts of real names, other birth certificate information and initials. It is the responsibility of the project to review the result of the de-identification procedures implemented by the RIS team on image meta-data using |fiona-review-dicom-tags_url| and the result of the detection and removal of burned in image data (IDS7). The project will inform the RIS team in a timely manner if the pseudonymization procedure of the RIS team needs to be updated. This restriction is in place to allow for the largest possible user base for the RIS including PhD students and external collaborators.
+2. Sensitive participant information needs to be stored under a separate account and needs to be accessible to authorized (data-manager and above) user accounts only. All other research data is stored as de-identified data (pseudonymized, with external coupling list) or in an anonymized format. This restriction includes sensitive information such as Norwegian identification numbers, real names or parts of real names, other birth certificate information and initials. It is the responsibility of the project to review the result of the de-identification procedures implemented by the RIS team on image meta-data using :ref:`review` application and the result of the detection and removal of burned in image data (IDS7). The project will inform the RIS team in a timely manner if the pseudonymization procedure of the RIS team needs to be updated. This restriction is in place to allow for the largest possible user base for the RIS including PhD students and external collaborators.
 
 3. All research data is stored as part of RIS projects identified by a project name  of 5-20 characters. Users can gain access to the data upon request from the project PI or an appointed representative of the PI. 
 
@@ -223,24 +223,25 @@ data will change to archive state, a copy is provided to the projects PI and the
 
 
 
-
+************************
 Sensitive Data Projects
-=========================
+************************
 
 
 Separation of Sensitive Information and Data
----------------------------------------------
+==============================================
 
 A sensitive data project is one that is used to capture human subject data and in general will require  REK (regional ethics board approval). In order to setup such a project in REDCap we suggest the follow structure and features of REDCap to be used. These recommendations have been generated based
 on discussions in relevant risk assessments.
 
 
-All sensitive data should be stored in a separate REDCap “ID” project including Norwegian Identification Numbers, names or parts of names, addresses and full birth dates (see Figure 1). This project should have its own roles of “Data Manager”, “Data Entry”, and “Controller”. People with permission to access and/or edit this information can use this database to keep contact information up-to-date and to enroll new participants into the study. Each participant should be assigned a pseudonymized ID in the sensitive data project that links the entry to the corresponding participant in the data project. Examples for this ID are:
+All sensitive data should be stored in a separate REDCap “ID” project including Norwegian Identification Numbers, names or parts of names, addresses and full birth dates (see :ref:`REDCap: sensitive data project<fig-redcap-sensitive-data>`). This project should have its own roles of “Data Manager”, “Data Entry”, and “Controller”. People with permission to access and/or edit this information can use this database to keep contact information up-to-date and to enroll new participants into the study. Each participant should be assigned a pseudonymized ID in the sensitive data project that links the entry to the corresponding participant in the data project. Examples for this ID are:
 
 - <project name>-<site number>-0001,
 - <project name>-<site number>-0002,
 - etc..
 
+.. _fig-redcap-sensitive-data:
 
 .. figure:: ../_static/redcap-sensitive-data.png   
    :align: center
@@ -251,30 +252,30 @@ All other data should be stored in a separate REDCap “Data” project using th
 
 
 User rights management
------------------------
+========================
 
-When a project leader / principal investigator (PI) is given a REDCap account and project, they are given “project owner” roles. The project owner can then provide access to project members in “roles”. A role defines a given set of custom permissions which defines the user’s access to data, export permissions and ability to make changes to data.
+When a project leader/principal investigator (PI) is given a REDCap account and project, they are given “project owner” roles. The project owner can then provide access to project members in “roles”. A role defines a given set of custom permissions which defines the user’s access to data, export permissions and ability to make changes to data.
 
 Each project can have predefined roles. We recommend the predefined roles:
 
-- “Data Manager” (ability to change study design, export),
-- “Data Entry” (add, change, or delete data),
-- “Controller” to define roles for data viewing, editing, and deleting records.
+- "Data Manager" (ability to change study design, export),
+- "Data Entry" (add, change, or delete data),
+- "Controller" to define roles for data viewing, editing, and deleting records.
 
-In more complex cases, different access settings can be given on different forms in the study (see also API access with REDCap). Individual users are assigned to project roles as part of gaining access to one project.
+In more complex cases, different access settings can be given on different forms in the study. Individual users are assigned to project roles as part of gaining access to one project.
 
 The user rights management is the responsibility of the project owner and/or the users they add to the project with User Rights access. User roles should be set at the lowest access level that is necessary (e.g., export rights only for users who need this permission). Access to the project should be reviewed regularly and personnel who no longer require access need to be removed from the project.
 
 
 
 User rights – multi-center projects
-------------------------------------
+====================================
 
 In a project where several institutions participate with their own project participants (several hospitals etc.) each group of participants should be assigned to a separate “data access group”. This functionality allows records in a study to be part of the user rights management. A user with access to a single data access group can only see participants that belong to this group. If this user creates a new participant, they will be automatically assigned to the group.
 
 
 How to handle Email Addresses in Data Projects
------------------------------------------------
+=================================================
 
 Email addresses are special identifying fields that can be stored in data projects for the purpose of creating automated invites for participants to fill out forms from home. In projects that use this feature email fields need to be present in the data project in order to allow for email distribution to participants.
 
@@ -285,7 +286,7 @@ Email addresses are special identifying fields that can be stored in data projec
 
 
 Randomization
-^^^^^^^^^^^^^^^
+---------------
 
 Randomized studies have can remove biases caused by selection of participants for specific arms in a study. Such biases can prevent a fair assessment of a treatment option. The randomization feature of REDCap allows users to upload a randomization table that has been externally created before the start of the study – usually by the statistician of the project. After participants are enrolled into the study the randomization entries for that person are “opened” and the choice of the randomization is stored in the project.
 
@@ -297,7 +298,7 @@ Randomized studies have can remove biases caused by selection of participants fo
 
 
 e-Consent
-^^^^^^^^^^
+-----------
 
 In an e-Consent workflow the basics of the paper informed consent are maintained. An electronic consent document is created based on the approved language and design of the paper consent using HTML features in REDCap. The solution supports signature fields (stored as images) and creates resulting PDF (paper) versions of the consent as well as electronic versions of the consent. The following figures show some of the setup and resulting documentation that is created in the solution.
 
@@ -325,7 +326,7 @@ As informed consent document contain the name of the signatory and the one count
 
 
 Automatic data exports from REDCap
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 Data may be exported from REDCap using the REDCap API, a technical interface to automate the export of project and participant information using scripting. To provide such access a dedicated user-account "api_<real username>" should be created which is specific for a single project. Configure the account with a limited set of read permissions to specific fields or instruments using a new API role. The REDCap API will borrow these restrictive permissions for controlled access.
 
@@ -336,7 +337,7 @@ Any change in the role of the <real username> should also apply to the connected
 
 
 Steps at the end of a REDCap project
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------
 
 REDCap is a tool for data collection. At the end of data capture projects using REDCap receive a notification of study end. At this point projects may provide updated REK information (extension of data capture notice). If no such notice is received REDCap projects will:
 
@@ -357,13 +358,13 @@ This process will be documented in the REDCap project tracking project “DataTr
 
 
 
-
+****************************
 Frequently asked questions
-==============================
+****************************
 
 
 How do I start using the system?
------------------------------------
+=================================
 
 Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**.
 
@@ -371,12 +372,12 @@ Creating a project for your data is of course the first step. One the frontpage 
 
 
 Where does the data come from?
---------------------------------
+===============================
 
 Both clinical and research systems are provided as services inside the hospital system. Whereas the clinical system supports the day-to-day workflows for patient care its sister system for research provides data services on a research cohort level. For imaging data both systems receive data directly from clinical scanners and enrollment into research projects is used by the scanner operators to decide if data is send to both systems or to the research PACS only. Imaging data may also be imported from external media. Non-imaging data is captured in the research system using electronic data capture (EDC) in REDCap. Both the imaging system and the EDC secure access on the project level, provide anonymization procedures and access to the data using role based accounts. They support automated workflows for data analysis and data processing as well as data exchange with third parties.
 
 Best practices for project setup
----------------------------------
+=================================
 
 These are not rules, they are more like guidelines. They do may make the difference between an ok project and a project that is nice to work with (see FAIR data use).
 
@@ -395,33 +396,33 @@ Adjust instruments that you find useful in your study. Remove any instrument tha
 
 
 Can data be deleted?
----------------------
+=====================
 
 You will not have permission to delete data yourself - but you can request data to be deleted from the system. Send an email to Hauke with the project name and detailed information of which participant, event, study, and series should be removed. With the same workflow you may request replacement of participants for which the wrong image series where submitted.
 
 Can I use the research information system without an ethical approval (REK number)?
----------------------------------------------------------------------------------------
+====================================================================================
 
 We do accept projects without REK that are for operational support like scan quality control projects. As always, the project owner is responsible to ensure that such a project follows all institutional guidelines. Operational support projects need to agree to the same pseudonymization procedures as other projects.
 
 How to handle participant data after removal of participant consent?
-------------------------------------------------------------------------
+======================================================================
 
 Participants can retract their consent to be part of a running research study at any time. One option for such data is to request a removal of the image data (send email to rDMA team/Hauke). If the data was already part of published research you as the researcher might also have an obligation to store the data in case your findings need to be verified at some point in the future. Not using data in future research and allowing for a later verification of already performed research can be difficult to implement. We suggest in this case that you use one of two approaches. i) Export the raw data that is part of your paper and store an offline copy together with your analysis scripts for any future questions that you might have to respond to. Request data where consent has been retracted to be deleted from the research PACS. All remaining data in the research PACS is therefore ok to include in the next paper. Or, ii) you can use the worklist functionality of IDS7 to create a new worklist ("Ny statisk arbeitsliste") of subsets of participants. We suggest in this case that you work with three worklists, one to track participants that have removed their content - such data remains on the system but such participant data should not be used for future studies. One worklist per publication that contains references to the imaging studies that have been used. And one master worklist with participants that are ok to use in future papers by your project.
 
 What happens at the end of the project?
-----------------------------------------
+=========================================
 
 The end date of a project is specified in the REK approval. We are using this information to inform you between 3 and 6 month before the end of the project. At this point you can request an extension of the project from REK. If such an extension has not be obtained the project data remains on the research PACS but access to the project will be removed by removal of the project role. The data will no longer be visible to you.
 
 Can we send out emails to people at home?
-------------------------------------------
+==========================================
 
 Yes, if your project is on "REDCap on Azure" people can answer to the links they receive by email. This is not possible on our internal (Fiona) REDCap. There are some limitations to this functionality on our REDCap on Azure system. Emails are routed through a Microsoft Exchange custom domain which limits outgoing emails from one system to at most 500 emails per minute and 2,000 emails per hour. That limit is shared for all projects on REDCap on Azure. To not interfere with other projects we suggest to use a lower limit of 1,000 emails per day. Contact us if you need to send out more emails per day.
 You can help us to increase the number of emails that can go out at once by checking your list of email addresses. Make sure they are all valid. This can help us to improve the reputation of our custom domain which can lead to higher hourly and daily limits.
 
 How to integrate with external vendors?
------------------------------------------
+========================================
 
 An external vendor might be a company that performs image analysis for you. This can be done in two basic ways - sending images to the cloud (difficult because of loss of control over data) and installing the vendor software inhouse (much easier). The process to integrate such an external vendor into the research information system includes a number of steps. Namely:
  - Check against existing systems
@@ -434,27 +435,27 @@ An external vendor might be a company that performs image analysis for you. This
 Whereas some of these steps are mandatory most are dependent on the type of integration and prior work. A working integration will allow you as a researcher to control the sending of images from the research PACS to the vendor software. The software will perform its task and any resulting images will appear back in your project in the research PACS.
 
 How anonymous is the data in the research information system?
------------------------------------------------------------------
+================================================================
 
 As copies of the image data may exist in clinical systems, research image data is considered at least indirectly identifiable personal data. Data exported from the research PACS may retain that property and should be stored on secure systems. According to GDPR this may make it necessary to carry out a Data protection impact assessment (DPIA) prior to processing.
 
 How anonymous is the data in the research information system?
---------------------------------------------------------------
+==============================================================
 
 As copies of the image data may exist in clinical systems, research image data is considered at least indirectly identifiable personal data. Data exported from the research PACS may retain that property and should be stored on secure systems. According to GDPR this may make it necessary to carry out a Data protection impact assessment (DPIA) prior to processing.
 
 Do you change the data in any way?
-------------------------------------
+====================================
 
 Yes. With input from the project we attempt to anonymize all data forwarded into the project space. This includes changes to the meta-data section and changes to burned in image information of some of the incoming data (secondary captures). These data processing steps are implemented to ensure an anonymization of the data with respect to the Fiona system and a pseudonymization of the data towards the project as they may retain a coupling list.
 
 Why are all the study dates wrong?
--------------------------------------
+====================================
 
 The study date is one of the easiest to obtain information in order to link imaging studies between the clinical and the research PACS. This re-identification of participants is discouraged for anyone who is not in possession of the projects coupling list. Accurate timing information of imaging studies may also be required to analyze image data. In order to serve both the need to keep study participant information private and the need to allow for good science we opted to shift data collection dates in a consistent way per project. Relative timing between imaging events is as accurate as in the clinical PACS. It needs to be stressed that this only prevents a direct path to re-identification. Data export using Fiona's "Export" application can be used to undo study date pseudonymization for data sharing that requires correct dates.
 
 Is there a list of DICOM tags changed during import?
--------------------------------------------------------
+=====================================================
 
 Yes, a list of about 270 tags inspected during import is available as part of the source code of the anonymization tool |github-dicomanonymizer_link| (|github-dicomanonymizer_url|). Tags listed with "remove" are deleted, tags listed with "keep" are kept etc.. The following list has been extracted from the anonymizer 2025-09-05.
 
@@ -470,7 +471,7 @@ The placeholder "PROJECTNAME" will be replaced with the name of the research pro
 Tags not listed above are untouched by the pseudonymization tool.
 
 Can I export to TSD/Safe/HUNT cloud?
---------------------------------------
+========================================
 
 TSD supports data upload links. This API is expected by our system to allow a direct submission of data folders (zip-format) to your TSD storage space. This feature has to be setup for your projects, contact us to receive more information. There is no comparable technology for Safe yet. Contact Christine Stansberg to request such an interface.
 
@@ -484,7 +485,7 @@ For HUNT cloud the functionality relies on the 'sftp' data transfer protocol. Wo
 
 
 Can I export to clinical PACS?
---------------------------------
+=================================
 
 Yes, export to clinical PACS is possible using "NoAssign". Mostly this option allows pseudonymized data to be forwarded to other institutions using clinical PACS to PACS features like OneConnect.
 
@@ -501,7 +502,7 @@ In order to send to clinical PACS use the NoAssign application of Fiona. You may
  - Further information on the pseudonymization procedure can be found here: |github-dicomanonymizer_url|
 
 What other types of data can you store in PACS?
---------------------------------------------------
+=================================================
 
 Our PACS system can store image data from radiology, cardiology, urology, oncology (DICOM) and pathology (whole-slide image format). Other types of files can be embedded into DICOM and stored that way. For example, the Siemens Spectroscopy (DICOM) format (.ima files) can be stored and exported again. These files can be read successfully by spectroscopy software packages like OXSA. The Siemens TWIX format (.dat, .rda) are not suitable for PACS storage, use the .ima format instead.
 
@@ -510,8 +511,11 @@ Some of the spectroscopy DICOM files are non-image files. PACS viewers might not
 The generation of the secondary capture image is currently limited to Siemens non-image files (SOPClassUID = 1.3.12.2.1107.5.9.1). Contact your Fiona team if you want to include other files.
 
 
+.. _ris:
+
+*****************************
 Research information system
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*****************************
 
 We have created a research information system in response to common issues faced in integrating research algorithms into clinical practise. We started with a system that required many people to work together to provide access to research data, which does not sound like a bad thing, research is based on good cooperation between many people with diverse backgrounds. Looking at the type of things that needed to happen you realize that highly skilled hospital staff hand-carried a bag filled with 80 individual DVDs from one hospital area to another. Those DVDs each contained individually de-identified radiological images exported from an MRI machine where such a process may take up to 10 minutes per disk.
 
@@ -521,7 +525,7 @@ The purpose of the Fiona Project is to create a research information system that
 
 
 Safety first - Separation of hospital and research
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+===================================================
 
 Our research information system is independent from the clinical systems at our hospitals. It is setup as a shadow system that connects to all hospital infra-structure and that has the overall shape and appearance of the clinical system but it is specifically geared to serve the needs of research projects.
 
@@ -529,7 +533,7 @@ How similar are the hospital and the research systems? Both hospital and researc
 
 
 Safety first - Separation of research projects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+================================================
 
 In a clincal setting a health region will share a single clinical system which helps limiting the costs of such systems. Each hospital will be setup to see parts of the data such as all information from the hospital itself but not nessesarily the information from patients at other hospitals. Often this is not a true separatation but it is enforced by individual worklists and role based permissions. A general patient search at one institution will still turn up patients scans at the connected hospitals in the health region. Whereas this is a feature for a clinical system a research information system needs to be more restrictive as access to data is more restricted by regional institutional review boards that allow for the use of research data in approved projects only.
 
@@ -537,7 +541,7 @@ Our system uses project access restrictions to provide a full separation of proj
 
 
 Safety first - Moving data between hospital and research
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+===========================================================
 
 
 Data is transferred only from the hospital to the research information system, not the other way around. This limitation is not technical but operational. Only personnel with access to clinical data can forward such data to be added to a project in the research system. Such data transfers are possible from the clinical PACS as well as from modality systems at all Helse Vest hospitals that collect data as part of research studies.
@@ -548,19 +552,19 @@ The data de-identification is implemented as an automated process that connects 
 
 
 A system aware of study design
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+===============================
 
 Whereas clinical system structures each patient individually in a research system participants are grouped on more levels for example by project, research arm, assessment event, imaging study, image series, and individual image. Such complex hierarchies allow for group level analysis of hundreds and thousands of participant data simultaneously without the need to individually export and handle the data. Especially the introduction of an associated event name to collected data allows for many features of statistical analysis. Our system includes these classifications in a central location for both the assessment as well as the image data. This limits the amounts of decision and assumptions that have to be made by various researchers in the structure of their analysis.
 
 
 Study management and study tracking
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+======================================
 
 Our research information system allows all participant data to be forwarded into the system at the time of data collection as part of a clinical study. There is no time-lag between when data is collected at a scanner and the time that image data is accessible in the research system. If technicians that collect the data are aware of the need to transfer the data into a specific project they will forward the data once to the clinical system - if that is required for safety reads - and a second time into the research systems edge device called Fiona. In a second step they need to assign the project, de-identified patient id and event name to the forwarded data. Such an identification step is the only requirement to map clinical data to the complex structure of research projects. After minutes the data becomes accessible to the research project in a proper de-identified manner.
 
 
 Data translations from clinical to research system
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+====================================================
 
 The list of meta-data tags that are removed by the Fiona edge system when data is assigned to a project is long. We document which tags are changed by making the source code and the process publicly accessible at our |github-dicomanonymizer_link|  page. We hope that this will improve the quality and security of our solution by allowing other groups to evaluate the software in their settings. This includes for example the need to evaluate the de-identified images generated by the software with other image distribution and viewing solutions and the need to test the data interpretation of the tool with new DICOM image files.
 
@@ -568,7 +572,7 @@ Some image data generated in the hospital setting will include textural informat
 
 
 Specialized applications
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+===========================
 
 
 To provide access to the feature of the research PACS we provide web-applications for data submission, project setup and configuration, review and data export. All of these features are accessible on the home page of the Fiona project page at the institution. Based on your role you will need to use only some of these applications.
@@ -577,7 +581,7 @@ To provide access to the feature of the research PACS we provide web-application
 .. _assign:
 
 Assign
---------
+---------
 
 .. figure:: ../_static/assign.png
    :align: center
@@ -593,7 +597,7 @@ The Assign application is the entry page for project data. The application lists
 .. _export:
 
 Export
---------
+-------
 
 .. figure:: ../_static/export.png
    :align: center
@@ -609,7 +613,7 @@ As data is already in de-identified format in the research PACS exporting them f
 .. _noassin:
 
 NoAssign
-----------
+-----------
 
 .. figure:: ../_static/noassign.png
    :align: center
@@ -654,7 +658,7 @@ Image data not already in clinical systems can be uploaded in the Attach applica
 .. _processing:
 
 Processing
-------------
+-----------
 
 Processing of data is a step that links software into the research PACS. Data is forwarded from the project to the software which in turn sends result data back to the Fiona system. Those dataset are automatically forwarded to the research project and appear side-by-side with the original data. This type of integration requires a setup of the software and the setup of a send destination. Examples for such software endpoints are workstations from BrainLab and TeraRecon as well as data processing systems like CerCare and NeuroQuant.
 
@@ -671,13 +675,13 @@ The research PACS component is designed to run side-by-side with the clinical sy
 
 
 
-
+*********************
 External resources
-=====================
+*********************
 
 
 GitHub Repositories
-----------------------
+=====================
 
 #. |github-fiona_link| - |github-fiona_url|
 #. |github-dicomanonymizer_link| - |github-dicomanonymizer_url|
@@ -685,6 +689,6 @@ GitHub Repositories
 
 
 REDCap
---------
+========
 
 #. |redcap-main_link| - |redcap-main_url|
