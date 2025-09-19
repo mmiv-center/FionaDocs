@@ -90,6 +90,35 @@ In step 1 data arrives in a **quarantine** location. In step 2 each DICOM study 
          :ref:`assign` Web application (lower interface). Transfer history panel showing current uploads and recently completed data transfers.
 
 
+How to send examination to Fiona
+-----------------------------------
+
+**From clinical PACS**
+
+- Find the relevant examination in clinical Sectra PACS (PACS PROD). Click the right mouse button and "Define it as current examination"
+- Click the right mouse button and select "send til teleradiologidestinasjon" (send to teleradiology destination). Choose the destination "HBE Fiona".
+
+**From modality**
+
+Fiona must be added as a sending destination on the modality.
+
+
+How to send from Fiona to fPACS (Sectra)
+------------------------------------------
+
+- Go to fiona.ihelse.net (RIS)
+- Select :ref:`assign` appllication. 
+
+   - Find and click on the examination you have sent under "Study list"
+   - Check Study date/time and description. Accession number should match the examination ID in clinical Sectra if the examination was sent from there.
+   - Select project name from dropdown menu
+   - Enter the participant's study ID (participant). You can add more participants under "Add a new name here", if participant IDs are not entered beforehand.
+   - Select event from dropdown menu
+   - Hold mouse pointer over blue line and click on the box that appears "transfer to study xxxx as ID for event xx"
+   - A pop-up window "Are you sure" appears. Check that the info is correct.
+   - Press "save" to send to fPACS
+
+
 Setup of a new project
 -----------------------
 

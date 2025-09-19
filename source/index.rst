@@ -26,7 +26,7 @@ FIONA Documentation
 |
 |
 
-.. _ris:
+.. _ris-main:
 
 
 **Research Information System**
