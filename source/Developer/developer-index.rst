@@ -20,6 +20,8 @@ Start by copying an existing application that provides a similar user interface.
 
 All backend features on Fiona are exposed as paths that accept JSON for configuration and deliver data as JSON. These functions are written in php and they will check for local permissions of the current user based on session information.
 
+To support the versioning in Fiona applications should not use the full path from the webserver root. Instead use relative path to refer to the application or other applications. You may also use path that can resolve to the latest version of fiona such as: "https://fiona.ihelse.net/?path=applications/MyApp". 
+
 User permissions
 =================
 
