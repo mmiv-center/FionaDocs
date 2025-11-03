@@ -4,13 +4,13 @@ Developer Documentation
 
 **For:** Developers, system architects
 
-Fiona has been developed in Bergen, Norway on behalf of the Helse Vest regional health authorities as a platform to organize data exchange between the different health regions nationally. Specifically Fiona is supposed to enable the secure and high-quality exchange of medical images between research projects in Norway. Such data exchange is required for multi-center projects and for projects in which data processing is done outside the health region that collected the image data.
+Fiona has been developed in Bergen, Norway on behalf of the Helse Vest regional health authorities as a platform to organize exchange of medical data between the different health regions in Norway. Specifically, Fiona is supposed to enable the secure and high-quality exchange of medical images between research projects in Norway. Such data exchange is required for multi-center projects and for projects in which data processing is done outside the health region that collected the image data.
 
 For such tasks Fiona is supposed to (i) provide tools that link image data across Fiona instances. (ii) Provide algorithms that can process image data across institutional borders and (iii) verify and ensure that data processing tasks leave data in a state suitable for further data exchange and analysis. 
 
 Fiona is organized as a hierarchical system of applications that access common functionality and data processing services. Each application is build for a specific purpose and allows for access control and tracking of all user initiated actions. Any new application should use existing base services and work together with other applications. Its design should allow us to distribute such applications to any other Fiona instance.
 
-Note: Inform us on any development you are starting. We would like to support such works if possible to enhance Fiona and make it easier for researchers to use the system.
+Note: Inform us on any development you are starting. We would like to support such works if possible to enhance Fiona and make it easier for researchers to use the system. Here some information on the technology stack used in Fiona development. A successful Fiona project requires knowledge in medical image formats (DICOM standard), knowledge about general software development and handling of source code (git), knowledge about user interface design (frontend toolkit Bootstrap) and programming knowledge in JavaScript/ECMAScript and PHP (backend). Fiona is running on a Linux-based system and uses apache (web server software). Integration of AI tools for segmentation and classification require knowledge in container-based application development (docker).
 
 ************************
 Setup a new application
