@@ -97,6 +97,17 @@ The database server running MariaDB should be able to scale based on the detaile
 
 The Fiona website is running on apache2 as the webserver, which requires a certificate (https). REDCap is provided as an apache virtual host (port 4444).
 
+Logging
+-------
+
+Log information is stored in REDCap for data viewing, export, change, and delete operations specific to REDCap. Such information is stored in the relational database tables *redcap_log_events* and *redcap_log_view* and can be accessed using SQL as well as by using the REDCap log viewer. Please note that such logs are never removed from the system. Manual steps for log extraction and removal are described under yearly maintenance.
+
+Log information is also created by Fiona for system operations like receiving data, assigning project identity (both in REDCap and in Fiona) and data exports for TSD and as zip-files. Such log information is stored on disk (location /home/processing/logs/) under log-rotate rules (compression based on size). With Fiona system access they can be viewed using tools like multitail:
+
+.. code-block:: bash
+
+   multitail -s 3 /home/processing/logs/*.log
+
 
 System maintenance
 ===================
