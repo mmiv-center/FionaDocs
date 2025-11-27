@@ -4,7 +4,7 @@
 # (C) mk & hb
 #
 # Created: 2025.07.28
-# Updated: 2025.07.30
+# Updated: 2025.10.16
 #
 # Example test:
 #   if [ ! -e storectl.sh ]; then
@@ -42,13 +42,13 @@ files1=("anonymizeAndSend.py"
 
 for file in "${files1[@]}"; do
   source_file="/home/processing/bin/$file"
-  
+
   # Source file validation
   if [[ ! -e "$source_file" ]]; then
     echo "*** WARNING: Source file does not exist: $source_file"
     continue
   fi
-  
+
   if [[ -L "$file" ]]; then
     echo "*** $file: $MSG_SM_EXISTS"
   elif [[ -e "$file" ]]; then
@@ -58,7 +58,7 @@ for file in "${files1[@]}"; do
        echo "*** [DRY-RUN] Would create: ln -s $source_file $file"
     else
         ln -s "$source_file" "$file"
-    fi    
+    fi
     echo "*** $file: $MSG_SM_CREATED"
   fi
 done
@@ -72,13 +72,13 @@ files2=("getAllPatients2.sh"
 
 for file in "${files2[@]}"; do
   source_file="/home/processing/bin/utils/$file"
-  
+
   # Source file validation
   if [[ ! -e "$source_file" ]]; then
     echo "*** WARNING: Source file does not exist: $source_file"
     continue
   fi
-  
+
   if [[ -L "$file" ]]; then
     echo "*** $file: $MSG_SM_EXISTS"
   elif [[ -e "$file" ]]; then
@@ -101,13 +101,13 @@ files3=("heartbeat.sh"
 
 for file in "${files3[@]}"; do
   source_file="/var/www/html/server/bin/$file"
-  
+
   # Source file validation
   if [[ ! -e "$source_file" ]]; then
     echo "*** WARNING: Source file does not exist: $source_file"
     continue
   fi
-  
+
   if [[ -L "$file" ]]; then
     echo "*** $file: $MSG_SM_EXISTS"
   elif [[ -e "$file" ]]; then
@@ -122,7 +122,7 @@ for file in "${files3[@]}"; do
   fi
 done
 
-# /var/www/html/applications
+# /var/www/html/fiona_v20250919/applications
 files4=("Assign/php/removeOldEntries.sh"
   "Attach/process_tiff.sh"
   "Exports/php/createZipFileCmd.php"
@@ -130,16 +130,16 @@ files4=("Assign/php/removeOldEntries.sh"
   "Workflows/php/runOneJob.sh");
 
 for file in "${files4[@]}"; do
-  source_file="/var/www/html/applications/$file"
+  source_file="/var/www/html/fiona_v20250919/applications/$file"
   # we need to extract only file name from the subpath
     filename="${file##*/}"
-  
+
   # Source file validation
   if [[ ! -e "$source_file" ]]; then
     echo "*** WARNING: Source file does not exist: $source_file"
     continue
   fi
-  
+
   if [[ -L "$filename" ]]; then
     echo "*** $filename: $MSG_SM_EXISTS"
   elif [[ -e "$filename" ]]; then
@@ -149,7 +149,7 @@ for file in "${files4[@]}"; do
         echo "*** [DRY-RUN] Would create: ln -s $source_file $filename"
     else
         ln -s "$source_file" "$filename"
-    fi    
+    fi
     echo "*** $file: $MSG_SM_CREATED"
   fi
 done
@@ -160,13 +160,13 @@ files5=("s2m.sh");
 
 for file in "${files5[@]}"; do
   source_file="/var/www/html/server/utils/$file"
-  
+
   # Source file validation
   if [[ ! -e "$source_file" ]]; then
     echo "*** WARNING: Source file does not exist: $source_file"
     continue
   fi
-  
+
   if [[ -L "$file" ]]; then
     echo "*** $file: $MSG_SM_EXISTS"
   elif [[ -e "$file" ]]; then
