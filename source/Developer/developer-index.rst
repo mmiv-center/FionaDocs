@@ -29,7 +29,9 @@ The permission framework on Fiona uses a role-based authorization with basic aut
 
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
-************************
+
+
+***********************
 Adding Service to Fiona
 ************************
 
@@ -41,9 +43,9 @@ Configuration Example
 .. code-block:: json
 
    {
-     "Projekt": "MyProject",
-     "DANE Testowe": "PRJ-01-001, week01, NM (tylko dane Nuclear Medicine)",
-     "Etykieta algorytmu w RPACS": "MyAlgorithm 2 REDCap",
+     "Project": "MyProject",
+     "Test Data": "PRJ-01-001, week01, NM (Nuclear Medicine data only)",
+     "Algorithm Label in RPACS": "MyAlgorithm 2 REDCap",
      "AE Title": "MYALGORITHM"
    }
 
@@ -146,8 +148,6 @@ After configuration, we can send cases from Sectra to the new Teleradiology Dest
 
 .. image:: ../_static/sending_cases_sectra.png
    :alt: Sending cases to Teleradiology Destination
-
-
 
 
 ***********
