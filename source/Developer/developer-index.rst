@@ -29,7 +29,7 @@ The permission framework on Fiona uses a role-based authorization with basic aut
 
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
-
+************************
 Adding Service to Fiona
 ************************
 
@@ -57,9 +57,10 @@ Configuration Files
 
 Configuration files are located in:
 
-* ``/var/www/html/fiona_v{current_version}/application/Workflow/php/``:
-  - ``config.json``
-  - ``select_statements.json``
+``/var/www/html/fiona_v{current_version}/application/Workflow/php/``
+
+- ``config.json``
+- ``select_statements.json``
 
 Integration with Sectra
 ========================
@@ -73,10 +74,6 @@ Integration with Sectra Healthcare Server application.
 ==============================
 
 Analysis of the ``config.json`` file:
-
-.. code-block:: bash
-
-   jq '.Streams[] | select(.name=="MYALGORITHM")' config.json
 
 Example stream configuration:
 
@@ -130,10 +127,6 @@ Example stream configuration:
 
 Add entry to ``select_statements.json`` (``/var/www/html/fiona_v{current_version}/application/Workflow/php/``).
 
-.. code-block:: bash
-
-   jq '.MYALGORITHM' select_statements.json
-
 Example entry:
 
 .. code-block:: json
@@ -153,6 +146,7 @@ After configuration, we can send cases from Sectra to the new Teleradiology Dest
 
 .. image:: ../_static/sending_cases_sectra.png
    :alt: Sending cases to Teleradiology Destination
+
 
 
 
