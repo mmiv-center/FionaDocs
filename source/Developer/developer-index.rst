@@ -29,6 +29,141 @@ The permission framework on Fiona uses a role-based authorization with basic aut
 
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
+
+
+************************
+Adding Service to Fiona
+************************
+
+This document describes the integration of AI algorithms and custom processing services with Fiona to enable automated analysis of PACS data with results delivered to REDCap.
+
+Configuration Example
+=====================
+
+.. code-block:: json
+
+   {
+     "Projekt": "MojProjekt",
+     "DANE Testowe": "PRJ-01-001, week01, NM (tylko dane Nuclear Medicine)",
+     "Etykieta algorytmu w RPACS": "MojAlgorytm 2 REDCap",
+     "AE Title": "MOJALGORYTM"
+   }
+
+Integration Purpose
+===================
+
+Integration of an AI algorithm (or any other) with PACS Sectra/IDS7. The algorithm should be implemented in a ``docker`` container. For selected data in Sectra, in the bottom section (Patient History), we can send this data (right mouse button → ``Send to Teleradiology Destination...``) to Fiona, and place the results in **REDCap**.
+
+Below are the steps for integrating this process.
+
+Configuration Files
+===================
+
+Configuration files are located in:
+
+* ``/var/www/html/fiona_v{current_version}/application/Workflow/php/``:
+  - ``config.json``
+  - ``select_statements.json``
+
+Integration with Sectra
+========================
+
+Integration with Sectra Healthcare Server application.
+
+.. image:: ../_static/sectra_integration.png
+   :alt: Integration into Sectra SectraHealthcareServer application
+
+``config.json`` Configuration
+==============================
+
+Analysis of the ``config.json`` file:
+
+Command to display stream configuration:
+
+.. code-block:: bash
+
+   jq '.Streams[] | select(.name=="MOJALGORYTM")' config.json
+
+Example stream configuration:
+
+.. code-block:: json
+
+   {
+     "Streams": [
+       {
+         "log": "/home/processing/logs/Workflows_trigger_MOJALGORYTM2REDCAP.log",
+         "name": "MOJALGORYTM",
+         "description": "Extract RESULTS xml object from NM files processed by Xeleris",
+         "trigger": {
+           "AETitleCalled": "^MOJALGORYTM$"
+         },
+         "trigger-study": [
+           {
+             "type": "exec",
+             "cmd": [
+               "echo",
+               "triggered this service",
+               "@StudyInstanceUID@",
+               "@SeriesInstanceUID@",
+               "@PATH@",
+               "@WorkflowsFolder@",
+               "@DESCRIPTION@"
+             ]
+           },
+           {
+             "type": "exec",
+             "cmd": [
+               "mkdir",
+               "-p",
+               "/tmp/site/proc/@StudyInstanceUID@"
+             ]
+           },
+           {
+             "type": "exec",
+             "cmd": [
+               "/home/processing/bin/extractDataFromAlgorithm.sh",
+               "/tmp/site/archive/@StudyInstanceUID@"
+             ]
+           }
+         ],
+         "trigger-series": []
+       }
+     ]
+   }
+
+``select_statements.json`` Configuration
+=========================================
+
+Add entry to ``select_statements.json`` (``/var/www/html/fiona_v{current_version}/application/Workflow/php/``).
+
+Command to display the entry:
+
+.. code-block:: bash
+
+   jq '.MOJALGORYTM' select_statements.json
+
+Example entry:
+
+.. code-block:: json
+
+   {
+     "MOJALGORYTM": {
+       "select": "SELECT study FROM study WHERE series named \"everything\" has Modality regexp \"(NM)\"",
+       "ROR_CONT_OPTIONS": "",
+       "docker_image": "docker-moj-algorytm:latest"
+     }
+   }
+
+Sending Cases from Sectra
+==========================
+
+After configuration, we can send cases from Sectra to the new Teleradiology Destination "MojAlgorytm 2 REDCap". Below is an example of sending cases.
+
+.. image:: ../_static/sending_cases_sectra.png
+   :alt: Sending cases to Teleradiology Destination
+
+
+
 ***********
 Components
 ***********
