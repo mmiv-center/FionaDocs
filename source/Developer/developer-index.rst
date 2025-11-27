@@ -52,9 +52,7 @@ Configuration Example
 Integration Purpose
 ===================
 
-Integration of an AI algorithm (or any other) with PACS Sectra/IDS7. The algorithm should be implemented in a ``docker`` container. For selected data in Sectra, in the bottom section (Patient History), we can send this data (right mouse button → ``Send to Teleradiology Destination...``) to Fiona, and place the results in **REDCap**.
-
-Below are the steps for integrating this process.
+Integration of AI algorithms and processing services with PACS Sectra/IDS7. Services should be implemented as ``docker`` containers. From Sectra's Patient History window, send selected data (right-click → ``Send to Teleradiology Destination...``) to Fiona for processing, with results delivered to **REDCap**. Below are the integration steps.
 
 Configuration Files
 ===================
@@ -161,6 +159,7 @@ After configuration, we can send cases from Sectra to the new Teleradiology Dest
 
 .. image:: ../_static/sending_cases_sectra.png
    :alt: Sending cases to Teleradiology Destination
+
 
 
 
