@@ -30,8 +30,6 @@ The permission framework on Fiona uses a role-based authorization with basic aut
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
 
-
-************************
 Adding Service to Fiona
 ************************
 
@@ -43,10 +41,10 @@ Configuration Example
 .. code-block:: json
 
    {
-     "Projekt": "MojProjekt",
+     "Projekt": "MyProject",
      "DANE Testowe": "PRJ-01-001, week01, NM (tylko dane Nuclear Medicine)",
-     "Etykieta algorytmu w RPACS": "MojAlgorytm 2 REDCap",
-     "AE Title": "MOJALGORYTM"
+     "Etykieta algorytmu w RPACS": "MyAlgorithm 2 REDCap",
+     "AE Title": "MYALGORITHM"
    }
 
 Integration Purpose
@@ -76,11 +74,9 @@ Integration with Sectra Healthcare Server application.
 
 Analysis of the ``config.json`` file:
 
-Command to display stream configuration:
-
 .. code-block:: bash
 
-   jq '.Streams[] | select(.name=="MOJALGORYTM")' config.json
+   jq '.Streams[] | select(.name=="MYALGORITHM")' config.json
 
 Example stream configuration:
 
@@ -89,11 +85,11 @@ Example stream configuration:
    {
      "Streams": [
        {
-         "log": "/home/processing/logs/Workflows_trigger_MOJALGORYTM2REDCAP.log",
-         "name": "MOJALGORYTM",
+         "log": "/home/processing/logs/Workflows_trigger_MYALGORITHM2REDCAP.log",
+         "name": "MYALGORITHM",
          "description": "Extract RESULTS xml object from NM files processed by Xeleris",
          "trigger": {
-           "AETitleCalled": "^MOJALGORYTM$"
+           "AETitleCalled": "^MYALGORITHM$"
          },
          "trigger-study": [
            {
@@ -134,32 +130,29 @@ Example stream configuration:
 
 Add entry to ``select_statements.json`` (``/var/www/html/fiona_v{current_version}/application/Workflow/php/``).
 
-Command to display the entry:
-
 .. code-block:: bash
 
-   jq '.MOJALGORYTM' select_statements.json
+   jq '.MYALGORITHM' select_statements.json
 
 Example entry:
 
 .. code-block:: json
 
    {
-     "MOJALGORYTM": {
+     "MYALGORITHM": {
        "select": "SELECT study FROM study WHERE series named \"everything\" has Modality regexp \"(NM)\"",
        "ROR_CONT_OPTIONS": "",
-       "docker_image": "docker-moj-algorytm:latest"
+       "docker_image": "docker-my-algorithm:latest"
      }
    }
 
 Sending Cases from Sectra
 ==========================
 
-After configuration, we can send cases from Sectra to the new Teleradiology Destination "MojAlgorytm 2 REDCap". Below is an example of sending cases.
+After configuration, we can send cases from Sectra to the new Teleradiology Destination "MyAlgorithm 2 REDCap". Below is an example of sending cases.
 
 .. image:: ../_static/sending_cases_sectra.png
    :alt: Sending cases to Teleradiology Destination
-
 
 
 
