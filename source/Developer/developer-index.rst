@@ -230,6 +230,7 @@ Folder and File structure
                     │
                     └── server/
                            ├── bin/
+                           |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
                            |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
                            |    ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
                            |    ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
@@ -287,6 +288,7 @@ Folder and File structure
                     │
                     └── server/
                            ├── bin/
+                           |    ├── detectStudyArrival.sh
                            |    ├── heartbeat.sh
                            |    ├── processSingleFile3.py
                            |    ├── sendFiles.sh
@@ -311,6 +313,7 @@ Folder and File structure
        scripts/createTransferRequestsForProcessed
        scripts/createZipFileCmd
        scripts/cron
+       scripts/detectStudyArrival
        scripts/getAllPatients2
        scripts/heartbeat
        scripts/parseAllPatients
