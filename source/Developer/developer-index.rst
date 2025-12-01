@@ -230,15 +230,15 @@ Folder and File structure
                            |                    └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
                            │
                            └── server/
-                           ├── bin/
-                           |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
-                           |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
-                           |    ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
-                           |    ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
-                           |    └── <a href="scripts/storectl.html">storectl.sh</a>
-                           |
-                           └── utils/
-                                 └── <a href="scripts/s2m.html">s2m.sh</a>
+                                  ├── bin/
+                                  |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
+                                  |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
+                                  |    ├── <a href="scripts/processSingleFile3.html">processSingleFile3.py</a>
+                                  |    ├── <a href="scripts/sendFiles.html">sendFiles.sh</a>
+                                  |    └── <a href="scripts/storectl.html">storectl.sh</a>
+                                  |
+                                  └── utils/
+                                        └── <a href="scripts/s2m.html">s2m.sh</a>
 
        </pre>
 
@@ -289,15 +289,15 @@ Folder and File structure
                            |                    └── runOneJob.sh
                            │
                            └── server/
-                           ├── bin/
-                           |    ├── detectStudyArrival.sh
-                           |    ├── heartbeat.sh
-                           |    ├── processSingleFile3.py
-                           |    ├── sendFiles.sh
-                           |    └── storectl.sh
-                           |
-                           └── utils/
-                                 └── s2m.sh
+                                  ├── bin/
+                                  |    ├── detectStudyArrival.sh
+                                  |    ├── heartbeat.sh
+                                  |    ├── processSingleFile3.py
+                                  |    ├── sendFiles.sh
+                                  |    └── storectl.sh
+                                  |
+                                  └── utils/
+                                        └── s2m.sh
 
 
 
