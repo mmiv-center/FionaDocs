@@ -18,6 +18,9 @@ MSG_SM_CREATED="symlink created..."
 MSG_SM_EXISTS="...symlink exists"
 MSG_FILE_EXISTS="...file exists (not a symlink)"
 
+FIONA_VERSION='fiona_v20250919'
+MSG_FIONA_VERSION="Fiona version: $FIONA_VERSION"
+
 # --dry-run mode
 DRY_RUN=false
 if [[ "$1" == "--dry-run" ]]; then
@@ -27,6 +30,8 @@ fi
 
 echo
 echo "$MSG_HEADER"
+echo
+echo "$MSG_FIONA_VERSION"
 echo
 
 # /home/processing/bin
