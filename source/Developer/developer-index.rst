@@ -30,7 +30,6 @@ The permission framework on Fiona uses a role-based authorization with basic aut
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
 
-
 ***********************
 Adding Service to Fiona
 ************************
