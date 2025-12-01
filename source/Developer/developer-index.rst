@@ -211,24 +211,25 @@ Folder and File structure
        /var/
          └── www/
               └── html/
-                    ├── applications/
-                    │          ├── Assign/
-                    │          │     └── php
-                    |          |          └──<a href="scripts/removeOldEntries.html">removeOldEntries.sh</a>
-                    │          ├── Attach/
-                    │          │     └── <a href="scripts/process_tiff.html">process_tiff.sh</a>
-                    │          ├── Exports/
-                    │          │     └── php
-                    |          |          └──<a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
-                    │          ├── User/
-                    │          │     └── asttt/
-                    │          │            └── code/
-                    │          │                  └── <a href="scripts/cron.html">cron.sh</a>
-                    │          └── Workflows/
-                    │                 └──php
-                    |                    └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
-                    │
-                    └── server/
+                    └── fiona_{current_version}/
+                           ├── applications/
+                           │          ├── Assign/
+                           │          │     └── php
+                           |          |          └──<a href="scripts/removeOldEntries.html">removeOldEntries.sh</a>
+                           │          ├── Attach/
+                           │          │     └── <a href="scripts/process_tiff.html">process_tiff.sh</a>
+                           │          ├── Exports/
+                           │          │     └── php
+                           |          |          └──<a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
+                           │          ├── User/
+                           │          │     └── asttt/
+                           │          │            └── code/
+                           │          │                  └── <a href="scripts/cron.html">cron.sh</a>
+                           │          └── Workflows/
+                           │                 └──php
+                           |                    └── <a href="scripts/runOneJob.html">runOneJob.sh</a>
+                           │
+                           └── server/
                            ├── bin/
                            |    ├── <a href="scripts/detectStudyArrival.html">detectStudyArrival.sh</a>
                            |    ├── <a href="scripts/heartbeat.html">heartbeat.sh</a>
@@ -269,24 +270,25 @@ Folder and File structure
        /var/
          └── www/
               └── html/
-                    ├── applications/
-                    │          ├── Assign/
-                    │          │     └── php
-                    |          |          └── removeOldEntries.sh
-                    │          ├── Attach/
-                    │          │     └── process_tiff.sh
-                    │          ├── Exports/
-                    │          │     └── php
-                    |          |          └── createZipFileCmd.php
-                    │          ├── User/
-                    │          │     └── asttt/
-                    │          │            └── code/
-                    │          │                  └── cron.sh
-                    │          └── Workflows/
-                    │                 └──php
-                    |                    └── runOneJob.sh
-                    │
-                    └── server/
+                    └── fiona_{current_version}/
+                           ├── applications/
+                           │          ├── Assign/
+                           │          │     └── php
+                           |          |          └── removeOldEntries.sh
+                           │          ├── Attach/
+                           │          │     └── process_tiff.sh
+                           │          ├── Exports/
+                           │          │     └── php
+                           |          |          └── createZipFileCmd.php
+                           │          ├── User/
+                           │          │     └── asttt/
+                           │          │            └── code/
+                           │          │                  └── cron.sh
+                           │          └── Workflows/
+                           │                 └──php
+                           |                    └── runOneJob.sh
+                           │
+                           └── server/
                            ├── bin/
                            |    ├── detectStudyArrival.sh
                            |    ├── heartbeat.sh
