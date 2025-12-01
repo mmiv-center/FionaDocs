@@ -162,6 +162,7 @@ Components
 #. :doc:`scripts/createTransferRequestsForProcessed` - Handles transfer requests for processed/derived imaging data from workstations back to research PACS
 #. :doc:`scripts/createZipFileCmd` -  Creates anonymized ZIP archives for research data distribution
 #. :doc:`scripts/cron` - Processes trigger-action pairs from JSON configuration files for event-driven automation
+#. :doc:`scripts/detectStudyArrival` - Automatically detects newly arrived imaging studies in job directories and adds them to the assignment queue for processing
 #. :doc:`scripts/getAllPatients2` - Retrieves patient and study information from research PACS using findscu
 #. :doc:`scripts/heartbeat` - Checks DICOM service responsiveness and restarts failed components
 #. :doc:`scripts/parseAllPatients` - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import
