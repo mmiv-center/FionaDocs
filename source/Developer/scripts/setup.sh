@@ -97,7 +97,8 @@ done
 files3=("heartbeat.sh"
   "processSingleFile3.py"
   "sendFiles.sh"
-  "storectl.sh");
+  "storectl.sh"
+  "detectStudyArrival.sh");
 
 for file in "${files3[@]}"; do
   source_file="/var/www/html/server/bin/$file"
