@@ -125,10 +125,13 @@ Example stream configuration:
      ]
    }
 
+Here the extractDataFromAlgorithm.sh script (ommitted) will perform all the work of reading DICOM files in the provided location, extracting measures using dcmtk and of sending the resulting records to a REDCap project.
+
+
 ``select_statements.json`` Configuration
 =========================================
 
-Add entry to ``select_statements.json`` (``/var/www/html/fiona_v{current_version}/application/Workflow/php/``).
+Add an entry to ``select_statements.json`` (``/var/www/html/fiona_v{current_version}/application/Workflow/php/``) to make the input series selection as specific as possible. For example, if an AI is trained on a specific scanner, minimum age population and modality/sequence this check should contain all of these elements. Out of scope data will not be made available to the algorithm.
 
 Example entry:
 
@@ -142,10 +145,13 @@ Example entry:
      }
    }
 
-Sending Cases from Sectra
-==========================
+In this case we only have a check for the correct modality (nuclear medicine). Note that in general such a simple check is not sufficient for a clinical integration.
 
-After configuration, we can send cases from Sectra to the new Teleradiology Destination "MyAlgorithm 2 REDCap". Below is an example of sending cases.
+
+Sending Cases from PACS
+=======================
+
+After configuration, we can send exams from Sectra to the new Teleradiology Destination "MyAlgorithm 2 REDCap". Below is an example of sending an exam. Using the PACS interface the user can select one or multiple exams or a subset of series. The select statement above will be used to filter this setup further before it is provided to the algorithm in a research enabled directory structure including participant name / event name / DICOM study / DICOM series folders.  
 
 .. image:: ../_static/sending_cases_sectra.png
    :alt: Sending cases to Teleradiology Destination
