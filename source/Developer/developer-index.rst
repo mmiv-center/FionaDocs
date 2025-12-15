@@ -30,14 +30,16 @@ The permission framework on Fiona uses a role-based authorization with basic aut
 Note: Fiona roles that start with "Project" are roles that are project specific. Such roles if assigned to a user will only allow access if the user has also access to the project.
 
 
-***********************
-Adding Service to Fiona
+************************
+Adding Services to Fiona
 ************************
 
-This document describes the integration of AI algorithms and custom processing services with Fiona to enable automated analysis of PACS data with results delivered to REDCap.
+This document describes the integration of AI algorithms and custom processing services with Fiona. The goal is to support automated data analysis on demand without data exports outside of secured systems. Processing result can be more image data, or structured information like measurements stored in REDCap.
 
 Configuration Example
 =====================
+
+Services can be specific to a project or work across projects. Lets assume a simple service that extracts information from a structured report (DaTQUANT Report) and adds them to the REDCap structured storage for the project.
 
 .. code-block:: json
 
@@ -51,12 +53,12 @@ Configuration Example
 Integration Purpose
 ===================
 
-Integration of AI algorithms and processing services with PACS Sectra/IDS7. Services should be implemented as ``docker`` containers. From Sectra's Patient History window, send selected data (right-click → ``Send to Teleradiology Destination...``) to Fiona for processing, with results delivered to **REDCap**. Below are the integration steps.
+Integration of AI algorithms and processing services with PACS Sectra/IDS7. Any non-trivial services should be implemented as ``docker`` containers. This will allow the services not to interfere with each other or with the host system. To start such a service from Sectra's Patient History window, send the selected data (right-click → ``Send to Teleradiology Destination...``) to processing. The results will automatically appear in **REDCap**. Below are the integration steps for such a trivial setup.
 
 Configuration Files
 ===================
 
-Configuration files are located in:
+We will use Fiona to host the service. Configuration files are located in:
 
 ``/var/www/html/fiona_v{current_version}/application/Workflow/php/``
 
