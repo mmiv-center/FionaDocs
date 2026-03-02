@@ -502,9 +502,9 @@ Tags not listed above are untouched by the pseudonymization tool.
 Can I export to TSD/Safe/HUNT cloud?
 ========================================
 
-TSD supports data upload links. This API is expected by our system to allow a direct submission of data folders (zip-format) to your TSD storage space. This feature has to be setup for your projects, contact us to receive more information. There is no comparable technology for Safe yet. Contact Christine Stansberg to request such an interface.
+TSD supports data upload links. Fiona | Export uses them to allow for a direct submission of data folders (zip-format) to your TSD project storage space. You need to setup this feature for each project. Create the data upload link on TSD. Make sure you create an upload link that does not require a secret (disable 'secret challenge' checkbox).There is no comparable technology for Safe yet. Contact Christine Stansberg to request such an interface.
 
-The following information from your TSD project on (https://data.tsd.usit.no/i/) are required:
+Send us the following information to link Fiona | Export to your TSD project (https://data.tsd.usit.no/i/):
 
  - TSD group name:
  - TSD ID: e0b0c0e-abcd-abcd-abcd-a0b0c0d0e0f0 (example)
@@ -516,14 +516,16 @@ For HUNT cloud the functionality relies on the 'sftp' data transfer protocol. Wo
 Can I export to clinical PACS?
 =================================
 
-Yes, export to clinical PACS is possible using "NoAssign". Mostly this option allows pseudonymized data to be forwarded to other institutions using clinical PACS to PACS features like OneConnect.
+Yes, export to clinical PACS is possible using "NoAssign" and "Export". Mostly this option allows pseudonymized data to be forwarded to other institutions using clinical PACS to PACS features like OneConnect.
 
-In order to send to clinical PACS use the NoAssign application of Fiona. You may need "Export" permissions for your project to use this application. The application will list all studies currently found in quarantine on Fiona. Specify the project, participant, event information and the workflow type "Fiona anonymization". Select the examination you want to forward and "Export...". A dialog "Are you sure?" will allow you to select a destination in the final step. Both "CDRobot" and "clinical PACS" are supported destinations.
+In order to send temporarily forwarded data from Fiona to clinical PACS use the NoAssign application of fiona. You may need "Export" permissions for your project to use this application. The application will list all studies currently found in quarantine on fiona. Specify the project, participant, event information and the workflow type "FIONA anonymization". Select the examination you want to forward and "Export...". A dialog "Are you sure?" will allow you to select a destination in the final step. Both "CDRobot" and "clinical PACS" are supported destinations.
+
+To send data already assigned to a research project use the "Export" application instead. Select the project and examinations that you want to forward (destination "clinical PACS") and use the drop-down option "prepare all".
 
 .. note::
-   Additionally to the standard pseudonymization done by Fiona files will have a fake Date of Birth (0010,0030) DICOM attribute value of "19000101". This may be required if receiving PACS systems expect valid clinical data. By default the value of this attribute is empty inside research PACS. Only exporting data using NoAssign will add the dummy value.
+   Additionally to the standard pseudonymization done by fiona files will have a fake Date of Birth (0010,0030) DICOM attribute value of "19000101". This may be required if receiving PACS systems expect valid clinical data. By default the value of this attribute is empty inside research PACS. Only exporting data using NoAssign will add the dummy value.
 
-*PACS to PACS connectivity*: If images pseudonymized on Fiona are forwarded to another PACS inform them on how to find your pseudonymized images. Tell them:
+*PACS to PACS connectivity*: If images pseudonymized on FIONA are forwarded to another PACS inform them on how to find your pseudonymized images. Tell them:
 
  - The AccessionNumber (Undersøkelse-ID) DICOM tag will start with the letters "Fiona" followed by some random letters and numbers.
  - The PatientName and PatientID tags will be the same (entered on Fiona, can be something like <project>_<numeric_id>, e.g. "TOBE_0022").
