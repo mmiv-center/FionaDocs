@@ -10,3 +10,6 @@ build/*
 !build/latex/.gitkeep
 
 
+
+# Python virtual environment
+.venv/
