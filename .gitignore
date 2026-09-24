@@ -17,3 +17,6 @@ build/*
 # Editor backups and logs
 *~
 *.log
+
+# Local backup copies of scripts (any level)
+_backup-*/

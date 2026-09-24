@@ -133,3 +133,57 @@ pip freeze | grep -iE "^(sphinx|sphinx.rtd.theme|sphinxcontrib-mermaid)=="
 ```
 
 Copy the new versions into `requirements.txt`, commit, and run `pip install -r requirements.txt` on the Fiona server.
+
+
+## Git tips
+
+### Check what has changed
+
+```bash
+git status                      # full description
+git status --short              # compact: two status columns + file name
+git status -sb                  # compact + branch and ahead/behind origin
+```
+
+In `--short` output the **first column** is the staging area (what goes into the next commit) and the **second column** is the working tree (changes not yet staged):
+
+```
+ M conf.py      # modified, NOT staged
+M  conf.py      # modified, staged
+MM conf.py      # staged, then modified again (the new change is not staged)
+D  old.log      # deletion staged
+?? new.txt      # new file, not tracked by git
+```
+
+Letters: `M` modified, `A` added, `D` deleted, `R` renamed, `??` untracked.
+
+### Stage changes for a commit
+
+| Command | What it stages |
+|---|---|
+| `git add file` | only the given file |
+| `git add .` | all changes in the current directory and below (same as `-A` when run in the repository root) |
+| `git add -u` | modified and deleted files only, **no new files** |
+| `git add -A` | everything: modified, deleted and new files |
+| `git restore --staged file` | undo: remove the file from the staging area (the change stays in the file) |
+
+Always check the result before committing:
+
+```bash
+git add -A
+git status --short              # every line should have a letter in the first column
+```
+
+Files listed in `.gitignore` are never staged by `git add -A` or `git add .`.
+
+### Show the commit history
+
+```bash
+git log --oneline -5            # last 5 commits, one line each
+git log --oneline --graph -10   # last 10 commits with the branch graph
+git log --stat -3               # files changed in each of the last 3 commits
+git log -p -1                   # full diff of the last commit
+git log --oneline -- README.md  # only commits that changed a given file
+```
+
+Long options use two dashes (`--oneline`); the number of commits uses one dash (`-5`).
