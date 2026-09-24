@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import shutil
 import sys
 
 sys.path.insert(0, os.path.abspath('.'))
@@ -35,8 +36,9 @@ rst_prolog = generate_substitutions(config)
 # -- Project information for HTML ------------------------------------------
 
 project = 'Fiona Documentation'
-copyright = '2025, Hauke Bartsch'
+copyright = '2025-2026, Hauke Bartsch'
 version = '0.1'
+author = 'Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie'
 
 
 #institution = "Haukeland University Hospital, Department of Radiology,\n"
@@ -65,8 +67,9 @@ templates_path = ['_templates']
 
 # ----------- 2025.07.28 - mk --- add latex setup ----------------------------
 # Mermaid configuration
-mermaid_output_format = 'png'  # lub 'svg'
-mermaid_cmd = '/home/marek/.npm-global/bin/mmdc'
+mermaid_output_format = 'png'  # or 'svg'
+# Find the Mermaid CLI on PATH, so the same config works on every machine
+mermaid_cmd = shutil.which('mmdc') or 'mmdc'
 mermaid_params = [
     '--theme', 'neutral',
     '--backgroundColor', 'transparent',
@@ -91,6 +94,10 @@ with open('titlepage.tex', 'r', encoding='utf-8') as f:
 latex_elements = {
    'preamble': r'''
         \usepackage{graphicx}
+        % PDF metadata (the custom title page does not set it)
+        \AtBeginDocument{\hypersetup{
+            pdftitle={Fiona Documentation},
+            pdfauthor={Hauke Bartsch, Marek Kociński, Line Nigardsøy Lie}}}
         ''',
     'maketitle': titlepage_content,
 }

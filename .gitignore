@@ -13,3 +13,7 @@ build/*
 
 # Python virtual environment
 .venv/
+
+# Editor backups and logs
+*~
+*.log
