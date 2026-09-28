@@ -82,7 +82,7 @@ cd source/Developer/scripts
 cd -
 ```
 
-`setup.sh` must be run from inside `source/Developer/scripts/`. Check that the Fiona version set in `FIONA_VERSION` (e.g. `fiona_v20250919`) matches the version installed under `/var/www/html/`.
+`setup.sh` must be run from inside `source/Developer/scripts/`. Check that the Fiona version set in `FIONA_VERSION` (e.g. `fiona_v20260518`) matches the version installed under `/var/www/html/`.
 
 
 ## Building the documentation

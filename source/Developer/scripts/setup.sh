@@ -4,7 +4,7 @@
 # (C) mk & hb
 #
 # Created: 2025.07.28
-# Updated: 2025.10.16
+# Updated: 2026.09.28
 #
 # Example test:
 #   if [ ! -e storectl.sh ]; then
@@ -18,7 +18,7 @@ MSG_SM_CREATED="symlink created..."
 MSG_SM_EXISTS="...symlink exists"
 MSG_FILE_EXISTS="...file exists (not a symlink)"
 
-FIONA_VERSION='fiona_v20250919'
+FIONA_VERSION='fiona_v20260518'
 MSG_FIONA_VERSION="Fiona version: $FIONA_VERSION"
 
 # --dry-run mode
@@ -128,7 +128,7 @@ for file in "${files3[@]}"; do
   fi
 done
 
-# /var/www/html/fiona_v20250919/applications
+# /var/www/html/fiona_v{version}/applications
 files4=("Assign/php/removeOldEntries.sh"
   "Attach/process_tiff.sh"
   "Exports/php/createZipFileCmd.php"
@@ -136,7 +136,7 @@ files4=("Assign/php/removeOldEntries.sh"
   "Workflows/php/runOneJob.sh");
 
 for file in "${files4[@]}"; do
-  source_file="/var/www/html/fiona_v20250919/applications/$file"
+  source_file="/var/www/html/${FIONA_VERSION}/applications/$file"
   # we need to extract only file name from the subpath
     filename="${file##*/}"
 

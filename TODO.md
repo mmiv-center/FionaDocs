@@ -8,7 +8,7 @@
 - **Files:** `anonymizeAndSend.py`, `createTransferRequests.py` (source: `/home/processing/bin/`)
 
 ### `setup.sh`: detect the Fiona version automatically
-- **Problem:** `source/Developer/scripts/setup.sh` hard-codes `FIONA_VERSION='fiona_v20250919'` and the path `/var/www/html/fiona_v20250919/applications/`. The current version is `fiona_v20260518`. The five application scripts (`removeOldEntries.sh`, `process_tiff.sh`, `createZipFileCmd.php`, `cron.sh`, `runOneJob.sh`) are therefore either skipped with *"Source file does not exist"* or, if the old directory still exists, silently linked to the **old** version.
+- **Problem:** `source/Developer/scripts/setup.sh` sets `FIONA_VERSION` by hand (now `fiona_v20260518`, used for all versioned paths). It must be updated after every Fiona upgrade, or the application scripts are skipped or linked to an old version.
 - **Fix:** Read the version from `/data/config/config.json` (`jq -r .fiona_version`), the same way the new `storectl.sh` wrapper does. Build all versioned paths from it (`/var/www/html/fiona_v${fiona_version}/...`). Stop with a clear error if the key is missing or the directory does not exist.
 - **Also:** Replace the five copy-pasted loops with one function, and link the real `storectl.sh` (see below).
 
