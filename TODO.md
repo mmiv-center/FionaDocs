@@ -27,4 +27,9 @@
 - **To do:** Apply the same changes as in `setup.sh`: detect the Fiona version from `/data/config/config.json`, and copy the real `storectl.sh`, not the wrapper. Keep its list of scripts in sync with `setup.sh`, and ideally make both scripts use one shared list.
 - **Note:** This script is not in this repository. Consider adding it next to `setup.sh` (for example as `source/Developer/scripts/pack-scripts.sh`) so that both are versioned together.
 
+### Document `pullStudyFromIDS7.sh`
+- **Problem:** `applications/Exports/php/pullStudyFromIDS7.sh` retrieves one study from the research PACS. It is used by Exports and Duplicate (`duplicateStudies.php`), but it has no docstring and is not in the Developer docs.
+- **Fix:** Add a docstring on the Fiona server (`: ' ... ' #end-doc`, like `clearExports.sh`). Then add `scripts/pullStudyFromIDS7.rst`, a Components entry, the file tree branch (HTML and LaTeX), the LaTeX toctree and a `setup.sh` entry.
+- **Files:** `applications/Exports/php/pullStudyFromIDS7.sh` (server), `Developer/developer-index.rst`, `scripts/setup.sh`
+
 ## Done
