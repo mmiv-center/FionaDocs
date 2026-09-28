@@ -170,6 +170,7 @@ Components
 #. :doc:`scripts/createZipFileCmd` -  Creates anonymized ZIP archives for research data distribution
 #. :doc:`scripts/cron` - Processes trigger-action pairs from JSON configuration files for event-driven automation
 #. :doc:`scripts/detectStudyArrival` - Automatically detects newly arrived imaging studies in job directories and adds them to the assignment queue for processing
+#. :doc:`scripts/duplicateStudies` - Copies a study from one project to another in research PACS with a new PatientID and new UIDs
 #. :doc:`scripts/getAllPatients2` - Retrieves patient and study information from research PACS using findscu
 #. :doc:`scripts/heartbeat` - Checks DICOM service responsiveness and restarts failed components
 #. :doc:`scripts/parseAllPatients` - Parses patient data retrieved by getAllPatients2.sh and extracts study-level metadata for REDCap import
@@ -225,6 +226,9 @@ Folder and File structure
                            |          |          └──<a href="scripts/removeOldEntries.html">removeOldEntries.sh</a>
                            │          ├── Attach/
                            │          │     └── <a href="scripts/process_tiff.html">process_tiff.sh</a>
+                           │          ├── Duplicate/
+                           │          │     └── php
+                           |          |          └──<a href="scripts/duplicateStudies.html">duplicateStudies.php</a>
                            │          ├── Exports/
                            │          │     └── php
                            |          |          └──<a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
@@ -284,6 +288,9 @@ Folder and File structure
                            |          |          └── removeOldEntries.sh
                            │          ├── Attach/
                            │          │     └── process_tiff.sh
+                           │          ├── Duplicate/
+                           │          │     └── php
+                           |          |          └── duplicateStudies.php
                            │          ├── Exports/
                            │          │     └── php
                            |          |          └── createZipFileCmd.php
@@ -323,6 +330,7 @@ Folder and File structure
        scripts/createZipFileCmd
        scripts/cron
        scripts/detectStudyArrival
+       scripts/duplicateStudies
        scripts/getAllPatients2
        scripts/heartbeat
        scripts/parseAllPatients
