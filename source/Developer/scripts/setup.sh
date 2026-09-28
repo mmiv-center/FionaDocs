@@ -128,7 +128,7 @@ for file in "${files3[@]}"; do
   fi
 done
 
-# /var/www/html/fiona_v{version}/applications
+# /var/www/html/{FIONA_VERSION}/applications
 files4=("Assign/php/removeOldEntries.sh"
   "Attach/process_tiff.sh"
   "Duplicate/php/duplicateStudies.php"
