@@ -45,7 +45,7 @@ Our project uses |redcap-main_link| as an electronic data capture solution. Proj
 Access to the “Sectra DMA Forskning” research PACS viewer
 ------------------------------------------------------------
 
-Access to the image data is provided by your |it_name|. Such access may require a valid local hospital user account and a laptop or PACS workstation that is under control of IT Department. If you contact IT Departmetnt ask for the start menu item “**Sectra DMA Forskning**”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
+Access to the image data is provided by your |it_name|. Such access may require a valid local hospital user account and a laptop or PACS workstation that is under control of IT Department. If you contact IT Department ask for the start menu item “**Sectra DMA Forskning**”. With the program and your hospital username and password you will gain access to the research picture archive and communication system (PACS).
 
 Without access to a specific research project you will not see any data in the research PACS. Each research projects requires specific permissions to become accessible for a user.
 
@@ -107,7 +107,7 @@ How to send from Fiona to fPACS (Sectra)
 ------------------------------------------
 
 - Go to |fiona_url| (RIS)
-- Select :ref:`assign` appllication. 
+- Select :ref:`assign` application. 
 
    - Find and click on the examination you have sent under "Study list"
    - Check Study date/time and description. Accession number should match the examination ID in clinical Sectra if the examination was sent from there.
@@ -179,8 +179,8 @@ automatically be assigned to the project.
 How to handle errors?
 -----------------------
 
-Correcting errors during data import are not difficult to fix. Try to follow up on such errors
-on an ongoing basis. The quarantine Fiona station may have still have a copy of the data in
+Errors during data import are not difficult to fix. Try to follow up on such errors
+on an ongoing basis. The quarantine Fiona station may still have a copy of the data in
 its cache which simplifies the process. Contact |admin_name| in such cases and ask for help. This will allow you to fix issues such as:
 
 - wrong assignment of participant identifiers to DICOM studies,
@@ -277,7 +277,7 @@ All sensitive data should be stored in a separate REDCap “ID” project includ
    
    Sensitive data projects should be split into a REDCap project for data (using pseudonymized ids) and a REDCap project for sensitive data including the coupling list.
 
-All other data should be stored in a separate REDCap “Data” project using the pseudonymized articipant ID as a “record_id” (first field in the study).
+All other data should be stored in a separate REDCap “Data” project using the pseudonymized participant ID as a “record_id” (first field in the study).
 
 
 User rights management
@@ -317,7 +317,7 @@ Email addresses are special identifying fields that can be stored in data projec
 Randomization
 ---------------
 
-Randomized studies have can remove biases caused by selection of participants for specific arms in a study. Such biases can prevent a fair assessment of a treatment option. The randomization feature of REDCap allows users to upload a randomization table that has been externally created before the start of the study – usually by the statistician of the project. After participants are enrolled into the study the randomization entries for that person are “opened” and the choice of the randomization is stored in the project.
+Randomized studies can remove biases caused by selection of participants for specific arms in a study. Such biases can prevent a fair assessment of a treatment option. The randomization feature of REDCap allows users to upload a randomization table that has been externally created before the start of the study – usually by the statistician of the project. After participants are enrolled into the study the randomization entries for that person are “opened” and the choice of the randomization is stored in the project.
 
 .. figure:: ../_static/sensitive-data-randomization.png   
    :align: center
@@ -395,7 +395,7 @@ Frequently asked questions
 How do I start using the system?
 =================================
 
-Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**. Information about these first steps are available in the EK handbook (see Forskning / Forskningsprosedyrer, 02.20.7.1 Forsknings PACS).
+Creating a project for your data is of course the first step. On the front page of Fiona use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**. Information about these first steps is available in the EK handbook (see Forskning / Forskningsprosedyrer, 02.20.7.1 Forsknings PACS).
 
 
 Where does the data come from?
@@ -406,10 +406,10 @@ Both clinical and research systems are provided as services inside the hospital 
 Best practices for project setup
 =================================
 
-These are not rules, they are more like guidelines. They do may make the difference between an ok project and a project that is nice to work with (see FAIR data use).
+These are not rules, they are more like guidelines. They may make the difference between an OK project and a project that is nice to work with (see FAIR data use).
 
 - A research PACS project is more than a copy of all participant data from the clinical systems. Only transfer data explicitly covered in your REK approval - this is actually a rule, not just a recommendation. Patients might be in the hospital and receive imaging appointments for a number of different purposes. Image studies not directly related to your research project should not be transferred. 
-- Limit the number of coupling lists to identify participants in your project. In the best case all project members should use a single pseudonymized (numeric) identifier for each participant linking imamging data with diagnostic information. A single coupling list of participant identifying information and pseudonymized identifier is optimal as it still ensures separate storage of sensitive information from data. 
+- Limit the number of coupling lists to identify participants in your project. In the best case all project members should use a single pseudonymized (numeric) identifier for each participant linking imaging data with diagnostic information. A single coupling list of participant identifying information and pseudonymized identifier is optimal as it still ensures separate storage of sensitive information from data. 
 - Numerical identifiers for participant ids should use leading zeros ("project_001" instead of "project_1"). This allows for a consistent alphabetic sorting of participants in the research PACS Information window. The number of leading zeroes can be derived from the maximum number of participants in the study. 
 - Utilize non-numeric event names if your study is longitudinal. If you assign all image data to a single dummy event you will have more work later to specify baseline assessments needed for analysis (compute values relative to the baseline assessment etc.). If your project has an open number of events a two-event setup with "baseline" for the earliest good quality DICOM study and "followup" for all other DICOM studies is ok to use. All event-based studies should assign timing-based event names like "pre-op", "post-op", "6month", etc.. The event name is visible in the research PACS if you add the "Referring physician" column to the Information window. 
 - In order to support clinical studies a basic REDCap project (using RIS setup) contains five data collection instruments. 
@@ -426,7 +426,7 @@ Adjust instruments that you find useful in your study. Remove any instrument tha
 Can data be deleted?
 =====================
 
-You will not have permission to delete data yourself - but you can request data to be deleted from the system. Send an email to |admin_url| with the project name and detailed information of which participant, event, study, and series should be removed. With the same workflow you may request replacement of participants for which the wrong image series where submitted.
+You will not have permission to delete data yourself - but you can request data to be deleted from the system. Send an email to |admin_url| with the project name and detailed information of which participant, event, study, and series should be removed. With the same workflow you may request replacement of participants for which the wrong image series were submitted.
 
 Can I use the research information system without an ethical approval (REK number)?
 ====================================================================================
@@ -436,7 +436,7 @@ We do accept projects without REK that are for operational support like scan qua
 How to handle participant data after removal of participant consent?
 ======================================================================
 
-Participants can retract their consent to be part of a running research study at any time. One option for such data is to request a removal of the image data (send an email to |admin_url|). If the data was already part of published research you as the researcher might also have an obligation to store the data in case your findings need to be verified at some point in the future. Not using data in future research and allowing for a later verification of already performed research can be difficult to implement. We suggest in this case that you use one of two approaches. i) Export the raw data that is part of your paper and store an offline copy together with your analysis scripts for any future questions that you might have to respond to. Request data where consent has been retracted to be deleted from the research PACS. All remaining data in the research PACS is therefore ok to include in the next paper. Or, ii) you can use the worklist functionality of IDS7 to create a new worklist ("Ny statisk arbeitsliste") of subsets of participants. We suggest in this case that you work with three worklists, one to track participants that have removed their content - such data remains on the system but such participant data should not be used for future studies. One worklist per publication that contains references to the imaging studies that have been used. And one master worklist with participants that are ok to use in future papers by your project.
+Participants can retract their consent to be part of a running research study at any time. One option for such data is to request a removal of the image data (send an email to |admin_url|). If the data was already part of published research you as the researcher might also have an obligation to store the data in case your findings need to be verified at some point in the future. Not using data in future research and allowing for a later verification of already performed research can be difficult to implement. We suggest in this case that you use one of two approaches. i) Export the raw data that is part of your paper and store an offline copy together with your analysis scripts for any future questions that you might have to respond to. Request data where consent has been retracted to be deleted from the research PACS. All remaining data in the research PACS is therefore ok to include in the next paper. Or, ii) you can use the worklist functionality of IDS7 to create a new worklist ("Ny statisk arbeidsliste") of subsets of participants. We suggest in this case that you work with three worklists, one to track participants that have removed their consent - such data remains on the system but such participant data should not be used for future studies. One worklist per publication that contains references to the imaging studies that have been used. And one master worklist with participants that are ok to use in future papers by your project.
 
 What happens at the end of the project?
 =========================================
@@ -452,7 +452,7 @@ You can help us to increase the number of emails that can go out at once by chec
 How to integrate with external vendors?
 ========================================
 
-An external vendor might be a company that performs image analysis for you. This can be done in two basic ways - sending images to the cloud (difficult because of loss of control over data) and installing the vendor software inhouse (much easier). The process to integrate such an external vendor into the research information system includes a number of steps. Namely:
+An external vendor might be a company that performs image analysis for you. This can be done in two basic ways - sending images to the cloud (difficult because of loss of control over data) and installing the vendor software in-house (much easier). The process to integrate such an external vendor into the research information system includes a number of steps. Namely:
 
 - Check against existing systems
 - Budget control
@@ -547,7 +547,7 @@ We have created a research information system in response to common issues faced
 
 Based on these experiences we realized that many research tasks required for the successful running of a medical research study like data identification, data export, de-identification are not well supported if research institutions are setup as external entities to the health-care enterprise they are supposed to benefit.
 
-The purpose of the Fiona Project is to create a research information system that no-one is affraid of using and that provides an interface between hospital procedures that generate data and research institutions that consume them. The system focuses on supporting two aspects of medical data - all the lab samples, questionnaires, diagnosis reports and clinical history and the medical image data in the form of DICOM images.
+The purpose of the Fiona Project is to create a research information system that no-one is afraid of using and that provides an interface between hospital procedures that generate data and research institutions that consume them. The system focuses on supporting two aspects of medical data - all the lab samples, questionnaires, diagnosis reports and clinical history and the medical image data in the form of DICOM images.
 
 
 Safety first - Separation of hospital and research
@@ -555,13 +555,13 @@ Safety first - Separation of hospital and research
 
 Our research information system is independent from the clinical systems at our hospitals. It is setup as a shadow system that connects to all hospital infra-structure and that has the overall shape and appearance of the clinical system but it is specifically geared to serve the needs of research projects.
 
-How similar are the hospital and the research systems? Both hospital and research system use the same user accounts and permission services (active directory). This allows us to provide access to our research services with the same user-names and passwords as for the clinical system. Both the hospital and the research system use the same version of a vendor neutral archive and image viewing software (PACS). Whereas the instances of the clinical and the research system are separate and data storage is independent features of the clinical system like modality specific hanging protocols, image annotation tools and keyboard shortcuts are shared. This provides access to commercial image viewing software to researchers for data inspection and quality control which is essential for machine learning projects. For their clinical partners it provides a familiar interface to rate the products of research algorithms. Most importantly is removes the gap between the quality of data generated by research tools and the quality and level of automation that needs to be provided if they want to be evaluated for clinically use. This allows researchers to act as solution providers towards the hospital without the need for the integration of the research tools in commercial software applcations frist. Such a safe solution for the clinically relevant accelerated evaluation of novel solutions can help to understand the limitations of novel systems and limit the risks involved in the development of commercial solution.
+How similar are the hospital and the research systems? Both hospital and research system use the same user accounts and permission services (active directory). This allows us to provide access to our research services with the same user-names and passwords as for the clinical system. Both the hospital and the research system use the same version of a vendor neutral archive and image viewing software (PACS). Whereas the instances of the clinical and the research system are separate and data storage is independent features of the clinical system like modality specific hanging protocols, image annotation tools and keyboard shortcuts are shared. This provides access to commercial image viewing software to researchers for data inspection and quality control which is essential for machine learning projects. For their clinical partners it provides a familiar interface to rate the products of research algorithms. Most importantly it removes the gap between the quality of data generated by research tools and the quality and level of automation that needs to be provided if they want to be evaluated for clinical use. This allows researchers to act as solution providers towards the hospital without the need for the integration of the research tools in commercial software applications first. Such a safe solution for the clinically relevant accelerated evaluation of novel solutions can help to understand the limitations of novel systems and limit the risks involved in the development of commercial solution.
 
 
 Safety first - Separation of research projects
 ================================================
 
-In a clincal setting a health region will share a single clinical system which helps limiting the costs of such systems. Each hospital will be setup to see parts of the data such as all information from the hospital itself but not nessesarily the information from patients at other hospitals. Often this is not a true separatation but it is enforced by individual worklists and role based permissions. A general patient search at one institution will still turn up patients scans at the connected hospitals in the health region. Whereas this is a feature for a clinical system a research information system needs to be more restrictive as access to data is more restricted by regional institutional review boards that allow for the use of research data in approved projects only.
+In a clinical setting a health region will share a single clinical system which helps limiting the costs of such systems. Each hospital will be setup to see parts of the data such as all information from the hospital itself but not necessarily the information from patients at other hospitals. Often this is not a true separation but it is enforced by individual worklists and role based permissions. A general patient search at one institution will still turn up patients scans at the connected hospitals in the health region. Whereas this is a feature for a clinical system a research information system needs to be more restrictive as access to data is more restricted by regional institutional review boards that allow for the use of research data in approved projects only.
 
 Our system uses project access restrictions to provide a full separation of project data from each other. This includes project specific data identifiers in the VNA that allow project data to be used and deleted without interfering with other projects that might use the same patients data. Only users of the research PACS that are part of the projects role will have access to list the data and to see the assessments and images.
 
@@ -594,7 +594,7 @@ Data translations from clinical to research system
 
 The list of meta-data tags that are removed by the Fiona edge system when data is assigned to a project is long. We document which tags are changed by making the source code and the process publicly accessible at our |github-dicomanonymizer_link|  page. We hope that this will improve the quality and security of our solution by allowing other groups to evaluate the software in their settings. This includes for example the need to evaluate the de-identified images generated by the software with other image distribution and viewing solutions and the need to test the data interpretation of the tool with new DICOM image files.
 
-Some image data generated in the hospital setting will include textural information about the patient as burned in pixel information. This is common in some modalities such as ultra-sound but also appears in secondary capture images generated by specialized workstations applications for perfusion, diffusion and molecular imaging. Our research information system detects such images and attempts to automatically remove burned in image information by overwriting the detected areas with rectanges of a uniform color. Due to the fully automated process secondary capture images can be forwarded into the research PACS and are safe to use after a review by the project.
+Some image data generated in the hospital setting will include textural information about the patient as burned in pixel information. This is common in some modalities such as ultra-sound but also appears in secondary capture images generated by specialized workstations applications for perfusion, diffusion and molecular imaging. Our research information system detects such images and attempts to automatically remove burned in image information by overwriting the detected areas with rectangles of a uniform color. Due to the fully automated process secondary capture images can be forwarded into the research PACS and are safe to use after a review by the project.
 
 
 Specialized applications
@@ -617,7 +617,7 @@ Assign
 
    <div style="margin-bottom: 20px;"></div>
 
-The Assign application is the entry page for project data. The application lists incoming data that is in quarantine and allows the user to select the appropriate project, de-identified participant name and the event name of the imaging study. This is sufficient for a manual assignment of captured data as it is aquired in the hospital setting. For legacy data and external data in large quantities several automated import strategies are available. If data is de-identified outside of the research information system by writing a new patient ID such files are recognized by the edge system using either the send destination (AETitle of the addressed service on the edge Fiona) or by the pattern used in the patient ID. This detection of incoming data is used to detect the destination research project and trigger the de-identification step without another manual identification step. Additionally to such automated data routing the Assign application also provides a mapping table upload that can be used to identify project and event based on the datas accession number.
+The Assign application is the entry page for project data. The application lists incoming data that is in quarantine and allows the user to select the appropriate project, de-identified participant name and the event name of the imaging study. This is sufficient for a manual assignment of captured data as it is acquired in the hospital setting. For legacy data and external data in large quantities several automated import strategies are available. If data is de-identified outside of the research information system by writing a new patient ID such files are recognized by the edge system using either the send destination (AETitle of the addressed service on the edge Fiona) or by the pattern used in the patient ID. This detection of incoming data is used to detect the destination research project and trigger the de-identification step without another manual identification step. Additionally to such automated data routing the Assign application also provides a mapping table upload that can be used to identify project and event based on the data's accession number.
 
 
 .. _export:
