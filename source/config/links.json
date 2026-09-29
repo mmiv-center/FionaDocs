@@ -2,7 +2,7 @@
   "urls": 
   {
     "redcap-main": {
-      "url": "https://project-redcap.org",
+      "url": "https://projectredcap.org",
       "name": "REDCap"
     },
     "hus": {
@@ -62,7 +62,7 @@
     },
     "fiona-redcap":{
       "url" : "https://fiona.local.server:4444",
-      "name": "Fiona/RedCap"
+      "name": "Fiona/REDCap"
     },
     "fiona-AETtitle":{
       "url" : "AETtitle",
