@@ -40,6 +40,10 @@
     "fiona_bergen": {
       "url": "https://fiona.ihelse.net",
       "name": "Fiona"
+    },
+    "uib_safe": {
+      "url": "https://www.uib.no/en/safe",
+      "name": "SAFE"
     }
   },
   "placeholders":

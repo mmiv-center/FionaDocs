@@ -32,4 +32,9 @@
 - **Fix:** Add a docstring on the Fiona server (`: ' ... ' #end-doc`, like `clearExports.sh`). Then add `scripts/pullStudyFromIDS7.rst`, a Components entry, the file tree branch (HTML and LaTeX), the LaTeX toctree and a `setup.sh` entry.
 - **Files:** `applications/Exports/php/pullStudyFromIDS7.sh` (server), `Developer/developer-index.rst`, `scripts/setup.sh`
 
+### Verify glossary entries
+- **Problem:** Some glossary definitions are based on context only and are not confirmed.
+- **To check:** DMA (expansion of "Sectra DMA Forskning"), EK (Elektronisk kvalitetshåndbok?), CDRobot (writes studies to CD/DVD?), OneConnect (PACS-to-PACS sharing with other institutions?).
+- **Files:** `source/glossary.rst`
+
 ## Done

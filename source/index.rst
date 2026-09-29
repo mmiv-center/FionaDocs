@@ -81,7 +81,18 @@ Key features of the RIS include:
    :hidden:
    
    Developer/developer-index
-   
+
+
+
+.. Glossary
+.. --------
+
+.. toctree::
+   :maxdepth: 3
+   :hidden:
+
+   glossary
+
 
    
 Contact Information
