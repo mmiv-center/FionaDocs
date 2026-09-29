@@ -163,7 +163,7 @@ After data arrived at the research PACS a verification step should ensure that a
 
 Furthermore the import step will also attempt to de-identify secondary capture images with burned in image information. This process is fully automated and can result in false positive and occasionally false negative results. After a review of the data in IDS7 the user may decide which secondary image series are “safe” to exclude from the pixel rewriting on import. For example a secondary capture series from DTI may not contain any burned in names or identifying numbers or dates. Such image series can be removed in REDCap from further pixel anonymization.
 
-If the number of images on Fiona does not correspond to the number of images available cache previous assignments and automatically forward such images to the research PACS using the previously defined project, patient identifier and event name.
+If the number of images on Fiona does not correspond to the number of images available on IDS7, try to resend them again from the modality station. The :ref:`assign` application will cache previous assignments and automatically forward such images to the research PACS using the previously defined project, patient identifier and event name.
 
 
 
@@ -183,10 +183,10 @@ Correcting errors during data import are not difficult to fix. Try to follow up 
 on an ongoing basis. The quarantine Fiona station may have still have a copy of the data in
 its cache which simplifies the process. Contact |admin_name| in such cases and ask for help. This will allow you to fix issues such as:
 
-• wrong assignment of participant identifiers to DICOM studies,
-• wrong assignment of event names to DICOM studies,
-• missing images or image series for existing DICOM studies,
-• missing entries for DICOM studies on :ref:`assign`.
+- wrong assignment of participant identifiers to DICOM studies,
+- wrong assignment of event names to DICOM studies,
+- missing images or image series for existing DICOM studies,
+- missing entries for DICOM studies on :ref:`assign`.
 
 
 
@@ -395,9 +395,7 @@ Frequently asked questions
 How do I start using the system?
 =================================
 
-Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**.
-
-Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to apply for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in How to send data. Information about these first steps are available in the EK handbook (see Forskning / Forskningsprosedyrer, 02.20.7.1 Forsknings PACS).
+Creating a project for your data is of course the first step. One the frontpage of Fiona use the link at the top to |fiona-apply_name| for a new research project. After you got access from IKT to the "Sectra DMA Forskning" start menu link you can login there and see your empty project. Start by uploading data to your project following the steps in **How to add image data**. Information about these first steps are available in the EK handbook (see Forskning / Forskningsprosedyrer, 02.20.7.1 Forsknings PACS).
 
 
 Where does the data come from?
@@ -410,16 +408,17 @@ Best practices for project setup
 
 These are not rules, they are more like guidelines. They do may make the difference between an ok project and a project that is nice to work with (see FAIR data use).
 
- - A research PACS project is more than a copy of all participant data from the clinical systems. Only transfer data explicitly covered in your REK approval - this is actually a rule, not just a recommendation. Patients might be in the hospital and receive imaging appointments for a number of different purposes. Image studies not directly related to your research project should not be transferred. 
- - Limit the number of coupling lists to identify participants in your project. In the best case all project members should use a single pseudonymized (numeric) identifier for each participant linking imamging data with diagnostic information. A single coupling list of participant identifying information and pseudonymized identifier is optimal as it still ensures separate storage of sensitive information from data. 
- - Numerical identifiers for participant ids should use leading zeros ("project_001" instead of "project_1"). This allows for a consistent alphabetic sorting of participants in the research PACS Information window. The number of leading zeroes can be derived from the maximum number of participants in the study. 
- - Utilize non-numeric event names if your study is longitudinal. If you assign all image data to a single dummy event you will have more work later to specify baseline assessments needed for analysis (compute values relative to the baseline assessment etc.). If your project has an open number of events a two-event setup with "baseline" for the earliest good quality DICOM study and "followup" for all other DICOM studies is ok to use. All event-based studies should assign timing-based event names like "pre-op", "post-op", "6month", etc.. The event name is visible in the research PACS if you add the "Referring physician" column to the Information window. 
- - In order to support clinical studies a basic REDCap project (using RIS setup) contains five data collection instruments. 
- - *Basic Demography Form*: The entries in this form are used to link to the pseudonymized participant ID. All three fields usually contain the same value that is linked to the image information for PatientName and PatientID. 
- - *Imaging*: The imaging instrument is automatically populated by Fiona after each data transfer into the research PACS. The basic information captured is the study instance UID, event name, (shifted) study date and the study description. 
- - *Pathology*: The pathology instrument adds to the imaging instrument measures related to pathology imaging such as magnification factors, resolution and stain information based SNOMED-CT. 
- - *Adverse Events*, *Monitoring*, *Record Locking*, *Source Data Verification*: This instrument captures information required for clinical study type data capture. For each participant in the study all found adverse events (AE), serious adverse events (SAE) and suspected unexpected serious adverse reaction (SUSAR) are captured. The instrument includes also a section on medication monitoring, documentation for record locking and a section to document a source data verification step. Not all projects, especially non-clinical drug trials will need all of these fields. Adjust the instrument for your own study as needed. 
- - *e-Consent*: The template for electronic consent shows the use of signature fields to authenticate both the consenter and the consentee. Notice that HTML formatting for e-consent will be removed in the resulting PDF documenting the consent process (restriction of REDCap). Use the section headers as shown in the template file to obtain a better structured PDF version of the consent. Use images and the logo to style your consent.
+- A research PACS project is more than a copy of all participant data from the clinical systems. Only transfer data explicitly covered in your REK approval - this is actually a rule, not just a recommendation. Patients might be in the hospital and receive imaging appointments for a number of different purposes. Image studies not directly related to your research project should not be transferred. 
+- Limit the number of coupling lists to identify participants in your project. In the best case all project members should use a single pseudonymized (numeric) identifier for each participant linking imamging data with diagnostic information. A single coupling list of participant identifying information and pseudonymized identifier is optimal as it still ensures separate storage of sensitive information from data. 
+- Numerical identifiers for participant ids should use leading zeros ("project_001" instead of "project_1"). This allows for a consistent alphabetic sorting of participants in the research PACS Information window. The number of leading zeroes can be derived from the maximum number of participants in the study. 
+- Utilize non-numeric event names if your study is longitudinal. If you assign all image data to a single dummy event you will have more work later to specify baseline assessments needed for analysis (compute values relative to the baseline assessment etc.). If your project has an open number of events a two-event setup with "baseline" for the earliest good quality DICOM study and "followup" for all other DICOM studies is ok to use. All event-based studies should assign timing-based event names like "pre-op", "post-op", "6month", etc.. The event name is visible in the research PACS if you add the "Referring physician" column to the Information window. 
+- In order to support clinical studies a basic REDCap project (using RIS setup) contains five data collection instruments. 
+
+  - *Basic Demography Form*: The entries in this form are used to link to the pseudonymized participant ID. All three fields usually contain the same value that is linked to the image information for PatientName and PatientID. 
+  - *Imaging*: The imaging instrument is automatically populated by Fiona after each data transfer into the research PACS. The basic information captured is the study instance UID, event name, (shifted) study date and the study description. 
+  - *Pathology*: The pathology instrument adds to the imaging instrument measures related to pathology imaging such as magnification factors, resolution and stain information based SNOMED-CT. 
+  - *Adverse Events*, *Monitoring*, *Record Locking*, *Source Data Verification*: This instrument captures information required for clinical study type data capture. For each participant in the study all found adverse events (AE), serious adverse events (SAE) and suspected unexpected serious adverse reaction (SUSAR) are captured. The instrument includes also a section on medication monitoring, documentation for record locking and a section to document a source data verification step. Not all projects, especially non-clinical drug trials will need all of these fields. Adjust the instrument for your own study as needed. 
+  - *e-Consent*: The template for electronic consent shows the use of signature fields to authenticate both the consenter and the consentee. Notice that HTML formatting for e-consent will be removed in the resulting PDF documenting the consent process (restriction of REDCap). Use the section headers as shown in the template file to obtain a better structured PDF version of the consent. Use images and the logo to style your consent.
 
 Adjust instruments that you find useful in your study. Remove any instrument that you do not need.
 
@@ -454,22 +453,18 @@ How to integrate with external vendors?
 ========================================
 
 An external vendor might be a company that performs image analysis for you. This can be done in two basic ways - sending images to the cloud (difficult because of loss of control over data) and installing the vendor software inhouse (much easier). The process to integrate such an external vendor into the research information system includes a number of steps. Namely:
- - Check against existing systems
- - Budget control
- - Risk assessment
- - Data processing agreement
- - Contractual agreements
- - Data protection impact assessment
+
+- Check against existing systems
+- Budget control
+- Risk assessment
+- Data processing agreement
+- Contractual agreements
+- Data protection impact assessment
 
 Whereas some of these steps are mandatory most are dependent on the type of integration and prior work. A working integration will allow you as a researcher to control the sending of images from the research PACS to the vendor software. The software will perform its task and any resulting images will appear back in your project in the research PACS.
 
 How anonymous is the data in the research information system?
 ================================================================
-
-As copies of the image data may exist in clinical systems, research image data is considered at least indirectly identifiable personal data. Data exported from the research PACS may retain that property and should be stored on secure systems. According to GDPR this may make it necessary to carry out a Data protection impact assessment (DPIA) prior to processing.
-
-How anonymous is the data in the research information system?
-==============================================================
 
 As copies of the image data may exist in clinical systems, research image data is considered at least indirectly identifiable personal data. Data exported from the research PACS may retain that property and should be stored on secure systems. According to GDPR this may make it necessary to carry out a Data protection impact assessment (DPIA) prior to processing.
 
@@ -506,9 +501,9 @@ TSD supports data upload links. Fiona | Export uses them to allow for a direct s
 
 Send us the following information to link Fiona | Export to your TSD project (https://data.tsd.usit.no/i/):
 
- - TSD group name:
- - TSD ID: e0b0c0e-abcd-abcd-abcd-a0b0c0d0e0f0 (example)
- - TSD user name.
+- TSD group name:
+- TSD ID: e0b0c0e-abcd-abcd-abcd-a0b0c0d0e0f0 (example)
+- TSD user name.
 
 For HUNT cloud the functionality relies on the 'sftp' data transfer protocol. Work on integrating these transfers to Fiona are ongoing.
 
@@ -527,10 +522,10 @@ To send data already assigned to a research project use the "Export" application
 
 *PACS to PACS connectivity*: If images pseudonymized on FIONA are forwarded to another PACS inform them on how to find your pseudonymized images. Tell them:
 
- - The AccessionNumber (Undersøkelse-ID) DICOM tag will start with the letters "Fiona" followed by some random letters and numbers.
- - The PatientName and PatientID tags will be the same (entered on Fiona, can be something like <project>_<numeric_id>, e.g. "TOBE_0022").
- - The ReferringPhysician DICOM tag will contain the name of the imaging event (e.g. "Eventname:baseline").
- - Further information on the pseudonymization procedure can be found here: |github-dicomanonymizer_url|
+- The AccessionNumber (Undersøkelse-ID) DICOM tag will start with the letters "Fiona" followed by some random letters and numbers.
+- The PatientName and PatientID tags will be the same (entered on Fiona, can be something like <project>_<numeric_id>, e.g. "TOBE_0022").
+- The ReferringPhysician DICOM tag will contain the name of the imaging event (e.g. "Eventname:baseline").
+- Further information on the pseudonymization procedure can be found here: |github-dicomanonymizer_url|
 
 What other types of data can you store in PACS?
 =================================================
@@ -690,7 +685,7 @@ What does not change
    Large studies take a long time. Archived studies must first be retrieved from the archive.
 
 
-.. _noassin:
+.. _noassign:
 
 NoAssign
 -----------
