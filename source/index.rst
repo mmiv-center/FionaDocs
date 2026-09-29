@@ -37,7 +37,7 @@ The research information system (RIS) of the Western Norway Health Authorities (
 research data for approved research projects at Haukeland University Hospital |hus_link| and connected hospitals of the |helse-vest-region_link|. The project is supported by the 
 |radiology-department_link| of Haukeland University Hospital and the |mmiv_link| and approved for research project use by |ikt-helse-vest_link|. The physical location of the data is at the premises of IKT Helse Vest Norway. A dedicated storage area and research software (Sectra, IDS7) provides researchers with appropriate permission access to their data. All data is stored in a de-identified format inside the RIS. Maintaining a coupling list is the responsibility of each project and not part of the functionality of the RIS.
 
-Based on the REK/DIPA rules for each project a lifetime tracking of the research data per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.
+Based on the REK/DPIA rules for each project a lifetime tracking of the research data per project ensures that data can be anonymized based on data sharing requirements, and that data can be deleted at the end of the project phase - if required. We suggest that research data is allowed to be fully anonymized at the end of the project and remain in RIS for general research access.
 
 Key features of the RIS include:
 
@@ -98,6 +98,6 @@ Key features of the RIS include:
 Contact Information
 *********************
 
-* Hauke Bartsch 
+* |local_admin_bergen_contact|
 * Helse Bergen HF Haukeland universitetssjukehus, Radiologisk avdeling, Postboks 1400, 5021 Bergen
 
