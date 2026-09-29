@@ -36,14 +36,14 @@
     "github-rewritepixel": {
       "url": "https://github.com/mmiv-center/RewritePixel",
       "name": "RewritePixel"
+    },
+    "fiona_bergen": {
+      "url": "https://fiona.ihelse.net",
+      "name": "Fiona"
     }
   },
   "placeholders":
   {
-    "fiona-bergen": {
-      "url" : "https://fiona.ihelse.net",
-      "name": "Fiona"
-    },
     "fiona": {
       "url" : "https://fiona.local.server",
       "name": "Fiona"
@@ -79,10 +79,17 @@
     "it": {
       "url" : "https://it.department.your.institution",
       "name": "Institution IT Department"
+    },
+    "research_storage": {
+      "url": "research-storage[at]your-institution.com",
+      "name": "Research Storage Provider (TSD/SAFE/HUNT Cloud)"
     }
   },
   "contacts":
   {
-
+    "local_admin_bergen": {
+      "email": "Hauke.Bartsch@helse-bergen.no",
+      "name": "Hauke Bartsch"
+    }
   }
 }

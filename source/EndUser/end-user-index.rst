@@ -106,7 +106,7 @@ Fiona must be added as a sending destination on the modality.
 How to send from Fiona to fPACS (Sectra)
 ------------------------------------------
 
-- Go to fiona.ihelse.net (RIS)
+- Go to |fiona_url| (RIS)
 - Select :ref:`assign` appllication. 
 
    - Find and click on the examination you have sent under "Study list"
@@ -426,7 +426,7 @@ Adjust instruments that you find useful in your study. Remove any instrument tha
 Can data be deleted?
 =====================
 
-You will not have permission to delete data yourself - but you can request data to be deleted from the system. Send an email to Hauke with the project name and detailed information of which participant, event, study, and series should be removed. With the same workflow you may request replacement of participants for which the wrong image series where submitted.
+You will not have permission to delete data yourself - but you can request data to be deleted from the system. Send an email to |admin_url| with the project name and detailed information of which participant, event, study, and series should be removed. With the same workflow you may request replacement of participants for which the wrong image series where submitted.
 
 Can I use the research information system without an ethical approval (REK number)?
 ====================================================================================
@@ -436,7 +436,7 @@ We do accept projects without REK that are for operational support like scan qua
 How to handle participant data after removal of participant consent?
 ======================================================================
 
-Participants can retract their consent to be part of a running research study at any time. One option for such data is to request a removal of the image data (send email to rDMA team/Hauke). If the data was already part of published research you as the researcher might also have an obligation to store the data in case your findings need to be verified at some point in the future. Not using data in future research and allowing for a later verification of already performed research can be difficult to implement. We suggest in this case that you use one of two approaches. i) Export the raw data that is part of your paper and store an offline copy together with your analysis scripts for any future questions that you might have to respond to. Request data where consent has been retracted to be deleted from the research PACS. All remaining data in the research PACS is therefore ok to include in the next paper. Or, ii) you can use the worklist functionality of IDS7 to create a new worklist ("Ny statisk arbeitsliste") of subsets of participants. We suggest in this case that you work with three worklists, one to track participants that have removed their content - such data remains on the system but such participant data should not be used for future studies. One worklist per publication that contains references to the imaging studies that have been used. And one master worklist with participants that are ok to use in future papers by your project.
+Participants can retract their consent to be part of a running research study at any time. One option for such data is to request a removal of the image data (send an email to |admin_url|). If the data was already part of published research you as the researcher might also have an obligation to store the data in case your findings need to be verified at some point in the future. Not using data in future research and allowing for a later verification of already performed research can be difficult to implement. We suggest in this case that you use one of two approaches. i) Export the raw data that is part of your paper and store an offline copy together with your analysis scripts for any future questions that you might have to respond to. Request data where consent has been retracted to be deleted from the research PACS. All remaining data in the research PACS is therefore ok to include in the next paper. Or, ii) you can use the worklist functionality of IDS7 to create a new worklist ("Ny statisk arbeitsliste") of subsets of participants. We suggest in this case that you work with three worklists, one to track participants that have removed their content - such data remains on the system but such participant data should not be used for future studies. One worklist per publication that contains references to the imaging studies that have been used. And one master worklist with participants that are ok to use in future papers by your project.
 
 What happens at the end of the project?
 =========================================
@@ -497,7 +497,7 @@ Tags not listed above are untouched by the pseudonymization tool.
 Can I export to TSD/Safe/HUNT cloud?
 ========================================
 
-TSD supports data upload links. Fiona | Export uses them to allow for a direct submission of data folders (zip-format) to your TSD project storage space. You need to setup this feature for each project. Create the data upload link on TSD. Make sure you create an upload link that does not require a secret (disable 'secret challenge' checkbox).There is no comparable technology for Safe yet. Contact Christine Stansberg to request such an interface.
+TSD supports data upload links. Fiona | Export uses them to allow for a direct submission of data folders (zip-format) to your TSD project storage space. You need to setup this feature for each project. Create the data upload link on TSD. Make sure you create an upload link that does not require a secret (disable 'secret challenge' checkbox).There is no comparable technology for Safe yet. Contact |research_storage_name| to request such an interface.
 
 Send us the following information to link Fiona | Export to your TSD project (https://data.tsd.usit.no/i/):
 
@@ -698,7 +698,7 @@ NoAssign
 
    <div style="margin-bottom: 20px;"></div>
 
-Fiona's NoAssign application can be used to pseudonymize data without adding them to research PACS. Studies need to be forwarded to Fiona.ihelse.net but will remain in quarantine there (for up to 7 days). If NoAssign is used during this time period the user may select a study from the list and either "download" the study as a pseudonymized zip file or forward the pseudonymized study to other clinical systems like "CDRobot" or "clinical PACS".
+Fiona's NoAssign application can be used to pseudonymize data without adding them to research PACS. Studies need to be forwarded to |fiona_name| but will remain in quarantine there (for up to 7 days). If NoAssign is used during this time period the user may select a study from the list and either "download" the study as a pseudonymized zip file or forward the pseudonymized study to other clinical systems like "CDRobot" or "clinical PACS".
 
 .. _review:
 
