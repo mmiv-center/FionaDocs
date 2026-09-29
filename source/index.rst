@@ -25,7 +25,7 @@ FIONA Documentation
 
    .. rst-class:: pdf-download
 
-   `Download PDF <../latex/fiona.pdf>`__
+   `Download PDF <fiona.pdf>`__
 
 |
 |

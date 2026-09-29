@@ -87,6 +87,21 @@ cd -
 
 ## Building the documentation
 
+### Recommended: `make docs` (full build)
+
+```bash
+cd FionaDocs
+source .venv/bin/activate
+make docs        # clean -> PDF -> HTML -> copy fiona.pdf into build/html/
+deactivate
+```
+
+**Why (2026-09-29):** the main page has a "Download PDF" button that links to `fiona.pdf` in the same folder as `index.html`. On the Fiona server the web server only sees `build/html/` (the symlink `/var/www/html/fiona_v<version>/applications/FionaDocs` points to `/home/kocmar/FionaDocs/build/html`), so `build/latex/fiona.pdf` is not reachable from the web. `make docs` builds both outputs in the right order and copies the PDF into `build/html/`, so the button works on the server and locally.
+
+### Individual steps
+
+The single targets still work, but they do **not** copy the PDF into `build/html/`, so the "Download PDF" button will not work after them.
+
 ```bash
 cd FionaDocs
 
