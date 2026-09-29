@@ -37,4 +37,9 @@
 - **To check:** DMA (expansion of "Sectra DMA Forskning"), EK (Elektronisk kvalitetshåndbok?), CDRobot (writes studies to CD/DVD?), OneConnect (PACS-to-PACS sharing with other institutions?).
 - **Files:** `source/glossary.rst`
 
+### Check what the web server exposes from FionaDocs
+- **Problem:** `/var/www/html/fiona_v20260518/applications/FionaDocs/` is a symlink. If it points to the whole `/home/kocmar/FionaDocs`, the web server also serves `.git/`, `.venv/`, `source/` (`links.json` with e-mails) and the Fiona scripts.
+- **Check:** On the server: `ls -l /var/www/html/fiona_v20260518/applications/FionaDocs`, and open `.../FionaDocs/.git/config` and `.../FionaDocs/source/config/links.json` in a browser.
+- **Fix (if needed):** Link only `build/`, or block the other folders in the web server config. Keep `build/html/` and `build/latex/fiona.pdf` reachable (the "Download PDF" button on the main page uses `../latex/fiona.pdf`).
+
 ## Done

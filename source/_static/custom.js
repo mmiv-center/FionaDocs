@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     for (var i = 0; i < links.length; i++) {
         var link = links[i];
-        if (link.hostname !== window.location.hostname && link.hostname !== '') {
+        if ((link.hostname !== window.location.hostname && link.hostname !== '') ||
+            link.pathname.toLowerCase().endsWith('.pdf')) {
             console.log('Setting target=_blank for:', link.href);
             link.target = '_blank';
             link.rel = 'noopener noreferrer';

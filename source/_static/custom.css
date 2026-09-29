@@ -66,3 +66,32 @@
         gap: 15px;
     }
 }
+
+/* Download PDF button on the main page (index.rst) */
+.rst-content p.pdf-download {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.rst-content p.pdf-download a {
+    display: inline-block;
+    padding: 8px 20px;
+    margin-right: 6px;
+    background-color: #2980b9;
+    color: #ffffff !important;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.rst-content p.pdf-download a:hover {
+    background-color: #3498db;
+}
+
+/* Footer: copyright on the left, "Last updated on" on the right */
+footer div[role="contentinfo"] p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 20px;
+}

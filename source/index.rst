@@ -23,6 +23,10 @@ FIONA Documentation
       :align: center
       :alt: Fiona logo (fern leaf)
 
+   .. rst-class:: pdf-download
+
+   `Download PDF <../latex/fiona.pdf>`__
+
 |
 |
 

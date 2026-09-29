@@ -135,6 +135,7 @@ autodoc_mock_imports = []
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+html_last_updated_fmt = '%Y-%m-%d'  # build date in the page footer
 
 html_theme_options = {
     'navigation_depth': -1,  # Shows all levels
