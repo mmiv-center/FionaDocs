@@ -54,9 +54,9 @@ def generate_substitutions(config):
             # Structure only with url
             substitutions.append(f".. |{key}_url| replace:: {data}")
             substitutions.append(f".. |{key}_link| replace:: `{data} <{data}>`__")
-    # fake-urls
-    fake = config.get('fake-urls', {})
-    for key, data in fake.items():
+    # placeholders
+    placeholders = config.get('placeholders', {})
+    for key, data in placeholders.items():
         if isinstance(data, dict):
             # A new structure with name i url
             url = data.get('url', '')

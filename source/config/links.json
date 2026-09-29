@@ -38,7 +38,7 @@
       "name": "RewritePixel"
     }
   },
-  "fake-urls":
+  "placeholders":
   {
     "fiona-bergen": {
       "url" : "https://fiona.ihelse.net",
