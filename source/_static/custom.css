@@ -95,3 +95,45 @@ footer div[role="contentinfo"] p {
     justify-content: space-between;
     gap: 4px 20px;
 }
+
+/* "Go to Fiona" link pinned to the bottom of the sidebar (_templates/layout.html) */
+.wy-nav-side .go-to-fiona {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    padding: 10px 0;
+    text-align: center;
+    background-color: #1f1d1d;
+    z-index: 300;
+}
+
+.wy-nav-side .go-to-fiona a {
+    display: inline-block;
+    padding: 6px 50px;
+    background-color: #2980b9;
+    color: #ffffff !important;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.wy-nav-side .go-to-fiona a:hover {
+    background-color: #3498db;
+}
+
+/* Keep the last menu items (Glossary) scrollable above the pinned link */
+.wy-nav-side .wy-menu-vertical {
+    margin-bottom: 60px;
+}
+
+/* Mobile: show the link only when the sidebar menu is open */
+@media screen and (max-width: 768px) {
+    .wy-nav-side .go-to-fiona {
+        display: none;
+        width: 85%;
+    }
+
+    .wy-nav-side.shift .go-to-fiona {
+        display: block;
+    }
+}

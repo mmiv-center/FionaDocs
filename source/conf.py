@@ -145,6 +145,12 @@ html_theme_options = {
     'titles_only': False,  # Shows not only titles
 }
 
+# "Go to Fiona" link pinned to the bottom of the sidebar (_templates/layout.html).
+# '/' = root of the server hosting the docs, i.e. the Fiona main page.
+html_context = {
+    'fiona_home_url': '/',
+}
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

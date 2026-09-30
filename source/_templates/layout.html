@@ -1,0 +1,8 @@
+{# Extends sphinx_rtd_theme layout: adds a "Go to Fiona" link pinned to the bottom of the sidebar.
+   The target URL is set in conf.py (html_context['fiona_home_url']). #}
+{% extends "!layout.html" %}
+
+{% block navigation %}
+  {{ super() }}
+  <div class="go-to-fiona"><a href="{{ fiona_home_url }}">Go to Fiona</a></div>
+{% endblock %}
