@@ -641,6 +641,14 @@ As data is already in de-identified format in the research PACS exporting them f
 Duplicate
 ---------
 
+.. figure:: ../_static/duplicate.png
+   :align: center
+   :scale: 50%
+
+.. raw:: html
+
+   <div style="margin-bottom: 20px;"></div>
+
 This application allows users with an account and Export permission for a project to copy the data to another project. The application can also be used to change the name of existing studies. Manual deletion of the origin study may be required.
 
 For step-by-step instructions, see the :ref:`Duplicate user guide <duplicate-guide>`.

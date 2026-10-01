@@ -32,12 +32,15 @@
 - **To check:** DMA (expansion of "Sectra DMA Forskning"), EK (Elektronisk kvalitetshåndbok?), CDRobot (writes studies to CD/DVD?), OneConnect (PACS-to-PACS sharing with other institutions?).
 - **Files:** `source/glossary.rst`
 
-### Duplicate: add application logo
-- **Problem:** Duplicate in "Specialized applications" (End User) has no logo screenshot, unlike the other modules.
-- **Fix:** Create `_static/duplicate.png` and add it as a figure under the Duplicate heading, like `export.png`.
-- **Files:** `source/_static/duplicate.png`, `source/EndUser/end-user-index.rst`
+### Refresh landing page banners
+- **Problem:** The landing page layout changed (2026-10-01): rows 2–4 are lower, and Migrate moved. The banners of Attach, NoAssign, Trace and Review in `_static/` still show the old, taller tiles.
+- **Fix:** Take new screenshots while logged out, crop them to the tile and save them with 144 DPI (otherwise they are too wide in the PDF).
+- **Files:** `source/_static/attach.png`, `noassign.png`, `review-meta-data.png`, `review-zip-file.jpeg`, and others if needed
 
 ## Done
+
+### Duplicate: add application logo (2026-10-01)
+- **Result:** New Duplicate tile on the landing page; its screenshot is `_static/duplicate.png` (144 DPI) and is shown in "Specialized applications".
 
 ### Document `pullStudyFromIDS7.sh` (2026-10-01)
 - **Result:** Docstring added on the Fiona server; `scripts/pullStudyFromIDS7.rst`, Components entry, HTML and LaTeX tree branches, LaTeX toctree and `setup.sh` entry added.
