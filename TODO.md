@@ -32,6 +32,11 @@
 - **To check:** DMA (expansion of "Sectra DMA Forskning"), EK (Elektronisk kvalitetshåndbok?), CDRobot (writes studies to CD/DVD?), OneConnect (PACS-to-PACS sharing with other institutions?).
 - **Files:** `source/glossary.rst`
 
+### Duplicate: add application logo
+- **Problem:** Duplicate in "Specialized applications" (End User) has no logo screenshot, unlike the other modules.
+- **Fix:** Create `_static/duplicate.png` and add it as a figure under the Duplicate heading, like `export.png`.
+- **Files:** `source/_static/duplicate.png`, `source/EndUser/end-user-index.rst`
+
 ## Done
 
 ### Document `pullStudyFromIDS7.sh` (2026-10-01)
