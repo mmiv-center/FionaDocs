@@ -179,6 +179,7 @@ Components
 #. :doc:`scripts/populateProjects` - Populates individual research project databases with distributed data
 #. :doc:`scripts/processSingleFile3` - Extracts metadata from DICOM files and creates directory structures
 #. :doc:`scripts/process_tiff` - Converts whole slide imaging (WSI) files to DICOM format for pathology processing
+#. :doc:`scripts/pullStudyFromIDS7` - Retrieves one study from research PACS into a folder; shared helper used by Exports and Duplicate
 #. :doc:`scripts/removeOldEntries` - Removes old entries from incoming data tracking files
 #. :doc:`scripts/resendProject` - Handles re-transmission of studies when initial transfers fail or new data arrives
 #. :doc:`scripts/runOneJob` - Processes containerized analysis jobs from job queue
@@ -231,7 +232,8 @@ Folder and File structure
                            |          |          └──<a href="scripts/duplicateStudies.html">duplicateStudies.php</a>
                            │          ├── Exports/
                            │          │     └── php
-                           |          |          └──<a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
+                           |          |          ├──<a href="scripts/createZipFileCmd.html">createZipFileCmd.php</a>
+                           |          |          └──<a href="scripts/pullStudyFromIDS7.html">pullStudyFromIDS7.sh</a>
                            │          ├── User/
                            │          │     └── asttt/
                            │          │            └── code/
@@ -293,7 +295,8 @@ Folder and File structure
                            |          |          └── duplicateStudies.php
                            │          ├── Exports/
                            │          │     └── php
-                           |          |          └── createZipFileCmd.php
+                           |          |          ├── createZipFileCmd.php
+                           |          |          └── pullStudyFromIDS7.sh
                            │          ├── User/
                            │          │     └── asttt/
                            │          │            └── code/
@@ -339,6 +342,7 @@ Folder and File structure
        scripts/populateProjects
        scripts/processSingleFile3
        scripts/process_tiff
+       scripts/pullStudyFromIDS7
        scripts/removeOldEntries
        scripts/resendProject
        scripts/runOneJob

@@ -27,17 +27,15 @@
 - **To do:** Apply the same changes as in `setup.sh`: detect the Fiona version from `/data/config/config.json`, and copy the real `storectl.sh`, not the wrapper. Keep its list of scripts in sync with `setup.sh`, and ideally make both scripts use one shared list.
 - **Note:** This script is not in this repository. Consider adding it next to `setup.sh` (for example as `source/Developer/scripts/pack-scripts.sh`) so that both are versioned together.
 
-### Document `pullStudyFromIDS7.sh`
-- **Problem:** `applications/Exports/php/pullStudyFromIDS7.sh` retrieves one study from the research PACS. It is used by Exports and Duplicate (`duplicateStudies.php`), but it has no docstring and is not in the Developer docs.
-- **Fix:** Add a docstring on the Fiona server (`: ' ... ' #end-doc`, like `clearExports.sh`). Then add `scripts/pullStudyFromIDS7.rst`, a Components entry, the file tree branch (HTML and LaTeX), the LaTeX toctree and a `setup.sh` entry.
-- **Files:** `applications/Exports/php/pullStudyFromIDS7.sh` (server), `Developer/developer-index.rst`, `scripts/setup.sh`
-
 ### Verify glossary entries
 - **Problem:** Some glossary definitions are based on context only and are not confirmed.
 - **To check:** DMA (expansion of "Sectra DMA Forskning"), EK (Elektronisk kvalitetshåndbok?), CDRobot (writes studies to CD/DVD?), OneConnect (PACS-to-PACS sharing with other institutions?).
 - **Files:** `source/glossary.rst`
 
 ## Done
+
+### Document `pullStudyFromIDS7.sh` (2026-10-01)
+- **Result:** Docstring added on the Fiona server; `scripts/pullStudyFromIDS7.rst`, Components entry, HTML and LaTeX tree branches, LaTeX toctree and `setup.sh` entry added.
 
 ### Check what the web server exposes from FionaDocs (2026-09-29)
 - **Result:** The symlink `/var/www/html/fiona_v20260518/applications/FionaDocs` points to `/home/kocmar/FionaDocs/build/html`, so only the HTML output is served; `.git/`, `.venv/`, `source/` and the scripts are not exposed.

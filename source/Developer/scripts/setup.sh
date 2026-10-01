@@ -133,6 +133,7 @@ files4=("Assign/php/removeOldEntries.sh"
   "Attach/process_tiff.sh"
   "Duplicate/php/duplicateStudies.php"
   "Exports/php/createZipFileCmd.php"
+  "Exports/php/pullStudyFromIDS7.sh"
   "User/asttt/code/cron.sh"
   "Workflows/php/runOneJob.sh");
 
