@@ -2,6 +2,10 @@
 
 Daily log of work, grouped by task.
 
+## 2026-10-13
+
+- Exports: All export types now clear InstitutionAddress (0008,0081) and InstitutionalDepartmentName (0008,1040). Before, only the Transpara export cleared them. InstitutionName (0008,0080) is not changed, because it holds the project name. Changed in `createZipFileCmd.php` on the server.
+
 ## 2026-10-12
 
 - Exports: Added a link to Duplicate under "Package destination". The help text is now "Select the destination of the package. To copy studies to another project instead, use Duplicate."
