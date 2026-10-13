@@ -5,6 +5,7 @@ Daily log of work, grouped by task.
 ## 2026-10-13
 
 - Exports: All export types now clear InstitutionAddress (0008,0081) and InstitutionalDepartmentName (0008,1040). Before, only the Transpara export cleared them. InstitutionName (0008,0080) is not changed, because it holds the project name. Changed in `createZipFileCmd.php` on the server.
+- Fiona-Packager: The web package now includes the documentation. `applications/FionaDocs` is a symlink to `/home/kocmar/FionaDocs/build/html`, so it is added to `SOURCE_FILES_WEB` as `applications/FionaDocs/.`: the trailing `/.` makes tar pack the content behind this one link, not the link itself. Changed in the Makefile on the server, not tested yet.
 
 ## 2026-10-12
 
