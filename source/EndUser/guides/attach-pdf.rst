@@ -26,9 +26,9 @@ Steps
 6. Click "Attach".
 
 .. figure:: ../../_static/attach-pdf-2.png
-   :width: 100%
+   :width: 70%
 
-   The window "Attach PDF/image to study" with a selected study and a PDF file.
+   The window "Attach PDF/image to study" with a selected study and a JPEG file.
 
 Result
 ------
@@ -36,13 +36,10 @@ Result
 - The PDF or JPEG appears in the selected study as a new series (modality OT). This can take a few minutes.
 - The study keeps its AccessionNumber, StudyID and StudyInstanceUID.
 
-..
-   TODO: add the screenshot from the research PACS when available:
+.. figure:: ../../_static/attach-pdf-3.png
+   :width: 100%
 
-   .. figure:: ../../_static/attach-pdf-3.png
-      :width: 100%
-
-      The attached PDF as a new series in the existing study in the research PACS.
+   Patient History in the research PACS. The study keeps its Examination ID and Accession number. The attached PDF page and JPEG image (marked in orange) are the first two images, next to the original CT images.
 
 .. note::
 
