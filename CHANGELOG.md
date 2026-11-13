@@ -5,6 +5,7 @@ Daily log of work, grouped by task.
 ## 2026-11-13
 
 - End User: New guide "Attach PDF" (`guides/attach-pdf.rst`) with three screenshots: `attach-pdf-1.png` (Attach page, fictional demo data), `attach-pdf-2.png` (window "Attach PDF/image to study") and `attach-pdf-3.png` (Patient History in the research PACS), both from the Demo test project; in `attach-pdf-3.png` the attached PDF and JPG images are marked in orange. It describes how to attach a PDF report or a JPEG image to an existing study in the research PACS, without Assign. The Attach section links to the guide.
+- End User: The guide follows the new GUI texts: title "Attach PDF/JPG", button "Import PDF/JPG", window "Attach PDF/JPG to study". New screenshots `attach-pdf-1.png` and `attach-pdf-2.png` with these texts.
 
 ## 2026-10-22
 
