@@ -2,6 +2,11 @@
 
 Daily log of work, grouped by task.
 
+## 2026-10-22
+
+- Exports: Jobs in `prepared_downloads_list.jobs` now always store the user under the key `user_name`. Before, the multi-row request (`appendToDownloadListMultiple.php`) wrote `user`, so such jobs had no user name in the `createZipFileCmd.php` log. Changed in `appendToDownloadListMultiple.php` on the server.
+- Exports: Button colours are now refreshed every 2 seconds in both directions. Before, a button stayed green after its zip file was deleted. At the start of each refresh `updateNew()` in `all.js` sets all buttons back to blue `download`, then the refresh sets the current state. Changed in `all.js` on the server.
+
 ## 2026-10-13
 
 - Exports: All export types now clear InstitutionAddress (0008,0081) and InstitutionalDepartmentName (0008,1040). Before, only the Transpara export cleared them. InstitutionName (0008,0080) is not changed, because it holds the project name. Changed in `createZipFileCmd.php` on the server.
