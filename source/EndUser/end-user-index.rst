@@ -699,6 +699,8 @@ Attach
 
 Image data not already in clinical systems can be uploaded in the Attach application. This includes DICOM files from USB/CD/DVD as well as whole-slide images files for pathology. After uploading them using Attach they will appear in the list of examinations on Fiona and can be either forwarded to research PACS using Assign, or exported again using NoAssign.
 
+PDF reports and JPEG images can be attached to an existing study, see :ref:`attach-pdf-guide`.
+
 .. _processing:
 
 Processing
@@ -729,6 +731,7 @@ Step-by-step instructions for the Fiona web applications.
    :maxdepth: 2
 
    guides/duplicate
+   guides/attach-pdf
 
 
 

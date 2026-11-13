@@ -2,6 +2,10 @@
 
 Daily log of work, grouped by task.
 
+## 2026-11-13
+
+- End User: New guide "Attach PDF" (`guides/attach-pdf.rst`) with two screenshots (`attach-pdf-1.png`, `attach-pdf-2.png`, fictional demo data). It describes how to attach a PDF report or a JPEG image to an existing study in the research PACS, without Assign. The Attach section links to the guide. The research PACS screenshot (`attach-pdf-3.png`) is still missing.
+
 ## 2026-10-22
 
 - Exports: Jobs in `prepared_downloads_list.jobs` now always store the user under the key `user_name`. Before, the multi-row request (`appendToDownloadListMultiple.php`) wrote `user`, so such jobs had no user name in the `createZipFileCmd.php` log. Changed in `appendToDownloadListMultiple.php` on the server.
