@@ -20,6 +20,7 @@ build/*
 
 # Local backup copies of scripts (any level)
 _backup-*/
+_backup/
 
 # Local Makefile practice (not part of the docs)
 /_makefile/
