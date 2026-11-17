@@ -1,7 +1,13 @@
+:tocdepth: 2
+
 .. _export-guide:
 
 Export
 ======
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=3}
 
 Secure download (email)
 -----------------------
@@ -58,3 +64,7 @@ Result
 .. note::
 
    The data is pseudonymized but counts as health data. Store it only in secure locations.
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=5}

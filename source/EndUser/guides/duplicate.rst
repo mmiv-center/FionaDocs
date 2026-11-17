@@ -1,7 +1,13 @@
+:tocdepth: 1
+
 .. _duplicate-guide:
 
 Duplicate
 =========
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=2}
 
 The Duplicate application copies a study that is already stored in the research PACS from one project to another project.
 
@@ -45,3 +51,7 @@ What does not change
 .. note::
 
    Large studies take a long time. Archived studies must first be retrieved from the archive.
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=5}

@@ -1,7 +1,13 @@
+:tocdepth: 1
+
 .. _attach-pdf-guide:
 
 Attach PDF/JPG
 ==============
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=2}
 
 The Attach application can add a PDF file or a JPEG image to an existing study in the research PACS. Each page of the PDF document becomes one image in a new series of the selected study. No Assign step is needed.
 
@@ -45,3 +51,7 @@ Result
 .. note::
 
    Only one file can be attached at a time. Only PDF and JPEG files are accepted.
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=5}
