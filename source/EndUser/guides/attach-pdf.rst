@@ -3,7 +3,7 @@
 Attach PDF/JPG
 ==============
 
-The Attach application can add a PDF report or a JPEG image to an existing study in the research PACS. Each page of the PDF document becomes one image in a new series of the selected study. No Assign step is needed.
+The Attach application can add a PDF file or a JPEG image to an existing study in the research PACS. Each page of the PDF document becomes one image in a new series of the selected study. No Assign step is needed.
 
 .. figure:: ../../_static/attach-pdf-1.png
    :width: 100%
@@ -34,6 +34,7 @@ Result
 ------
 
 - The PDF or JPEG appears in the selected study as a new series (modality OT). This can take a few minutes.
+- The attached file appears automatically. No Assign step is needed.
 - The study keeps its AccessionNumber, StudyID and StudyInstanceUID.
 
 .. figure:: ../../_static/attach-pdf-3.png
