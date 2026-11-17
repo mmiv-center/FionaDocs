@@ -1,13 +1,16 @@
-:tocdepth: 1
+:tocdepth: 2
+
+Attach
+======
+
+.. raw:: latex
+
+   \sphinxsetup{bookmarksdepth=3}
 
 .. _attach-pdf-guide:
 
 Attach PDF/JPG
-==============
-
-.. raw:: latex
-
-   \sphinxsetup{bookmarksdepth=2}
+--------------
 
 The Attach application can add a PDF file or a JPEG image to an existing study in the research PACS. Each page of the PDF document becomes one image in a new series of the selected study. No Assign step is needed.
 
@@ -17,12 +20,12 @@ The Attach application can add a PDF file or a JPEG image to an existing study i
    Attach web application. Project, participant and event are selected; the "Import PDF/JPG" button is active.
 
 Access
-------
+^^^^^^
 
 You need to be logged in, with Attach permission for the project. The "Import PDF/JPG" button is visible only after login.
 
 Steps
------
+^^^^^
 
 1. Select the project. The "Import PDF/JPG" button becomes active.
 2. Select the participant and the event.
@@ -37,7 +40,7 @@ Steps
    The window "Attach PDF/JPG to study" with a selected study.
 
 Result
-------
+^^^^^^
 
 - The PDF or JPEG appears in the selected study as a new series (modality OT). This can take a few minutes.
 - The attached file appears automatically. No Assign step is needed.

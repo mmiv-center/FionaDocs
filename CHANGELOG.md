@@ -7,6 +7,7 @@ Daily log of work, grouped by task.
 - End User: New guide "Export" (`guides/export.rst`) with the section "Secure download (email)". It describes how to send a study as a password-protected 7z archive to one or more e-mail addresses (separated by `;`, only `@helse-bergen.no` and `@ihelse.net`), the two e-mails (link, then password), the 7-day link and the need for a 7z program. Four screenshots with fictional demo data, the important element marked in orange: `export-email-1.png` (row menu), `export-email-2.png` (window "Secure download link"), `export-email-3.png` (first e-mail with the link) and `export-email-4.png` (second e-mail with the password). The Export section links to the guide.
 - End User: The screenshot `export-email-3.png` shows "7 days". The e-mail sent by `createZipFileCmd.php` still says "a limited number of days".
 - End User: The table of contents (HTML sidebar and PDF bookmarks) shows only the guide titles "Duplicate", "Attach PDF/JPG" and "Export" with "Secure download (email)", without their subsections (Access, Steps, Result etc.). Each guide file sets `:tocdepth:` for HTML and `\sphinxsetup{bookmarksdepth=...}` for PDF; at the end of the file the PDF bookmark depth is set back to 5.
+- End User: The Attach guide (`guides/attach-pdf.rst`) now has the title "Attach" with the section "Attach PDF/JPG", the same structure as the Export guide, because attaching a PDF or JPEG is only one of the options of the Attach application. The link in the Attach section still shows "Attach PDF/JPG".
 
 ## 2026-11-13
 
