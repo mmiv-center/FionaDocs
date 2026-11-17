@@ -635,6 +635,8 @@ Export
 
 As data is already in de-identified format in the research PACS exporting them for the use in external systems is straight forward. The VNA system for example allows users to export individual imaging studies with an embedded image viewer in the same way as clinical systems do. To allow for greater flexibility in data export capabilities the Export web-application allows user to export image data for a project in a variety of file formats. This includes study specific zip files that follow detailed specifications on the embedded directory structures, side-loading description files and the naming of DICOM tags and dates embedded in the data. The Export tool also supports more generic export formats such as NIFTI-format files for volumetric data.
 
+Exports can also be sent as a password-protected archive by e-mail, see :ref:`export-guide`.
+
 
 .. _duplicate:
 
@@ -732,6 +734,7 @@ Step-by-step instructions for the Fiona web applications.
 
    guides/duplicate
    guides/attach-pdf
+   guides/export
 
 
 

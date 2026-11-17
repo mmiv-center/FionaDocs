@@ -2,6 +2,11 @@
 
 Daily log of work, grouped by task.
 
+## 2026-11-17
+
+- End User: New guide "Export" (`guides/export.rst`) with the section "Secure download (email)". It describes how to send a study as a password-protected 7z archive to one or more e-mail addresses (separated by `;`, only `@helse-bergen.no` and `@ihelse.net`), the two e-mails (link, then password), the 7-day link and the need for a 7z program. Four screenshots with fictional demo data, the important element marked in orange: `export-email-1.png` (row menu), `export-email-2.png` (window "Secure download link"), `export-email-3.png` (first e-mail with the link) and `export-email-4.png` (second e-mail with the password). The Export section links to the guide.
+- End User: The screenshot `export-email-3.png` shows "7 days". The e-mail sent by `createZipFileCmd.php` still says "a limited number of days".
+
 ## 2026-11-13
 
 - End User: New guide "Attach PDF" (`guides/attach-pdf.rst`) with three screenshots: `attach-pdf-1.png` (Attach page, fictional demo data), `attach-pdf-2.png` (window "Attach PDF/image to study") and `attach-pdf-3.png` (Patient History in the research PACS), both from the Demo test project; in `attach-pdf-3.png` the attached PDF and JPG images are marked in orange. It describes how to attach a PDF report or a JPEG image to an existing study in the research PACS, without Assign. The Attach section links to the guide.
