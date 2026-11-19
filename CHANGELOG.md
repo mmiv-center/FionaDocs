@@ -6,6 +6,7 @@ Daily log of work, grouped by task.
 
 - End User: Export guide (`guides/export.rst`), "Secure download (email)": several recipients can now be separated with a semicolon (;) or a comma (,). The note now says that if any address is not from @helse-bergen.no or @ihelse.net, no e-mail is sent to any recipient. This follows the change in `createZipFileCmd.php`, which now checks every address, not only the last one.
 - End User: The e-mail sent by `createZipFileCmd.php` now says "7 days", so the screenshot `export-email-3.png` matches the real e-mail.
+- End User: Export guide (`guides/export.rst`), new section "Search and filters" before "Secure download (email)". It describes the search field (not case sensitive, `*` means "anything", regular expressions, the list updates while you type), the four filter groups (Events, Modalities, Actions, ZIP File Size) and how they are combined (OR inside a group, AND between groups and the search text). Two screenshots with fictional demo data, the important element marked in orange: `export-search-1.png` (search field) and `export-search-2.png` (open "Filters" menu).
 
 ## 2026-11-17
 
