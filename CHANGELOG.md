@@ -2,6 +2,11 @@
 
 Daily log of work, grouped by task.
 
+## 2026-11-19
+
+- End User: Export guide (`guides/export.rst`), "Secure download (email)": several recipients can now be separated with a semicolon (;) or a comma (,). The note now says that if any address is not from @helse-bergen.no or @ihelse.net, no e-mail is sent to any recipient. This follows the change in `createZipFileCmd.php`, which now checks every address, not only the last one.
+- End User: The e-mail sent by `createZipFileCmd.php` now says "7 days", so the screenshot `export-email-3.png` matches the real e-mail.
+
 ## 2026-11-17
 
 - End User: New guide "Export" (`guides/export.rst`) with the section "Secure download (email)". It describes how to send a study as a password-protected 7z archive to one or more e-mail addresses (separated by `;`, only `@helse-bergen.no` and `@ihelse.net`), the two e-mails (link, then password), the 7-day link and the need for a 7z program. Four screenshots with fictional demo data, the important element marked in orange: `export-email-1.png` (row menu), `export-email-2.png` (window "Secure download link"), `export-email-3.png` (first e-mail with the link) and `export-email-4.png` (second e-mail with the password). The Export section links to the guide.

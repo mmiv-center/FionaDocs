@@ -26,7 +26,7 @@ Steps
       The menu of a study row. "Secure download (email)" is marked in orange.
 
 3. A random 12-character password is already filled in. You can keep it, enter your own password, or click "generate" to create a new random password.
-4. Enter the e-mail address of the recipient. To send to several recipients, separate the addresses with a semicolon (;), for example ``name1@helse-bergen.no;name2@ihelse.net``. All addresses must belong to Helse Bergen (ending with @helse-bergen.no or @ihelse.net).
+4. Enter the e-mail address of the recipient. To send to several recipients, separate the addresses with a semicolon (;) or a comma (,), for example ``name1@helse-bergen.no;name2@ihelse.net``. All addresses must belong to Helse Bergen (ending with @helse-bergen.no or @ihelse.net).
 5. Click "Send as email".
 
    .. figure:: ../../_static/export-email-2.png
@@ -59,7 +59,7 @@ Result
 
 .. note::
 
-   Only e-mail addresses ending with @helse-bergen.no or @ihelse.net are accepted. For other addresses no e-mail is sent and no error message is shown.
+   Only e-mail addresses ending with @helse-bergen.no or @ihelse.net are accepted. If any address is not accepted, no e-mail is sent to any recipient and no error message is shown.
 
 .. note::
 
